@@ -187,8 +187,37 @@
       if (panelIndex >= 1) {
         storyEl.classList.add('story-revealed');
       } else {
-        // Reset so re-entering from left replays the animation
         storyEl.classList.remove('story-revealed');
+      }
+    }
+
+    // Notes panel (index 2)
+    const notesEl = document.querySelector('.panel-notes');
+    if (notesEl) {
+      if (panelIndex >= 2) {
+        notesEl.classList.add('notes-revealed');
+      } else {
+        notesEl.classList.remove('notes-revealed');
+      }
+    }
+
+    // Product panel (index 3)
+    const productEl = document.querySelector('.panel-product');
+    if (productEl) {
+      if (panelIndex >= 3) {
+        productEl.classList.add('product-revealed');
+      } else {
+        productEl.classList.remove('product-revealed');
+      }
+    }
+
+    // Reviews panel (index 4)
+    const reviewsEl = document.querySelector('.panel-reviews');
+    if (reviewsEl) {
+      if (panelIndex >= 4) {
+        reviewsEl.classList.add('reviews-revealed');
+      } else {
+        reviewsEl.classList.remove('reviews-revealed');
       }
     }
   }

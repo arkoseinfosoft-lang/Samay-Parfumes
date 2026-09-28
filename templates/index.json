@@ -34,19 +34,74 @@
         "notes-block": {
           "type": "notes",
           "settings": {
-            "heading": "Fragrance Notes"
+            "eyebrow": "The Composition",
+            "heading": "A Living Accord",
+            "description": "A compound of 1000 g, matured in ethanol and rare musks. Every element chosen for the hour it inhabits.",
+            "concentration_label": "Concentration",
+            "concentration": "Eau de Parfum Intense",
+            "top_label": "Top Notes",
+            "top_sub": "The first breath — bright & fleeting",
+            "top_notes": "Bergamot,Blackcurrant,Apple,Pineapple Platinum",
+            "heart_label": "Heart Notes",
+            "heart_sub": "The soul — warm & enduring",
+            "heart_notes": "Jasmine Absolute,Jasmine Sambac,Birch Tar (Frankincense),Patchouli",
+            "base_label": "Base Notes",
+            "base_sub": "The memory — deep & long-lasting",
+            "base_notes": "White Musk,Vanilla,Ambraxon,Javanol (Sandalwood),Ambergris,Oakmoss"
           }
         },
         "product-block": {
           "type": "product",
           "settings": {
-            "heading": "The Bottle"
+            "eyebrow": "The Artifact",
+            "heading": "Sculpted in Darkness",
+            "description": "An architectural flacon sculpted from heavyweight smoked French glass, crowned with a 24-karat gold-gilded magnetic stopper. Each flacon is individually numbered.",
+            "spec_1_label": "Vessel Architecture",
+            "spec_1_val": "Smoked French crystal, 420g solid base",
+            "spec_2_label": "The Stopper",
+            "spec_2_val": "Solid Zamak alloy, hand-gilded in 24K gold",
+            "spec_3_label": "Maceration Period",
+            "spec_3_val": "180 days in dark French oak casks",
+            "spec_4_label": "Origin & Batch",
+            "spec_4_val": "Limited Run of 500 bottles • Grasse & New Delhi",
+            "badge_text": "Limited Release • 500 Bottles Worldwide",
+            "title": "Samay Extrait de Parfum",
+            "subtitle": "Batch No. 01 — Rare Harvest",
+            "price": "$280",
+            "compare_at_price": "$340",
+            "price_50ml": "$190",
+            "volume": "100 ML — 3.4 FL. OZ.",
+            "cta_label": "Acquire The Flacon",
+            "cta_url": "/products/samay-extrait-de-parfum",
+            "secondary_cta_label": "Request Discovery Set",
+            "secondary_cta_url": "/pages/discovery-set",
+            "inclusion_1": "Complimentary 5ml discovery vial included",
+            "inclusion_2": "Wax-sealed certificate of authenticity",
+            "inclusion_3": "White-glove climate-controlled shipping"
           }
         },
         "reviews-block": {
           "type": "reviews",
           "settings": {
-            "heading": "Voices"
+            "eyebrow": "Critical Acclaim",
+            "heading": "Voices in Reverie",
+            "description": "Words from collectors, perfumers, and quiet observers who have made Samay their signature hour.",
+            "rating_score": "4.98",
+            "rating_count": "1,240+ Verified Collectors",
+            "press_quote": "A composition that does not merely enter a room — it quietly claims memory itself.",
+            "press_source": "Le Nez Critique, Paris",
+            "review_1_text": "The transition from the crisp bergamot to the smoky birch tar is intoxicating. It lingers on cashmere for days without ever feeling overpowering.",
+            "review_1_author": "Julian V.",
+            "review_1_location": "London, UK",
+            "review_1_badge": "Verified Collector • Batch 01",
+            "review_2_text": "You can taste the authenticity of the Assam agarwood and Mysore sandalwood. Nothing synthetic. A masterclass in restraint and quiet luxury.",
+            "review_2_author": "Dr. Ananya S.",
+            "review_2_location": "New Delhi, India",
+            "review_2_badge": "Artisan Patron",
+            "review_3_text": "Rarely does a contemporary house achieve such timeless gravitas. Samay has bottled the quiet golden hour of twilight.",
+            "review_3_author": "Harper's Bazaar Art",
+            "review_3_location": "Editorial Feature",
+            "review_3_badge": "Fragrance of the Year Mention"
           }
         },
         "footer-block": {

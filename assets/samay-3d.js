@@ -34,6 +34,8 @@
   let lastDragX       = 0;
   let rafId           = null;
   let isVisible       = true;
+  let targetX         = 0;
+  let currentX        = 0;
   let targetY         = 0;   // bottle world-Y target
   let targetScale     = 1;
   let currentY        = 0;
@@ -69,13 +71,18 @@
     return THREE;
   }
 
-  /* ── RoomEnvironment (inline, no import needed) ──────── */
+  /* ── RoomEnvironment ─────────────────────────────────── */
   async function loadRoomEnv(renderer) {
-    const { RoomEnvironment } = await import(ADDONS_URL + 'environments/RoomEnvironment.js');
-    const pmremGen = new THREE.PMREMGenerator(renderer);
-    const env = pmremGen.fromScene(new RoomEnvironment(), 0.04);
-    pmremGen.dispose();
-    return env.texture;
+    try {
+      const { RoomEnvironment } = await import(ADDONS_URL + 'environments/RoomEnvironment.js');
+      const pmremGen = new THREE.PMREMGenerator(renderer);
+      const env = pmremGen.fromScene(new RoomEnvironment(), 0.04);
+      pmremGen.dispose();
+      return env.texture;
+    } catch (err) {
+      console.warn('Samay: RoomEnvironment fallback', err);
+      return null;
+    }
   }
 
   /* ── Bottle geometry helpers ─────────────────────────── */
@@ -296,7 +303,10 @@
   }
 
   /* ── Init scene ──────────────────────────────────────── */
+  let isInitializing = false;
   async function init(canvas) {
+    if (renderer || isInitializing) return;
+    isInitializing = true;
     canvas_el = canvas;
     checkMobile();
 
@@ -329,8 +339,10 @@
 
     // Environment
     const envMap = await loadRoomEnv(renderer);
-    scene.environment = envMap;
-    scene.environmentIntensity = 0.6;
+    if (envMap) {
+      scene.environment = envMap;
+      scene.environmentIntensity = 0.6;
+    }
 
     // Lights
     setupLights();
@@ -351,15 +363,16 @@
 
     // Bottle
     bottle = createBottle(THREE, labelTex, envMap);
+
+    // Floor shadow (attached to bottle so it follows position & scale)
+    const floor = makeFloorShadow(THREE);
+    bottle.add(floor);
+
     scene.add(bottle);
 
     // Particles
     particleSystem = createParticles(THREE);
     scene.add(particleSystem);
-
-    // Floor
-    const floor = makeFloorShadow(THREE);
-    scene.add(floor);
 
     // Start render loop
     startLoop();
@@ -432,11 +445,14 @@
         const totalRot = scrollRotation + dragRotation;
         bottle.rotation.y = totalRot;
 
-        // Subtle float
+        // Position eases
+        currentX += (targetX - currentX) * 0.08;
+        currentY += (targetY - currentY) * 0.08;
+        bottle.position.x = currentX;
         bottle.position.y = currentY + Math.sin(clock.elapsedTime * 0.6) * 0.018;
 
         // Scale ease
-        currentScale += (targetScale - currentScale) * 0.06;
+        currentScale += (targetScale - currentScale) * 0.08;
         bottle.scale.setScalar(currentScale);
       }
 
@@ -551,8 +567,8 @@
       { x: isMob ? 0 : -0.85, y: 0.0, scale: isMob ? 0.65 : 0.85 },
       // panel 3 (Product): centred, larger
       { x: 0, y: 0.0, scale: isMob ? 0.75 : 1.1 },
-      // panel 4 (Reviews): left small
-      { x: isMob ? 0 : 0.7, y: 0.0, scale: isMob ? 0.6 : 0.75 },
+      // panel 4 (Reviews): right side prominent
+      { x: isMob ? 0 : 1.35, y: isMob ? 0.3 : 0.0, scale: isMob ? 0.65 : 0.88 },
       // panel 5 (Footer): centred, faded small
       { x: 0, y: 0.0, scale: isMob ? 0.55 : 0.65 },
     ];
@@ -566,12 +582,10 @@
     const cy = cfg.y    + (next.y    - cfg.y)    * frac;
     const cs = cfg.scale + (next.scale - cfg.scale) * frac;
 
-    // Ease camera-relative X by shifting bottle
-    if (bottle) {
-      bottle.position.x  += (cx - bottle.position.x) * 0.05;
-      currentY = cy;
-      targetScale = cs;
-    }
+    // Update targets for continuous render loop easing
+    targetX     = cx;
+    targetY     = cy;
+    targetScale = cs;
   }
 
   function setPanelIndex(idx) {
@@ -593,4 +607,18 @@
     dispose,
     get isDragging() { return isDragging; },
   };
+
+  // Auto-init once canvas is ready
+  function autoInit() {
+    const c = document.getElementById('samay-canvas');
+    if (c && !renderer) {
+      init(c).catch(console.error);
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', autoInit);
+  } else {
+    autoInit();
+  }
 })();
