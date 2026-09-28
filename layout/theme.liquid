@@ -26,11 +26,15 @@
     {{ content_for_header }}
   </head>
 
-  <body>
-    {% sections 'header-group' %}
+  <body{% if template == 'index' %} class="samay-page"{% endif %}>
+    {% unless template == 'index' %}
+      {% sections 'header-group' %}
+    {% endunless %}
 
     {{ content_for_layout }}
 
-    {% sections 'footer-group' %}
+    {% unless template == 'index' %}
+      {% sections 'footer-group' %}
+    {% endunless %}
   </body>
 </html>

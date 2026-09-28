@@ -1,20 +1,75 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
-    "main": {
-      "type": "hello-world",
-      "settings": {}
+    "samay-main": {
+      "type": "samay-horizontal",
+      "blocks": {
+        "hero-block": {
+          "type": "hero",
+          "settings": {
+            "eyebrow": "Fine Fragrances",
+            "heading": "Time Captured in Scent",
+            "subtext": "A rare alchemy of ancient woods, sacred resins and the golden hour — distilled into a single breath.",
+            "cta_label": "Explore Collection",
+            "cta_url": "/collections/all"
+          }
+        },
+        "story-block": {
+          "type": "story",
+          "settings": {
+            "eyebrow": "The Origin",
+            "heading": "Born from Silence",
+            "paragraph_1": "Samay was born in the lantern-lit lanes of old Delhi, where a perfumer's notebook and a grandmother's memory became the seed of something rare.",
+            "paragraph_2": "We source only what the season offers willingly — raw oud from Assam's oldest agarwood groves, Mysore sandalwood aged in silence, Bulgarian rose absolute hand-pressed at dawn.",
+            "paragraph_3": "Every bottle holds a specific hour — not just a fragrance. An atmosphere you can return to.",
+            "milestone_1_year": "2018",
+            "milestone_1_text": "First batch distilled in a copper athar still",
+            "milestone_2_year": "2021",
+            "milestone_2_text": "Awarded India's Finest Artisan Fragrance",
+            "milestone_3_year": "2024",
+            "milestone_3_text": "Expanded to 28 countries across 4 continents",
+            "cta_label": "Read our story",
+            "cta_url": "/pages/about"
+          }
+        },
+        "notes-block": {
+          "type": "notes",
+          "settings": {
+            "heading": "Fragrance Notes"
+          }
+        },
+        "product-block": {
+          "type": "product",
+          "settings": {
+            "heading": "The Bottle"
+          }
+        },
+        "reviews-block": {
+          "type": "reviews",
+          "settings": {
+            "heading": "Voices"
+          }
+        },
+        "footer-block": {
+          "type": "footer_panel",
+          "settings": {
+            "heading": "Begin the Journey"
+          }
+        }
+      },
+      "block_order": [
+        "hero-block",
+        "story-block",
+        "notes-block",
+        "product-block",
+        "reviews-block",
+        "footer-block"
+      ],
+      "settings": {
+        "brand_name": "Samay"
+      }
     }
   },
   "order": [
-    "main"
+    "samay-main"
   ]
 }

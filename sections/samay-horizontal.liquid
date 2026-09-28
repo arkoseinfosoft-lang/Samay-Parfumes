@@ -1,0 +1,571 @@
+{%- comment -%}
+  samay-horizontal.liquid
+  Samay Parfumes — Luxury horizontal scroll experience
+  Block-based schema so panels are reorderable in the theme editor.
+{%- endcomment -%}
+
+{%- liquid
+  assign num_panels = section.blocks.size | default: 6
+  assign label_url  = 'label.webp'  | asset_url
+  assign ref_url    = 'bottle-ref.webp' | asset_url
+-%}
+
+{{- 'samay.css' | asset_url | stylesheet_tag -}}
+
+{%- comment -%} ── CDN Libraries ── {%- endcomment -%}
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js" defer></script>
+
+{%- comment -%} ── Site config object ── {%- endcomment -%}
+<script>
+  window.SamayConfig = {
+    numPanels:  {{ num_panels }},
+    labelUrl:   {{ label_url | json }},
+    refUrl:     {{ ref_url   | json }},
+  };
+</script>
+
+{%- comment -%} ── Grain overlay ── {%- endcomment -%}
+<div id="samay-grain" aria-hidden="true"></div>
+
+{%- comment -%} ── Custom cursor (desktop only) ── {%- endcomment -%}
+<div id="samay-cursor" aria-hidden="true"></div>
+
+{%- comment -%} ── Preloader ── {%- endcomment -%}
+<div id="samay-preloader" role="status" aria-label="Loading Samay Parfumes">
+  <span class="preloader-wordmark">{{ section.settings.brand_name | default: 'Samay' }}</span>
+  <div class="preloader-bar-track" aria-hidden="true">
+    <div class="preloader-bar-fill"></div>
+  </div>
+</div>
+
+{%- comment -%} ── Three.js Canvas ── {%- endcomment -%}
+<canvas id="samay-canvas" aria-hidden="true">
+  {%- comment -%} Static fallback if WebGL fails {%- endcomment -%}
+  <img
+    src="{{ ref_url }}"
+    alt="Samay Parfumes bottle"
+    width="400"
+    height="600"
+    style="position:fixed;top:50%;right:5%;transform:translateY(-50%);max-height:80dvh;width:auto;pointer-events:none;z-index:1;"
+  >
+</canvas>
+
+{%- comment -%} ── Progress bar ── {%- endcomment -%}
+<div id="samay-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Page progress">
+  <div id="samay-progress-fill"></div>
+</div>
+
+{%- comment -%} ── Panel counter ── {%- endcomment -%}
+<div id="samay-counter" aria-live="polite" aria-atomic="true">
+  <span class="current">01</span> / {{ num_panels | prepend: '0' | slice: -2, 2 }}
+</div>
+
+{%- comment -%} ── Drag hint ── {%- endcomment -%}
+<div id="drag-hint" role="note" aria-label="Drag to rotate bottle 360 degrees">
+  <span class="drag-hint-icon" aria-hidden="true"></span>
+  <span>Drag to rotate 360°</span>
+</div>
+
+{%- comment -%} ── Scroll hint (desktop) ── {%- endcomment -%}
+<div class="scroll-hint" aria-hidden="true">
+  <div class="scroll-hint-line"></div>
+</div>
+
+{%- comment -%} ── Root / Track ── {%- endcomment -%}
+<div id="samay-root" class="full-width" role="main">
+  <div id="samay-track-outer">
+    <div id="samay-track">
+
+      {%- for block in section.blocks -%}
+        {%- assign panel_index = forloop.index0 -%}
+        {%- assign panel_num   = forloop.index -%}
+
+        {%- if block.type == 'hero' -%}
+          {%- comment -%} ═══ PANEL 1: HERO ═══ {%- endcomment -%}
+          <section
+            class="samay-panel panel-hero"
+            data-panel="{{ panel_index }}"
+            {{ block.shopify_attributes }}
+            aria-label="Hero — {{ block.settings.heading | default: 'Samay Parfumes' }}"
+          >
+            <div class="hero-content">
+              <span class="hero-eyebrow">{{ block.settings.eyebrow | default: 'Fine Fragrances' }}</span>
+
+              <h1 class="hero-heading" aria-label="{{ block.settings.heading | default: 'Time Captured in Scent' }}">
+                {%- assign heading_words = block.settings.heading | default: 'Time Captured in Scent' | split: ' ' -%}
+                {%- assign line_groups = '' | split: '' -%}
+                {%- comment -%} Split heading into lines of ~2 words each {%- endcomment -%}
+                {%- assign word_count = heading_words.size -%}
+                {%- if word_count <= 2 -%}
+                  <span class="line">
+                    {%- for word in heading_words -%}
+                      <span class="word">{{ word }}&nbsp;</span>
+                    {%- endfor -%}
+                  </span>
+                {%- elsif word_count == 3 -%}
+                  <span class="line">
+                    <span class="word">{{ heading_words[0] }}&nbsp;</span>
+                    <span class="word">{{ heading_words[1] }}&nbsp;</span>
+                  </span>
+                  <span class="line">
+                    <span class="word" style="color:var(--gold)">{{ heading_words[2] }}</span>
+                  </span>
+                {%- else -%}
+                  {%- assign half = word_count | divided_by: 2 -%}
+                  <span class="line">
+                    {%- for word in heading_words -%}
+                      {%- if forloop.index0 < half -%}
+                        <span class="word">{{ word }}&nbsp;</span>
+                      {%- endif -%}
+                    {%- endfor -%}
+                  </span>
+                  <span class="line">
+                    {%- for word in heading_words -%}
+                      {%- if forloop.index0 >= half -%}
+                        <span class="word"{% if forloop.last %} style="color:var(--gold)"{% endif %}>{{ word }}{%- unless forloop.last -%}&nbsp;{%- endunless -%}</span>
+                      {%- endif -%}
+                    {%- endfor -%}
+                  </span>
+                {%- endif -%}
+              </h1>
+
+              <p class="hero-sub">{{ block.settings.subtext | default: 'A rare alchemy of ancient woods, sacred resins and the golden hour — distilled into a single breath.' }}</p>
+
+              <a
+                href="{{ block.settings.cta_url | default: '/collections/all' }}"
+                class="hero-cta"
+                aria-label="{{ block.settings.cta_label | default: 'Explore Collection' }}"
+              >
+                <span>{{ block.settings.cta_label | default: 'Explore Collection' }}</span>
+                <span class="cta-arrow" aria-hidden="true"></span>
+              </a>
+            </div>
+          </section>
+
+        {%- elsif block.type == 'story' -%}
+          {%- comment -%} ═══ PANEL 2: STORY ═══ {%- endcomment -%}
+          <section
+            class="samay-panel panel-story"
+            data-panel="{{ panel_index }}"
+            {{ block.shopify_attributes }}
+            aria-label="Story — {{ block.settings.heading | default: 'Our Story' }}"
+          >
+            {%- comment -%} Chapter number — decorative back-plane text {%- endcomment -%}
+            <span class="story-chapter-bg" aria-hidden="true">02</span>
+
+            {%- comment -%} Left col — text content {%- endcomment -%}
+            <div class="story-content" data-story-reveal>
+              <header class="story-header">
+                <span class="story-eyebrow">{{ block.settings.eyebrow | default: 'The Origin' }}</span>
+                <h2 class="story-heading">
+                  {%- assign story_words = block.settings.heading | default: 'Born from Silence' | split: ' ' -%}
+                  {%- for word in story_words -%}
+                    <span class="s-word">{{ word }}{%- unless forloop.last -%}&nbsp;{%- endunless -%}</span>
+                  {%- endfor -%}
+                </h2>
+                <div class="story-rule" aria-hidden="true"></div>
+              </header>
+
+              <div class="story-body">
+                <p class="story-p story-p--lead">{{ block.settings.paragraph_1 | default: 'Samay was born in the lantern-lit lanes of old Delhi, where a perfumers notebook and a grandmothers memory became the seed of something rare.' }}</p>
+                <p class="story-p">{{ block.settings.paragraph_2 | default: 'We source only what the season offers willingly — raw oud from Assams oldest agarwood groves, Mysore sandalwood aged in silence, Bulgarian rose absolute hand-pressed at dawn.' }}</p>
+                <p class="story-p">{{ block.settings.paragraph_3 | default: 'Every bottle holds a specific hour — not just a fragrance. An atmosphere you can return to.' }}</p>
+              </div>
+
+              {%- comment -%} Timeline milestones {%- endcomment -%}
+              <ol class="story-timeline" aria-label="Brand milestones">
+                <li class="story-milestone">
+                  <span class="milestone-year">{{ block.settings.milestone_1_year | default: '2018' }}</span>
+                  <span class="milestone-sep" aria-hidden="true"></span>
+                  <span class="milestone-text">{{ block.settings.milestone_1_text | default: 'First batch distilled in a copper athar still' }}</span>
+                </li>
+                <li class="story-milestone">
+                  <span class="milestone-year">{{ block.settings.milestone_2_year | default: '2021' }}</span>
+                  <span class="milestone-sep" aria-hidden="true"></span>
+                  <span class="milestone-text">{{ block.settings.milestone_2_text | default: 'Awarded India Finest Artisan Fragrance' }}</span>
+                </li>
+                <li class="story-milestone">
+                  <span class="milestone-year">{{ block.settings.milestone_3_year | default: '2024' }}</span>
+                  <span class="milestone-sep" aria-hidden="true"></span>
+                  <span class="milestone-text">{{ block.settings.milestone_3_text | default: 'Expanded to 28 countries across 4 continents' }}</span>
+                </li>
+              </ol>
+
+              {%- if block.settings.cta_label != blank -%}
+                <a
+                  href="{{ block.settings.cta_url | default: '/pages/about' }}"
+                  class="story-cta"
+                  aria-label="{{ block.settings.cta_label }}"
+                >
+                  <span>{{ block.settings.cta_label }}</span>
+                  <span class="story-cta-line" aria-hidden="true"></span>
+                </a>
+              {%- endif -%}
+            </div>
+
+            {%- comment -%} Right col — atmospheric image / decorative {%- endcomment -%}
+            <div class="story-visual" aria-hidden="true" data-story-visual>
+              <div class="story-visual-inner">
+                {%- if block.settings.image != blank -%}
+                  <img
+                    src="{{ block.settings.image | image_url: width: 900 }}"
+                    srcset="{{ block.settings.image | image_url: width: 600 }} 600w,
+                            {{ block.settings.image | image_url: width: 900 }} 900w"
+                    sizes="(max-width: 768px) 80vw, 40vw"
+                    alt="{{ block.settings.image.alt | escape }}"
+                    width="900"
+                    height="1200"
+                    loading="lazy"
+                    class="story-img"
+                  >
+                {%- else -%}
+                  {%- comment -%} Decorative SVG / CSS art when no image is set {%- endcomment -%}
+                  <div class="story-art">
+                    <div class="art-circle art-circle--lg"></div>
+                    <div class="art-circle art-circle--md"></div>
+                    <div class="art-circle art-circle--sm"></div>
+                    <div class="art-lines">
+                      {%- for i in (1..12) -%}
+                        <div class="art-line" style="--i:{{ i }}"></div>
+                      {%- endfor -%}
+                    </div>
+                    <div class="art-monogram">S</div>
+                  </div>
+                {%- endif -%}
+                <div class="story-visual-overlay"></div>
+              </div>
+            </div>
+          </section>
+
+        {%- elsif block.type == 'notes' -%}
+          {%- comment -%} ═══ PANEL 3: NOTES (placeholder) ═══ {%- endcomment -%}
+          <section
+            class="samay-panel samay-panel--placeholder"
+            data-panel="{{ panel_index }}"
+            {{ block.shopify_attributes }}
+            aria-label="Fragrance Notes"
+          >
+            <div class="panel-number" aria-hidden="true">0{{ panel_num }}</div>
+            <h2 class="panel-label">{{ block.settings.heading | default: 'Fragrance Notes' }}</h2>
+          </section>
+
+        {%- elsif block.type == 'product' -%}
+          {%- comment -%} ═══ PANEL 4: PRODUCT (placeholder) ═══ {%- endcomment -%}
+          <section
+            class="samay-panel samay-panel--placeholder"
+            data-panel="{{ panel_index }}"
+            {{ block.shopify_attributes }}
+            aria-label="Product"
+          >
+            <div class="panel-number" aria-hidden="true">0{{ panel_num }}</div>
+            <h2 class="panel-label">{{ block.settings.heading | default: 'The Bottle' }}</h2>
+          </section>
+
+        {%- elsif block.type == 'reviews' -%}
+          {%- comment -%} ═══ PANEL 5: REVIEWS (placeholder) ═══ {%- endcomment -%}
+          <section
+            class="samay-panel samay-panel--placeholder"
+            data-panel="{{ panel_index }}"
+            {{ block.shopify_attributes }}
+            aria-label="Reviews"
+          >
+            <div class="panel-number" aria-hidden="true">0{{ panel_num }}</div>
+            <h2 class="panel-label">{{ block.settings.heading | default: 'Voices' }}</h2>
+          </section>
+
+        {%- elsif block.type == 'footer_panel' -%}
+          {%- comment -%} ═══ PANEL 6: FOOTER (placeholder) ═══ {%- endcomment -%}
+          <section
+            class="samay-panel samay-panel--placeholder"
+            data-panel="{{ panel_index }}"
+            {{ block.shopify_attributes }}
+            aria-label="End"
+          >
+            <div class="panel-number" aria-hidden="true">0{{ panel_num }}</div>
+            <h2 class="panel-label">{{ block.settings.heading | default: 'Begin the Journey' }}</h2>
+          </section>
+
+        {%- else -%}
+          {%- comment -%} Generic fallback block {%- endcomment -%}
+          <section
+            class="samay-panel samay-panel--placeholder"
+            data-panel="{{ panel_index }}"
+            {{ block.shopify_attributes }}
+            aria-label="{{ block.settings.heading | default: 'Panel' }}"
+          >
+            <div class="panel-number" aria-hidden="true">0{{ panel_num }}</div>
+            <h2 class="panel-label">{{ block.settings.heading | default: 'Coming Soon' }}</h2>
+          </section>
+        {%- endif -%}
+
+      {%- endfor -%}
+
+    </div>{%- comment -%}#samay-track{%- endcomment -%}
+  </div>{%- comment -%}#samay-track-outer{%- endcomment -%}
+</div>{%- comment -%}#samay-root{%- endcomment -%}
+
+{%- comment -%} ── Custom cursor script (inline, tiny) ── {%- endcomment -%}
+<script>
+(function() {
+  var cursor = document.getElementById('samay-cursor');
+  if (!cursor || window.matchMedia('(hover: none)').matches) return;
+  var mx = 0, my = 0;
+  document.addEventListener('mousemove', function(e) {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.transform = 'translate3d(' + (mx - 6) + 'px,' + (my - 6) + 'px,0)';
+  });
+  document.querySelectorAll('a,button,[data-cursor]').forEach(function(el) {
+    el.addEventListener('mouseenter', function() { cursor.classList.add('hovering'); });
+    el.addEventListener('mouseleave', function() { cursor.classList.remove('hovering'); });
+  });
+  document.body.style.cursor = 'none';
+})();
+</script>
+
+{%- comment -%} ── Lazy-load Three.js scene ── {%- endcomment -%}
+<script>
+(function() {
+  // Load samay-3d.js after first paint for performance
+  function loadScene() {
+    var s = document.createElement('script');
+    s.src  = {{ 'samay-3d.js' | asset_url | json }};
+    s.type = 'module';
+    document.head.appendChild(s);
+  }
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(loadScene, { timeout: 2000 });
+  } else {
+    setTimeout(loadScene, 300);
+  }
+})();
+</script>
+
+{%- comment -%} ── Scroll engine ── {%- endcomment -%}
+<script src="{{ 'samay-scroll.js' | asset_url }}" defer></script>
+
+{%- comment -%}
+  ─────────────────────────────────────────────────────
+  SECTION SCHEMA — block-based, reorderable in editor
+  ─────────────────────────────────────────────────────
+{%- endcomment -%}
+{% schema %}
+{
+  "name": "Samay Horizontal",
+  "tag": "section",
+  "class": "samay-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "brand_name",
+      "label": "Brand name (preloader)",
+      "default": "Samay"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "hero",
+      "name": "01 – Hero",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "eyebrow",
+          "label": "Eyebrow text",
+          "default": "Fine Fragrances"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Main heading",
+          "default": "Time Captured in Scent"
+        },
+        {
+          "type": "textarea",
+          "id": "subtext",
+          "label": "Sub-text",
+          "default": "A rare alchemy of ancient woods, sacred resins and the golden hour — distilled into a single breath."
+        },
+        {
+          "type": "text",
+          "id": "cta_label",
+          "label": "CTA button label",
+          "default": "Explore Collection"
+        },
+        {
+          "type": "url",
+          "id": "cta_url",
+          "label": "CTA button URL"
+        }
+      ]
+    },
+    {
+      "type": "story",
+      "name": "02 – Our Story",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "eyebrow",
+          "label": "Eyebrow label",
+          "default": "The Origin"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Born from Silence"
+        },
+        {
+          "type": "textarea",
+          "id": "paragraph_1",
+          "label": "Lead paragraph",
+          "default": "Samay was born in the lantern-lit lanes of old Delhi, where a perfumer's notebook and a grandmother's memory became the seed of something rare."
+        },
+        {
+          "type": "textarea",
+          "id": "paragraph_2",
+          "label": "Paragraph 2",
+          "default": "We source only what the season offers willingly — raw oud from Assam's oldest agarwood groves, Mysore sandalwood aged in silence, Bulgarian rose absolute hand-pressed at dawn."
+        },
+        {
+          "type": "textarea",
+          "id": "paragraph_3",
+          "label": "Paragraph 3",
+          "default": "Every bottle holds a specific hour — not just a fragrance. An atmosphere you can return to."
+        },
+        {
+          "type": "header",
+          "content": "Timeline milestones"
+        },
+        {
+          "type": "text",
+          "id": "milestone_1_year",
+          "label": "Milestone 1 — year",
+          "default": "2018"
+        },
+        {
+          "type": "text",
+          "id": "milestone_1_text",
+          "label": "Milestone 1 — text",
+          "default": "First batch distilled in a copper athar still"
+        },
+        {
+          "type": "text",
+          "id": "milestone_2_year",
+          "label": "Milestone 2 — year",
+          "default": "2021"
+        },
+        {
+          "type": "text",
+          "id": "milestone_2_text",
+          "label": "Milestone 2 — text",
+          "default": "Awarded India's Finest Artisan Fragrance"
+        },
+        {
+          "type": "text",
+          "id": "milestone_3_year",
+          "label": "Milestone 3 — year",
+          "default": "2024"
+        },
+        {
+          "type": "text",
+          "id": "milestone_3_text",
+          "label": "Milestone 3 — text",
+          "default": "Expanded to 28 countries across 4 continents"
+        },
+        {
+          "type": "header",
+          "content": "Call to action"
+        },
+        {
+          "type": "text",
+          "id": "cta_label",
+          "label": "CTA label (leave blank to hide)",
+          "default": "Read our story"
+        },
+        {
+          "type": "url",
+          "id": "cta_url",
+          "label": "CTA URL"
+        },
+        {
+          "type": "header",
+          "content": "Atmospheric image (optional)"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Right-column image (leave blank for decorative art)"
+        }
+      ]
+    },
+    {
+      "type": "notes",
+      "name": "03 – Fragrance Notes",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Panel heading",
+          "default": "Fragrance Notes"
+        }
+      ]
+    },
+    {
+      "type": "product",
+      "name": "04 – The Bottle",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Panel heading",
+          "default": "The Bottle"
+        }
+      ]
+    },
+    {
+      "type": "reviews",
+      "name": "05 – Voices",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Panel heading",
+          "default": "Voices"
+        }
+      ]
+    },
+    {
+      "type": "footer_panel",
+      "name": "06 – Begin the Journey",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Panel heading",
+          "default": "Begin the Journey"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Samay Horizontal Experience",
+      "blocks": [
+        { "type": "hero" },
+        { "type": "story" },
+        { "type": "notes" },
+        { "type": "product" },
+        { "type": "reviews" },
+        { "type": "footer_panel" }
+      ]
+    }
+  ]
+}
+{% endschema %}
