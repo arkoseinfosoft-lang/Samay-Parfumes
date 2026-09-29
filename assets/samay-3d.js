@@ -25,6 +25,7 @@
   /* ── State ───────────────────────────────────────────── */
   let THREE, renderer, scene, camera, bottle, particleSystem;
   let labelTexture, envTexture;
+  let ambLight, keyLight, rimLight, fillLight, backLight, floorShadowMesh;
   let scrollRotation  = 0;   // rad, from scroll progress
   let dragRotation    = 0;   // rad, from user drag
   let dragVelocity    = 0;
@@ -238,6 +239,7 @@
     mesh.rotation.x = -Math.PI / 2;
     mesh.position.y = -0.92;
     mesh.receiveShadow = false;
+    floorShadowMesh = mesh;
     return mesh;
   }
 
@@ -385,35 +387,65 @@
 
   function setupLights() {
     // Ambient - balanced daylight for clean white theme
-    const amb = new THREE.AmbientLight(0xffffff, 0.7);
-    scene.add(amb);
+    ambLight = new THREE.AmbientLight(0xffffff, 0.7);
+    scene.add(ambLight);
 
     // Key light (soft warm white)
-    const key = new THREE.DirectionalLight(0xfffaf0, 2.5);
-    key.position.set(2, 3.5, 3);
-    key.castShadow = !isMobile;
-    if (key.castShadow) {
-      key.shadow.mapSize.set(1024, 1024);
-      key.shadow.camera.near = 0.5;
-      key.shadow.camera.far  = 20;
-      key.shadow.bias = -0.001;
+    keyLight = new THREE.DirectionalLight(0xfffaf0, 2.5);
+    keyLight.position.set(2, 3.5, 3);
+    keyLight.castShadow = !isMobile;
+    if (keyLight.castShadow) {
+      keyLight.shadow.mapSize.set(1024, 1024);
+      keyLight.shadow.camera.near = 0.5;
+      keyLight.shadow.camera.far  = 20;
+      keyLight.shadow.bias = -0.001;
     }
-    scene.add(key);
+    scene.add(keyLight);
 
     // Gold rim light (right)
-    const rim = new THREE.PointLight(GOLD, 3.8, 8);
-    rim.position.set(2.5, 0.5, -1.5);
-    scene.add(rim);
+    rimLight = new THREE.PointLight(GOLD, 3.8, 8);
+    rimLight.position.set(2.5, 0.5, -1.5);
+    scene.add(rimLight);
 
     // Fill (left, soft clean daylight)
-    const fill = new THREE.PointLight(0xe8eeff, 1.3, 6);
-    fill.position.set(-2, 1, 1);
-    scene.add(fill);
+    fillLight = new THREE.PointLight(0xe8eeff, 1.3, 6);
+    fillLight.position.set(-2, 1, 1);
+    scene.add(fillLight);
 
     // Back rim
-    const back = new THREE.PointLight(GOLD_LT, 2.2, 5);
-    back.position.set(-1.5, 2, -2);
-    scene.add(back);
+    backLight = new THREE.PointLight(GOLD_LT, 2.2, 5);
+    backLight.position.set(-1.5, 2, -2);
+    scene.add(backLight);
+
+    // Check current theme at load time
+    const activeTheme = document.documentElement.getAttribute('data-theme') || 'light';
+    setTheme(activeTheme);
+  }
+
+  function setTheme(mode) {
+    if (!THREE || !ambLight) return;
+    const isDark = (mode === 'dark');
+    if (isDark) {
+      ambLight.intensity = 0.35;
+      ambLight.color.setHex(0x282632);
+      if (keyLight) {
+        keyLight.intensity = 3.2;
+        keyLight.color.setHex(0xffecc0);
+      }
+      if (fillLight) fillLight.intensity = 0.6;
+      if (rimLight) rimLight.intensity = 4.2;
+      if (floorShadowMesh && floorShadowMesh.material) floorShadowMesh.material.opacity = 0.65;
+    } else {
+      ambLight.intensity = 0.7;
+      ambLight.color.setHex(0xffffff);
+      if (keyLight) {
+        keyLight.intensity = 2.5;
+        keyLight.color.setHex(0xfffaf0);
+      }
+      if (fillLight) fillLight.intensity = 1.3;
+      if (rimLight) rimLight.intensity = 3.8;
+      if (floorShadowMesh && floorShadowMesh.material) floorShadowMesh.material.opacity = 0.35;
+    }
   }
 
   /* ── Render loop ─────────────────────────────────────── */
@@ -597,6 +629,7 @@
     init,
     setScrollProgress,
     setPanelIndex,
+    setTheme,
     dispose,
     get isDragging() { return isDragging; },
   };

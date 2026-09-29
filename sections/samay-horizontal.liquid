@@ -94,6 +94,84 @@
     </div>
 
     <div class="nav-right">
+      {%- comment -%} Ambient Soundscape Toggle {%- endcomment -%}
+      <button
+        type="button"
+        id="samay-sound-toggle"
+        class="nav-control-btn nav-sound-btn"
+        aria-label="Toggle ambient atelier soundscape"
+        aria-pressed="false"
+        title="Ambient Atelier Soundscape"
+      >
+        <span class="sound-bars" aria-hidden="true">
+          <span class="sound-bar sb-1"></span>
+          <span class="sound-bar sb-2"></span>
+          <span class="sound-bar sb-3"></span>
+        </span>
+        <span class="sound-btn-text">SOUND</span>
+      </button>
+
+      {%- comment -%} Light / Dark Mode Toggle {%- endcomment -%}
+      <button
+        type="button"
+        id="samay-theme-toggle"
+        class="nav-control-btn nav-theme-btn"
+        aria-label="Toggle appearance between Golden Hour and Midnight Noir"
+        title="Switch Appearance"
+      >
+        <span class="theme-icon theme-icon--sun" aria-hidden="true">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </span>
+        <span class="theme-icon theme-icon--moon" aria-hidden="true">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </span>
+      </button>
+
+      {%- comment -%} Currency / Region Selector {%- endcomment -%}
+      <div class="nav-currency-wrap" id="samay-currency-wrap">
+        <button
+          type="button"
+          id="samay-currency-btn"
+          class="nav-currency-btn"
+          aria-label="Select currency"
+          aria-expanded="false"
+          aria-haspopup="true"
+        >
+          <span id="current-currency-symbol">₹</span>
+          <span id="current-currency-code">INR</span>
+          <span class="currency-arrow" aria-hidden="true">▾</span>
+        </button>
+        <div class="nav-currency-dropdown" id="nav-currency-dropdown" role="menu">
+          <button type="button" class="currency-choice is-active" data-currency="INR" role="menuitem">
+            <span class="cc-sym">₹</span> INR <span class="cc-name">— Indian Rupee</span>
+          </button>
+          <button type="button" class="currency-choice" data-currency="USD" role="menuitem">
+            <span class="cc-sym">$</span> USD <span class="cc-name">— US Dollar</span>
+          </button>
+          <button type="button" class="currency-choice" data-currency="EUR" role="menuitem">
+            <span class="cc-sym">€</span> EUR <span class="cc-name">— Euro</span>
+          </button>
+          <button type="button" class="currency-choice" data-currency="GBP" role="menuitem">
+            <span class="cc-sym">£</span> GBP <span class="cc-name">— British Pound</span>
+          </button>
+          <button type="button" class="currency-choice" data-currency="AED" role="menuitem">
+            <span class="cc-sym">د.إ</span> AED <span class="cc-name">— UAE Dirham</span>
+          </button>
+        </div>
+      </div>
+
       <button
         type="button"
         id="nav-cart-btn"
@@ -560,7 +638,7 @@
                   {%- assign top_notes = block.settings.top_notes | default: 'Bergamot,Blackcurrant,Apple,Pineapple Platinum' | split: ',' -%}
                   {%- for note in top_notes -%}
                     {%- unless note == blank -%}
-                      <li class="tier-note" style="--ni:{{ forloop.index0 }}">{{ note | strip }}</li>
+                      <li class="tier-note" style="--ni:{{ forloop.index0 }}" data-note-key="{{ note | strip | downcase | replace: ' ', '-' | replace: '(', '' | replace: ')', '' }}">{{ note | strip }}</li>
                     {%- endunless -%}
                   {%- endfor -%}
                 </ol>
@@ -576,7 +654,7 @@
                   {%- assign heart_notes = block.settings.heart_notes | default: 'Jasmine Absolute,Jasmine Sambac,Birch Tar,Patchouli' | split: ',' -%}
                   {%- for note in heart_notes -%}
                     {%- unless note == blank -%}
-                      <li class="tier-note" style="--ni:{{ forloop.index0 }}">{{ note | strip }}</li>
+                      <li class="tier-note" style="--ni:{{ forloop.index0 }}" data-note-key="{{ note | strip | downcase | replace: ' ', '-' | replace: '(', '' | replace: ')', '' }}">{{ note | strip }}</li>
                     {%- endunless -%}
                   {%- endfor -%}
                 </ol>
@@ -592,10 +670,36 @@
                   {%- assign base_notes = block.settings.base_notes | default: 'White Musk,Vanilla,Ambraxon,Javanol (Sandalwood),Ambergris,Oakmoss' | split: ',' -%}
                   {%- for note in base_notes -%}
                     {%- unless note == blank -%}
-                      <li class="tier-note" style="--ni:{{ forloop.index0 }}">{{ note | strip }}</li>
+                      <li class="tier-note" style="--ni:{{ forloop.index0 }}" data-note-key="{{ note | strip | downcase | replace: ' ', '-' | replace: '(', '' | replace: ')', '' }}">{{ note | strip }}</li>
                     {%- endunless -%}
                   {%- endfor -%}
                 </ol>
+              </div>
+            </div>
+
+            {%- comment -%} Interactive Botanical Notes Explorer Dossier Popover {%- endcomment -%}
+            <div class="note-dossier-popover" id="note-dossier-popover" aria-live="polite" aria-hidden="true">
+              <div class="dossier-inner">
+                <div class="dossier-header">
+                  <div class="dossier-badge-row">
+                    <span class="dossier-tier-badge" id="dossier-tier-badge">TOP NOTE</span>
+                    <span class="dossier-origin-badge" id="dossier-origin-badge">Calabria, Italy</span>
+                  </div>
+                  <button type="button" class="dossier-close-btn" id="dossier-close-btn" aria-label="Close botanical dossier">✕</button>
+                </div>
+                <h4 class="dossier-title" id="dossier-title">Bergamot Calabrian</h4>
+                <p class="dossier-latin" id="dossier-latin">Citrus bergamia Risso</p>
+                <p class="dossier-description" id="dossier-description">Cold-expressed at first dawn from sunlit rinds harvested along the Ionian coast, unleashing radiant solar brilliance and delicate citrus facet.</p>
+                <div class="dossier-attributes">
+                  <div class="dossier-attr">
+                    <span class="attr-label">Distillation</span>
+                    <span class="attr-val" id="dossier-method">Artisanal Cold-Expression</span>
+                  </div>
+                  <div class="dossier-attr">
+                    <span class="attr-label">Aroma Profile</span>
+                    <span class="attr-val" id="dossier-profile">Solar • Zesty • Crisp</span>
+                  </div>
+                </div>
               </div>
             </div>
           </section>
@@ -685,6 +789,21 @@
                     </div>
                   {%- endif -%}
 
+                  {%- comment -%} Allocation & Scarcity Tracker {%- endcomment -%}
+                  <div class="product-allocation-card" aria-label="Limited Batch Allocation">
+                    <div class="allocation-header">
+                      <span class="allocation-badge">
+                        <span class="alloc-pulse" aria-hidden="true"></span>
+                        BATCH 01 VAULT ALLOCATION
+                      </span>
+                      <span class="allocation-status"><strong>342</strong> / 500 Remaining</span>
+                    </div>
+                    <div class="allocation-progress-track" role="progressbar" aria-valuenow="68.4" aria-valuemin="0" aria-valuemax="100">
+                      <div class="allocation-progress-bar" style="width: 68.4%;"></div>
+                    </div>
+                    <span class="allocation-sub">Reserved edition — hand-numbered and sealed upon order confirmation</span>
+                  </div>
+
                   <div class="product-title-group">
                     <h3 class="product-card-title">{{ block.settings.title | default: 'Samay Extrait de Parfum' }}</h3>
                     <span class="product-card-sub">{{ block.settings.subtitle | default: 'Batch No. 01 — Rare Harvest' }}</span>
@@ -724,6 +843,35 @@
                         50 ML
                       </button>
                     </div>
+                  </div>
+
+                  {%- comment -%} Complimentary 24K Plaque Engraving {%- endcomment -%}
+                  <div class="product-engraving-card">
+                    <div class="engraving-header">
+                      <label for="flacon-monogram-input" class="engraving-label">
+                        <span class="engraving-star" aria-hidden="true">✦</span>
+                        <span>Complimentary 24K Flacon Engraving</span>
+                      </label>
+                      <span class="engraving-tag">Complimentary</span>
+                    </div>
+                    <div class="engraving-input-wrap">
+                      <input
+                        type="text"
+                        id="flacon-monogram-input"
+                        class="engraving-input"
+                        maxlength="3"
+                        placeholder="INITIALS (E.G. SMP)"
+                        autocomplete="off"
+                        spellcheck="false"
+                        aria-label="Monogram initials for 24K plaque engraving"
+                      >
+                      <div class="engraving-live-preview" aria-hidden="true" title="Real-time 24K gold plaque preview">
+                        <span class="engraving-plaque">
+                          <span class="plaque-initials" id="engraving-plaque-text">— — —</span>
+                        </span>
+                      </div>
+                    </div>
+                    <p class="engraving-note">Diamond-etched into the brushed 24K gold crest plate upon order confirmation.</p>
                   </div>
 
                   <div class="product-action-buttons">
@@ -767,6 +915,20 @@
                         <span class="inclusion-text">{{ block.settings.inclusion_3 }}</span>
                       </div>
                     {%- endif -%}
+                  </div>
+
+                  {%- comment -%} Discovery Guarantee Badge {%- endcomment -%}
+                  <div class="product-discovery-guarantee">
+                    <div class="guarantee-shield" aria-hidden="true">
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        <path d="m9 12 2 2 4-4"></path>
+                      </svg>
+                    </div>
+                    <div class="guarantee-content">
+                      <h4 class="guarantee-title">The Discovery Guarantee</h4>
+                      <p class="guarantee-text">Includes a complimentary 5ml matching discovery flacon. Experience the sillage on your skin for 14 days before breaking the seal on your full 100ml vessel. Return unopened full flacon for a complete refund if not captivated.</p>
+                    </div>
                   </div>
 
                 </div>

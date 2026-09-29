@@ -56,16 +56,425 @@
   let navCartBtn, cartDrawer, cartBackdrop, cartCloseBtn, cartDrawerBody;
   let policyModal, policyBackdrop, policyCloseBtn, policyTitle, policyContent;
 
-  /* ── Currency / Money Formatter ──────────────────────── */
+  /* ── Multi-Currency Configuration & Conversion ─────── */
+  const CURRENCY_DATA = {
+    INR: { symbol: '₹', rate: 1.0, name: 'Indian Rupee', format: '₹{{amount}}' },
+    USD: { symbol: '$', rate: 0.012, name: 'US Dollar', format: '${{amount}}' },
+    EUR: { symbol: '€', rate: 0.011, name: 'Euro', format: '€{{amount}}' },
+    GBP: { symbol: '£', rate: 0.0094, name: 'British Pound', format: '£{{amount}}' },
+    AED: { symbol: 'د.إ', rate: 0.044, name: 'UAE Dirham', format: '{{amount}} AED' }
+  };
+
+  let currentCurrency = 'INR';
+
+  function convertInrCents(inrCents, targetCurr = currentCurrency) {
+    const meta = CURRENCY_DATA[targetCurr] || CURRENCY_DATA.INR;
+    const inrValue = (inrCents / 100);
+    const converted = inrValue * meta.rate;
+    const rounded = targetCurr === 'INR' ? Math.round(converted) : (Math.round(converted * 10) / 10).toFixed(0);
+    const formattedNum = Number(rounded).toLocaleString('en-US');
+    return meta.format.replace('{{amount}}', formattedNum);
+  }
+
   function formatMoney(cents) {
     if (typeof cents !== 'number') cents = parseInt(cents, 10) || 0;
-    const format = window.SamayConfig?.moneyFormat || '₹{{amount}}';
-    const amount = (cents / 100).toLocaleString('en-IN', {
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0
+    return convertInrCents(cents, currentCurrency);
+  }
+
+  /* ── Light / Dark Mode System ("Golden Hour" ↔ "Midnight Noir") ── */
+  function initThemeToggle() {
+    const themeToggle = $('samay-theme-toggle');
+    const storedTheme = localStorage.getItem('samay_theme') || 'light';
+
+    function applyTheme(theme) {
+      if (theme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        themeToggle?.setAttribute('aria-label', 'Switch to Golden Hour light mode');
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+        themeToggle?.setAttribute('aria-label', 'Switch to Midnight Noir dark mode');
+      }
+      localStorage.setItem('samay_theme', theme);
+      if (window.SamayScene && typeof window.SamayScene.setTheme === 'function') {
+        window.SamayScene.setTheme(theme);
+      }
+    }
+
+    applyTheme(storedTheme);
+
+    themeToggle?.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+      const next = current === 'dark' ? 'light' : 'dark';
+      applyTheme(next);
     });
-    return format.replace(/\{\{\s*amount\s*\}\}/g, amount)
-                 .replace(/\{\{\s*amount_no_decimals\s*\}\}/g, amount);
+  }
+
+  /* ── Ambient Atelier Soundscape Engine (Web Audio API) ── */
+  let audioCtx = null;
+  let masterGain = null;
+  let isAudioPlaying = false;
+  let audioOscillators = [];
+
+  function initSoundToggle() {
+    const soundToggle = $('samay-sound-toggle');
+    const soundBars = soundToggle?.querySelector('.sound-bars');
+    if (!soundToggle) return;
+
+    function stopSoundscape() {
+      if (!audioCtx || !masterGain) return;
+      masterGain.gain.setTargetAtTime(0.0001, audioCtx.currentTime, 0.4);
+      isAudioPlaying = false;
+      soundBars?.classList.remove('is-playing');
+      soundToggle.setAttribute('aria-pressed', 'false');
+      soundToggle.setAttribute('title', 'Play Ambient Atelier Soundscape (432Hz)');
+    }
+
+    function startSoundscape() {
+      if (!audioCtx) {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContextClass) return;
+        audioCtx = new AudioContextClass();
+
+        masterGain = audioCtx.createGain();
+        masterGain.gain.setValueAtTime(0.0001, audioCtx.currentTime);
+
+        const filter = audioCtx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(520, audioCtx.currentTime);
+
+        // 432Hz harmonic celestial chord
+        const chordFrequencies = [108, 216, 324, 432];
+        chordFrequencies.forEach((freq, idx) => {
+          const osc = audioCtx.createOscillator();
+          const oscGain = audioCtx.createGain();
+          osc.type = idx === 0 ? 'sine' : 'triangle';
+          osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+
+          // Subtle harmonic vibrato
+          const lfo = audioCtx.createOscillator();
+          const lfoGain = audioCtx.createGain();
+          lfo.frequency.setValueAtTime(0.08 + idx * 0.04, audioCtx.currentTime);
+          lfoGain.gain.setValueAtTime(1.2, audioCtx.currentTime);
+          lfo.connect(osc.frequency);
+          lfo.start();
+
+          oscGain.gain.setValueAtTime(idx === 0 ? 0.35 : 0.16, audioCtx.currentTime);
+          osc.connect(oscGain);
+          oscGain.connect(filter);
+          osc.start();
+          audioOscillators.push(osc);
+        });
+
+        filter.connect(masterGain);
+        masterGain.connect(audioCtx.destination);
+      }
+
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+
+      masterGain.gain.setTargetAtTime(0.07, audioCtx.currentTime, 0.8);
+      isAudioPlaying = true;
+      soundBars?.classList.add('is-playing');
+      soundToggle.setAttribute('aria-pressed', 'true');
+      soundToggle.setAttribute('title', 'Mute Ambient Atelier Soundscape');
+    }
+
+    soundToggle.addEventListener('click', () => {
+      if (isAudioPlaying) stopSoundscape();
+      else startSoundscape();
+    });
+  }
+
+  /* ── Multi-Currency Switcher Handler ─────────────────── */
+  function updateProductCardPrices() {
+    const card = $('samay-product-card');
+    if (!card) return;
+
+    const pill100 = card.querySelector('.size-pill[data-size="100ml"]');
+    const pill50 = card.querySelector('.size-pill[data-size="50ml"]');
+    const priceDisplay = card.querySelector('[data-price-display]');
+    const compareDisplay = card.querySelector('.product-compare-price');
+
+    const formatted100 = convertInrCents(2250000, currentCurrency);
+    const formatted50  = convertInrCents(1480000, currentCurrency);
+    const formattedComp = convertInrCents(2600000, currentCurrency);
+
+    if (pill100) pill100.setAttribute('data-price', formatted100);
+    if (pill50) pill50.setAttribute('data-price', formatted50);
+    if (compareDisplay) compareDisplay.textContent = formattedComp;
+
+    const activePill = card.querySelector('.size-pill.is-selected');
+    if (priceDisplay && activePill) {
+      priceDisplay.textContent = activePill.getAttribute('data-price');
+    }
+  }
+
+  function initCurrencySelector() {
+    const wrap = $('samay-currency-wrap');
+    const btn = $('samay-currency-btn');
+    const dropdown = $('nav-currency-dropdown');
+    const symEl = $('current-currency-symbol');
+    const codeEl = $('current-currency-code');
+
+    if (!wrap || !btn || !dropdown) return;
+
+    function setCurrency(code) {
+      if (!CURRENCY_DATA[code]) code = 'INR';
+      currentCurrency = code;
+      localStorage.setItem('samay_currency', code);
+
+      if (symEl) symEl.textContent = CURRENCY_DATA[code].symbol;
+      if (codeEl) codeEl.textContent = code;
+
+      dropdown.querySelectorAll('.currency-choice').forEach(choice => {
+        const isCur = choice.getAttribute('data-currency') === code;
+        choice.classList.toggle('is-active', isCur);
+      });
+
+      updateProductCardPrices();
+      refreshCart();
+    }
+
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      const isOpen = wrap.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    document.addEventListener('click', e => {
+      if (!wrap.contains(e.target)) {
+        wrap.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    dropdown.addEventListener('click', e => {
+      const choice = e.target.closest('.currency-choice');
+      if (!choice) return;
+      const code = choice.getAttribute('data-currency');
+      setCurrency(code);
+      wrap.classList.remove('is-open');
+      btn.setAttribute('aria-expanded', 'false');
+    });
+
+    const saved = localStorage.getItem('samay_currency') || 'INR';
+    setCurrency(saved);
+  }
+
+  /* ── Interactive Botanical Notes Explorer Dossier ─────── */
+  const BOTANICAL_DOSSIER = {
+    'bergamot': {
+      tier: 'Top Note',
+      origin: 'Calabria, Italy',
+      title: 'Calabrian Bergamot',
+      latin: 'Citrus bergamia Risso',
+      desc: 'Cold-expressed at first dawn from sunlit rinds harvested along the Ionian coast, releasing radiant solar brilliance and delicate citrus facet.',
+      method: 'Artisanal Cold-Expression',
+      profile: 'Solar • Zesty • Crisp'
+    },
+    'blackcurrant': {
+      tier: 'Top Note',
+      origin: 'Burgundy, France',
+      title: 'Blackcurrant Bud Absolute',
+      latin: 'Ribes nigrum L.',
+      desc: 'Distilled from tender early spring buds, imparting an opulent wine-like tartness with green leafy vibrancy that awakens the senses.',
+      method: 'Volatile Solvent Extraction',
+      profile: 'Tart • Vinous • Green'
+    },
+    'apple': {
+      tier: 'Top Note',
+      origin: 'Kashmir Valley, India',
+      title: 'Crisp Orchard Apple',
+      latin: 'Malus domestica',
+      desc: 'Harvested in high Himalayan morning mist, delivering an effervescent crystalline crunch with pure natural nectar nuance.',
+      method: 'Molecular Hydro-Distillation',
+      profile: 'Fresh • Dewy • Crystalline'
+    },
+    'pineapple': {
+      tier: 'Top Note',
+      origin: 'Mauritius Island',
+      title: 'Pineapple Platinum',
+      latin: 'Ananas comosus',
+      desc: 'A rare platinum distillation yielding juicy tropical brilliance intertwined with subtle woody smoke without confectionery sweetness.',
+      method: 'Fractionated CO2 Extraction',
+      profile: 'Luminous • Tropical • Smoky'
+    },
+    'jasmine-absolute': {
+      tier: 'Heart Note',
+      origin: 'Grasse, France',
+      title: 'Jasmine Grandiflorum Absolute',
+      latin: 'Jasminum grandiflorum',
+      desc: 'Hand-plucked before sunrise to preserve delicate nocturnal petals, radiating warm velutinous nectar and aristocratic grace.',
+      method: 'Enfleurage & Solvent Extraction',
+      profile: 'Intoxicating • Velvety • Solar'
+    },
+    'jasmine-sambac': {
+      tier: 'Heart Note',
+      origin: 'Madurai, Tamil Nadu',
+      title: 'Sacred Jasmine Sambac',
+      latin: 'Jasminum sambac',
+      desc: 'Revered in ancient temple rituals for millennia, emitting a deeply spiritual indolic warmth and hypnotic nocturnal projection.',
+      method: 'Copper Deg Hydro-Distillation',
+      profile: 'Regal • Indolic • Sacred'
+    },
+    'birch-tar': {
+      tier: 'Heart Note',
+      origin: 'Silver Groves, Siberia',
+      title: 'Smoked Birch Tar',
+      latin: 'Betula alba',
+      desc: 'Slowly pyrolyzed in oxygen-free earthen hearths to extract deep resinous smoke, Russian leather nuance, and smoldering embers.',
+      method: 'Slow Dry Pyrolysis',
+      profile: 'Leather • Embers • Smoked'
+    },
+    'patchouli': {
+      tier: 'Heart Note',
+      origin: 'Aceh, Northern Sumatra',
+      title: 'Vintage Aged Patchouli',
+      latin: 'Pogostemon cablin',
+      desc: 'Matured for five years in dark seasoned oak barrels, transforming raw earthen pungency into rich dark-cacao and cedarwood velvet.',
+      method: 'Steam Distilled & 5-Yr Cask Aged',
+      profile: 'Earthy • Woody • Camphoric'
+    },
+    'white-musk': {
+      tier: 'Base Note',
+      origin: 'Geneva Lab Exclusive',
+      title: 'Clean White Musk Accord',
+      latin: 'Macrocyclic Musk Accord',
+      desc: 'An ethereal second skin accord providing pristine intimacy, weightless warmth, and silken buoyancy that suspends the deeper resins.',
+      method: 'Precision Molecular Synthesis',
+      profile: 'Airy • Skin-scent • Silken'
+    },
+    'vanilla': {
+      tier: 'Base Note',
+      origin: 'Sava Region, Madagascar',
+      title: 'Madagascar Bourbon Vanilla',
+      latin: 'Vanilla planifolia',
+      desc: 'Sun-cured black vanilla beans infused into pure ethanol over 180 days, lending balsamic depth and smoky lactonic sweetness.',
+      method: 'Supercritical CO2 Extraction',
+      profile: 'Balsamic • Creamy • Gourmand'
+    },
+    'ambraxon': {
+      tier: 'Base Note',
+      origin: 'Grasse Atelier',
+      title: 'Ambroxan Crystal',
+      latin: 'Ambroxide Molecular Isolate',
+      desc: 'Imparts unmatched sillage, dry radiant mineral amber warmth, and commanding projection that stays radiant on fabric for days.',
+      method: 'Biotechnological Isolate',
+      profile: 'Radiant • Ambery • Marine'
+    },
+    'sandalwood': {
+      tier: 'Base Note',
+      origin: 'Mysore, Karnataka',
+      title: 'Mysore Sandalwood & Javanol',
+      latin: 'Santalum album',
+      desc: 'Sacred golden heartwood aged in silence, conferring sublime milky serenity, meditative grounding, and creamy woody warmth.',
+      method: 'Sustainable Fractional Steam',
+      profile: 'Creamy • Sacred • Milky'
+    },
+    'ambergris': {
+      tier: 'Base Note',
+      origin: 'New Zealand Shoreline',
+      title: 'Floating White Ambergris',
+      latin: 'Physeter macrocephalus tincture',
+      desc: 'Ocean-cured under years of sun and sea salt, decanted into a subtle marine tincture that imparts oceanic nobility and tenacity.',
+      method: 'Aged Ethanol Decantation',
+      profile: 'Saline • Mineral • Animalic'
+    },
+    'oakmoss': {
+      tier: 'Base Note',
+      origin: 'Macedonian Forest Canopies',
+      title: 'Oakmoss Absolute',
+      latin: 'Evernia prunastri',
+      desc: 'Ancient velvety lichen clinging to old-growth oaks, imparting timeless chypre authority, inky woods, and damp forest floor mystique.',
+      method: 'Low-Atranol Solvent Extraction',
+      profile: 'Chypre • Forest Floor • Inky'
+    }
+  };
+
+  function initBotanicalNotesExplorer() {
+    const popover = $('note-dossier-popover');
+    const closeBtn = $('dossier-close-btn');
+    const tierBadge = $('dossier-tier-badge');
+    const originBadge = $('dossier-origin-badge');
+    const titleEl = $('dossier-title');
+    const latinEl = $('dossier-latin');
+    const descEl = $('dossier-description');
+    const methodEl = $('dossier-method');
+    const profileEl = $('dossier-profile');
+
+    if (!popover) return;
+
+    function showDossier(noteKey, noteName, tierName) {
+      const data = BOTANICAL_DOSSIER[noteKey] || {
+        tier: tierName || 'Accord Note',
+        origin: 'Atelier Reserve',
+        title: noteName,
+        latin: 'Botanical Distillate',
+        desc: `Carefully selected and distilled exclusively for Samay Extrait de Parfum to enrich the multi-dimensional living accord.`,
+        method: 'Artisanal Extraction',
+        profile: 'Harmonic • Balanced • Rare'
+      };
+
+      if (tierBadge) tierBadge.textContent = data.tier;
+      if (originBadge) originBadge.textContent = data.origin;
+      if (titleEl) titleEl.textContent = data.title;
+      if (latinEl) latinEl.textContent = data.latin;
+      if (descEl) descEl.textContent = data.desc;
+      if (methodEl) methodEl.textContent = data.method;
+      if (profileEl) profileEl.textContent = data.profile;
+
+      popover.classList.add('is-visible');
+      popover.setAttribute('aria-hidden', 'false');
+    }
+
+    function hideDossier() {
+      popover.classList.remove('is-visible');
+      popover.setAttribute('aria-hidden', 'true');
+      qsa('.tier-note').forEach(el => el.classList.remove('is-active'));
+    }
+
+    closeBtn?.addEventListener('click', hideDossier);
+
+    qsa('.tier-note').forEach(noteEl => {
+      noteEl.addEventListener('click', e => {
+        e.stopPropagation();
+        qsa('.tier-note').forEach(el => el.classList.remove('is-active'));
+        noteEl.classList.add('is-active');
+
+        const key = noteEl.getAttribute('data-note-key') || '';
+        const name = noteEl.textContent.trim();
+        const tierContainer = noteEl.closest('.notes-tier');
+        const tierLabel = tierContainer?.querySelector('.tier-label')?.textContent?.trim() || '';
+
+        showDossier(key, name, tierLabel);
+      });
+    });
+
+    document.addEventListener('click', e => {
+      if (!popover.contains(e.target) && !e.target.closest('.tier-note')) {
+        if (popover.classList.contains('is-visible')) {
+          hideDossier();
+        }
+      }
+    });
+  }
+
+  /* ── 24K Flacon Monogram Engraving Preview ────────────── */
+  function initEngravingPreview() {
+    const input = $('flacon-monogram-input');
+    const plaqueText = $('engraving-plaque-text');
+    if (!input || !plaqueText) return;
+
+    input.addEventListener('input', () => {
+      const val = input.value.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 3);
+      input.value = val;
+      if (val.length === 0) {
+        plaqueText.textContent = '— — —';
+      } else {
+        plaqueText.textContent = val.split('').join(' ');
+      }
+    });
   }
 
   /* ── Bootstrap ───────────────────────────────────────── */
@@ -87,6 +496,11 @@
     ScrollTrigger = window.ScrollTrigger;
     Lenis         = window.Lenis;
 
+    initThemeToggle();
+    initSoundToggle();
+    initCurrencySelector();
+    initBotanicalNotesExplorer();
+    initEngravingPreview();
     initNavigation();
     initCartDrawer();
     initContactForm();
@@ -537,12 +951,18 @@
         ? `<span class="cart-item-variant">${item.variant_title}</span>`
         : '';
 
+      const engravingProp = item.properties && (item.properties['24K Flacon Engraving'] || item.properties['Flacon Monogram']);
+      const engravingLine = engravingProp
+        ? `<div class="cart-item-engraving" style="font-size:0.68rem; color:var(--gold); margin-top:0.25rem; letter-spacing:0.1em; font-weight:500;">✦ 24K Plaque: ${engravingProp}</div>`
+        : '';
+
       itemsHtml += `
         <div class="cart-item-row" data-key="${item.key}">
           <div class="cart-item-thumb">${thumb}</div>
           <div class="cart-item-details">
             <h3 class="cart-item-title">${item.product_title || item.title}</h3>
             ${variantLine}
+            ${engravingLine}
             <div class="cart-item-price-row">
               <span class="cart-item-price">${formatMoney(item.final_line_price)}</span>
               <div class="cart-item-qty-wrap">
@@ -594,11 +1014,19 @@
       return;
     }
 
+    const monogram = $('flacon-monogram-input')?.value?.trim()?.toUpperCase();
+    const payload = { id: variantId, quantity };
+    if (monogram) {
+      payload.properties = {
+        '24K Flacon Engraving': monogram
+      };
+    }
+
     try {
       const res = await fetch('/cart/add.js', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({ id: variantId, quantity })
+        body: JSON.stringify(payload)
       });
       await res.json();
 
@@ -619,6 +1047,8 @@
   function initProductCard() {
     const card = $('samay-product-card');
     if (!card) return;
+
+    updateProductCardPrices();
 
     card.addEventListener('click', e => {
       const pill = e.target.closest('.size-pill');
