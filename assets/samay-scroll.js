@@ -1,9 +1,10 @@
 /**
- * samay-scroll.js — Complete storefront engine for Samay Parfumes
+ * samay-scroll.js — Unified Horizontal Scroll Storefront Engine for Samay Parfumes
  *
  * Responsibilities:
- *  - Responsive horizontal (desktop) / vertical (mobile < 768px) scroll driver
+ *  - Unified horizontal scroll engine for BOTH desktop and mobile (< 768px)
  *  - Lenis smooth-scroll & GSAP ScrollTrigger synchronization
+ *  - Touch swipe gestures (vertical and horizontal swipes drive the track)
  *  - Full-screen numbered menu (01-07) with smooth anchor navigation & deep linking
  *  - Dynamic URL hash updates (#home, #about, #notes, #bottle, #reviews, #faq, #contact)
  *  - Slide-out AJAX Cart Drawer with live item management & count synchronization
@@ -22,7 +23,6 @@
   const $ = id => document.getElementById(id);
   const qs = (sel, ctx = document) => ctx.querySelector(sel);
   const qsa = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
-  const isMobile = () => window.matchMedia('(max-width: 768px)').matches;
   const prefersReduced = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ── State ────────────────────────────────────────────── */
@@ -95,33 +95,24 @@
     initProductCard();
     initReviewsSlider();
 
-    if (isMobile()) {
-      setupMobileLayout();
-    } else {
-      setupDesktopScroll();
-    }
+    // Unified horizontal scroll system on both desktop and mobile
+    setupHorizontalScroll();
 
     // Handle deep link on initial load
     setTimeout(handleInitialHash, 300);
 
-    // Watch for window resize to toggle desktop / mobile cleanly
+    // Refresh scroll triggers on resize
     let resizeTimer;
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
-        const currentlyMobile = isMobile();
-        if (currentlyMobile && lenisInstance) {
-          teardownDesktopScroll();
-          setupMobileLayout();
-        } else if (!currentlyMobile && !lenisInstance) {
-          setupDesktopScroll();
-        }
+        if (ScrollTrigger) ScrollTrigger.refresh();
       }, 200);
     });
   }
 
-  /* ── Desktop Horizontal Scroll System ─────────────────── */
-  function setupDesktopScroll() {
+  /* ── Unified Horizontal Scroll System ─────────────────── */
+  function setupHorizontalScroll() {
     if (prefersReduced()) {
       setupReducedMotion();
       return;
@@ -130,10 +121,11 @@
     if (!gsap || !ScrollTrigger || !Lenis) return;
     gsap.registerPlugin(ScrollTrigger);
 
-    // Set scroll height
+    // Set scroll height on root
     root.style.height = `${numPanels * 100}dvh`;
     if (trackOuter) {
       trackOuter.style.position = 'sticky';
+      trackOuter.style.top = '0';
       trackOuter.style.height = '100dvh';
       trackOuter.style.overflow = 'hidden';
     }
@@ -144,15 +136,17 @@
       track.style.height = '100dvh';
     }
 
-    // Initialize Lenis
+    // Initialize Lenis with touch support
     lenisInstance = new Lenis({
       orientation: 'vertical',
-      gestureOrientation: 'vertical',
+      gestureOrientation: 'both',
       smoothWheel: true,
       wheelMultiplier: 0.9,
-      touchMultiplier: 1.5,
+      touchMultiplier: 1.8,
       infinite: false,
       autoRaf: false,
+      syncTouch: true,
+      syncTouchLerp: 0.08,
     });
 
     gsap.ticker.add(time => {
@@ -170,7 +164,7 @@
     scrollTriggerInstance = ScrollTrigger.create({
       trigger: root,
       start: 'top top',
-      end: `+=${(numPanels - 1) * window.innerHeight * 1.2}px`,
+      end: `+=${(numPanels - 1) * window.innerHeight * 1.15}px`,
       pin: trackOuter,
       scrub: 1.0,
       invalidateOnRefresh: true,
@@ -185,77 +179,54 @@
       scrollTrigger: {
         trigger: root,
         start: 'top top',
-        end: `+=${(numPanels - 1) * window.innerHeight * 1.2}px`,
+        end: `+=${(numPanels - 1) * window.innerHeight * 1.15}px`,
         scrub: 1.0,
         invalidateOnRefresh: true,
       },
     });
 
     setupKeyboard();
+    setupTouchSwipe();
     setupTrackpadHorizontal();
     updateCounter(0, numPanels);
   }
 
-  function teardownDesktopScroll() {
-    if (lenisInstance) {
-      lenisInstance.destroy();
-      lenisInstance = null;
-    }
-    if (scrollTriggerInstance) {
-      scrollTriggerInstance.kill();
-      scrollTriggerInstance = null;
-    }
-    if (trackTween) {
-      trackTween.kill();
-      trackTween = null;
-    }
-    if (track) {
-      gsap.set(track, { clearProps: 'all' });
-    }
-    if (trackOuter) {
-      gsap.set(trackOuter, { clearProps: 'all' });
-    }
-    if (root) {
-      gsap.set(root, { clearProps: 'all' });
-    }
-  }
+  /* ── Touch Swipe Handling on Mobile & Tablets ─────────── */
+  function setupTouchSwipe() {
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchStartScroll = 0;
+    let isTrackingTouch = false;
 
-  /* ── Mobile Layout (< 768px) ─────────────────────────── */
-  function setupMobileLayout() {
-    if (root) root.style.height = 'auto';
-    if (trackOuter) {
-      trackOuter.style.position = 'static';
-      trackOuter.style.height = 'auto';
-      trackOuter.style.overflow = 'visible';
-    }
-    if (track) {
-      track.style.display = 'flex';
-      track.style.flexDirection = 'column';
-      track.style.transform = 'none';
-      track.style.width = '100%';
-      track.style.height = 'auto';
-    }
+    window.addEventListener('touchstart', e => {
+      if (bottleDragActive) return;
+      if (e.target.closest('.cart-drawer-panel, .policy-modal-dialog, .menu-overlay-inner, button, input, textarea, a')) {
+        return;
+      }
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+      touchStartScroll = window.scrollY;
+      isTrackingTouch = true;
+    }, { passive: true });
 
-    document.body.style.overflow = 'auto';
+    window.addEventListener('touchmove', e => {
+      if (!isTrackingTouch || bottleDragActive || !lenisInstance) return;
+      if (e.target.closest('.cart-drawer-panel, .policy-modal-dialog, .menu-overlay-inner, .faq-accordion-container')) {
+        return;
+      }
+      const dx = touchStartX - e.touches[0].clientX;
+      const dy = touchStartY - e.touches[0].clientY;
 
-    // IntersectionObserver for mobile section detection
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const idx = parseInt(entry.target.getAttribute('data-panel') || '0', 10);
-          currentPanel = idx;
-          updateCounter(idx, numPanels);
-          updateNavIndicator(idx);
-          revealPanel(idx);
-          if (!isNavigatingAnchor) {
-            updateUrlHash(idx);
-          }
-        }
-      });
-    }, { threshold: 0.35 });
+      // If user swipes horizontally more than vertically, translate to vertical scroll
+      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 8) {
+        if (e.cancelable) e.preventDefault();
+        lenisInstance.scrollTo(touchStartScroll + dx * 1.6, { immediate: true });
+      }
+    }, { passive: false });
 
-    qsa('.samay-panel').forEach(panel => observer.observe(panel));
-    revealPage();
+    window.addEventListener('touchend', () => {
+      isTrackingTouch = false;
+    }, { passive: true });
   }
 
   /* ── Scroll Progress & Reveal Hooks ──────────────────── */
@@ -305,7 +276,7 @@
       if (el) {
         if (panelIndex >= idx) {
           el.classList.add(item.cls);
-        } else if (!isMobile()) {
+        } else {
           el.classList.remove(item.cls);
         }
       }
@@ -370,28 +341,21 @@
     updateNavIndicator(index);
     revealPanel(index);
 
-    if (isMobile()) {
-      const targetEl = document.getElementById(anchor) || qs(`[data-panel="${index}"]`);
-      if (targetEl) {
-        targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-      setTimeout(() => { isNavigatingAnchor = false; }, 800);
-    } else {
-      if (!scrollTriggerInstance || !lenisInstance) {
-        isNavigatingAnchor = false;
-        return;
-      }
-      const st = scrollTriggerInstance;
-      const progressTarget = numPanels > 1 ? index / (numPanels - 1) : 0;
-      const targetScroll = st.start + progressTarget * (st.end - st.start);
-
-      lenisInstance.scrollTo(targetScroll, {
-        duration: 1.2,
-        onComplete: () => {
-          isNavigatingAnchor = false;
-        }
-      });
+    if (!scrollTriggerInstance || !lenisInstance) {
+      isNavigatingAnchor = false;
+      return;
     }
+
+    const st = scrollTriggerInstance;
+    const progressTarget = numPanels > 1 ? index / (numPanels - 1) : 0;
+    const targetScroll = st.start + progressTarget * (st.end - st.start);
+
+    lenisInstance.scrollTo(targetScroll, {
+      duration: 1.2,
+      onComplete: () => {
+        isNavigatingAnchor = false;
+      }
+    });
   }
 
   function handleInitialHash() {
@@ -506,7 +470,6 @@
       }
     });
 
-    // Refresh cart on initial boot
     refreshCart();
   }
 
@@ -539,17 +502,14 @@
   }
 
   function renderCart(cart) {
-    // Update live badge count
     const navCountEl = $('nav-cart-count');
     const headerCountEl = $('cart-drawer-header-count');
     if (navCountEl) navCountEl.textContent = cart.item_count;
     if (headerCountEl) headerCountEl.textContent = `(${cart.item_count})`;
 
-    // Update subtotal
     const subtotalEl = $('cart-drawer-subtotal');
     if (subtotalEl) subtotalEl.textContent = formatMoney(cart.total_price);
 
-    // Update body
     if (!cartDrawerBody) return;
 
     if (cart.item_count === 0) {
@@ -619,7 +579,6 @@
 
   async function addToCart(variantId, quantity = 1, redirectCheckout = false) {
     if (!variantId) {
-      // Fallback: search for first available product in store
       try {
         const prodRes = await fetch('/products/samay-extrait-de-parfum.js');
         if (prodRes.ok) {
@@ -630,7 +589,6 @@
     }
 
     if (!variantId) {
-      // Direct checkout fallback
       if (redirectCheckout) window.location.href = '/checkout';
       else window.location.href = '/collections/all';
       return;
@@ -642,7 +600,7 @@
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify({ id: variantId, quantity })
       });
-      const data = await res.json();
+      await res.json();
 
       if (redirectCheckout) {
         window.location.href = '/checkout';
@@ -657,12 +615,11 @@
     }
   }
 
-  /* ── Product Card Actions (Pill switcher, Add to Cart, Buy Now) ─ */
+  /* ── Product Card Actions ──────────────────────────────── */
   function initProductCard() {
     const card = $('samay-product-card');
     if (!card) return;
 
-    // Size pill selection
     card.addEventListener('click', e => {
       const pill = e.target.closest('.size-pill');
       if (!pill) return;
@@ -687,7 +644,6 @@
       }
     });
 
-    // Add to Cart button
     const addBtn = $('samay-add-to-cart-btn');
     if (addBtn) {
       addBtn.addEventListener('click', async () => {
@@ -706,7 +662,6 @@
       });
     }
 
-    // Buy Now button
     const buyBtn = $('samay-buy-now-btn');
     if (buyBtn) {
       buyBtn.addEventListener('click', async () => {
@@ -736,7 +691,7 @@
 
       try {
         const formData = new FormData(form);
-        const res = await fetch(form.action || '/contact', {
+        await fetch(form.action || '/contact', {
           method: 'POST',
           body: formData,
           headers: { 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'text/html' }
@@ -745,7 +700,7 @@
         feedbackBox.innerHTML = `
           <div class="form-status form-status--success">
             <span class="status-icon">✓</span>
-            <span>Thank you. Your inquiry has been received by our private concierge. We will respond promptly.</span>
+            <span>Thank you. Your message has been received by our private concierge. We will respond promptly.</span>
           </div>
         `;
         form.reset();
@@ -777,7 +732,6 @@
 
       const isOpen = item.classList.contains('is-open');
 
-      // Close all other items in container
       container.querySelectorAll('.faq-accordion-item').forEach(other => {
         if (other !== item) {
           other.classList.remove('is-open');
@@ -788,7 +742,6 @@
         }
       });
 
-      // Toggle clicked item
       const content = item.querySelector('.faq-accordion-content');
       if (isOpen) {
         item.classList.remove('is-open');
@@ -804,7 +757,7 @@
     });
   }
 
-  /* ── Policy Modals (Shipping, Refund, Privacy, Terms) ─── */
+  /* ── Policy Modals ────────────────────────────────────── */
   function initPolicyModals() {
     policyModal    = $('samay-policy-modal');
     policyBackdrop = $('policy-modal-backdrop');
@@ -983,7 +936,7 @@
     if (canvas) {
       canvas.addEventListener('samay3d:ready', finish, { once: true });
     }
-    setTimeout(finish, 2200); // Failsafe timeout
+    setTimeout(finish, 2200);
   }
 
   function revealPage() {
