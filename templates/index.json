@@ -9,7 +9,7 @@
             "eyebrow": "Fine Fragrances",
             "heading": "Time Captured in Scent",
             "subtext": "A rare alchemy of ancient woods, sacred resins and the golden hour — distilled into a single breath.",
-            "cta_label": "Explore Collection",
+            "cta_label": "Acquire The Flacon",
             "cta_url": "/collections/all"
           }
         },
@@ -27,7 +27,7 @@
             "milestone_2_text": "Awarded India's Finest Artisan Fragrance",
             "milestone_3_year": "2024",
             "milestone_3_text": "Expanded to 28 countries across 4 continents",
-            "cta_label": "Read our story",
+            "cta_label": "Explore Notes",
             "cta_url": "/pages/about"
           }
         },
@@ -44,7 +44,7 @@
             "top_notes": "Bergamot,Blackcurrant,Apple,Pineapple Platinum",
             "heart_label": "Heart Notes",
             "heart_sub": "The soul — warm & enduring",
-            "heart_notes": "Jasmine Absolute,Jasmine Sambac,Birch Tar (Frankincense),Patchouli",
+            "heart_notes": "Jasmine Absolute,Jasmine Sambac,Birch Tar,Patchouli",
             "base_label": "Base Notes",
             "base_sub": "The memory — deep & long-lasting",
             "base_notes": "White Musk,Vanilla,Ambraxon,Javanol (Sandalwood),Ambergris,Oakmoss"
@@ -55,7 +55,7 @@
           "settings": {
             "eyebrow": "The Artifact",
             "heading": "Sculpted in Darkness",
-            "description": "An architectural flacon sculpted from heavyweight smoked French glass, crowned with a 24-karat gold-gilded magnetic stopper. Each flacon is individually numbered.",
+            "description": "An architectural flacon sculpted from heavyweight smoked French crystal, crowned with a 24-karat gold-gilded magnetic stopper. Each flacon is individually numbered.",
             "spec_1_label": "Vessel Architecture",
             "spec_1_val": "Smoked French crystal, 420g solid base",
             "spec_2_label": "The Stopper",
@@ -67,14 +67,10 @@
             "badge_text": "Limited Release • 500 Bottles Worldwide",
             "title": "Samay Extrait de Parfum",
             "subtitle": "Batch No. 01 — Rare Harvest",
-            "price": "$280",
-            "compare_at_price": "$340",
-            "price_50ml": "$190",
+            "price": "₹22,500",
+            "compare_at_price": "₹26,000",
+            "price_50ml": "₹14,800",
             "volume": "100 ML — 3.4 FL. OZ.",
-            "cta_label": "Acquire The Flacon",
-            "cta_url": "/products/samay-extrait-de-parfum",
-            "secondary_cta_label": "Request Discovery Set",
-            "secondary_cta_url": "/pages/discovery-set",
             "inclusion_1": "Complimentary 5ml discovery vial included",
             "inclusion_2": "Wax-sealed certificate of authenticity",
             "inclusion_3": "White-glove climate-controlled shipping"
@@ -104,10 +100,47 @@
             "review_3_badge": "Fragrance of the Year Mention"
           }
         },
+        "faq-block": {
+          "type": "faq",
+          "settings": {
+            "eyebrow": "Inquiries & Guidance",
+            "heading": "Frequently Asked Questions",
+            "subtext": "Everything you need to know regarding our extraits, maceration protocols, and bespoke deliveries.",
+            "q1": "How long does the fragrance last?",
+            "a1": "Samay is formulated at an Extrait concentration with 30% pure perfume oil. A single application delivers 12 to 16+ hours of projection on skin, and will gently linger on fine textiles like wool and cashmere for several days.",
+            "q2": "Is it unisex?",
+            "a2": "Yes. Samay is composed without traditional gender boundaries. The harmonic balance of crisp bergamot, Assam agarwood, Mysore sandalwood, and birch tar evolves dynamically with the natural chemistry and warmth of your skin.",
+            "q3": "Shipping time and cost?",
+            "a3": "We offer complimentary express shipping across India, delivered securely within 2-4 business days. International deliveries are handled via DHL Express with all applicable duties and taxes calculated transparently at checkout.",
+            "q4": "Return policy?",
+            "a4": "Every flacon arrives with a complimentary 5ml discovery vial. We encourage you to experience the vial first. If you decide the fragrance is not for you, you may return the unopened, intact full-size flacon within 14 days for a full refund.",
+            "q5": "Is it authentic and batch-numbered?",
+            "a5": "Every flacon is individually numbered, hand-filled, and arrives sealed with a wax-stamped certificate of origin, detailing the harvest year, distillation date, and flacon serial number.",
+            "q6": "How to store it?",
+            "a6": "To protect the pure resins and organic maceration, keep your flacon in a cool, shaded environment away from direct sunlight and sharp fluctuations in temperature or humidity."
+          }
+        },
+        "contact-block": {
+          "type": "contact",
+          "settings": {
+            "eyebrow": "Direct Concierge",
+            "heading": "Connect with the House",
+            "subtext": "Our concierge is at your service for bespoke inquiries, private appointments, and flacon reservations.",
+            "whatsapp_number": "919876543210",
+            "whatsapp_message": "Hello Samay Parfumes, I would like to inquire about acquiring a flacon.",
+            "concierge_email": "concierge@samayparfumes.com",
+            "concierge_phone": "+91 (0) 11 4982 7700",
+            "concierge_city": "New Delhi • Paris • Grasse",
+            "instagram_url": "https://instagram.com/samayparfumes"
+          }
+        },
         "footer-block": {
           "type": "footer_panel",
           "settings": {
-            "heading": "Begin the Journey"
+            "brand_name": "Samay Parfumes",
+            "tagline": "Time Captured in Scent",
+            "atelier_text": "Fine Fragrances Distilled in Grasse & New Delhi • Limited Edition Extraits",
+            "instagram_url": "https://instagram.com/samayparfumes"
           }
         }
       },
@@ -117,6 +150,8 @@
         "notes-block",
         "product-block",
         "reviews-block",
+        "faq-block",
+        "contact-block",
         "footer-block"
       ],
       "settings": {

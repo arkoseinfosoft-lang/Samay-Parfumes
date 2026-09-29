@@ -1,13 +1,16 @@
 {%- comment -%}
   samay-horizontal.liquid
-  Samay Parfumes — Luxury horizontal scroll experience
+  Samay Parfumes — Luxury horizontal scroll experience & Complete Brand Storefront
   Block-based schema so panels are reorderable in the theme editor.
 {%- endcomment -%}
 
 {%- liquid
-  assign num_panels = section.blocks.size | default: 6
+  assign num_panels = section.blocks.size | default: 8
   assign label_url  = 'label.webp'  | asset_url
   assign ref_url    = 'bottle-ref.webp' | asset_url
+  assign format_tag = 'amount'
+  assign format_fallback = '₹{{' | append: format_tag | append: '}}'
+  assign shop_format = shop.money_format | default: format_fallback
 -%}
 
 {{- 'samay.css' | asset_url | stylesheet_tag -}}
@@ -32,6 +35,7 @@
     numPanels:  {{ num_panels }},
     labelUrl:   {{ label_url | json }},
     refUrl:     {{ ref_url   | json }},
+    moneyFormat: {{ shop_format | json }}
   };
 </script>
 
@@ -73,7 +77,283 @@
   <div class="scroll-hint-line"></div>
 </div>
 
-{%- comment -%} ── Root / Track ── {%- endcomment -%}
+{%- comment -%} ════════════════════════════════════════════════
+    FIXED MINIMAL NAVIGATION
+    ════════════════════════════════════════════════ {%- endcomment -%}
+<header id="samay-nav" class="samay-nav" role="banner">
+  <div class="samay-nav-container">
+    <div class="nav-left">
+      <a href="#home" class="nav-logo" aria-label="{{ section.settings.brand_name | default: 'Samay Parfumes' }} Home">
+        <span class="nav-logo-text">{{ section.settings.brand_name | default: 'SAMAY' }}</span>
+        <span class="nav-logo-sub">PARFUMES</span>
+      </a>
+    </div>
+
+    <div class="nav-center" aria-hidden="true">
+      <span class="nav-chapter-indicator" id="nav-chapter-indicator">01 / OUVERTURE</span>
+    </div>
+
+    <div class="nav-right">
+      <button
+        type="button"
+        id="nav-cart-btn"
+        class="nav-icon-btn nav-cart-btn"
+        aria-label="Open Shopping Bag ({{ cart.item_count }} items)"
+        aria-controls="samay-cart-drawer"
+        aria-expanded="false"
+      >
+        <span class="cart-btn-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+          </svg>
+        </span>
+        <span class="nav-cart-badge" id="nav-cart-count">{{ cart.item_count }}</span>
+      </button>
+
+      <button
+        type="button"
+        id="nav-menu-toggle"
+        class="nav-menu-toggle"
+        aria-label="Toggle navigation menu"
+        aria-controls="samay-menu-overlay"
+        aria-expanded="false"
+      >
+        <span class="menu-toggle-box">
+          <span class="menu-toggle-line menu-toggle-line--top"></span>
+          <span class="menu-toggle-line menu-toggle-line--bottom"></span>
+        </span>
+        <span class="menu-toggle-label">MENU</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+{%- comment -%} ════════════════════════════════════════════════
+    FULL-SCREEN NUMBERED MENU OVERLAY
+    ════════════════════════════════════════════════ {%- endcomment -%}
+<div id="samay-menu-overlay" class="samay-menu-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Main Navigation">
+  <div class="menu-overlay-backdrop" aria-hidden="true"></div>
+  <div class="menu-overlay-inner">
+    <div class="menu-header">
+      <span class="menu-brand">{{ section.settings.brand_name | default: 'SAMAY' }}</span>
+      <button type="button" id="menu-close-btn" class="menu-close-btn" aria-label="Close menu">
+        <span class="close-icon" aria-hidden="true">✕</span>
+        <span class="close-label">CLOSE</span>
+      </button>
+    </div>
+
+    <nav class="menu-nav-list" role="navigation" aria-label="Site Chapters">
+      <ul class="menu-items">
+        <li class="menu-item" style="--mi: 0">
+          <a href="#home" data-anchor="home" data-panel-index="0" class="menu-link">
+            <span class="menu-link-num">01</span>
+            <span class="menu-link-title">HOME</span>
+            <span class="menu-link-desc">Ouverture & Scent</span>
+          </a>
+        </li>
+        <li class="menu-item" style="--mi: 1">
+          <a href="#about" data-anchor="about" data-panel-index="1" class="menu-link">
+            <span class="menu-link-num">02</span>
+            <span class="menu-link-title">ABOUT</span>
+            <span class="menu-link-desc">Heritage & Silence</span>
+          </a>
+        </li>
+        <li class="menu-item" style="--mi: 2">
+          <a href="#notes" data-anchor="notes" data-panel-index="2" class="menu-link">
+            <span class="menu-link-num">03</span>
+            <span class="menu-link-title">NOTES</span>
+            <span class="menu-link-desc">Living Olfactory Accord</span>
+          </a>
+        </li>
+        <li class="menu-item" style="--mi: 3">
+          <a href="#bottle" data-anchor="bottle" data-panel-index="3" class="menu-link">
+            <span class="menu-link-num">04</span>
+            <span class="menu-link-title">THE BOTTLE</span>
+            <span class="menu-link-desc">Smoked Crystal Flacon</span>
+          </a>
+        </li>
+        <li class="menu-item" style="--mi: 4">
+          <a href="#reviews" data-anchor="reviews" data-panel-index="4" class="menu-link">
+            <span class="menu-link-num">05</span>
+            <span class="menu-link-title">REVIEWS</span>
+            <span class="menu-link-desc">Critical Acclaim & Voices</span>
+          </a>
+        </li>
+        <li class="menu-item" style="--mi: 5">
+          <a href="#faq" data-anchor="faq" data-panel-index="5" class="menu-link">
+            <span class="menu-link-num">06</span>
+            <span class="menu-link-title">FAQ</span>
+            <span class="menu-link-desc">Inquiries & Guidance</span>
+          </a>
+        </li>
+        <li class="menu-item" style="--mi: 6">
+          <a href="#contact" data-anchor="contact" data-panel-index="6" class="menu-link">
+            <span class="menu-link-num">07</span>
+            <span class="menu-link-title">CONTACT</span>
+            <span class="menu-link-desc">Direct Concierge</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="menu-footer">
+      <div class="menu-footer-contact">
+        <span class="mfc-label">CONCIERGE</span>
+        <a href="mailto:concierge@samayparfumes.com" class="mfc-link">concierge@samayparfumes.com</a>
+      </div>
+      <div class="menu-footer-social">
+        <a href="https://instagram.com/samayparfumes" target="_blank" rel="noopener" class="mfs-link">INSTAGRAM</a>
+        <span class="mfs-sep">•</span>
+        <a href="#home" class="mfs-link">ATELIER</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{%- comment -%} ════════════════════════════════════════════════
+    SLIDE-OUT CART DRAWER (Shopify AJAX Cart API)
+    ════════════════════════════════════════════════ {%- endcomment -%}
+<div id="samay-cart-drawer" class="samay-cart-drawer" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Shopping Bag">
+  <div id="cart-drawer-backdrop" class="cart-drawer-backdrop" aria-hidden="true"></div>
+  <aside class="cart-drawer-panel">
+    <header class="cart-drawer-header">
+      <div class="cart-header-title-wrap">
+        <h2 class="cart-drawer-title">Shopping Bag</h2>
+        <span class="cart-drawer-count" id="cart-drawer-header-count">({{ cart.item_count }})</span>
+      </div>
+      <button type="button" id="cart-drawer-close" class="cart-drawer-close-btn" aria-label="Close cart">
+        <span aria-hidden="true">✕</span>
+      </button>
+    </header>
+
+    <div class="cart-drawer-shipping-notice">
+      <span class="shipping-icon" aria-hidden="true">◆</span>
+      <span>Complimentary White-Glove Express Shipping Included</span>
+    </div>
+
+    <div class="cart-drawer-body" id="cart-drawer-body">
+      {%- if cart.item_count == 0 -%}
+        <div class="cart-empty-state">
+          <p class="cart-empty-text">Your selection is currently empty.</p>
+          <a href="#bottle" class="cart-empty-cta" id="cart-empty-discover-btn">Explore The Flacon</a>
+        </div>
+      {%- else -%}
+        <div class="cart-items-list" id="cart-items-list">
+          {%- for item in cart.items -%}
+            <div class="cart-item-row" data-line="{{ forloop.index }}" data-key="{{ item.key }}">
+              <div class="cart-item-thumb">
+                {%- if item.image -%}
+                  <img src="{{ item.image | image_url: width: 140 }}" alt="{{ item.title | escape }}" width="70" height="70" loading="lazy">
+                {%- else -%}
+                  <div class="cart-item-thumb-placeholder">S</div>
+                {%- endif -%}
+              </div>
+              <div class="cart-item-details">
+                <h3 class="cart-item-title">{{ item.product.title }}</h3>
+                {%- unless item.product.has_only_default_variant -%}
+                  <span class="cart-item-variant">{{ item.variant.title }}</span>
+                {%- endunless -%}
+                <div class="cart-item-price-row">
+                  <span class="cart-item-price">{{ item.final_line_price | money }}</span>
+                  <div class="cart-item-qty-wrap">
+                    <button type="button" class="cart-qty-btn cart-qty-minus" data-key="{{ item.key }}" data-qty="{{ item.quantity | minus: 1 }}" aria-label="Decrease quantity">−</button>
+                    <span class="cart-qty-value">{{ item.quantity }}</span>
+                    <button type="button" class="cart-qty-btn cart-qty-plus" data-key="{{ item.key }}" data-qty="{{ item.quantity | plus: 1 }}" aria-label="Increase quantity">+</button>
+                  </div>
+                </div>
+              </div>
+              <button type="button" class="cart-item-remove" data-key="{{ item.key }}" aria-label="Remove item">
+                <span aria-hidden="true">✕</span>
+              </button>
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <footer class="cart-drawer-footer">
+      <div class="cart-subtotal-row">
+        <span class="cart-subtotal-label">Subtotal</span>
+        <span class="cart-subtotal-amount" id="cart-drawer-subtotal">{{ cart.total_price | money }}</span>
+      </div>
+      <p class="cart-taxes-note">Duties and taxes calculated during secure checkout.</p>
+      <a href="/checkout" class="cart-checkout-btn" id="cart-drawer-checkout-btn">
+        <span>Proceed to Checkout</span>
+        <span class="checkout-arrow" aria-hidden="true">→</span>
+      </a>
+    </footer>
+  </aside>
+</div>
+
+{%- comment -%} ════════════════════════════════════════════════
+    POLICY MODAL (Shipping, Refund, Privacy, Terms)
+    ════════════════════════════════════════════════ {%- endcomment -%}
+<div id="samay-policy-modal" class="samay-policy-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="policy-modal-title">
+  <div class="policy-modal-backdrop" id="policy-modal-backdrop" aria-hidden="true"></div>
+  <div class="policy-modal-dialog">
+    <header class="policy-modal-header">
+      <h2 id="policy-modal-title" class="policy-modal-title">Policy</h2>
+      <button type="button" id="policy-modal-close" class="policy-modal-close-btn" aria-label="Close dialog">
+        <span aria-hidden="true">✕</span>
+      </button>
+    </header>
+    <div id="policy-modal-content" class="policy-modal-content">
+      {%- comment -%} Dynamically populated via JS {%- endcomment -%}
+    </div>
+  </div>
+</div>
+
+{%- comment -%} Hidden templates for shop policies {%- endcomment -%}
+<div id="policy-data-templates" style="display:none;" aria-hidden="true">
+  <div id="policy-template-shipping" data-title="Shipping Policy">
+    {%- if shop.shipping_policy.body != blank -%}
+      {{ shop.shipping_policy.body }}
+    {%- else -%}
+      <h3>Complimentary White-Glove Dispatch</h3>
+      <p>All flacons from the House of Samay are protected in temperature-regulated, shock-absorbing presentation boxes. We provide complimentary express courier delivery across India, dispatched within 24 hours of order receipt.</p>
+      <p>Domestic transit typically requires 2 to 4 business days. Real-time satellite tracking and digital delivery verification will be transmitted via SMS and email.</p>
+      <h3>International Allocations</h3>
+      <p>International shipments are handled via DHL Express Worldwide. Applicable duties, taxes, and customs inspections are calculated transparently during checkout.</p>
+    {%- endif -%}
+  </div>
+
+  <div id="policy-template-refund" data-title="Refund &amp; Return Policy">
+    {%- if shop.refund_policy.body != blank -%}
+      {{ shop.refund_policy.body }}
+    {%- else -%}
+      <h3>The 14-Day Discovery Guarantee</h3>
+      <p>Every Samay Extrait de Parfum flacon arrives with a complimentary 5ml discovery vial. We cordially invite you to experience the fragrance from the miniature vial first.</p>
+      <p>Should the composition not completely align with your desires, you may return the unopened, sealed full-sized flacon within 14 days of receipt for an immediate, full refund.</p>
+      <p>To initiate a return, contact our private concierge at <a href="mailto:concierge@samayparfumes.com">concierge@samayparfumes.com</a> with your order number.</p>
+    {%- endif -%}
+  </div>
+
+  <div id="policy-template-privacy" data-title="Privacy Policy">
+    {%- if shop.privacy_policy.body != blank -%}
+      {{ shop.privacy_policy.body }}
+    {%- else -%}
+      <h3>Discretion &amp; Confidentiality</h3>
+      <p>At Samay Parfumes, client discretion is paramount. We collect personal contact and shipping information solely to fulfill orders, provide concierge support, and issue certificates of authenticity.</p>
+      <p>We do not sell, rent, or trade client dossiers to third parties. All transactional records and payment tokens are processed via 256-bit encrypted banking gateways.</p>
+    {%- endif -%}
+  </div>
+
+  <div id="policy-template-terms" data-title="Terms of Service">
+    {%- if shop.terms_of_service.body != blank -%}
+      {{ shop.terms_of_service.body }}
+    {%- else -%}
+      <h3>Atelier Terms</h3>
+      <p>Each release from Samay Parfumes is distilled in limited artisan batches. Due to rare botanical harvests and natural maceration variables, subtle chromatic and accord differences between production runs may occur and represent the mark of genuine artisan perfumery.</p>
+      <p>All bottle architecture, visual assets, olfactory formulations, and brand trademarks remain the exclusive intellectual property of Samay Parfumes.</p>
+    {%- endif -%}
+  </div>
+</div>
+
+{%- comment -%} ════════════════════════════════════════════════
+    ROOT / HORIZONTAL TRACK & PANELS
+    ════════════════════════════════════════════════ {%- endcomment -%}
 <div id="samay-root" class="full-width" role="main">
   <div id="samay-track-outer">
     <div id="samay-track">
@@ -83,10 +363,12 @@
         {%- assign panel_num   = forloop.index -%}
 
         {%- if block.type == 'hero' -%}
-          {%- comment -%} ═══ PANEL 1: HERO ═══ {%- endcomment -%}
+          {%- comment -%} ═══ PANEL 1: HERO (#home) ═══ {%- endcomment -%}
           <section
+            id="home"
             class="samay-panel panel-hero"
             data-panel="{{ panel_index }}"
+            data-anchor="home"
             {{ block.shopify_attributes }}
             aria-label="Hero — {{ block.settings.heading | default: 'Samay Parfumes' }}"
           >
@@ -95,8 +377,6 @@
 
               <h1 class="hero-heading" aria-label="{{ block.settings.heading | default: 'Time Captured in Scent' }}">
                 {%- assign heading_words = block.settings.heading | default: 'Time Captured in Scent' | split: ' ' -%}
-                {%- assign line_groups = '' | split: '' -%}
-                {%- comment -%} Split heading into lines of ~2 words each {%- endcomment -%}
                 {%- assign word_count = heading_words.size -%}
                 {%- if word_count <= 2 -%}
                   <span class="line">
@@ -133,29 +413,32 @@
 
               <p class="hero-sub">{{ block.settings.subtext | default: 'A rare alchemy of ancient woods, sacred resins and the golden hour — distilled into a single breath.' }}</p>
 
-              <a
-                href="{{ block.settings.cta_url | default: '/collections/all' }}"
-                class="hero-cta"
-                aria-label="{{ block.settings.cta_label | default: 'Explore Collection' }}"
-              >
-                <span>{{ block.settings.cta_label | default: 'Explore Collection' }}</span>
-                <span class="cta-arrow" aria-hidden="true"></span>
-              </a>
+              <div class="hero-cta-wrap">
+                <a
+                  href="#bottle"
+                  class="hero-cta"
+                  data-nav-target="bottle"
+                  aria-label="{{ block.settings.cta_label | default: 'Acquire The Flacon' }}"
+                >
+                  <span>{{ block.settings.cta_label | default: 'Acquire The Flacon' }}</span>
+                  <span class="cta-arrow" aria-hidden="true">→</span>
+                </a>
+              </div>
             </div>
           </section>
 
         {%- elsif block.type == 'story' -%}
-          {%- comment -%} ═══ PANEL 2: STORY ═══ {%- endcomment -%}
+          {%- comment -%} ═══ PANEL 2: STORY (#about) ═══ {%- endcomment -%}
           <section
+            id="about"
             class="samay-panel panel-story"
             data-panel="{{ panel_index }}"
+            data-anchor="about"
             {{ block.shopify_attributes }}
             aria-label="Story — {{ block.settings.heading | default: 'Our Story' }}"
           >
-            {%- comment -%} Chapter number — decorative back-plane text {%- endcomment -%}
             <span class="story-chapter-bg" aria-hidden="true">02</span>
 
-            {%- comment -%} Left col — text content {%- endcomment -%}
             <div class="story-content" data-story-reveal>
               <header class="story-header">
                 <span class="story-eyebrow">{{ block.settings.eyebrow | default: 'The Origin' }}</span>
@@ -174,7 +457,6 @@
                 <p class="story-p">{{ block.settings.paragraph_3 | default: 'Every bottle holds a specific hour — not just a fragrance. An atmosphere you can return to.' }}</p>
               </div>
 
-              {%- comment -%} Timeline milestones {%- endcomment -%}
               <ol class="story-timeline" aria-label="Brand milestones">
                 <li class="story-milestone">
                   <span class="milestone-year">{{ block.settings.milestone_1_year | default: '2018' }}</span>
@@ -195,7 +477,8 @@
 
               {%- if block.settings.cta_label != blank -%}
                 <a
-                  href="{{ block.settings.cta_url | default: '/pages/about' }}"
+                  href="#notes"
+                  data-nav-target="notes"
                   class="story-cta"
                   aria-label="{{ block.settings.cta_label }}"
                 >
@@ -205,7 +488,6 @@
               {%- endif -%}
             </div>
 
-            {%- comment -%} Right col — atmospheric image / decorative {%- endcomment -%}
             <div class="story-visual" aria-hidden="true" data-story-visual>
               <div class="story-visual-inner">
                 {%- if block.settings.image != blank -%}
@@ -221,7 +503,6 @@
                     class="story-img"
                   >
                 {%- else -%}
-                  {%- comment -%} Decorative SVG / CSS art when no image is set {%- endcomment -%}
                   <div class="story-art">
                     <div class="art-circle art-circle--lg"></div>
                     <div class="art-circle art-circle--md"></div>
@@ -240,17 +521,17 @@
           </section>
 
         {%- elsif block.type == 'notes' -%}
-          {%- comment -%} ═══ PANEL 3: FRAGRANCE NOTES ═══ {%- endcomment -%}
+          {%- comment -%} ═══ PANEL 3: FRAGRANCE NOTES (#notes) ═══ {%- endcomment -%}
           <section
+            id="notes"
             class="samay-panel panel-notes"
             data-panel="{{ panel_index }}"
+            data-anchor="notes"
             {{ block.shopify_attributes }}
             aria-label="Fragrance Notes"
           >
-            {%- comment -%} Ghost chapter number {%- endcomment -%}
             <span class="notes-chapter-bg" aria-hidden="true">03</span>
 
-            {%- comment -%} Left col — intro {%- endcomment -%}
             <div class="notes-intro" data-notes-reveal>
               <span class="notes-eyebrow">{{ block.settings.eyebrow | default: 'The Composition' }}</span>
               <h2 class="notes-heading">
@@ -262,17 +543,13 @@
               <div class="notes-rule" aria-hidden="true"></div>
               <p class="notes-desc">{{ block.settings.description | default: 'A compound of 1000 g, matured in ethanol and rare musks. Every element chosen for the hour it inhabits.' }}</p>
 
-              {%- comment -%} Concentration tag {%- endcomment -%}
               <div class="notes-concentration">
                 <span class="conc-label">{{ block.settings.concentration_label | default: 'Concentration' }}</span>
                 <span class="conc-value">{{ block.settings.concentration | default: 'Eau de Parfum Intense' }}</span>
               </div>
             </div>
 
-            {%- comment -%} Right col — pyramid tiers {%- endcomment -%}
             <div class="notes-pyramid" aria-label="Fragrance pyramid" data-notes-reveal>
-
-              {%- comment -%} TOP TIER {%- endcomment -%}
               <div class="notes-tier notes-tier--top" data-tier="top">
                 <div class="tier-meta">
                   <span class="tier-arc" aria-hidden="true"></span>
@@ -289,7 +566,6 @@
                 </ol>
               </div>
 
-              {%- comment -%} HEART TIER {%- endcomment -%}
               <div class="notes-tier notes-tier--heart" data-tier="heart">
                 <div class="tier-meta">
                   <span class="tier-arc" aria-hidden="true"></span>
@@ -306,7 +582,6 @@
                 </ol>
               </div>
 
-              {%- comment -%} BASE TIER {%- endcomment -%}
               <div class="notes-tier notes-tier--base" data-tier="base">
                 <div class="tier-meta">
                   <span class="tier-arc" aria-hidden="true"></span>
@@ -322,24 +597,36 @@
                   {%- endfor -%}
                 </ol>
               </div>
-
-            </div>{%- comment -%}.notes-pyramid{%- endcomment -%}
+            </div>
           </section>
 
         {%- elsif block.type == 'product' -%}
-          {%- comment -%} ═══ PANEL 4: THE BOTTLE / PRODUCT ═══ {%- endcomment -%}
+          {%- comment -%} ═══ PANEL 4: THE BOTTLE / PRODUCT (#bottle) ═══ {%- endcomment -%}
+          {%- liquid
+            assign featured_product = block.settings.featured_product
+            if featured_product != blank
+              assign product_obj = featured_product
+              assign current_variant = product_obj.selected_or_first_available_variant
+              assign product_price = current_variant.price | money
+              assign product_compare = current_variant.compare_at_price | money
+              assign variant_id_val = current_variant.id
+            else
+              assign product_price = block.settings.price | default: '₹22,500'
+              assign product_compare = block.settings.compare_at_price | default: '₹26,000'
+              assign variant_id_val = ''
+            endif
+          -%}
           <section
+            id="bottle"
             class="samay-panel panel-product"
             data-panel="{{ panel_index }}"
+            data-anchor="bottle"
             {{ block.shopify_attributes }}
             aria-label="The Bottle — {{ block.settings.title | default: 'Samay Extrait de Parfum' }}"
           >
-            {%- comment -%} Ghost chapter number {%- endcomment -%}
             <span class="product-chapter-bg" aria-hidden="true">04</span>
 
             <div class="product-layout" data-product-reveal>
-
-              {%- comment -%} ── LEFT FLANK: Craftsmanship & Specs ── {%- endcomment -%}
               <div class="product-flank product-flank--specs">
                 <header class="product-header">
                   <span class="product-eyebrow">{{ block.settings.eyebrow | default: 'The Artifact' }}</span>
@@ -352,7 +639,7 @@
                   <div class="product-rule" aria-hidden="true"></div>
                 </header>
 
-                <p class="product-desc">{{ block.settings.description | default: 'An architectural flacon sculpted from heavyweight smoked French glass, crowned with a 24-karat gold-gilded magnetic stopper. Each flacon is individually numbered.' }}</p>
+                <p class="product-desc">{{ block.settings.description | default: 'An architectural flacon sculpted from heavyweight smoked French crystal, crowned with a 24-karat gold-gilded magnetic stopper. Each flacon is individually numbered.' }}</p>
 
                 <div class="product-specs-list" aria-label="Flacon specifications">
                   <div class="product-spec-item" style="--psi:0">
@@ -374,7 +661,6 @@
                 </div>
               </div>
 
-              {%- comment -%} ── CENTER STAGE: 3D Bottle Reticle & Spatial Framing ── {%- endcomment -%}
               <div class="product-stage" aria-hidden="true">
                 <div class="stage-reticle">
                   <div class="reticle-circle reticle-circle--outer"></div>
@@ -388,9 +674,8 @@
                 </div>
               </div>
 
-              {%- comment -%} ── RIGHT FLANK: Commerce & Acquisition Card ── {%- endcomment -%}
               <div class="product-flank product-flank--commerce">
-                <div class="product-card">
+                <div class="product-card" id="samay-product-card" data-variant-id="{{ variant_id_val }}">
                   {%- if block.settings.badge_text != blank -%}
                     <div class="product-badge-wrap">
                       <span class="product-badge">
@@ -407,15 +692,14 @@
 
                   <div class="product-price-row">
                     <div class="price-stack">
-                      <span class="product-price" data-price-display>{{ block.settings.price | default: '$280' }}</span>
-                      {%- if block.settings.compare_at_price != blank -%}
-                        <span class="product-compare-price">{{ block.settings.compare_at_price }}</span>
+                      <span class="product-price" data-price-display>{{ product_price }}</span>
+                      {%- if product_compare != blank -%}
+                        <span class="product-compare-price">{{ product_compare }}</span>
                       {%- endif -%}
                     </div>
                     <span class="product-volume" data-volume-display>{{ block.settings.volume | default: '100 ML — 3.4 FL. OZ.' }}</span>
                   </div>
 
-                  {%- comment -%} Volume / Size Selector {%- endcomment -%}
                   <div class="product-size-selector" role="group" aria-label="Select Volume">
                     <span class="selector-label">Volume:</span>
                     <div class="size-options">
@@ -423,7 +707,7 @@
                         type="button"
                         class="size-pill is-selected"
                         data-size="100ml"
-                        data-price="{{ block.settings.price | default: '$280' }}"
+                        data-price="{{ product_price }}"
                         data-volume="100 ML — 3.4 FL. OZ."
                         aria-pressed="true"
                       >
@@ -433,7 +717,7 @@
                         type="button"
                         class="size-pill"
                         data-size="50ml"
-                        data-price="{{ block.settings.price_50ml | default: '$190' }}"
+                        data-price="{{ block.settings.price_50ml | default: '₹14,800' }}"
                         data-volume="50 ML — 1.7 FL. OZ."
                         aria-pressed="false"
                       >
@@ -442,31 +726,28 @@
                     </div>
                   </div>
 
-                  {%- comment -%} Action CTAs {%- endcomment -%}
-                  <div class="product-cta-group">
-                    <a
-                      href="{{ block.settings.cta_url | default: '/products/samay-extrait-de-parfum' }}"
+                  <div class="product-action-buttons">
+                    <button
+                      type="button"
                       class="product-primary-cta"
-                      aria-label="{{ block.settings.cta_label | default: 'Acquire The Flacon' }}"
+                      id="samay-add-to-cart-btn"
+                      aria-label="Add to cart"
                     >
                       <span class="cta-glow-line" aria-hidden="true"></span>
-                      <span class="cta-text">{{ block.settings.cta_label | default: 'Acquire The Flacon' }}</span>
-                      <span class="cta-arrow" aria-hidden="true"></span>
-                    </a>
+                      <span class="cta-text">Add to Shopping Bag</span>
+                      <span class="cta-arrow" aria-hidden="true">→</span>
+                    </button>
 
-                    {%- if block.settings.secondary_cta_label != blank -%}
-                      <a
-                        href="{{ block.settings.secondary_cta_url | default: '/pages/discovery-set' }}"
-                        class="product-secondary-cta"
-                        aria-label="{{ block.settings.secondary_cta_label }}"
-                      >
-                        <span>{{ block.settings.secondary_cta_label }}</span>
-                        <span class="secondary-cta-arrow" aria-hidden="true">→</span>
-                      </a>
-                    {%- endif -%}
+                    <button
+                      type="button"
+                      class="product-buy-now-btn"
+                      id="samay-buy-now-btn"
+                      aria-label="Buy now, proceed directly to checkout"
+                    >
+                      <span>Buy Now</span>
+                    </button>
                   </div>
 
-                  {%- comment -%} Luxury Assurances / Inclusions {%- endcomment -%}
                   <div class="product-inclusions" aria-label="Purchase guarantees">
                     {%- if block.settings.inclusion_1 != blank -%}
                       <div class="inclusion-row">
@@ -488,26 +769,24 @@
                     {%- endif -%}
                   </div>
 
-                </div>{%- comment -%}.product-card{%- endcomment -%}
-              </div>{%- comment -%}.product-flank--commerce{%- endcomment -%}
-
-            </div>{%- comment -%}.product-layout{%- endcomment -%}
+                </div>
+              </div>
+            </div>
           </section>
 
         {%- elsif block.type == 'reviews' -%}
-          {%- comment -%} ═══ PANEL 5: REVIEWS / VOICES ═══ {%- endcomment -%}
+          {%- comment -%} ═══ PANEL 5: REVIEWS / VOICES (#reviews) ═══ {%- endcomment -%}
           <section
+            id="reviews"
             class="samay-panel panel-reviews"
             data-panel="{{ panel_index }}"
+            data-anchor="reviews"
             {{ block.shopify_attributes }}
             aria-label="Voices — {{ block.settings.heading | default: 'Voices in Reverie' }}"
           >
-            {%- comment -%} Ghost chapter number {%- endcomment -%}
             <span class="reviews-chapter-bg" aria-hidden="true">05</span>
 
             <div class="reviews-layout" data-reviews-reveal>
-
-              {%- comment -%} ── LEFT: Editorial Intro & Score ── {%- endcomment -%}
               <div class="reviews-editorial">
                 <header class="reviews-header">
                   <span class="reviews-eyebrow">{{ block.settings.eyebrow | default: 'Critical Acclaim' }}</span>
@@ -522,7 +801,6 @@
 
                 <p class="reviews-desc">{{ block.settings.description | default: 'Words from collectors, perfumers, and quiet observers who have made Samay their signature hour.' }}</p>
 
-                {%- comment -%} Score Card {%- endcomment -%}
                 <div class="reviews-score-badge">
                   <div class="score-stars" aria-label="5 out of 5 stars">
                     <span class="star-icon">★</span>
@@ -538,14 +816,12 @@
                   </div>
                 </div>
 
-                {%- comment -%} Featured Press Quote {%- endcomment -%}
                 <blockquote class="reviews-press-quote">
                   <p class="press-text">“{{ block.settings.press_quote | default: 'A composition that does not merely enter a room — it quietly claims memory itself.' }}”</p>
                   <cite class="press-source">— {{ block.settings.press_source | default: 'Le Nez Critique, Paris' }}</cite>
                 </blockquote>
               </div>
 
-              {%- comment -%} ── CENTER / RIGHT: Testimonial Cards Carousel ── {%- endcomment -%}
               <div class="reviews-carousel-col">
                 <div class="reviews-slider-card">
                   <div class="reviews-card-header">
@@ -558,8 +834,6 @@
                   </div>
 
                   <div class="reviews-slider-track">
-
-                    {%- comment -%} Card 1 {%- endcomment -%}
                     <article class="review-card is-active" data-index="0">
                       <div class="review-stars" aria-label="5 stars">★★★★★</div>
                       <p class="review-quote">{{ block.settings.review_1_text | default: 'The transition from the crisp bergamot to the smoky birch tar is intoxicating. It lingers on cashmere for days without ever feeling overpowering.' }}</p>
@@ -575,7 +849,6 @@
                       </footer>
                     </article>
 
-                    {%- comment -%} Card 2 {%- endcomment -%}
                     <article class="review-card" data-index="1">
                       <div class="review-stars" aria-label="5 stars">★★★★★</div>
                       <p class="review-quote">{{ block.settings.review_2_text | default: 'You can taste the authenticity of the Assam agarwood and Mysore sandalwood. Nothing synthetic. A masterclass in restraint and quiet luxury.' }}</p>
@@ -591,7 +864,6 @@
                       </footer>
                     </article>
 
-                    {%- comment -%} Card 3 {%- endcomment -%}
                     <article class="review-card" data-index="2">
                       <div class="review-stars" aria-label="5 stars">★★★★★</div>
                       <p class="review-quote">{{ block.settings.review_3_text | default: 'Rarely does a contemporary house achieve such timeless gravitas. Samay has bottled the quiet golden hour of twilight.' }}</p>
@@ -606,10 +878,8 @@
                         </span>
                       </footer>
                     </article>
+                  </div>
 
-                  </div>{%- comment -%}.reviews-slider-track{%- endcomment -%}
-
-                  {%- comment -%} Slider Navigation Controls {%- endcomment -%}
                   <div class="reviews-nav-bar">
                     <div class="review-dots" role="tablist" aria-label="Review pagination">
                       <button type="button" class="review-dot is-active" aria-label="Review 1" aria-pressed="true" data-index="0"></button>
@@ -626,32 +896,289 @@
                       </button>
                     </div>
                   </div>
+                </div>
+              </div>
 
-                </div>{%- comment -%}.reviews-slider-card{%- endcomment -%}
-              </div>{%- comment -%}.reviews-carousel-col{%- endcomment -%}
-
-              {%- comment -%} ── FAR RIGHT: Stage clearance for 3D bottle ── {%- endcomment -%}
               <div class="reviews-bottle-stage" aria-hidden="true">
                 <div class="bottle-glow-halo"></div>
               </div>
+            </div>
+          </section>
 
-            </div>{%- comment -%}.reviews-layout{%- endcomment -%}
+        {%- elsif block.type == 'faq' -%}
+          {%- comment -%} ═══ PANEL 6: FAQ ACCORDION (#faq) ═══ {%- endcomment -%}
+          <section
+            id="faq"
+            class="samay-panel panel-faq"
+            data-panel="{{ panel_index }}"
+            data-anchor="faq"
+            {{ block.shopify_attributes }}
+            aria-label="FAQ — {{ block.settings.heading | default: 'Frequently Asked Questions' }}"
+          >
+            <span class="faq-chapter-bg" aria-hidden="true">06</span>
+
+            <div class="faq-layout" data-faq-reveal>
+              <header class="faq-header">
+                <span class="faq-eyebrow">{{ block.settings.eyebrow | default: 'Inquiries & Guidance' }}</span>
+                <h2 class="faq-heading">{{ block.settings.heading | default: 'Frequently Asked Questions' }}</h2>
+                <div class="faq-rule" aria-hidden="true"></div>
+                {%- if block.settings.subtext != blank -%}
+                  <p class="faq-subtext">{{ block.settings.subtext }}</p>
+                {%- endif -%}
+              </header>
+
+              <div class="faq-accordion-container" role="region" aria-label="Questions list">
+                {%- for i in (1..6) -%}
+                  {%- assign q_key = 'q' | append: i -%}
+                  {%- assign a_key = 'a' | append: i -%}
+                  {%- assign question = block.settings[q_key] -%}
+                  {%- assign answer   = block.settings[a_key] -%}
+
+                  {%- if question != blank and answer != blank -%}
+                    <div class="faq-accordion-item{% if forloop.first %} is-open{% endif %}" data-faq-item>
+                      <button
+                        type="button"
+                        class="faq-accordion-header"
+                        aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}"
+                        aria-controls="faq-content-{{ block.id }}-{{ i }}"
+                        id="faq-header-{{ block.id }}-{{ i }}"
+                      >
+                        <span class="faq-item-num">0{{ i }}</span>
+                        <span class="faq-item-question">{{ question }}</span>
+                        <span class="faq-item-icon" aria-hidden="true"></span>
+                      </button>
+                      <div
+                        id="faq-content-{{ block.id }}-{{ i }}"
+                        class="faq-accordion-content"
+                        role="region"
+                        aria-labelledby="faq-header-{{ block.id }}-{{ i }}"
+                        {% unless forloop.first %}style="max-height:0;"{% endunless %}
+                      >
+                        <div class="faq-accordion-body">
+                          <p>{{ answer }}</p>
+                        </div>
+                      </div>
+                    </div>
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+            </div>
+          </section>
+
+        {%- elsif block.type == 'contact' -%}
+          {%- comment -%} ═══ PANEL 7: CONTACT (#contact) ═══ {%- endcomment -%}
+          <section
+            id="contact"
+            class="samay-panel panel-contact"
+            data-panel="{{ panel_index }}"
+            data-anchor="contact"
+            {{ block.shopify_attributes }}
+            aria-label="Contact — {{ block.settings.heading | default: 'Connect with the House' }}"
+          >
+            <span class="contact-chapter-bg" aria-hidden="true">07</span>
+
+            <div class="contact-layout" data-contact-reveal>
+              <div class="contact-col-info">
+                <header class="contact-header">
+                  <span class="contact-eyebrow">{{ block.settings.eyebrow | default: 'Direct Concierge' }}</span>
+                  <h2 class="contact-heading">{{ block.settings.heading | default: 'Connect with the House' }}</h2>
+                  <div class="contact-rule" aria-hidden="true"></div>
+                  <p class="contact-subtext">{{ block.settings.subtext | default: 'Our concierge is at your service for bespoke inquiries, private appointments, and flacon reservations.' }}</p>
+                </header>
+
+                <div class="contact-meta-list">
+                  {%- if block.settings.concierge_email != blank -%}
+                    <div class="contact-meta-item">
+                      <span class="meta-label">Email Concierge</span>
+                      <a href="mailto:{{ block.settings.concierge_email }}" class="meta-value">{{ block.settings.concierge_email }}</a>
+                    </div>
+                  {%- endif -%}
+
+                  {%- if block.settings.concierge_phone != blank -%}
+                    <div class="contact-meta-item">
+                      <span class="meta-label">Direct Line</span>
+                      <a href="tel:{{ block.settings.concierge_phone | replace: ' ', '' }}" class="meta-value">{{ block.settings.concierge_phone }}</a>
+                    </div>
+                  {%- endif -%}
+
+                  {%- if block.settings.concierge_city != blank -%}
+                    <div class="contact-meta-item">
+                      <span class="meta-label">Atelier</span>
+                      <span class="meta-value">{{ block.settings.concierge_city }}</span>
+                    </div>
+                  {%- endif -%}
+                </div>
+
+                {%- if block.settings.whatsapp_number != blank -%}
+                  <div class="contact-whatsapp-wrap">
+                    {%- assign wa_num = block.settings.whatsapp_number | replace: '+', '' | replace: ' ', '' | replace: '-', '' -%}
+                    {%- assign wa_msg = block.settings.whatsapp_message | default: 'Hello Samay Parfumes, I would like to inquire about the collection.' | url_encode -%}
+                    <a
+                      href="https://wa.me/{{ wa_num }}?text={{ wa_msg }}"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="contact-whatsapp-btn"
+                      aria-label="Connect via WhatsApp"
+                    >
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.668-.699c.969.529 1.772.78 2.792.78 3.182 0 5.768-2.587 5.768-5.766 0-3.18-2.586-5.766-5.768-5.766zm9.969 5.766c0 5.503-4.467 9.97-9.97 9.97-1.745 0-3.376-.452-4.796-1.242l-5.234 1.371 1.396-5.105c-.896-1.488-1.396-3.218-1.396-4.994 0-5.503 4.467-9.97 9.97-9.97 5.503 0 9.97 4.467 9.97 9.97z"/>
+                      </svg>
+                      <span>Chat on WhatsApp</span>
+                    </a>
+                  </div>
+                {%- endif -%}
+              </div>
+
+              <div class="contact-col-form">
+                <div class="contact-form-card">
+                  {%- form 'contact', id: 'SamayContactForm', class: 'samay-ajax-contact-form' -%}
+                    <div class="form-feedback-box" id="contact-form-feedback" aria-live="polite">
+                      {%- if form.posted_successfully? -%}
+                        <div class="form-status form-status--success">
+                          <span class="status-icon">✓</span>
+                          <span>Thank you. Your message has been received by our private concierge.</span>
+                        </div>
+                      {%- elsif form.errors -%}
+                        <div class="form-status form-status--error">
+                          <span class="status-icon">!</span>
+                          <span>Please verify your details: {{ form.errors | default_errors }}</span>
+                        </div>
+                      {%- endif -%}
+                    </div>
+
+                    <div class="form-row">
+                      <div class="form-field">
+                        <label for="ContactForm-name" class="form-label">Full Name</label>
+                        <input
+                          type="text"
+                          id="ContactForm-name"
+                          name="contact[name]"
+                          value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
+                          placeholder="Lord / Lady / Collector"
+                          class="form-input"
+                          required
+                        >
+                      </div>
+
+                      <div class="form-field">
+                        <label for="ContactForm-email" class="form-label">Email Address</label>
+                        <input
+                          type="email"
+                          id="ContactForm-email"
+                          name="contact[email]"
+                          value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+                          placeholder="client@domain.com"
+                          class="form-input"
+                          required
+                          spellcheck="false"
+                          autocomplete="email"
+                        >
+                      </div>
+                    </div>
+
+                    <div class="form-field">
+                      <label for="ContactForm-phone" class="form-label">Phone Number (Optional)</label>
+                      <input
+                        type="tel"
+                        id="ContactForm-phone"
+                        name="contact[phone]"
+                        value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}"
+                        placeholder="+91 00000 00000"
+                        class="form-input"
+                        autocomplete="tel"
+                      >
+                    </div>
+
+                    <div class="form-field">
+                      <label for="ContactForm-message" class="form-label">Your Message or Inquiry</label>
+                      <textarea
+                        id="ContactForm-message"
+                        name="contact[body]"
+                        rows="4"
+                        placeholder="Inquire about custom allocations, private discovery sessions, or international shipping..."
+                        class="form-textarea"
+                        required
+                      >{{ form.body }}</textarea>
+                    </div>
+
+                    <button type="submit" class="contact-submit-btn" id="contact-submit-btn">
+                      <span class="submit-text">Transmit Message</span>
+                      <span class="submit-arrow" aria-hidden="true">→</span>
+                    </button>
+                  {%- endform -%}
+                </div>
+              </div>
+            </div>
           </section>
 
         {%- elsif block.type == 'footer_panel' -%}
-          {%- comment -%} ═══ PANEL 6: FOOTER (placeholder) ═══ {%- endcomment -%}
+          {%- comment -%} ═══ PANEL 8: FOOTER (#footer) ═══ {%- endcomment -%}
           <section
-            class="samay-panel samay-panel--placeholder"
+            id="footer"
+            class="samay-panel panel-footer"
             data-panel="{{ panel_index }}"
+            data-anchor="footer"
             {{ block.shopify_attributes }}
-            aria-label="End"
+            aria-label="Footer &amp; Policies"
           >
-            <div class="panel-number" aria-hidden="true">0{{ panel_num }}</div>
-            <h2 class="panel-label">{{ block.settings.heading | default: 'Begin the Journey' }}</h2>
+            <span class="footer-chapter-bg" aria-hidden="true">08</span>
+
+            <div class="footer-panel-layout" data-footer-reveal>
+              <div class="footer-brand-stage">
+                <span class="footer-monogram" aria-hidden="true">S</span>
+                <h2 class="footer-brand-title">{{ block.settings.brand_name | default: 'SAMAY PARFUMES' }}</h2>
+                <p class="footer-brand-tagline">{{ block.settings.tagline | default: 'Time Captured in Scent' }}</p>
+                <div class="footer-rule" aria-hidden="true"></div>
+                <p class="footer-atelier-note">{{ block.settings.atelier_text | default: 'Fine Fragrances Distilled in Grasse &amp; New Delhi • Limited Edition Extraits' }}</p>
+              </div>
+
+              <div class="footer-links-grid">
+                <div class="footer-col">
+                  <span class="footer-col-heading">NAVIGATION</span>
+                  <ul class="footer-col-links">
+                    <li><a href="#home" data-nav-target="home">01 Home</a></li>
+                    <li><a href="#about" data-nav-target="about">02 About</a></li>
+                    <li><a href="#notes" data-nav-target="notes">03 Notes</a></li>
+                    <li><a href="#bottle" data-nav-target="bottle">04 The Bottle</a></li>
+                    <li><a href="#reviews" data-nav-target="reviews">05 Reviews</a></li>
+                    <li><a href="#faq" data-nav-target="faq">06 FAQ</a></li>
+                    <li><a href="#contact" data-nav-target="contact">07 Contact</a></li>
+                  </ul>
+                </div>
+
+                <div class="footer-col">
+                  <span class="footer-col-heading">LEGAL &amp; POLICIES</span>
+                  <ul class="footer-col-links">
+                    <li><button type="button" class="policy-link-btn" data-policy="shipping">Shipping Policy</button></li>
+                    <li><button type="button" class="policy-link-btn" data-policy="refund">Return &amp; Refund Policy</button></li>
+                    <li><button type="button" class="policy-link-btn" data-policy="privacy">Privacy Policy</button></li>
+                    <li><button type="button" class="policy-link-btn" data-policy="terms">Terms of Service</button></li>
+                  </ul>
+                </div>
+
+                <div class="footer-col">
+                  <span class="footer-col-heading">ATELIER SOCIAL</span>
+                  <ul class="footer-col-links">
+                    <li><a href="{{ block.settings.instagram_url | default: 'https://instagram.com/samayparfumes' }}" target="_blank" rel="noopener">Instagram</a></li>
+                    {%- if block.settings.twitter_url != blank -%}
+                      <li><a href="{{ block.settings.twitter_url }}" target="_blank" rel="noopener">Twitter / X</a></li>
+                    {%- endif -%}
+                    {%- if block.settings.facebook_url != blank -%}
+                      <li><a href="{{ block.settings.facebook_url }}" target="_blank" rel="noopener">Facebook</a></li>
+                    {%- endif -%}
+                    <li><a href="mailto:concierge@samayparfumes.com">Private Concierge</a></li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="footer-bottom-bar">
+                <span class="footer-copyright">&copy; {{ 'now' | date: '%Y' }} {{ block.settings.brand_name | default: 'Samay Parfumes' }}. All rights reserved.</span>
+                <span class="footer-craft">Hand-Distilled &amp; Authenticated</span>
+              </div>
+            </div>
           </section>
 
         {%- else -%}
-          {%- comment -%} Generic fallback block {%- endcomment -%}
           <section
             class="samay-panel samay-panel--placeholder"
             data-panel="{{ panel_index }}"
@@ -665,107 +1192,87 @@
 
       {%- endfor -%}
 
-    </div>{%- comment -%}#samay-track{%- endcomment -%}
-  </div>{%- comment -%}#samay-track-outer{%- endcomment -%}
-</div>{%- comment -%}#samay-root{%- endcomment -%}
+    </div>
+  </div>
+</div>
 
-{%- comment -%} ── Custom cursor script (inline, tiny) ── {%- endcomment -%}
-<script>
-(function() {
-  var cursor = document.getElementById('samay-cursor');
-  if (!cursor || window.matchMedia('(hover: none)').matches) return;
-  var mx = 0, my = 0;
-  document.addEventListener('mousemove', function(e) {
-    mx = e.clientX; my = e.clientY;
-    cursor.style.transform = 'translate3d(' + (mx - 6) + 'px,' + (my - 6) + 'px,0)';
-  });
-  document.querySelectorAll('a,button,[data-cursor]').forEach(function(el) {
-    el.addEventListener('mouseenter', function() { cursor.classList.add('hovering'); });
-    el.addEventListener('mouseleave', function() { cursor.classList.remove('hovering'); });
-  });
-  document.body.style.cursor = 'none';
-})();
-
-// Product volume / price pill switcher
-(function() {
-  document.addEventListener('click', function(e) {
-    var pill = e.target.closest('.size-pill');
-    if (!pill) return;
-    var group = pill.closest('.size-options');
-    if (group) {
-      group.querySelectorAll('.size-pill').forEach(function(b) {
-        b.classList.remove('is-selected');
-        b.setAttribute('aria-pressed', 'false');
-      });
-    }
-    pill.classList.add('is-selected');
-    pill.setAttribute('aria-pressed', 'true');
-    var card = pill.closest('.product-card');
-    if (card) {
-      var priceDisplay = card.querySelector('[data-price-display]');
-      var volumeDisplay = card.querySelector('[data-volume-display]');
-      if (priceDisplay && pill.getAttribute('data-price')) {
-        priceDisplay.textContent = pill.getAttribute('data-price');
-      }
-      if (volumeDisplay && pill.getAttribute('data-volume')) {
-        volumeDisplay.textContent = pill.getAttribute('data-volume');
-      }
-    }
-  });
-})();
-
-// Reviews card switcher
-(function() {
-  document.addEventListener('click', function(e) {
-    var prevBtn = e.target.closest('.review-nav-btn--prev');
-    var nextBtn = e.target.closest('.review-nav-btn--next');
-    var dot = e.target.closest('.review-dot');
-    var container = e.target.closest('.panel-reviews');
-    if (!container) return;
-    var cards = container.querySelectorAll('.review-card');
-    var dots = container.querySelectorAll('.review-dot');
-    var countEl = container.querySelector('.review-counter-current');
-    if (!cards.length) return;
-    
-    var currentIdx = 0;
-    cards.forEach(function(c, i) {
-      if (c.classList.contains('is-active')) currentIdx = i;
-    });
-
-    var targetIdx = currentIdx;
-    if (prevBtn) {
-      targetIdx = (currentIdx - 1 + cards.length) % cards.length;
-    } else if (nextBtn) {
-      targetIdx = (currentIdx + 1) % cards.length;
-    } else if (dot) {
-      targetIdx = parseInt(dot.getAttribute('data-index') || '0', 10);
-    } else {
-      return;
-    }
-
-    cards.forEach(function(c, i) {
-      c.classList.toggle('is-active', i === targetIdx);
-    });
-    dots.forEach(function(d, i) {
-      d.classList.toggle('is-active', i === targetIdx);
-      d.setAttribute('aria-pressed', i === targetIdx ? 'true' : 'false');
-    });
-    if (countEl) countEl.textContent = '0' + (targetIdx + 1);
-  });
-})();
+{%- comment -%} ════════════════════════════════════════════════
+    SEO STRUCTURED DATA (JSON-LD)
+    ════════════════════════════════════════════════ {%- endcomment -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Samay Parfumes",
+  "url": {{ shop.url | json }},
+  "logo": {{ 'label.webp' | asset_url | json }},
+  "description": "Artisan luxury fragrance house crafting rare extraits de parfum.",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "Concierge",
+    "email": "concierge@samayparfumes.com"
+  }
+}
 </script>
 
-{%- comment -%} ── Three.js scene ── {%- endcomment -%}
-<script src="{{ 'samay-3d.js' | asset_url }}" type="module"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "Samay Extrait de Parfum",
+  "image": {{ 'bottle-ref.webp' | asset_url | json }},
+  "description": "An architectural flacon sculpted from heavyweight smoked French crystal with a 24-karat gold-gilded magnetic stopper. 100 ML Eau de Parfum Intense.",
+  "brand": {
+    "@type": "Brand",
+    "name": "Samay Parfumes"
+  },
+  "offers": {
+    "@type": "Offer",
+    "url": {{ shop.url | json }},
+    "priceCurrency": {{ cart.currency.iso_code | default: 'INR' | json }},
+    "price": "22500",
+    "availability": "https://schema.org/InStock",
+    "itemCondition": "https://schema.org/NewCondition"
+  }
+}
+</script>
 
-{%- comment -%} ── Scroll engine ── {%- endcomment -%}
+{%- for block in section.blocks -%}
+  {%- if block.type == 'faq' -%}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {%- assign faq_first = true -%}
+        {%- for i in (1..6) -%}
+          {%- assign q_key = 'q' | append: i -%}
+          {%- assign a_key = 'a' | append: i -%}
+          {%- assign q_val = block.settings[q_key] -%}
+          {%- assign a_val = block.settings[a_key] -%}
+          {%- if q_val != blank and a_val != blank -%}
+            {%- unless faq_first -%},{%- endunless -%}
+            {
+              "@type": "Question",
+              "name": {{ q_val | json }},
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": {{ a_val | json }}
+              }
+            }
+            {%- assign faq_first = false -%}
+          {%- endif -%}
+        {%- endfor -%}
+      ]
+    }
+    </script>
+  {%- endif -%}
+{%- endfor -%}
+
+{%- comment -%} ── Three.js scene & Scroll engine ── {%- endcomment -%}
+<script src="{{ 'samay-3d.js' | asset_url }}" type="module"></script>
 <script src="{{ 'samay-scroll.js' | asset_url }}" defer></script>
 
-{%- comment -%}
-  ─────────────────────────────────────────────────────
-  SECTION SCHEMA — block-based, reorderable in editor
-  ─────────────────────────────────────────────────────
-{%- endcomment -%}
 {% schema %}
 {
   "name": "Samay Horizontal",
@@ -775,7 +1282,7 @@
     {
       "type": "text",
       "id": "brand_name",
-      "label": "Brand name (preloader)",
+      "label": "Brand name (preloader & nav)",
       "default": "Samay"
     }
   ],
@@ -807,7 +1314,7 @@
           "type": "text",
           "id": "cta_label",
           "label": "CTA button label",
-          "default": "Explore Collection"
+          "default": "Acquire The Flacon"
         },
         {
           "type": "url",
@@ -899,7 +1406,7 @@
           "type": "text",
           "id": "cta_label",
           "label": "CTA label (leave blank to hide)",
-          "default": "Read our story"
+          "default": "Explore Notes"
         },
         {
           "type": "url",
@@ -966,7 +1473,7 @@
           "type": "text",
           "id": "top_sub",
           "label": "Top tier subtitle",
-          "default": "The first breath \u2014 bright & fleeting"
+          "default": "The first breath — bright & fleeting"
         },
         {
           "type": "textarea",
@@ -988,7 +1495,7 @@
           "type": "text",
           "id": "heart_sub",
           "label": "Heart tier subtitle",
-          "default": "The soul \u2014 warm & enduring"
+          "default": "The soul — warm & enduring"
         },
         {
           "type": "textarea",
@@ -1010,7 +1517,7 @@
           "type": "text",
           "id": "base_sub",
           "label": "Base tier subtitle",
-          "default": "The memory \u2014 deep & long-lasting"
+          "default": "The memory — deep & long-lasting"
         },
         {
           "type": "textarea",
@@ -1025,6 +1532,11 @@
       "name": "04 – The Bottle",
       "limit": 1,
       "settings": [
+        {
+          "type": "product",
+          "id": "featured_product",
+          "label": "Select Product"
+        },
         {
           "type": "header",
           "content": "Flacon Specs (Left Flank)"
@@ -1045,7 +1557,7 @@
           "type": "textarea",
           "id": "description",
           "label": "Description",
-          "default": "An architectural flacon sculpted from heavyweight smoked French glass, crowned with a 24-karat gold-gilded magnetic stopper. Each flacon is individually numbered."
+          "default": "An architectural flacon sculpted from heavyweight smoked French crystal, crowned with a 24-karat gold-gilded magnetic stopper. Each flacon is individually numbered."
         },
         {
           "type": "text",
@@ -1103,7 +1615,7 @@
           "type": "text",
           "id": "badge_text",
           "label": "Badge text",
-          "default": "Limited Release • 500 Bottles"
+          "default": "Limited Release • 500 Bottles Worldwide"
         },
         {
           "type": "text",
@@ -1121,47 +1633,25 @@
           "type": "text",
           "id": "price",
           "label": "Price (100ml)",
-          "default": "$280"
+          "default": "₹22,500"
         },
         {
           "type": "text",
           "id": "compare_at_price",
           "label": "Compare at Price (optional)",
-          "default": "$340"
+          "default": "₹26,000"
         },
         {
           "type": "text",
           "id": "price_50ml",
           "label": "Price (50ml)",
-          "default": "$190"
+          "default": "₹14,800"
         },
         {
           "type": "text",
           "id": "volume",
           "label": "Volume Display",
           "default": "100 ML — 3.4 FL. OZ."
-        },
-        {
-          "type": "text",
-          "id": "cta_label",
-          "label": "Primary CTA Label",
-          "default": "Acquire The Flacon"
-        },
-        {
-          "type": "url",
-          "id": "cta_url",
-          "label": "Primary CTA URL"
-        },
-        {
-          "type": "text",
-          "id": "secondary_cta_label",
-          "label": "Secondary CTA Label",
-          "default": "Request Discovery Set"
-        },
-        {
-          "type": "url",
-          "id": "secondary_cta_url",
-          "label": "Secondary CTA URL"
         },
         {
           "type": "header",
@@ -1329,28 +1819,246 @@
       ]
     },
     {
-      "type": "footer_panel",
-      "name": "06 – Begin the Journey",
+      "type": "faq",
+      "name": "06 – FAQ",
       "limit": 1,
       "settings": [
         {
           "type": "text",
+          "id": "eyebrow",
+          "label": "Eyebrow",
+          "default": "Inquiries & Guidance"
+        },
+        {
+          "type": "text",
           "id": "heading",
-          "label": "Panel heading",
-          "default": "Begin the Journey"
+          "label": "Heading",
+          "default": "Frequently Asked Questions"
+        },
+        {
+          "type": "textarea",
+          "id": "subtext",
+          "label": "Subtext",
+          "default": "Everything you need to know regarding our extraits, maceration protocols, and bespoke deliveries."
+        },
+        {
+          "type": "header",
+          "content": "Question 1"
+        },
+        {
+          "type": "text",
+          "id": "q1",
+          "label": "Question 1",
+          "default": "How long does the fragrance last?"
+        },
+        {
+          "type": "textarea",
+          "id": "a1",
+          "label": "Answer 1",
+          "default": "Samay is formulated at an Extrait concentration with 30% pure perfume oil. A single application delivers 12 to 16+ hours of projection on skin, and will gently linger on fine textiles like wool and cashmere for several days."
+        },
+        {
+          "type": "header",
+          "content": "Question 2"
+        },
+        {
+          "type": "text",
+          "id": "q2",
+          "label": "Question 2",
+          "default": "Is it unisex?"
+        },
+        {
+          "type": "textarea",
+          "id": "a2",
+          "label": "Answer 2",
+          "default": "Yes. Samay is composed without traditional gender boundaries. The harmonic balance of crisp bergamot, Assam agarwood, Mysore sandalwood, and birch tar evolves dynamically with the natural chemistry and warmth of your skin."
+        },
+        {
+          "type": "header",
+          "content": "Question 3"
+        },
+        {
+          "type": "text",
+          "id": "q3",
+          "label": "Question 3",
+          "default": "Shipping time and cost?"
+        },
+        {
+          "type": "textarea",
+          "id": "a3",
+          "label": "Answer 3",
+          "default": "We offer complimentary express shipping across India, delivered securely within 2-4 business days. International deliveries are handled via DHL Express with all applicable duties and taxes calculated transparently at checkout."
+        },
+        {
+          "type": "header",
+          "content": "Question 4"
+        },
+        {
+          "type": "text",
+          "id": "q4",
+          "label": "Question 4",
+          "default": "Return policy?"
+        },
+        {
+          "type": "textarea",
+          "id": "a4",
+          "label": "Answer 4",
+          "default": "Every flacon arrives with a complimentary 5ml discovery vial. We encourage you to experience the vial first. If you decide the fragrance is not for you, you may return the unopened, intact full-size flacon within 14 days for a full refund."
+        },
+        {
+          "type": "header",
+          "content": "Question 5"
+        },
+        {
+          "type": "text",
+          "id": "q5",
+          "label": "Question 5",
+          "default": "Is it authentic and batch-numbered?"
+        },
+        {
+          "type": "textarea",
+          "id": "a5",
+          "label": "Answer 5",
+          "default": "Every flacon is individually numbered, hand-filled, and arrives sealed with a wax-stamped certificate of origin, detailing the harvest year, distillation date, and flacon serial number."
+        },
+        {
+          "type": "header",
+          "content": "Question 6"
+        },
+        {
+          "type": "text",
+          "id": "q6",
+          "label": "Question 6",
+          "default": "How to store it?"
+        },
+        {
+          "type": "textarea",
+          "id": "a6",
+          "label": "Answer 6",
+          "default": "To protect the pure resins and organic maceration, keep your flacon in a cool, shaded environment away from direct sunlight and sharp fluctuations in temperature or humidity."
+        }
+      ]
+    },
+    {
+      "type": "contact",
+      "name": "07 – Contact",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "eyebrow",
+          "label": "Eyebrow",
+          "default": "Direct Concierge"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Connect with the House"
+        },
+        {
+          "type": "textarea",
+          "id": "subtext",
+          "label": "Subtext",
+          "default": "Our concierge is at your service for bespoke inquiries, private appointments, and flacon reservations."
+        },
+        {
+          "type": "header",
+          "content": "WhatsApp Integration"
+        },
+        {
+          "type": "text",
+          "id": "whatsapp_number",
+          "label": "WhatsApp phone number (with country code, no + or spaces)",
+          "default": "919876543210"
+        },
+        {
+          "type": "text",
+          "id": "whatsapp_message",
+          "label": "WhatsApp prefilled message",
+          "default": "Hello Samay Parfumes, I would like to inquire about acquiring a flacon."
+        },
+        {
+          "type": "header",
+          "content": "Concierge Contacts"
+        },
+        {
+          "type": "text",
+          "id": "concierge_email",
+          "label": "Email Address",
+          "default": "concierge@samayparfumes.com"
+        },
+        {
+          "type": "text",
+          "id": "concierge_phone",
+          "label": "Phone Number",
+          "default": "+91 (0) 11 4982 7700"
+        },
+        {
+          "type": "text",
+          "id": "concierge_city",
+          "label": "Atelier City / Locations",
+          "default": "New Delhi • Paris • Grasse"
+        },
+        {
+          "type": "url",
+          "id": "instagram_url",
+          "label": "Instagram URL"
+        }
+      ]
+    },
+    {
+      "type": "footer_panel",
+      "name": "08 – Footer",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "brand_name",
+          "label": "Brand Name",
+          "default": "Samay Parfumes"
+        },
+        {
+          "type": "text",
+          "id": "tagline",
+          "label": "Tagline",
+          "default": "Time Captured in Scent"
+        },
+        {
+          "type": "textarea",
+          "id": "atelier_text",
+          "label": "Atelier Note",
+          "default": "Fine Fragrances Distilled in Grasse & New Delhi • Limited Edition Extraits"
+        },
+        {
+          "type": "url",
+          "id": "instagram_url",
+          "label": "Instagram URL"
+        },
+        {
+          "type": "url",
+          "id": "twitter_url",
+          "label": "Twitter / X URL"
+        },
+        {
+          "type": "url",
+          "id": "facebook_url",
+          "label": "Facebook URL"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Samay Horizontal Experience",
+      "name": "Samay Full Storefront Experience",
       "blocks": [
         { "type": "hero" },
         { "type": "story" },
         { "type": "notes" },
         { "type": "product" },
         { "type": "reviews" },
+        { "type": "faq" },
+        { "type": "contact" },
         { "type": "footer_panel" }
       ]
     }

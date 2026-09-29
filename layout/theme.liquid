@@ -1,6 +1,11 @@
 <!doctype html>
 <html lang="{{ request.locale.iso_code }}">
   <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <link rel="canonical" href="{{ canonical_url }}">
+
     {% # Inlined CSS Variables %}
     {% render 'css-variables' %}
 
@@ -22,6 +27,20 @@
 
     {% # Social, title, etc. %}
     {% render 'meta-tags' %}
+
+    {%- liquid
+      assign format_tag = 'amount'
+      assign format_fallback = '₹{{' | append: format_tag | append: '}}'
+      assign shop_format = shop.money_format | default: format_fallback
+    -%}
+    <script>
+      window.Shopify = window.Shopify || {};
+      window.Shopify.money_format = {{ shop_format | json }};
+      window.Shopify.currency = {
+        active: {{ cart.currency.iso_code | default: 'INR' | json }},
+        symbol: {{ cart.currency.symbol | default: '₹' | json }}
+      };
+    </script>
 
     {{ content_for_header }}
   </head>
