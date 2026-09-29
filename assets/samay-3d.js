@@ -18,9 +18,9 @@
   const ADDONS_URL  = 'https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/';
 
   /* ── Colours ─────────────────────────────────────────── */
-  const GOLD    = 0xC9A24B;
-  const GOLD_LT = 0xE2C27A;
-  const BLACK   = 0x080808;
+  const GOLD    = 0xA88232;
+  const GOLD_LT = 0xC59E4E;
+  const BLACK   = 0x141412;
 
   /* ── State ───────────────────────────────────────────── */
   let THREE, renderer, scene, camera, bottle, particleSystem;
@@ -122,32 +122,13 @@
   }
 
   function makeCap(THREE) {
-    if (!useTransmission) {
-      // Mobile: opaque glossy cap
-      const geo = new THREE.CylinderGeometry(0.12, 0.11, 0.22, 12);
-      const mat = new THREE.MeshPhysicalMaterial({
-        color: GOLD,
-        metalness: 0.9,
-        roughness: 0.1,
-        envMapIntensity: 2.0,
-      });
-      const mesh = new THREE.Mesh(geo, mat);
-      mesh.position.y = 1.18;
-      return mesh;
-    }
-
-    // Desktop: transmission glass cap
-    const geo = new THREE.CylinderGeometry(0.12, 0.11, 0.22, 12);
-    const mat = new THREE.MeshPhysicalMaterial({
-      color:           0xE8F4FF,
-      transmission:    0.92,
-      thickness:       0.3,
-      ior:             1.5,
-      roughness:       0.04,
-      metalness:       0.0,
-      clearcoat:       1.0,
-      clearcoatRoughness: 0.02,
-      envMapIntensity: 2.0,
+    // Solid 24-karat gold-gilded magnetic stopper
+    const geo = new THREE.CylinderGeometry(0.12, 0.11, 0.22, 32);
+    const mat = new THREE.MeshStandardMaterial({
+      color: GOLD,
+      metalness: 0.92,
+      roughness: 0.14,
+      envMapIntensity: 2.2,
     });
     const mesh = new THREE.Mesh(geo, mat);
     mesh.position.y = 1.18;
@@ -234,16 +215,28 @@
   }
 
   function makeFloorShadow(THREE) {
-    const geo = new THREE.CircleGeometry(0.55, 64);
-    const mat = new THREE.MeshStandardMaterial({
-      color:      0x000000,
+    const canvas = document.createElement('canvas');
+    canvas.width = 128;
+    canvas.height = 128;
+    const ctx = canvas.getContext('2d');
+    const grad = ctx.createRadialGradient(64, 64, 0, 64, 64, 64);
+    grad.addColorStop(0, 'rgba(35, 30, 24, 0.20)');
+    grad.addColorStop(0.3, 'rgba(35, 30, 24, 0.10)');
+    grad.addColorStop(0.65, 'rgba(35, 30, 24, 0.025)');
+    grad.addColorStop(1, 'rgba(35, 30, 24, 0)');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, 128, 128);
+
+    const tex = new THREE.CanvasTexture(canvas);
+    const geo = new THREE.PlaneGeometry(1.6, 1.6);
+    const mat = new THREE.MeshBasicMaterial({
+      map: tex,
       transparent: true,
-      opacity:    0.35,
-      roughness:  1.0,
+      depthWrite: false,
     });
     const mesh = new THREE.Mesh(geo, mat);
     mesh.rotation.x = -Math.PI / 2;
-    mesh.position.y = -0.9;
+    mesh.position.y = -0.92;
     mesh.receiveShadow = false;
     return mesh;
   }
@@ -290,11 +283,11 @@
     geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
 
     const mat = new THREE.PointsMaterial({
-      color:       GOLD_LT,
-      size:        0.012,
+      color:       GOLD,
+      size:        0.014,
       transparent: true,
-      opacity:     0.55,
-      blending:    THREE.AdditiveBlending,
+      opacity:     0.7,
+      blending:    THREE.NormalBlending,
       depthWrite:  false,
       sizeAttenuation: true,
     });
@@ -329,7 +322,7 @@
 
     // Scene
     scene = new THREE.Scene();
-    scene.background = new THREE.Color(BLACK);
+    scene.background = null; // Transparent to reveal pristine white/alabaster theme
 
     // Camera
     camera = new THREE.PerspectiveCamera(42, window.innerWidth / window.innerHeight, 0.1, 50);
@@ -391,13 +384,13 @@
   }
 
   function setupLights() {
-    // Ambient
-    const amb = new THREE.AmbientLight(0xffffff, 0.15);
+    // Ambient - balanced daylight for clean white theme
+    const amb = new THREE.AmbientLight(0xffffff, 0.7);
     scene.add(amb);
 
-    // Key light (soft warm)
-    const key = new THREE.DirectionalLight(0xfff4e0, 2.4);
-    key.position.set(2, 3, 3);
+    // Key light (soft warm white)
+    const key = new THREE.DirectionalLight(0xfffaf0, 2.5);
+    key.position.set(2, 3.5, 3);
     key.castShadow = !isMobile;
     if (key.castShadow) {
       key.shadow.mapSize.set(1024, 1024);
@@ -408,17 +401,17 @@
     scene.add(key);
 
     // Gold rim light (right)
-    const rim = new THREE.PointLight(GOLD, 4.5, 8);
+    const rim = new THREE.PointLight(GOLD, 3.8, 8);
     rim.position.set(2.5, 0.5, -1.5);
     scene.add(rim);
 
-    // Fill (left, cool)
-    const fill = new THREE.PointLight(0x8898cc, 1.2, 6);
+    // Fill (left, soft clean daylight)
+    const fill = new THREE.PointLight(0xe8eeff, 1.3, 6);
     fill.position.set(-2, 1, 1);
     scene.add(fill);
 
     // Back rim
-    const back = new THREE.PointLight(GOLD, 2.0, 5);
+    const back = new THREE.PointLight(GOLD_LT, 2.2, 5);
     back.position.set(-1.5, 2, -2);
     scene.add(back);
   }
@@ -552,37 +545,37 @@
   function updateBottleForProgress(p) {
     if (!bottle) return;
     const isMob = isMobile;
+    const total = 8;
+    const panel = Math.min(Math.floor(p * total), total - 1);
 
-    // Panel breakpoints (6 panels, equal width)
-    // p 0–0.166 = hero, 0.166–0.333 = story, etc.
-    const panel = Math.floor(p * 6);
-
-    // Bottle position & scale for each panel
+    // Bottle position & scale for each of the 8 panels
     const configs = [
-      // panel 0 (Hero):  centred, full size
-      { x: isMob ? 0 : -1.0, y: isMob ? 0.6 : 0.0, scale: isMob ? 0.7 : 1.0 },
-      // panel 1 (Story): slightly left
-      { x: isMob ? 0 : 0.85, y: 0.0, scale: isMob ? 0.65 : 0.85 },
-      // panel 2 (Notes): right
-      { x: isMob ? 0 : -0.85, y: 0.0, scale: isMob ? 0.65 : 0.85 },
-      // panel 3 (Product): centred, larger
-      { x: 0, y: 0.0, scale: isMob ? 0.75 : 1.1 },
-      // panel 4 (Reviews): right side prominent
-      { x: isMob ? 0 : 1.35, y: isMob ? 0.3 : 0.0, scale: isMob ? 0.65 : 0.88 },
-      // panel 5 (Footer): centred, faded small
-      { x: 0, y: 0.0, scale: isMob ? 0.55 : 0.65 },
+      // panel 0 (Hero): on the right on desktop, upper-center on mobile
+      { x: isMob ? 0 : 0.95, y: isMob ? 0.35 : 0.0, scale: isMob ? 0.65 : 1.05 },
+      // panel 1 (Story): on the right side
+      { x: isMob ? 0 : 0.85, y: isMob ? 0.35 : 0.0, scale: isMob ? 0.55 : 0.9 },
+      // panel 2 (Notes): left side
+      { x: isMob ? 0 : -0.85, y: isMob ? 0.35 : 0.0, scale: isMob ? 0.55 : 0.85 },
+      // panel 3 (Product): centered in stage
+      { x: isMob ? 0 : 0.0, y: isMob ? 0.35 : 0.0, scale: isMob ? 0.65 : 1.15 },
+      // panel 4 (Reviews): far right side
+      { x: isMob ? 0 : 1.25, y: isMob ? 0.35 : 0.0, scale: isMob ? 0.55 : 0.85 },
+      // panel 5 (FAQ): far right side away from accordion
+      { x: isMob ? 0 : 1.35, y: isMob ? 0.35 : 0.0, scale: isMob ? 0.45 : 0.8 },
+      // panel 6 (Contact): far left side away from form
+      { x: isMob ? 0 : -1.35, y: isMob ? 0.35 : 0.0, scale: isMob ? 0.45 : 0.8 },
+      // panel 7 (Footer): centered, subtle
+      { x: 0, y: isMob ? 0.25 : 0.1, scale: isMob ? 0.45 : 0.65 },
     ];
 
-    const cfg   = configs[Math.min(panel, 5)];
-    const next  = configs[Math.min(panel + 1, 5)];
-    const frac  = (p * 6) - panel; // 0‥1 within panel
+    const cfg   = configs[panel];
+    const next  = configs[Math.min(panel + 1, total - 1)];
+    const frac  = (p * total) - panel;
 
-    // Interpolate
     const cx = cfg.x    + (next.x    - cfg.x)    * frac;
     const cy = cfg.y    + (next.y    - cfg.y)    * frac;
     const cs = cfg.scale + (next.scale - cfg.scale) * frac;
 
-    // Update targets for continuous render loop easing
     targetX     = cx;
     targetY     = cy;
     targetScale = cs;

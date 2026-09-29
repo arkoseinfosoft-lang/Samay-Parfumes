@@ -9,15 +9,15 @@
 
 /* ── Design Tokens ─────────────────────────────────────── */
 :root {
-  --gold:          #C9A24B;
-  --gold-light:    #E2C27A;
-  --gold-dim:      rgba(201, 162, 75, 0.25);
-  --gold-glow:     rgba(201, 162, 75, 0.12);
-  --black:         #080808;
-  --black-soft:    #111010;
-  --black-card:    #0e0d0d;
-  --white:         #F5F0E8;
-  --white-dim:     rgba(245, 240, 232, 0.65);
+  --gold:          #A88232;
+  --gold-light:    #C59E4E;
+  --gold-dim:      rgba(168, 130, 50, 0.18);
+  --gold-glow:     rgba(168, 130, 50, 0.10);
+  --black:         #FAF8F5; /* Warm alabaster ivory background */
+  --black-soft:    #F2EDE4; /* Soft warm secondary surface */
+  --black-card:    #FFFFFF; /* Elevated crisp white cards */
+  --white:         #141412; /* Deep obsidian charcoal typography */
+  --white-dim:     rgba(20, 20, 18, 0.65); /* Elegant secondary body text */
   --font-display:  'Cormorant Garamond', Georgia, serif;
   --font-body:     'Montserrat', system-ui, sans-serif;
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -97,7 +97,8 @@ body.samay-page { scrollbar-width: none; }
   height: calc(100% + 400px);
   pointer-events: none;
   z-index: 9990;
-  opacity: 0.045;
+  opacity: 0.032;
+  mix-blend-mode: multiply;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
   background-size: 200px 200px;
   animation: grain-drift 0.8s steps(2) infinite;
@@ -119,7 +120,7 @@ body.samay-page { scrollbar-width: none; }
 #samay-preloader {
   position: fixed;
   inset: 0;
-  background: var(--black);
+  background: #FAF8F5;
   z-index: 9998;
   display: flex;
   flex-direction: column;
@@ -187,7 +188,7 @@ body.samay-page { scrollbar-width: none; }
     pointer-events: none;
   }
   .samay-panel:not(.panel-hero) {
-    background: rgba(8, 8, 8, 0.88);
+    background: rgba(250, 248, 245, 0.90);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
   }
@@ -198,7 +199,7 @@ body.samay-page { scrollbar-width: none; }
   position: fixed;
   top: 0; left: 0;
   width: 100%; height: 2px;
-  background: rgba(201, 162, 75, 0.1);
+  background: rgba(168, 130, 50, 0.1);
   z-index: 1001;
   pointer-events: none;
 }
@@ -220,6 +221,13 @@ body.samay-page { scrollbar-width: none; }
   color: var(--gold);
   z-index: 900;
   pointer-events: none;
+  background: rgba(255, 255, 255, 0.88);
+  padding: 0.4rem 0.85rem;
+  border-radius: 2px;
+  border: 1px solid rgba(168, 130, 50, 0.25);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
 }
 
 #samay-counter .current {
@@ -234,12 +242,14 @@ body.samay-page { scrollbar-width: none; }
     left: 1.25rem;
     font-size: 0.65rem;
     letter-spacing: 0.2em;
-    background: rgba(8, 8, 8, 0.6);
-    padding: 0.3rem 0.6rem;
+    background: rgba(255, 255, 255, 0.90);
+    padding: 0.35rem 0.75rem;
     border-radius: 2px;
-    border: 1px solid rgba(201, 162, 75, 0.2);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid rgba(168, 130, 50, 0.25);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    color: var(--gold);
   }
 }
 
@@ -296,7 +306,7 @@ body.samay-page { scrollbar-width: none; }
   transform: translateX(-50%);
   width: 1px;
   height: 40px;
-  background: rgba(201, 162, 75, 0.2);
+  background: rgba(168, 130, 50, 0.2);
   z-index: 900;
   pointer-events: none;
 }
@@ -327,10 +337,10 @@ body.samay-page { scrollbar-width: none; }
   width: 100%;
   height: 70px;
   z-index: 1000;
-  background: linear-gradient(180deg, rgba(8, 8, 8, 0.85) 0%, rgba(8, 8, 8, 0) 100%);
+  background: linear-gradient(180deg, rgba(250, 248, 245, 0.94) 0%, rgba(250, 248, 245, 0.75) 60%, rgba(250, 248, 245, 0) 100%);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  border-bottom: 1px solid rgba(201, 162, 75, 0.08);
+  border-bottom: 1px solid rgba(168, 130, 50, 0.08);
 }
 
 .samay-nav-container {
@@ -425,7 +435,7 @@ body.samay-page { scrollbar-width: none; }
 
 .nav-cart-badge {
   background: var(--gold);
-  color: var(--black);
+  color: #FFFFFF;
   font-family: var(--font-body);
   font-size: 0.65rem;
   font-weight: 700;
@@ -440,7 +450,7 @@ body.samay-page { scrollbar-width: none; }
 /* Menu Hamburger Toggle */
 .nav-menu-toggle {
   background: transparent;
-  border: 1px solid rgba(201, 162, 75, 0.35);
+  border: 1px solid rgba(168, 130, 50, 0.35);
   border-radius: 2px;
   color: var(--white);
   padding: 0.45rem 0.85rem;
@@ -458,7 +468,7 @@ body.samay-page { scrollbar-width: none; }
 .nav-menu-toggle:hover {
   border-color: var(--gold);
   color: var(--gold-light);
-  background: rgba(201, 162, 75, 0.08);
+  background: rgba(168, 130, 50, 0.08);
 }
 
 .menu-toggle-box {
@@ -497,7 +507,7 @@ body.samay-page { scrollbar-width: none; }
 .menu-overlay-backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(8, 8, 8, 0.96);
+  background: rgba(250, 248, 245, 0.98);
   backdrop-filter: blur(25px);
   -webkit-backdrop-filter: blur(25px);
 }
@@ -551,7 +561,7 @@ body.samay-page { scrollbar-width: none; }
 .menu-close-btn:hover {
   border-color: var(--gold);
   color: var(--gold-light);
-  background: rgba(201, 162, 75, 0.1);
+  background: rgba(168, 130, 50, 0.1);
 }
 
 .menu-nav-list {
@@ -639,7 +649,7 @@ body.samay-page { scrollbar-width: none; }
   justify-content: space-between;
   align-items: center;
   padding-top: 1.5rem;
-  border-top: 1px solid rgba(201, 162, 75, 0.12);
+  border-top: 1px solid rgba(168, 130, 50, 0.12);
 }
 
 .menu-footer-contact {
@@ -694,7 +704,7 @@ body.samay-page { scrollbar-width: none; }
 .cart-drawer-backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.75);
+  background: rgba(17, 17, 16, 0.40);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   opacity: 0;
@@ -716,7 +726,7 @@ body.samay-page { scrollbar-width: none; }
   flex-direction: column;
   transform: translateX(100%);
   transition: transform 0.45s var(--ease-out-expo);
-  box-shadow: -15px 0 40px rgba(0, 0, 0, 0.8);
+  box-shadow: -15px 0 45px rgba(0, 0, 0, 0.08);
 }
 
 .samay-cart-drawer.is-open .cart-drawer-panel {
@@ -728,7 +738,7 @@ body.samay-page { scrollbar-width: none; }
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid rgba(201, 162, 75, 0.12);
+  border-bottom: 1px solid rgba(168, 130, 50, 0.12);
 }
 
 .cart-header-title-wrap {
@@ -768,8 +778,8 @@ body.samay-page { scrollbar-width: none; }
 }
 
 .cart-drawer-shipping-notice {
-  background: rgba(201, 162, 75, 0.05);
-  border-bottom: 1px solid rgba(201, 162, 75, 0.08);
+  background: rgba(168, 130, 50, 0.05);
+  border-bottom: 1px solid rgba(168, 130, 50, 0.08);
   padding: 0.65rem 2rem;
   font-size: 0.65rem;
   letter-spacing: 0.15em;
@@ -825,7 +835,7 @@ body.samay-page { scrollbar-width: none; }
 
 .cart-empty-cta:hover {
   background: var(--gold);
-  color: var(--black);
+  color: #FFFFFF;
 }
 
 .cart-items-list {
@@ -839,7 +849,7 @@ body.samay-page { scrollbar-width: none; }
   gap: 1rem;
   align-items: center;
   padding-bottom: 1.25rem;
-  border-bottom: 1px solid rgba(201, 162, 75, 0.08);
+  border-bottom: 1px solid rgba(168, 130, 50, 0.08);
   position: relative;
 }
 
@@ -847,7 +857,7 @@ body.samay-page { scrollbar-width: none; }
   width: 70px;
   height: 70px;
   background: var(--black-soft);
-  border: 1px solid rgba(201, 162, 75, 0.15);
+  border: 1px solid rgba(168, 130, 50, 0.15);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -896,13 +906,13 @@ body.samay-page { scrollbar-width: none; }
   font-family: var(--font-body);
   font-size: 0.85rem;
   font-weight: 600;
-  color: var(--gold-light);
+  color: var(--gold);
 }
 
 .cart-item-qty-wrap {
   display: flex;
   align-items: center;
-  border: 1px solid rgba(201, 162, 75, 0.25);
+  border: 1px solid rgba(168, 130, 50, 0.25);
   border-radius: 2px;
 }
 
@@ -921,7 +931,7 @@ body.samay-page { scrollbar-width: none; }
 }
 
 .cart-qty-btn:hover {
-  background: rgba(201, 162, 75, 0.15);
+  background: rgba(168, 130, 50, 0.15);
 }
 
 .cart-qty-value {
@@ -947,7 +957,7 @@ body.samay-page { scrollbar-width: none; }
 
 .cart-drawer-footer {
   padding: 1.5rem 2rem 2rem;
-  border-top: 1px solid rgba(201, 162, 75, 0.15);
+  border-top: 1px solid rgba(168, 130, 50, 0.15);
   background: var(--black-soft);
 }
 
@@ -969,14 +979,14 @@ body.samay-page { scrollbar-width: none; }
   font-family: var(--font-display);
   font-size: 1.5rem;
   font-weight: 600;
-  color: var(--gold-light);
+  color: var(--gold);
 }
 
 .cart-taxes-note {
   margin: 0 0 1.25rem 0;
   font-size: 0.65rem;
   letter-spacing: 0.1em;
-  color: rgba(245, 240, 232, 0.45);
+  color: var(--white-dim);
 }
 
 .cart-checkout-btn {
@@ -987,7 +997,7 @@ body.samay-page { scrollbar-width: none; }
   width: 100%;
   padding: 1rem;
   background: var(--gold);
-  color: var(--black);
+  color: #FFFFFF;
   text-decoration: none;
   font-family: var(--font-body);
   font-size: 0.75rem;
@@ -1000,7 +1010,7 @@ body.samay-page { scrollbar-width: none; }
 
 .cart-checkout-btn:hover {
   background: var(--gold-light);
-  box-shadow: 0 0 20px rgba(201, 162, 75, 0.4);
+  box-shadow: 0 0 20px rgba(168, 130, 50, 0.4);
 }
 
 /* ═════════════════════════════════════════════════════════
@@ -1027,7 +1037,7 @@ body.samay-page { scrollbar-width: none; }
 .policy-modal-backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.85);
+  background: rgba(17, 17, 16, 0.45);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
@@ -1041,14 +1051,14 @@ body.samay-page { scrollbar-width: none; }
   background: var(--black-card);
   border: 1px solid var(--gold-dim);
   border-radius: 2px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.12);
   display: flex;
   flex-direction: column;
 }
 
 .policy-modal-header {
   padding: 1.75rem 2rem;
-  border-bottom: 1px solid rgba(201, 162, 75, 0.12);
+  border-bottom: 1px solid rgba(168, 130, 50, 0.12);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -1210,7 +1220,7 @@ body.samay-page { scrollbar-width: none; }
   font-size: 0.75rem;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  background: rgba(201, 162, 75, 0.04);
+  background: rgba(168, 130, 50, 0.04);
   border-radius: 2px;
   opacity: 0;
   transform: translateY(20px);
@@ -1219,8 +1229,8 @@ body.samay-page { scrollbar-width: none; }
 
 .hero-cta:hover {
   background: var(--gold);
-  color: var(--black);
-  box-shadow: 0 0 25px rgba(201, 162, 75, 0.35);
+  color: #FFFFFF;
+  box-shadow: 0 0 25px rgba(168, 130, 50, 0.35);
   transform: translateY(-2px);
 }
 
@@ -1260,7 +1270,7 @@ body.samay-page { scrollbar-width: none; }
   font-family: var(--font-display);
   font-size: clamp(14rem, 30vw, 36rem);
   font-weight: 300;
-  color: rgba(201, 162, 75, 0.025);
+  color: rgba(168, 130, 50, 0.025);
   line-height: 1;
   pointer-events: none;
   z-index: 0;
@@ -1392,7 +1402,7 @@ body.samay-page { scrollbar-width: none; }
   display: flex;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(circle, rgba(201, 162, 75, 0.08) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(168, 130, 50, 0.08) 0%, transparent 70%);
 }
 
 .story-art {
@@ -1410,7 +1420,7 @@ body.samay-page { scrollbar-width: none; }
 }
 
 .art-circle--lg { width: 220px; height: 220px; }
-.art-circle--md { width: 160px; height: 160px; border-color: rgba(201, 162, 75, 0.35); }
+.art-circle--md { width: 160px; height: 160px; border-color: rgba(168, 130, 50, 0.35); }
 .art-circle--sm { width: 100px; height: 100px; }
 
 .art-monogram {
@@ -1448,7 +1458,7 @@ body.samay-page { scrollbar-width: none; }
   flex-direction: column;
   gap: 0.25rem;
   padding: 0.85rem 1.5rem;
-  background: rgba(201, 162, 75, 0.06);
+  background: rgba(168, 130, 50, 0.06);
   border: 1px solid var(--gold-dim);
   border-radius: 2px;
 }
@@ -1477,7 +1487,7 @@ body.samay-page { scrollbar-width: none; }
 
 .notes-tier {
   background: rgba(17, 16, 16, 0.65);
-  border: 1px solid rgba(201, 162, 75, 0.15);
+  border: 1px solid rgba(168, 130, 50, 0.15);
   border-radius: 2px;
   padding: 1.5rem 2rem;
   backdrop-filter: blur(10px);
@@ -1486,7 +1496,7 @@ body.samay-page { scrollbar-width: none; }
 
 .notes-tier:hover {
   border-color: var(--gold);
-  background: rgba(201, 162, 75, 0.06);
+  background: rgba(168, 130, 50, 0.06);
   transform: translateX(-5px);
 }
 
@@ -1518,8 +1528,8 @@ body.samay-page { scrollbar-width: none; }
 }
 
 .tier-note {
-  background: rgba(201, 162, 75, 0.08);
-  border: 1px solid rgba(201, 162, 75, 0.2);
+  background: rgba(168, 130, 50, 0.08);
+  border: 1px solid rgba(168, 130, 50, 0.2);
   padding: 0.4rem 0.85rem;
   font-size: 0.75rem;
   border-radius: 20px;
@@ -1622,7 +1632,7 @@ body.samay-page { scrollbar-width: none; }
   border-radius: 2px;
   width: 100%;
   max-width: 440px;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 15px 40px rgba(26, 20, 10, 0.06);
 }
 
 .product-badge-wrap {
@@ -1633,7 +1643,7 @@ body.samay-page { scrollbar-width: none; }
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background: rgba(201, 162, 75, 0.08);
+  background: rgba(168, 130, 50, 0.08);
   border: 1px solid var(--gold-dim);
   padding: 0.35rem 0.75rem;
   font-size: 0.6rem;
@@ -1673,7 +1683,7 @@ body.samay-page { scrollbar-width: none; }
   align-items: baseline;
   margin-bottom: 1.5rem;
   padding-bottom: 1.25rem;
-  border-bottom: 1px solid rgba(201, 162, 75, 0.1);
+  border-bottom: 1px solid rgba(168, 130, 50, 0.1);
 }
 
 .product-price {
@@ -1686,7 +1696,7 @@ body.samay-page { scrollbar-width: none; }
 .product-compare-price {
   font-size: 1rem;
   text-decoration: line-through;
-  color: rgba(245, 240, 232, 0.4);
+  color: #8C877E;
   margin-left: 0.5rem;
 }
 
@@ -1717,8 +1727,8 @@ body.samay-page { scrollbar-width: none; }
 .size-pill {
   flex: 1;
   padding: 0.65rem 1rem;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(201, 162, 75, 0.25);
+  background: #FAF8F5;
+  border: 1px solid rgba(168, 130, 50, 0.25);
   color: var(--white);
   font-family: var(--font-body);
   font-size: 0.75rem;
@@ -1728,11 +1738,16 @@ body.samay-page { scrollbar-width: none; }
   transition: all 0.3s;
 }
 
-.size-pill.is-selected,
-.size-pill:hover {
+.size-pill.is-selected {
   border-color: var(--gold);
-  background: rgba(201, 162, 75, 0.12);
-  color: var(--gold-light);
+  background: var(--gold);
+  color: #FFFFFF;
+}
+
+.size-pill:hover:not(.is-selected) {
+  border-color: var(--gold);
+  background: rgba(168, 130, 50, 0.08);
+  color: var(--gold);
 }
 
 .product-action-buttons {
@@ -1764,7 +1779,7 @@ body.samay-page { scrollbar-width: none; }
 
 .product-primary-cta:hover {
   background: var(--gold-light);
-  box-shadow: 0 0 25px rgba(201, 162, 75, 0.4);
+  box-shadow: 0 0 25px rgba(168, 130, 50, 0.4);
 }
 
 .product-buy-now-btn {
@@ -1774,7 +1789,7 @@ body.samay-page { scrollbar-width: none; }
   width: 100%;
   padding: 0.9rem;
   background: transparent;
-  border: 1px solid rgba(201, 162, 75, 0.4);
+  border: 1px solid rgba(168, 130, 50, 0.4);
   color: var(--white);
   font-family: var(--font-body);
   font-size: 0.75rem;
@@ -1788,7 +1803,7 @@ body.samay-page { scrollbar-width: none; }
 .product-buy-now-btn:hover {
   border-color: var(--gold);
   color: var(--gold-light);
-  background: rgba(201, 162, 75, 0.08);
+  background: rgba(168, 130, 50, 0.08);
 }
 
 .product-inclusions {
@@ -1796,7 +1811,7 @@ body.samay-page { scrollbar-width: none; }
   flex-direction: column;
   gap: 0.6rem;
   padding-top: 1.25rem;
-  border-top: 1px solid rgba(201, 162, 75, 0.1);
+  border-top: 1px solid rgba(168, 130, 50, 0.1);
 }
 
 .inclusion-row {
@@ -1845,7 +1860,7 @@ body.samay-page { scrollbar-width: none; }
   align-items: center;
   gap: 1.25rem;
   padding: 1rem 1.5rem;
-  background: rgba(201, 162, 75, 0.06);
+  background: rgba(168, 130, 50, 0.06);
   border: 1px solid var(--gold-dim);
   border-radius: 2px;
   margin-bottom: 2rem;
@@ -1905,7 +1920,7 @@ body.samay-page { scrollbar-width: none; }
   border: 1px solid var(--gold-dim);
   padding: 2.5rem;
   border-radius: 2px;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 15px 40px rgba(26, 20, 10, 0.06);
 }
 
 .reviews-card-header {
@@ -2003,7 +2018,7 @@ body.samay-page { scrollbar-width: none; }
   justify-content: space-between;
   align-items: center;
   padding-top: 1.5rem;
-  border-top: 1px solid rgba(201, 162, 75, 0.12);
+  border-top: 1px solid rgba(168, 130, 50, 0.12);
   margin-top: 1.5rem;
 }
 
@@ -2048,7 +2063,7 @@ body.samay-page { scrollbar-width: none; }
 .review-nav-btn:hover {
   border-color: var(--gold);
   color: var(--gold-light);
-  background: rgba(201, 162, 75, 0.1);
+  background: rgba(168, 130, 50, 0.1);
 }
 
 /* ═════════════════════════════════════════════════════════
@@ -2084,7 +2099,7 @@ body.samay-page { scrollbar-width: none; }
 
 .faq-accordion-item {
   background: var(--black-card);
-  border: 1px solid rgba(201, 162, 75, 0.15);
+  border: 1px solid rgba(168, 130, 50, 0.15);
   border-radius: 2px;
   transition: border-color 0.3s;
 }
@@ -2263,7 +2278,7 @@ a.meta-value:hover {
   border: 1px solid var(--gold-dim);
   padding: 2.5rem;
   border-radius: 2px;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 15px 40px rgba(26, 20, 10, 0.06);
 }
 
 .samay-ajax-contact-form {
@@ -2294,8 +2309,8 @@ a.meta-value:hover {
 .form-input,
 .form-textarea {
   width: 100%;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(201, 162, 75, 0.25);
+  background: #FAF8F5;
+  border: 1px solid rgba(168, 130, 50, 0.25);
   color: var(--white);
   padding: 0.85rem 1rem;
   font-family: var(--font-body);
@@ -2308,8 +2323,8 @@ a.meta-value:hover {
 .form-textarea:focus {
   outline: none;
   border-color: var(--gold);
-  background: rgba(201, 162, 75, 0.05);
-  box-shadow: 0 0 15px rgba(201, 162, 75, 0.15);
+  background: rgba(168, 130, 50, 0.05);
+  box-shadow: 0 0 15px rgba(168, 130, 50, 0.15);
 }
 
 .contact-submit-btn {
@@ -2320,7 +2335,7 @@ a.meta-value:hover {
   padding: 1rem;
   background: var(--gold);
   border: none;
-  color: var(--black);
+  color: #FFFFFF;
   font-family: var(--font-body);
   font-size: 0.75rem;
   font-weight: 600;
@@ -2334,7 +2349,7 @@ a.meta-value:hover {
 
 .contact-submit-btn:hover {
   background: var(--gold-light);
-  box-shadow: 0 0 20px rgba(201, 162, 75, 0.4);
+  box-shadow: 0 0 20px rgba(168, 130, 50, 0.4);
 }
 
 .form-status {
@@ -2348,7 +2363,7 @@ a.meta-value:hover {
 }
 
 .form-status--success {
-  background: rgba(201, 162, 75, 0.15);
+  background: rgba(168, 130, 50, 0.15);
   border: 1px solid var(--gold);
   color: var(--gold-light);
 }
@@ -2424,7 +2439,7 @@ a.meta-value:hover {
   gap: 3rem;
   margin-bottom: 3rem;
   padding-top: 2rem;
-  border-top: 1px solid rgba(201, 162, 75, 0.12);
+  border-top: 1px solid rgba(168, 130, 50, 0.12);
 }
 
 .footer-col-heading {
@@ -2469,10 +2484,10 @@ a.meta-value:hover {
   justify-content: space-between;
   align-items: center;
   padding-top: 1.5rem;
-  border-top: 1px solid rgba(201, 162, 75, 0.08);
+  border-top: 1px solid rgba(168, 130, 50, 0.08);
   font-size: 0.7rem;
   letter-spacing: 0.15em;
-  color: rgba(245, 240, 232, 0.4);
+  color: #8C877E;
 }
 
 /* ═════════════════════════════════════════════════════════
@@ -2743,7 +2758,7 @@ a.meta-value:hover {
   .product-card {
     padding: 1.25rem 1.25rem;
     width: 100%;
-    background: rgba(14, 13, 13, 0.94);
+    background: rgba(255, 255, 255, 0.96);
     border: 1px solid var(--gold-dim);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
@@ -2834,7 +2849,7 @@ a.meta-value:hover {
   .reviews-slider-card {
     padding: 1.25rem;
     width: 100%;
-    background: rgba(14, 13, 13, 0.94);
+    background: rgba(255, 255, 255, 0.96);
     border: 1px solid var(--gold-dim);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
@@ -2980,7 +2995,7 @@ a.meta-value:hover {
 
   .contact-form-card {
     padding: 1rem 1.15rem;
-    background: rgba(14, 13, 13, 0.94);
+    background: rgba(255, 255, 255, 0.96);
     border: 1px solid var(--gold-dim);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
