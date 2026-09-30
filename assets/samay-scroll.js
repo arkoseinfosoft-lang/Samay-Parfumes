@@ -38,16 +38,15 @@
   let hasInteracted = false;
   let isNavigatingAnchor = false;
 
-  const ANCHORS = ['home', 'about', 'notes', 'bottle', 'reviews', 'faq', 'contact', 'footer'];
+  const ANCHORS = ['home', 'about', 'notes', 'bottle', 'faq', 'contact', 'footer'];
   const CHAPTER_NAMES = [
     '01 / OUVERTURE',
     '02 / ABOUT',
     '03 / NOTES',
     '04 / THE BOTTLE',
-    '05 / REVIEWS',
-    '06 / FAQ',
-    '07 / CONTACT',
-    '08 / FOOTER'
+    '05 / FAQ',
+    '06 / CONTACT',
+    '07 / FOOTER'
   ];
 
   /* ── DOM Refs ─────────────────────────────────────────── */
@@ -84,15 +83,15 @@
   /* ── Light / Dark Mode System ("Golden Hour" ↔ "Midnight Noir") ── */
   function initThemeToggle() {
     const themeToggle = $('samay-theme-toggle');
-    const storedTheme = localStorage.getItem('samay_theme') || 'light';
+    const storedTheme = localStorage.getItem('samay_theme') || 'dark';
 
     function applyTheme(theme) {
-      if (theme === 'dark') {
+      if (theme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+        themeToggle?.setAttribute('aria-label', 'Switch to Midnight Noir dark mode');
+      } else {
         document.documentElement.setAttribute('data-theme', 'dark');
         themeToggle?.setAttribute('aria-label', 'Switch to Golden Hour light mode');
-      } else {
-        document.documentElement.removeAttribute('data-theme');
-        themeToggle?.setAttribute('aria-label', 'Switch to Midnight Noir dark mode');
       }
       localStorage.setItem('samay_theme', theme);
       if (window.SamayScene && typeof window.SamayScene.setTheme === 'function') {
@@ -103,7 +102,7 @@
     applyTheme(storedTheme);
 
     themeToggle?.addEventListener('click', () => {
-      const current = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+      const current = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
       const next = current === 'dark' ? 'light' : 'dark';
       applyTheme(next);
     });
@@ -191,22 +190,31 @@
     const card = $('samay-product-card');
     if (!card) return;
 
-    const pill100 = card.querySelector('.size-pill[data-size="100ml"]');
-    const pill50 = card.querySelector('.size-pill[data-size="50ml"]');
     const priceDisplay = card.querySelector('[data-price-display]');
     const compareDisplay = card.querySelector('.product-compare-price');
+    const pills = card.querySelectorAll('.size-pill');
 
-    const formatted100 = convertInrCents(2250000, currentCurrency);
-    const formatted50  = convertInrCents(1480000, currentCurrency);
-    const formattedComp = convertInrCents(2600000, currentCurrency);
+    pills.forEach((pill, idx) => {
+      let cents = parseInt(pill.getAttribute('data-raw-cents'), 10);
+      if (isNaN(cents) || !cents) {
+        if (idx === 0) cents = 499900;
+        else if (idx === 1) cents = 899900;
+        else if (idx === 2) cents = 1249900;
+        pill.setAttribute('data-raw-cents', cents);
+      }
+      if (currentCurrency) {
+        const formatted = convertInrCents(cents, currentCurrency);
+        pill.setAttribute('data-price', formatted);
+      }
+    });
 
-    if (pill100) pill100.setAttribute('data-price', formatted100);
-    if (pill50) pill50.setAttribute('data-price', formatted50);
-    if (compareDisplay) compareDisplay.textContent = formattedComp;
-
-    const activePill = card.querySelector('.size-pill.is-selected');
-    if (priceDisplay && activePill) {
-      priceDisplay.textContent = activePill.getAttribute('data-price');
+    const activePill = card.querySelector('.size-pill.is-selected') || pills[0];
+    if (activePill) {
+      if (priceDisplay && activePill.getAttribute('data-price')) {
+        priceDisplay.textContent = activePill.getAttribute('data-price');
+      }
+      const varId = activePill.getAttribute('data-variant-id');
+      if (varId) card.setAttribute('data-variant-id', varId);
     }
   }
 
@@ -263,135 +271,19 @@
   }
 
   /* ── Interactive Botanical Notes Explorer Dossier ─────── */
-  const BOTANICAL_DOSSIER = {
-    'bergamot': {
-      tier: 'Top Note',
-      origin: 'Calabria, Italy',
-      title: 'Calabrian Bergamot',
-      latin: 'Citrus bergamia Risso',
-      desc: 'Cold-expressed at first dawn from sunlit rinds harvested along the Ionian coast, releasing radiant solar brilliance and delicate citrus facet.',
-      method: 'Artisanal Cold-Expression',
-      profile: 'Solar • Zesty • Crisp'
-    },
-    'blackcurrant': {
-      tier: 'Top Note',
-      origin: 'Burgundy, France',
-      title: 'Blackcurrant Bud Absolute',
-      latin: 'Ribes nigrum L.',
-      desc: 'Distilled from tender early spring buds, imparting an opulent wine-like tartness with green leafy vibrancy that awakens the senses.',
-      method: 'Volatile Solvent Extraction',
-      profile: 'Tart • Vinous • Green'
-    },
-    'apple': {
-      tier: 'Top Note',
-      origin: 'Kashmir Valley, India',
-      title: 'Crisp Orchard Apple',
-      latin: 'Malus domestica',
-      desc: 'Harvested in high Himalayan morning mist, delivering an effervescent crystalline crunch with pure natural nectar nuance.',
-      method: 'Molecular Hydro-Distillation',
-      profile: 'Fresh • Dewy • Crystalline'
-    },
-    'pineapple': {
-      tier: 'Top Note',
-      origin: 'Mauritius Island',
-      title: 'Pineapple Platinum',
-      latin: 'Ananas comosus',
-      desc: 'A rare platinum distillation yielding juicy tropical brilliance intertwined with subtle woody smoke without confectionery sweetness.',
-      method: 'Fractionated CO2 Extraction',
-      profile: 'Luminous • Tropical • Smoky'
-    },
-    'jasmine-absolute': {
-      tier: 'Heart Note',
-      origin: 'Grasse, France',
-      title: 'Jasmine Grandiflorum Absolute',
-      latin: 'Jasminum grandiflorum',
-      desc: 'Hand-plucked before sunrise to preserve delicate nocturnal petals, radiating warm velutinous nectar and aristocratic grace.',
-      method: 'Enfleurage & Solvent Extraction',
-      profile: 'Intoxicating • Velvety • Solar'
-    },
-    'jasmine-sambac': {
-      tier: 'Heart Note',
-      origin: 'Madurai, Tamil Nadu',
-      title: 'Sacred Jasmine Sambac',
-      latin: 'Jasminum sambac',
-      desc: 'Revered in ancient temple rituals for millennia, emitting a deeply spiritual indolic warmth and hypnotic nocturnal projection.',
-      method: 'Copper Deg Hydro-Distillation',
-      profile: 'Regal • Indolic • Sacred'
-    },
-    'birch-tar': {
-      tier: 'Heart Note',
-      origin: 'Silver Groves, Siberia',
-      title: 'Smoked Birch Tar',
-      latin: 'Betula alba',
-      desc: 'Slowly pyrolyzed in oxygen-free earthen hearths to extract deep resinous smoke, Russian leather nuance, and smoldering embers.',
-      method: 'Slow Dry Pyrolysis',
-      profile: 'Leather • Embers • Smoked'
-    },
-    'patchouli': {
-      tier: 'Heart Note',
-      origin: 'Aceh, Northern Sumatra',
-      title: 'Vintage Aged Patchouli',
-      latin: 'Pogostemon cablin',
-      desc: 'Matured for five years in dark seasoned oak barrels, transforming raw earthen pungency into rich dark-cacao and cedarwood velvet.',
-      method: 'Steam Distilled & 5-Yr Cask Aged',
-      profile: 'Earthy • Woody • Camphoric'
-    },
-    'white-musk': {
-      tier: 'Base Note',
-      origin: 'Geneva Lab Exclusive',
-      title: 'Clean White Musk Accord',
-      latin: 'Macrocyclic Musk Accord',
-      desc: 'An ethereal second skin accord providing pristine intimacy, weightless warmth, and silken buoyancy that suspends the deeper resins.',
-      method: 'Precision Molecular Synthesis',
-      profile: 'Airy • Skin-scent • Silken'
-    },
-    'vanilla': {
-      tier: 'Base Note',
-      origin: 'Sava Region, Madagascar',
-      title: 'Madagascar Bourbon Vanilla',
-      latin: 'Vanilla planifolia',
-      desc: 'Sun-cured black vanilla beans infused into pure ethanol over 180 days, lending balsamic depth and smoky lactonic sweetness.',
-      method: 'Supercritical CO2 Extraction',
-      profile: 'Balsamic • Creamy • Gourmand'
-    },
-    'ambraxon': {
-      tier: 'Base Note',
-      origin: 'Grasse Atelier',
-      title: 'Ambroxan Crystal',
-      latin: 'Ambroxide Molecular Isolate',
-      desc: 'Imparts unmatched sillage, dry radiant mineral amber warmth, and commanding projection that stays radiant on fabric for days.',
-      method: 'Biotechnological Isolate',
-      profile: 'Radiant • Ambery • Marine'
-    },
-    'sandalwood': {
-      tier: 'Base Note',
-      origin: 'Mysore, Karnataka',
-      title: 'Mysore Sandalwood & Javanol',
-      latin: 'Santalum album',
-      desc: 'Sacred golden heartwood aged in silence, conferring sublime milky serenity, meditative grounding, and creamy woody warmth.',
-      method: 'Sustainable Fractional Steam',
-      profile: 'Creamy • Sacred • Milky'
-    },
-    'ambergris': {
-      tier: 'Base Note',
-      origin: 'New Zealand Shoreline',
-      title: 'Floating White Ambergris',
-      latin: 'Physeter macrocephalus tincture',
-      desc: 'Ocean-cured under years of sun and sea salt, decanted into a subtle marine tincture that imparts oceanic nobility and tenacity.',
-      method: 'Aged Ethanol Decantation',
-      profile: 'Saline • Mineral • Animalic'
-    },
-    'oakmoss': {
-      tier: 'Base Note',
-      origin: 'Macedonian Forest Canopies',
-      title: 'Oakmoss Absolute',
-      latin: 'Evernia prunastri',
-      desc: 'Ancient velvety lichen clinging to old-growth oaks, imparting timeless chypre authority, inky woods, and damp forest floor mystique.',
-      method: 'Low-Atranol Solvent Extraction',
-      profile: 'Chypre • Forest Floor • Inky'
-    }
-  };
+  const BOTANICAL_DOSSIER = {};
 
+  function getNoteDossier(cleanKey, noteName, tier) {
+    return {
+      tier: tier || 'Olfactive Accord',
+      origin: '[TO FILL - Botanical Origin]',
+      title: noteName,
+      latin: '[TO FILL - Botanical / Scientific Classification]',
+      desc: '[TO FILL - Note profile, harvesting specifics, and distillation details]',
+      method: '[TO FILL - Extraction Protocol]',
+      profile: '[TO FILL - Olfactive Facets]'
+    };
+  }
   function initBotanicalNotesExplorer() {
     const popover = $('note-dossier-popover');
     const closeBtn = $('dossier-close-btn');
@@ -460,23 +352,6 @@
     });
   }
 
-  /* ── 24K Flacon Monogram Engraving Preview ────────────── */
-  function initEngravingPreview() {
-    const input = $('flacon-monogram-input');
-    const plaqueText = $('engraving-plaque-text');
-    if (!input || !plaqueText) return;
-
-    input.addEventListener('input', () => {
-      const val = input.value.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 3);
-      input.value = val;
-      if (val.length === 0) {
-        plaqueText.textContent = '— — —';
-      } else {
-        plaqueText.textContent = val.split('').join(' ');
-      }
-    });
-  }
-
   /* ── Bootstrap ───────────────────────────────────────── */
   function init() {
     root        = $('samay-root');
@@ -500,14 +375,12 @@
     initSoundToggle();
     initCurrencySelector();
     initBotanicalNotesExplorer();
-    initEngravingPreview();
     initNavigation();
     initCartDrawer();
     initContactForm();
     initFaqAccordion();
     initPolicyModals();
     initProductCard();
-    initReviewsSlider();
 
     // Unified horizontal scroll system on both desktop and mobile
     setupHorizontalScroll();
@@ -679,7 +552,6 @@
       { sel: '.panel-story', cls: 'story-revealed' },
       { sel: '.panel-notes', cls: 'notes-revealed' },
       { sel: '.panel-product', cls: 'product-revealed' },
-      { sel: '.panel-reviews', cls: 'reviews-revealed' },
       { sel: '.panel-faq', cls: 'faq-revealed' },
       { sel: '.panel-contact', cls: 'contact-revealed' },
       { sel: '.panel-footer', cls: 'footer-revealed' }
@@ -1014,13 +886,7 @@
       return;
     }
 
-    const monogram = $('flacon-monogram-input')?.value?.trim()?.toUpperCase();
     const payload = { id: variantId, quantity };
-    if (monogram) {
-      payload.properties = {
-        '24K Flacon Engraving': monogram
-      };
-    }
 
     try {
       const res = await fetch('/cart/add.js', {
@@ -1064,10 +930,26 @@
       pill.classList.add('is-selected');
       pill.setAttribute('aria-pressed', 'true');
 
+      const varId = pill.getAttribute('data-variant-id');
+      if (varId) {
+        card.setAttribute('data-variant-id', varId);
+      }
+
       const priceDisplay = card.querySelector('[data-price-display]');
+      const compareDisplay = card.querySelector('.product-compare-price');
       const volumeDisplay = card.querySelector('[data-volume-display]');
+
       if (priceDisplay && pill.getAttribute('data-price')) {
         priceDisplay.textContent = pill.getAttribute('data-price');
+      }
+      if (compareDisplay) {
+        const comp = pill.getAttribute('data-compare');
+        if (comp) {
+          compareDisplay.textContent = comp;
+          compareDisplay.style.display = '';
+        } else {
+          compareDisplay.style.display = 'none';
+        }
       }
       if (volumeDisplay && pill.getAttribute('data-volume')) {
         volumeDisplay.textContent = pill.getAttribute('data-volume');
@@ -1228,45 +1110,6 @@
     policyModal.classList.remove('is-open');
     policyModal.setAttribute('aria-hidden', 'true');
     document.body.classList.remove('policy-modal-open');
-  }
-
-  /* ── Reviews Slider ───────────────────────────────────── */
-  function initReviewsSlider() {
-    document.addEventListener('click', e => {
-      const prevBtn = e.target.closest('.review-nav-btn--prev');
-      const nextBtn = e.target.closest('.review-nav-btn--next');
-      const dot = e.target.closest('.review-dot');
-      const container = e.target.closest('.panel-reviews');
-      if (!container) return;
-
-      const cards = container.querySelectorAll('.review-card');
-      const dots = container.querySelectorAll('.review-dot');
-      const countEl = container.querySelector('.review-counter-current');
-      if (!cards.length) return;
-
-      let currentIdx = 0;
-      cards.forEach((c, i) => {
-        if (c.classList.contains('is-active')) currentIdx = i;
-      });
-
-      let targetIdx = currentIdx;
-      if (prevBtn) {
-        targetIdx = (currentIdx - 1 + cards.length) % cards.length;
-      } else if (nextBtn) {
-        targetIdx = (currentIdx + 1) % cards.length;
-      } else if (dot) {
-        targetIdx = parseInt(dot.getAttribute('data-index') || '0', 10);
-      } else {
-        return;
-      }
-
-      cards.forEach((c, i) => c.classList.toggle('is-active', i === targetIdx));
-      dots.forEach((d, i) => {
-        d.classList.toggle('is-active', i === targetIdx);
-        d.setAttribute('aria-pressed', i === targetIdx ? 'true' : 'false');
-      });
-      if (countEl) countEl.textContent = `0${targetIdx + 1}`;
-    });
   }
 
   /* ── Keyboard (← →) ──────────────────────────────────── */

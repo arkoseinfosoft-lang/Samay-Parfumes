@@ -524,13 +524,13 @@
     scene.add(backLight);
 
     // Check current theme at load time
-    const activeTheme = document.documentElement.getAttribute('data-theme') || 'light';
+    const activeTheme = document.documentElement.getAttribute('data-theme') || 'dark';
     setTheme(activeTheme);
   }
 
   function setTheme(mode) {
     if (!THREE || !ambLight) return;
-    const isDark = (mode === 'dark');
+    const isDark = (mode !== 'light');
     if (isDark) {
       ambLight.intensity = 0.35;
       ambLight.color.setHex(0x282632);
@@ -683,10 +683,8 @@
   function updateBottleForProgress(p) {
     if (!bottle) return;
     const isMob = isMobile;
-    const total = 8;
-    const panel = Math.min(Math.floor(p * total), total - 1);
 
-    // Bottle position & scale for each of the 8 panels
+    // Bottle position & scale for each of the 7 panels
     const configs = [
       // panel 0 (Hero): on the right on desktop, upper-center on mobile
       { x: isMob ? 0 : 0.95, y: isMob ? 0.15 : -0.16, scale: isMob ? 0.65 : 0.96 },
@@ -696,16 +694,16 @@
       { x: isMob ? 0 : -0.85, y: isMob ? 0.15 : -0.14, scale: isMob ? 0.55 : 0.84 },
       // panel 3 (Product): centered in stage
       { x: isMob ? 0 : 0.0,  y: isMob ? 0.15 : -0.12, scale: isMob ? 0.65 : 1.05 },
-      // panel 4 (Reviews): far right side
-      { x: isMob ? 0 : 1.25, y: isMob ? 0.15 : -0.14, scale: isMob ? 0.55 : 0.84 },
-      // panel 5 (FAQ): far right side away from accordion
+      // panel 4 (FAQ): far right side away from accordion
       { x: isMob ? 0 : 1.35, y: isMob ? 0.15 : -0.14, scale: isMob ? 0.45 : 0.78 },
-      // panel 6 (Contact): far left side away from form
+      // panel 5 (Contact): far left side away from form
       { x: isMob ? 0 : -1.35, y: isMob ? 0.15 : -0.14, scale: isMob ? 0.45 : 0.78 },
-      // panel 7 (Footer): centered, subtle
+      // panel 6 (Footer): centered, subtle
       { x: 0,                y: isMob ? 0.12 : -0.08, scale: isMob ? 0.45 : 0.65 },
     ];
 
+    const total = configs.length;
+    const panel = Math.min(Math.floor(p * total), total - 1);
     const cfg   = configs[panel];
     const next  = configs[Math.min(panel + 1, total - 1)];
     const frac  = (p * total) - panel;

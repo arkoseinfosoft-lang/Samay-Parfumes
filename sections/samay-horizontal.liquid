@@ -253,22 +253,15 @@
           </a>
         </li>
         <li class="menu-item" style="--mi: 4">
-          <a href="#reviews" data-anchor="reviews" data-panel-index="4" class="menu-link">
+          <a href="#faq" data-anchor="faq" data-panel-index="4" class="menu-link">
             <span class="menu-link-num">05</span>
-            <span class="menu-link-title">REVIEWS</span>
-            <span class="menu-link-desc">Critical Acclaim & Voices</span>
-          </a>
-        </li>
-        <li class="menu-item" style="--mi: 5">
-          <a href="#faq" data-anchor="faq" data-panel-index="5" class="menu-link">
-            <span class="menu-link-num">06</span>
             <span class="menu-link-title">FAQ</span>
             <span class="menu-link-desc">Inquiries & Guidance</span>
           </a>
         </li>
-        <li class="menu-item" style="--mi: 6">
-          <a href="#contact" data-anchor="contact" data-panel-index="6" class="menu-link">
-            <span class="menu-link-num">07</span>
+        <li class="menu-item" style="--mi: 5">
+          <a href="#contact" data-anchor="contact" data-panel-index="5" class="menu-link">
+            <span class="menu-link-num">06</span>
             <span class="menu-link-title">CONTACT</span>
             <span class="menu-link-desc">Direct Concierge</span>
           </a>
@@ -279,7 +272,7 @@
     <div class="menu-footer">
       <div class="menu-footer-contact">
         <span class="mfc-label">CONCIERGE</span>
-        <a href="mailto:concierge@samayparfumes.com" class="mfc-link">concierge@samayparfumes.com</a>
+        <a href="mailto:[TO FILL]" class="mfc-link">[TO FILL - Concierge Email]</a>
       </div>
       <div class="menu-footer-social">
         <a href="https://instagram.com/samayparfumes" target="_blank" rel="noopener" class="mfs-link">INSTAGRAM</a>
@@ -389,11 +382,11 @@
     {%- if shop.shipping_policy.body != blank -%}
       {{ shop.shipping_policy.body }}
     {%- else -%}
-      <h3>Complimentary White-Glove Dispatch</h3>
-      <p>All flacons from the House of Samay are protected in temperature-regulated, shock-absorbing presentation boxes. We provide complimentary express courier delivery across India, dispatched within 24 hours of order receipt.</p>
-      <p>Domestic transit typically requires 2 to 4 business days. Real-time satellite tracking and digital delivery verification will be transmitted via SMS and email.</p>
-      <h3>International Allocations</h3>
-      <p>International shipments are handled via DHL Express Worldwide. Applicable duties, taxes, and customs inspections are calculated transparently during checkout.</p>
+      <h3>[TO FILL - Shipping Policy]</h3>
+      <p>[TO FILL - Domestic shipping timelines, carriers, and dispatch details]</p>
+      <p>[TO FILL - Tracking and delivery confirmation details]</p>
+      <h3>[TO FILL - International Shipping]</h3>
+      <p>[TO FILL - International shipping timelines, duties, and customs information]</p>
     {%- endif -%}
   </div>
 
@@ -401,10 +394,10 @@
     {%- if shop.refund_policy.body != blank -%}
       {{ shop.refund_policy.body }}
     {%- else -%}
-      <h3>The 14-Day Discovery Guarantee</h3>
-      <p>Every Samay Extrait de Parfum flacon arrives with a complimentary 5ml discovery vial. We cordially invite you to experience the fragrance from the miniature vial first.</p>
-      <p>Should the composition not completely align with your desires, you may return the unopened, sealed full-sized flacon within 14 days of receipt for an immediate, full refund.</p>
-      <p>To initiate a return, contact our private concierge at <a href="mailto:concierge@samayparfumes.com">concierge@samayparfumes.com</a> with your order number.</p>
+      <h3>[TO FILL - Return Policy & Discovery Guarantee]</h3>
+      <p>[TO FILL - Terms of the discovery vial trial and evaluation period]</p>
+      <p>[TO FILL - Eligibility conditions and return timeframe for full refund]</p>
+      <p>[TO FILL - Instructions on how to contact concierge to initiate return]</p>
     {%- endif -%}
   </div>
 
@@ -412,9 +405,9 @@
     {%- if shop.privacy_policy.body != blank -%}
       {{ shop.privacy_policy.body }}
     {%- else -%}
-      <h3>Discretion &amp; Confidentiality</h3>
-      <p>At Samay Parfumes, client discretion is paramount. We collect personal contact and shipping information solely to fulfill orders, provide concierge support, and issue certificates of authenticity.</p>
-      <p>We do not sell, rent, or trade client dossiers to third parties. All transactional records and payment tokens are processed via 256-bit encrypted banking gateways.</p>
+      <h3>[TO FILL - Privacy & Confidentiality]</h3>
+      <p>[TO FILL - Client privacy practices, data protection, and usage]</p>
+      <p>[TO FILL - Third-party disclosures and payment security protocols]</p>
     {%- endif -%}
   </div>
 
@@ -422,9 +415,9 @@
     {%- if shop.terms_of_service.body != blank -%}
       {{ shop.terms_of_service.body }}
     {%- else -%}
-      <h3>Atelier Terms</h3>
-      <p>Each release from Samay Parfumes is distilled in limited artisan batches. Due to rare botanical harvests and natural maceration variables, subtle chromatic and accord differences between production runs may occur and represent the mark of genuine artisan perfumery.</p>
-      <p>All bottle architecture, visual assets, olfactory formulations, and brand trademarks remain the exclusive intellectual property of Samay Parfumes.</p>
+      <h3>[TO FILL - Terms of Service]</h3>
+      <p>[TO FILL - Limited edition batch variations, artisanal production terms]</p>
+      <p>[TO FILL - Intellectual property rights and trademark notice]</p>
     {%- endif -%}
   </div>
 </div>
@@ -453,8 +446,8 @@
             <div class="hero-content">
               <span class="hero-eyebrow">{{ block.settings.eyebrow | default: 'Fine Fragrances' }}</span>
 
-              <h1 class="hero-heading" aria-label="{{ block.settings.heading | default: 'Time Captured in Scent' }}">
-                {%- assign heading_words = block.settings.heading | default: 'Time Captured in Scent' | split: ' ' -%}
+              <h1 class="hero-heading" aria-label="{{ block.settings.heading | default: '[TO FILL - Brand Tagline]' }}">
+                {%- assign heading_words = block.settings.heading | default: '[TO FILL - Brand Tagline]' | split: ' ' -%}
                 {%- assign word_count = heading_words.size -%}
                 {%- if word_count <= 2 -%}
                   <span class="line">
@@ -530,26 +523,26 @@
               </header>
 
               <div class="story-body">
-                <p class="story-p story-p--lead">{{ block.settings.paragraph_1 | default: 'Samay was born in the lantern-lit lanes of old Delhi, where a perfumers notebook and a grandmothers memory became the seed of something rare.' }}</p>
-                <p class="story-p">{{ block.settings.paragraph_2 | default: 'We source only what the season offers willingly — raw oud from Assams oldest agarwood groves, Mysore sandalwood aged in silence, Bulgarian rose absolute hand-pressed at dawn.' }}</p>
-                <p class="story-p">{{ block.settings.paragraph_3 | default: 'Every bottle holds a specific hour — not just a fragrance. An atmosphere you can return to.' }}</p>
+                <p class="story-p story-p--lead">{{ block.settings.paragraph_1 | default: '[TO FILL - Brand origin, founder history & heritage story]' }}</p>
+                <p class="story-p">{{ block.settings.paragraph_2 | default: '[TO FILL - Ingredient sourcing, botanical origins & harvesting methods]' }}</p>
+                <p class="story-p">{{ block.settings.paragraph_3 | default: '[TO FILL - House philosophy, olfactive concept & vision]' }}</p>
               </div>
 
               <ol class="story-timeline" aria-label="Brand milestones">
                 <li class="story-milestone">
-                  <span class="milestone-year">{{ block.settings.milestone_1_year | default: '2018' }}</span>
+                  <span class="milestone-year">{{ block.settings.milestone_1_year | default: '[TO FILL]' }}</span>
                   <span class="milestone-sep" aria-hidden="true"></span>
-                  <span class="milestone-text">{{ block.settings.milestone_1_text | default: 'First batch distilled in a copper athar still' }}</span>
+                  <span class="milestone-text">{{ block.settings.milestone_1_text | default: '[TO FILL - Historic milestone 1]' }}</span>
                 </li>
                 <li class="story-milestone">
-                  <span class="milestone-year">{{ block.settings.milestone_2_year | default: '2021' }}</span>
+                  <span class="milestone-year">{{ block.settings.milestone_2_year | default: '[TO FILL]' }}</span>
                   <span class="milestone-sep" aria-hidden="true"></span>
-                  <span class="milestone-text">{{ block.settings.milestone_2_text | default: 'Awarded India Finest Artisan Fragrance' }}</span>
+                  <span class="milestone-text">{{ block.settings.milestone_2_text | default: '[TO FILL - Historic milestone 2]' }}</span>
                 </li>
                 <li class="story-milestone">
-                  <span class="milestone-year">{{ block.settings.milestone_3_year | default: '2024' }}</span>
+                  <span class="milestone-year">{{ block.settings.milestone_3_year | default: '[TO FILL]' }}</span>
                   <span class="milestone-sep" aria-hidden="true"></span>
-                  <span class="milestone-text">{{ block.settings.milestone_3_text | default: 'Expanded to 28 countries across 4 continents' }}</span>
+                  <span class="milestone-text">{{ block.settings.milestone_3_text | default: '[TO FILL - Historic milestone 3]' }}</span>
                 </li>
               </ol>
 
@@ -619,11 +612,11 @@
                 {%- endfor -%}
               </h2>
               <div class="notes-rule" aria-hidden="true"></div>
-              <p class="notes-desc">{{ block.settings.description | default: 'A compound of 1000 g, matured in ethanol and rare musks. Every element chosen for the hour it inhabits.' }}</p>
+              <p class="notes-desc">{{ block.settings.description | default: '[TO FILL - Composition details, maceration protocols & formulation concentration]' }}</p>
 
               <div class="notes-concentration">
                 <span class="conc-label">{{ block.settings.concentration_label | default: 'Concentration' }}</span>
-                <span class="conc-value">{{ block.settings.concentration | default: 'Eau de Parfum Intense' }}</span>
+                <span class="conc-value">{{ block.settings.concentration | default: '[TO FILL - Fragrance Concentration]' }}</span>
               </div>
             </div>
 
@@ -635,7 +628,7 @@
                   <span class="tier-sub">{{ block.settings.top_sub | default: 'The first breath — bright &amp; fleeting' }}</span>
                 </div>
                 <ol class="tier-notes" aria-label="Top notes">
-                  {%- assign top_notes = block.settings.top_notes | default: 'Bergamot,Blackcurrant,Apple,Pineapple Platinum' | split: ',' -%}
+                  {%- assign top_notes = block.settings.top_notes | default: '[TO FILL - Top Note 1],[TO FILL - Top Note 2],[TO FILL - Top Note 3]' | split: ',' -%}
                   {%- for note in top_notes -%}
                     {%- unless note == blank -%}
                       <li class="tier-note" style="--ni:{{ forloop.index0 }}" data-note-key="{{ note | strip | downcase | replace: ' ', '-' | replace: '(', '' | replace: ')', '' }}">{{ note | strip }}</li>
@@ -651,7 +644,7 @@
                   <span class="tier-sub">{{ block.settings.heart_sub | default: 'The soul — warm &amp; enduring' }}</span>
                 </div>
                 <ol class="tier-notes" aria-label="Heart notes">
-                  {%- assign heart_notes = block.settings.heart_notes | default: 'Jasmine Absolute,Jasmine Sambac,Birch Tar,Patchouli' | split: ',' -%}
+                  {%- assign heart_notes = block.settings.heart_notes | default: '[TO FILL - Heart Note 1],[TO FILL - Heart Note 2],[TO FILL - Heart Note 3]' | split: ',' -%}
                   {%- for note in heart_notes -%}
                     {%- unless note == blank -%}
                       <li class="tier-note" style="--ni:{{ forloop.index0 }}" data-note-key="{{ note | strip | downcase | replace: ' ', '-' | replace: '(', '' | replace: ')', '' }}">{{ note | strip }}</li>
@@ -667,7 +660,7 @@
                   <span class="tier-sub">{{ block.settings.base_sub | default: 'The memory — deep &amp; long-lasting' }}</span>
                 </div>
                 <ol class="tier-notes" aria-label="Base notes">
-                  {%- assign base_notes = block.settings.base_notes | default: 'White Musk,Vanilla,Ambraxon,Javanol (Sandalwood),Ambergris,Oakmoss' | split: ',' -%}
+                  {%- assign base_notes = block.settings.base_notes | default: '[TO FILL - Base Note 1],[TO FILL - Base Note 2],[TO FILL - Base Note 3]' | split: ',' -%}
                   {%- for note in base_notes -%}
                     {%- unless note == blank -%}
                       <li class="tier-note" style="--ni:{{ forloop.index0 }}" data-note-key="{{ note | strip | downcase | replace: ' ', '-' | replace: '(', '' | replace: ')', '' }}">{{ note | strip }}</li>
@@ -715,8 +708,8 @@
               assign product_compare = current_variant.compare_at_price | money
               assign variant_id_val = current_variant.id
             else
-              assign product_price = block.settings.price | default: '₹22,500'
-              assign product_compare = block.settings.compare_at_price | default: '₹26,000'
+              assign product_price = block.settings.price | default: '₹4,999'
+              assign product_compare = block.settings.compare_at_price | default: '₹6,499'
               assign variant_id_val = ''
             endif
           -%}
@@ -748,19 +741,19 @@
                 <div class="product-specs-list" aria-label="Flacon specifications">
                   <div class="product-spec-item" style="--psi:0">
                     <span class="spec-label">{{ block.settings.spec_1_label | default: 'Vessel Architecture' }}</span>
-                    <span class="spec-val">{{ block.settings.spec_1_val | default: 'Smoked French crystal, 420g solid base' }}</span>
+                    <span class="spec-val">{{ block.settings.spec_1_val | default: '[TO FILL - Vessel Architecture & Materials]' }}</span>
                   </div>
                   <div class="product-spec-item" style="--psi:1">
                     <span class="spec-label">{{ block.settings.spec_2_label | default: 'The Stopper' }}</span>
-                    <span class="spec-val">{{ block.settings.spec_2_val | default: 'Solid Zamak alloy, hand-gilded in 24K gold' }}</span>
+                    <span class="spec-val">{{ block.settings.spec_2_val | default: '[TO FILL - Cap & Finishes]' }}</span>
                   </div>
                   <div class="product-spec-item" style="--psi:2">
                     <span class="spec-label">{{ block.settings.spec_3_label | default: 'Maceration Period' }}</span>
-                    <span class="spec-val">{{ block.settings.spec_3_val | default: '180 days in dark French oak casks' }}</span>
+                    <span class="spec-val">{{ block.settings.spec_3_val | default: '[TO FILL - Aging & Maceration Duration]' }}</span>
                   </div>
                   <div class="product-spec-item" style="--psi:3">
                     <span class="spec-label">{{ block.settings.spec_4_label | default: 'Origin & Batch' }}</span>
-                    <span class="spec-val">{{ block.settings.spec_4_val | default: 'Limited Run of 500 bottles • Grasse & New Delhi' }}</span>
+                    <span class="spec-val">{{ block.settings.spec_4_val | default: '[TO FILL - Production Origin & Batch Run]' }}</span>
                   </div>
                 </div>
               </div>
@@ -789,24 +782,11 @@
                     </div>
                   {%- endif -%}
 
-                  {%- comment -%} Allocation & Scarcity Tracker {%- endcomment -%}
-                  <div class="product-allocation-card" aria-label="Limited Batch Allocation">
-                    <div class="allocation-header">
-                      <span class="allocation-badge">
-                        <span class="alloc-pulse" aria-hidden="true"></span>
-                        BATCH 01 VAULT ALLOCATION
-                      </span>
-                      <span class="allocation-status"><strong>342</strong> / 500 Remaining</span>
-                    </div>
-                    <div class="allocation-progress-track" role="progressbar" aria-valuenow="68.4" aria-valuemin="0" aria-valuemax="100">
-                      <div class="allocation-progress-bar" style="width: 68.4%;"></div>
-                    </div>
-                    <span class="allocation-sub">Reserved edition — hand-numbered and sealed upon order confirmation</span>
-                  </div>
+
 
                   <div class="product-title-group">
                     <h3 class="product-card-title">{{ block.settings.title | default: 'Samay Extrait de Parfum' }}</h3>
-                    <span class="product-card-sub">{{ block.settings.subtitle | default: 'Batch No. 01 — Rare Harvest' }}</span>
+                    <span class="product-card-sub">{{ block.settings.subtitle | default: '[TO FILL - Batch Information]' }}</span>
                   </div>
 
                   <div class="product-price-row">
@@ -816,63 +796,70 @@
                         <span class="product-compare-price">{{ product_compare }}</span>
                       {%- endif -%}
                     </div>
-                    <span class="product-volume" data-volume-display>{{ block.settings.volume | default: '100 ML — 3.4 FL. OZ.' }}</span>
+                    <span class="product-volume" data-volume-display>{{ block.settings.volume | default: '50 ML — 1.7 FL. OZ.' }}</span>
                   </div>
 
-                  <div class="product-size-selector" role="group" aria-label="Select Volume">
-                    <span class="selector-label">Volume:</span>
+                  <div class="product-size-selector" role="group" aria-label="Select Edition or Bundle">
+                    <span class="selector-label">Option:</span>
                     <div class="size-options">
-                      <button
-                        type="button"
-                        class="size-pill is-selected"
-                        data-size="100ml"
-                        data-price="{{ product_price }}"
-                        data-volume="100 ML — 3.4 FL. OZ."
-                        aria-pressed="true"
-                      >
-                        100 ML
-                      </button>
-                      <button
-                        type="button"
-                        class="size-pill"
-                        data-size="50ml"
-                        data-price="{{ block.settings.price_50ml | default: '₹14,800' }}"
-                        data-volume="50 ML — 1.7 FL. OZ."
-                        aria-pressed="false"
-                      >
-                        50 ML
-                      </button>
+                      {%- if product_obj != blank and product_obj.variants.size > 0 -%}
+                        {%- for variant in product_obj.variants -%}
+                          <button
+                            type="button"
+                            class="size-pill{% if forloop.first %} is-selected{% endif %}"
+                            data-variant-id="{{ variant.id }}"
+                            data-size="{{ variant.title | escape }}"
+                            data-price="{{ variant.price | money }}"
+                            {% if variant.compare_at_price > variant.price %}
+                              data-compare="{{ variant.compare_at_price | money }}"
+                            {% endif %}
+                            data-volume="{{ variant.title | escape }}"
+                            data-raw-cents="{{ variant.price }}"
+                            aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}"
+                          >
+                            {{ variant.title }}
+                          </button>
+                        {%- endfor -%}
+                      {%- else -%}
+                        <button
+                          type="button"
+                          class="size-pill is-selected"
+                          data-size="Single 50ml"
+                          data-price="{{ block.settings.price | default: '₹4,999' }}"
+                          data-compare="{{ block.settings.compare_at_price | default: '₹6,499' }}"
+                          data-volume="50 ML — 1.7 FL. OZ."
+                          data-raw-cents="499900"
+                          aria-pressed="true"
+                        >
+                          Single 50ml
+                        </button>
+                        <button
+                          type="button"
+                          class="size-pill"
+                          data-size="Pack of 2"
+                          data-price="{{ block.settings.price_pack_2 | default: '₹8,999' }}"
+                          data-volume="2 × 50 ML — 3.4 FL. OZ."
+                          data-raw-cents="899900"
+                          aria-pressed="false"
+                        >
+                          Pack of 2
+                        </button>
+                        <button
+                          type="button"
+                          class="size-pill"
+                          data-size="Pack of 3"
+                          data-price="{{ block.settings.price_pack_3 | default: '₹12,499' }}"
+                          data-volume="3 × 50 ML — 5.1 FL. OZ."
+                          data-raw-cents="1249900"
+                          aria-pressed="false"
+                        >
+                          Pack of 3
+                        </button>
+                      {%- endif -%}
                     </div>
                   </div>
 
-                  {%- comment -%} Complimentary 24K Plaque Engraving {%- endcomment -%}
-                  <div class="product-engraving-card">
-                    <div class="engraving-header">
-                      <label for="flacon-monogram-input" class="engraving-label">
-                        <span class="engraving-star" aria-hidden="true">✦</span>
-                        <span>Complimentary 24K Flacon Engraving</span>
-                      </label>
-                      <span class="engraving-tag">Complimentary</span>
-                    </div>
-                    <div class="engraving-input-wrap">
-                      <input
-                        type="text"
-                        id="flacon-monogram-input"
-                        class="engraving-input"
-                        maxlength="3"
-                        placeholder="INITIALS (E.G. SMP)"
-                        autocomplete="off"
-                        spellcheck="false"
-                        aria-label="Monogram initials for 24K plaque engraving"
-                      >
-                      <div class="engraving-live-preview" aria-hidden="true" title="Real-time 24K gold plaque preview">
-                        <span class="engraving-plaque">
-                          <span class="plaque-initials" id="engraving-plaque-text">— — —</span>
-                        </span>
-                      </div>
-                    </div>
-                    <p class="engraving-note">Diamond-etched into the brushed 24K gold crest plate upon order confirmation.</p>
-                  </div>
+
 
                   <div class="product-action-buttons">
                     <button
@@ -927,148 +914,17 @@
                     </div>
                     <div class="guarantee-content">
                       <h4 class="guarantee-title">The Discovery Guarantee</h4>
-                      <p class="guarantee-text">Includes a complimentary 5ml matching discovery flacon. Experience the sillage on your skin for 14 days before breaking the seal on your full 100ml vessel. Return unopened full flacon for a complete refund if not captivated.</p>
+                      <p class="guarantee-text">[TO FILL - Details of discovery guarantee, trial experience, and return terms]</p>
                     </div>
                   </div>
 
                 </div>
-              </div>
-            </div>
-          </section>
-
-        {%- elsif block.type == 'reviews' -%}
-          {%- comment -%} ═══ PANEL 5: REVIEWS / VOICES (#reviews) ═══ {%- endcomment -%}
-          <section
-            id="reviews"
-            class="samay-panel panel-reviews"
-            data-panel="{{ panel_index }}"
-            data-anchor="reviews"
-            {{ block.shopify_attributes }}
-            aria-label="Voices — {{ block.settings.heading | default: 'Voices in Reverie' }}"
-          >
-            <span class="reviews-chapter-bg" aria-hidden="true">05</span>
-
-            <div class="reviews-layout" data-reviews-reveal>
-              <div class="reviews-editorial">
-                <header class="reviews-header">
-                  <span class="reviews-eyebrow">{{ block.settings.eyebrow | default: 'Critical Acclaim' }}</span>
-                  <h2 class="reviews-heading">
-                    {%- assign r_words = block.settings.heading | default: 'Voices in Reverie' | split: ' ' -%}
-                    {%- for word in r_words -%}
-                      <span class="r-word">{{ word }}{%- unless forloop.last -%}&nbsp;{%- endunless -%}</span>
-                    {%- endfor -%}
-                  </h2>
-                  <div class="reviews-rule" aria-hidden="true"></div>
-                </header>
-
-                <p class="reviews-desc">{{ block.settings.description | default: 'Words from collectors, perfumers, and quiet observers who have made Samay their signature hour.' }}</p>
-
-                <div class="reviews-score-badge">
-                  <div class="score-stars" aria-label="5 out of 5 stars">
-                    <span class="star-icon">★</span>
-                    <span class="star-icon">★</span>
-                    <span class="star-icon">★</span>
-                    <span class="star-icon">★</span>
-                    <span class="star-icon">★</span>
-                  </div>
-                  <div class="score-meta">
-                    <span class="score-number">{{ block.settings.rating_score | default: '4.98' }}</span>
-                    <span class="score-divider">/ 5.0</span>
-                    <span class="score-count">{{ block.settings.rating_count | default: '1,240+ Verified Collectors' }}</span>
-                  </div>
-                </div>
-
-                <blockquote class="reviews-press-quote">
-                  <p class="press-text">“{{ block.settings.press_quote | default: 'A composition that does not merely enter a room — it quietly claims memory itself.' }}”</p>
-                  <cite class="press-source">— {{ block.settings.press_source | default: 'Le Nez Critique, Paris' }}</cite>
-                </blockquote>
-              </div>
-
-              <div class="reviews-carousel-col">
-                <div class="reviews-slider-card">
-                  <div class="reviews-card-header">
-                    <span class="quote-glyph" aria-hidden="true">“</span>
-                    <div class="reviews-counter" aria-live="polite">
-                      <span class="review-counter-current">01</span>
-                      <span class="counter-slash">/</span>
-                      <span class="counter-total">03</span>
-                    </div>
-                  </div>
-
-                  <div class="reviews-slider-track">
-                    <article class="review-card is-active" data-index="0">
-                      <div class="review-stars" aria-label="5 stars">★★★★★</div>
-                      <p class="review-quote">{{ block.settings.review_1_text | default: 'The transition from the crisp bergamot to the smoky birch tar is intoxicating. It lingers on cashmere for days without ever feeling overpowering.' }}</p>
-                      <footer class="review-author-wrap">
-                        <div class="author-details">
-                          <span class="author-name">{{ block.settings.review_1_author | default: 'Julian V.' }}</span>
-                          <span class="author-loc">{{ block.settings.review_1_location | default: 'London, UK' }}</span>
-                        </div>
-                        <span class="author-badge">
-                          <span class="badge-dot" aria-hidden="true"></span>
-                          {{ block.settings.review_1_badge | default: 'Verified Collector • Batch 01' }}
-                        </span>
-                      </footer>
-                    </article>
-
-                    <article class="review-card" data-index="1">
-                      <div class="review-stars" aria-label="5 stars">★★★★★</div>
-                      <p class="review-quote">{{ block.settings.review_2_text | default: 'You can taste the authenticity of the Assam agarwood and Mysore sandalwood. Nothing synthetic. A masterclass in restraint and quiet luxury.' }}</p>
-                      <footer class="review-author-wrap">
-                        <div class="author-details">
-                          <span class="author-name">{{ block.settings.review_2_author | default: 'Dr. Ananya S.' }}</span>
-                          <span class="author-loc">{{ block.settings.review_2_location | default: 'New Delhi, India' }}</span>
-                        </div>
-                        <span class="author-badge">
-                          <span class="badge-dot" aria-hidden="true"></span>
-                          {{ block.settings.review_2_badge | default: 'Artisan Patron' }}
-                        </span>
-                      </footer>
-                    </article>
-
-                    <article class="review-card" data-index="2">
-                      <div class="review-stars" aria-label="5 stars">★★★★★</div>
-                      <p class="review-quote">{{ block.settings.review_3_text | default: 'Rarely does a contemporary house achieve such timeless gravitas. Samay has bottled the quiet golden hour of twilight.' }}</p>
-                      <footer class="review-author-wrap">
-                        <div class="author-details">
-                          <span class="author-name">{{ block.settings.review_3_author | default: "Harper's Bazaar Art" }}</span>
-                          <span class="author-loc">{{ block.settings.review_3_location | default: 'Editorial Feature' }}</span>
-                        </div>
-                        <span class="author-badge">
-                          <span class="badge-dot" aria-hidden="true"></span>
-                          {{ block.settings.review_3_badge | default: 'Fragrance of the Year Mention' }}
-                        </span>
-                      </footer>
-                    </article>
-                  </div>
-
-                  <div class="reviews-nav-bar">
-                    <div class="review-dots" role="tablist" aria-label="Review pagination">
-                      <button type="button" class="review-dot is-active" aria-label="Review 1" aria-pressed="true" data-index="0"></button>
-                      <button type="button" class="review-dot" aria-label="Review 2" aria-pressed="false" data-index="1"></button>
-                      <button type="button" class="review-dot" aria-label="Review 3" aria-pressed="false" data-index="2"></button>
-                    </div>
-
-                    <div class="review-arrows">
-                      <button type="button" class="review-nav-btn review-nav-btn--prev" aria-label="Previous review">
-                        <span class="arrow-sym" aria-hidden="true">←</span>
-                      </button>
-                      <button type="button" class="review-nav-btn review-nav-btn--next" aria-label="Next review">
-                        <span class="arrow-sym" aria-hidden="true">→</span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="reviews-bottle-stage" aria-hidden="true">
-                <div class="bottle-glow-halo"></div>
               </div>
             </div>
           </section>
 
         {%- elsif block.type == 'faq' -%}
-          {%- comment -%} ═══ PANEL 6: FAQ ACCORDION (#faq) ═══ {%- endcomment -%}
+          {%- comment -%} ═══ PANEL 5: FAQ ACCORDION (#faq) ═══ {%- endcomment -%}
           <section
             id="faq"
             class="samay-panel panel-faq"
@@ -1077,7 +933,7 @@
             {{ block.shopify_attributes }}
             aria-label="FAQ — {{ block.settings.heading | default: 'Frequently Asked Questions' }}"
           >
-            <span class="faq-chapter-bg" aria-hidden="true">06</span>
+            <span class="faq-chapter-bg" aria-hidden="true">05</span>
 
             <div class="faq-layout" data-faq-reveal>
               <header class="faq-header">
@@ -1137,7 +993,7 @@
             {{ block.shopify_attributes }}
             aria-label="Contact — {{ block.settings.heading | default: 'Connect with the House' }}"
           >
-            <span class="contact-chapter-bg" aria-hidden="true">07</span>
+            <span class="contact-chapter-bg" aria-hidden="true">06</span>
 
             <div class="contact-layout" data-contact-reveal>
               <div class="contact-col-info">
@@ -1274,7 +1130,7 @@
           </section>
 
         {%- elsif block.type == 'footer_panel' -%}
-          {%- comment -%} ═══ PANEL 8: FOOTER (#footer) ═══ {%- endcomment -%}
+          {%- comment -%} ═══ PANEL 7: FOOTER (#footer) ═══ {%- endcomment -%}
           <section
             id="footer"
             class="samay-panel panel-footer"
@@ -1283,13 +1139,13 @@
             {{ block.shopify_attributes }}
             aria-label="Footer &amp; Policies"
           >
-            <span class="footer-chapter-bg" aria-hidden="true">08</span>
+            <span class="footer-chapter-bg" aria-hidden="true">07</span>
 
             <div class="footer-panel-layout" data-footer-reveal>
               <div class="footer-brand-stage">
                 <span class="footer-monogram" aria-hidden="true">S</span>
                 <h2 class="footer-brand-title">{{ block.settings.brand_name | default: 'SAMAY PARFUMES' }}</h2>
-                <p class="footer-brand-tagline">{{ block.settings.tagline | default: 'Time Captured in Scent' }}</p>
+                <p class="footer-brand-tagline">{{ block.settings.tagline | default: '[TO FILL - Brand Tagline]' }}</p>
                 <div class="footer-rule" aria-hidden="true"></div>
                 <p class="footer-atelier-note">{{ block.settings.atelier_text | default: 'Fine Fragrances Distilled in Grasse &amp; New Delhi • Limited Edition Extraits' }}</p>
               </div>
@@ -1302,9 +1158,8 @@
                     <li><a href="#about" data-nav-target="about">02 About</a></li>
                     <li><a href="#notes" data-nav-target="notes">03 Notes</a></li>
                     <li><a href="#bottle" data-nav-target="bottle">04 The Bottle</a></li>
-                    <li><a href="#reviews" data-nav-target="reviews">05 Reviews</a></li>
-                    <li><a href="#faq" data-nav-target="faq">06 FAQ</a></li>
-                    <li><a href="#contact" data-nav-target="contact">07 Contact</a></li>
+                    <li><a href="#faq" data-nav-target="faq">05 FAQ</a></li>
+                    <li><a href="#contact" data-nav-target="contact">06 Contact</a></li>
                   </ul>
                 </div>
 
@@ -1464,7 +1319,7 @@
           "type": "text",
           "id": "heading",
           "label": "Main heading",
-          "default": "Time Captured in Scent"
+          "default": "[TO FILL - Brand Tagline]"
         },
         {
           "type": "textarea",
@@ -1506,19 +1361,19 @@
           "type": "textarea",
           "id": "paragraph_1",
           "label": "Lead paragraph",
-          "default": "Samay was born in the lantern-lit lanes of old Delhi, where a perfumer's notebook and a grandmother's memory became the seed of something rare."
+          "default": "[TO FILL - Brand origin, founder history & heritage story]"
         },
         {
           "type": "textarea",
           "id": "paragraph_2",
           "label": "Paragraph 2",
-          "default": "We source only what the season offers willingly — raw oud from Assam's oldest agarwood groves, Mysore sandalwood aged in silence, Bulgarian rose absolute hand-pressed at dawn."
+          "default": "[TO FILL - Ingredient sourcing, botanical origins & harvesting methods]"
         },
         {
           "type": "textarea",
           "id": "paragraph_3",
           "label": "Paragraph 3",
-          "default": "Every bottle holds a specific hour — not just a fragrance. An atmosphere you can return to."
+          "default": "[TO FILL - House philosophy, olfactive concept & vision]"
         },
         {
           "type": "header",
@@ -1534,7 +1389,7 @@
           "type": "text",
           "id": "milestone_1_text",
           "label": "Milestone 1 — text",
-          "default": "First batch distilled in a copper athar still"
+          "default": "[TO FILL - Historic milestone 1]"
         },
         {
           "type": "text",
@@ -1546,7 +1401,7 @@
           "type": "text",
           "id": "milestone_2_text",
           "label": "Milestone 2 — text",
-          "default": "Awarded India's Finest Artisan Fragrance"
+          "default": "[TO FILL - Historic milestone 2]"
         },
         {
           "type": "text",
@@ -1558,7 +1413,7 @@
           "type": "text",
           "id": "milestone_3_text",
           "label": "Milestone 3 — text",
-          "default": "Expanded to 28 countries across 4 continents"
+          "default": "[TO FILL - Historic milestone 3]"
         },
         {
           "type": "header",
@@ -1607,7 +1462,7 @@
           "type": "textarea",
           "id": "description",
           "label": "Intro description",
-          "default": "A compound of 1000 g, matured in ethanol and rare musks. Every element chosen for the hour it inhabits."
+          "default": "[TO FILL - Composition details, maceration protocols & formulation concentration]"
         },
         {
           "type": "text",
@@ -1619,7 +1474,7 @@
           "type": "text",
           "id": "concentration",
           "label": "Concentration value",
-          "default": "Eau de Parfum Intense"
+          "default": "[TO FILL - Fragrance Concentration]"
         },
         {
           "type": "header",
@@ -1641,7 +1496,7 @@
           "type": "textarea",
           "id": "top_notes",
           "label": "Top notes (comma-separated)",
-          "default": "Bergamot,Blackcurrant,Apple,Pineapple Platinum"
+          "default": "[TO FILL - Top Note 1],[TO FILL - Top Note 2],[TO FILL - Top Note 3]"
         },
         {
           "type": "header",
@@ -1663,7 +1518,7 @@
           "type": "textarea",
           "id": "heart_notes",
           "label": "Heart notes (comma-separated)",
-          "default": "Jasmine Absolute,Jasmine Sambac,Birch Tar,Patchouli"
+          "default": "[TO FILL - Heart Note 1],[TO FILL - Heart Note 2],[TO FILL - Heart Note 3]"
         },
         {
           "type": "header",
@@ -1731,7 +1586,7 @@
           "type": "text",
           "id": "spec_1_val",
           "label": "Spec 1 Value",
-          "default": "Smoked French crystal, 420g solid base"
+          "default": "[TO FILL - Vessel Architecture & Materials]"
         },
         {
           "type": "text",
@@ -1743,7 +1598,7 @@
           "type": "text",
           "id": "spec_2_val",
           "label": "Spec 2 Value",
-          "default": "Solid Zamak alloy, hand-gilded in 24K gold"
+          "default": "[TO FILL - Cap & Finishes]"
         },
         {
           "type": "text",
@@ -1755,7 +1610,7 @@
           "type": "text",
           "id": "spec_3_val",
           "label": "Spec 3 Value",
-          "default": "180 days in dark French oak casks"
+          "default": "[TO FILL - Aging & Maceration Duration]"
         },
         {
           "type": "text",
@@ -1767,7 +1622,7 @@
           "type": "text",
           "id": "spec_4_val",
           "label": "Spec 4 Value",
-          "default": "Limited Run of 500 bottles • Grasse & New Delhi"
+          "default": "[TO FILL - Production Origin & Batch Run]"
         },
         {
           "type": "header",
@@ -1777,7 +1632,7 @@
           "type": "text",
           "id": "badge_text",
           "label": "Badge text",
-          "default": "Limited Release • 500 Bottles Worldwide"
+          "default": "[TO FILL - Edition / Release Details]"
         },
         {
           "type": "text",
@@ -1789,31 +1644,37 @@
           "type": "text",
           "id": "subtitle",
           "label": "Subtitle",
-          "default": "Batch No. 01 — Rare Harvest"
+          "default": "[TO FILL - Batch Information]"
         },
         {
           "type": "text",
           "id": "price",
-          "label": "Price (100ml)",
-          "default": "₹22,500"
+          "label": "Price (Single 50ml)",
+          "default": "₹4,999"
         },
         {
           "type": "text",
           "id": "compare_at_price",
           "label": "Compare at Price (optional)",
-          "default": "₹26,000"
+          "default": "₹6,499"
         },
         {
           "type": "text",
-          "id": "price_50ml",
-          "label": "Price (50ml)",
-          "default": "₹14,800"
+          "id": "price_pack_2",
+          "label": "Price (Pack of 2)",
+          "default": "₹8,999"
+        },
+        {
+          "type": "text",
+          "id": "price_pack_3",
+          "label": "Price (Pack of 3)",
+          "default": "₹12,499"
         },
         {
           "type": "text",
           "id": "volume",
           "label": "Volume Display",
-          "default": "100 ML — 3.4 FL. OZ."
+          "default": "50 ML — 1.7 FL. OZ."
         },
         {
           "type": "header",
@@ -1823,166 +1684,25 @@
           "type": "text",
           "id": "inclusion_1",
           "label": "Inclusion 1",
-          "default": "Complimentary 5ml discovery vial included"
+          "default": "[TO FILL - Presentation inclusion 1]"
         },
         {
           "type": "text",
           "id": "inclusion_2",
           "label": "Inclusion 2",
-          "default": "Wax-sealed certificate of authenticity"
+          "default": "[TO FILL - Guarantee or certificate inclusion 2]"
         },
         {
           "type": "text",
           "id": "inclusion_3",
           "label": "Inclusion 3",
-          "default": "White-glove climate-controlled shipping"
-        }
-      ]
-    },
-    {
-      "type": "reviews",
-      "name": "05 – Voices",
-      "limit": 1,
-      "settings": [
-        {
-          "type": "header",
-          "content": "Intro & Rating"
-        },
-        {
-          "type": "text",
-          "id": "eyebrow",
-          "label": "Eyebrow",
-          "default": "Critical Acclaim"
-        },
-        {
-          "type": "text",
-          "id": "heading",
-          "label": "Heading",
-          "default": "Voices in Reverie"
-        },
-        {
-          "type": "textarea",
-          "id": "description",
-          "label": "Description",
-          "default": "Words from collectors, perfumers, and quiet observers who have made Samay their signature hour."
-        },
-        {
-          "type": "text",
-          "id": "rating_score",
-          "label": "Rating Score",
-          "default": "4.98"
-        },
-        {
-          "type": "text",
-          "id": "rating_count",
-          "label": "Rating Count",
-          "default": "1,240+ Verified Collectors"
-        },
-        {
-          "type": "header",
-          "content": "Featured Press Quote"
-        },
-        {
-          "type": "textarea",
-          "id": "press_quote",
-          "label": "Press Quote",
-          "default": "A composition that does not merely enter a room — it quietly claims memory itself."
-        },
-        {
-          "type": "text",
-          "id": "press_source",
-          "label": "Press Source",
-          "default": "Le Nez Critique, Paris"
-        },
-        {
-          "type": "header",
-          "content": "Review 1"
-        },
-        {
-          "type": "textarea",
-          "id": "review_1_text",
-          "label": "Review 1 Text",
-          "default": "The transition from the crisp bergamot to the smoky birch tar is intoxicating. It lingers on cashmere for days without ever feeling overpowering."
-        },
-        {
-          "type": "text",
-          "id": "review_1_author",
-          "label": "Review 1 Author",
-          "default": "Julian V."
-        },
-        {
-          "type": "text",
-          "id": "review_1_location",
-          "label": "Review 1 Location",
-          "default": "London, UK"
-        },
-        {
-          "type": "text",
-          "id": "review_1_badge",
-          "label": "Review 1 Badge",
-          "default": "Verified Collector • Batch 01"
-        },
-        {
-          "type": "header",
-          "content": "Review 2"
-        },
-        {
-          "type": "textarea",
-          "id": "review_2_text",
-          "label": "Review 2 Text",
-          "default": "You can taste the authenticity of the Assam agarwood and Mysore sandalwood. Nothing synthetic. A masterclass in restraint and quiet luxury."
-        },
-        {
-          "type": "text",
-          "id": "review_2_author",
-          "label": "Review 2 Author",
-          "default": "Dr. Ananya S."
-        },
-        {
-          "type": "text",
-          "id": "review_2_location",
-          "label": "Review 2 Location",
-          "default": "New Delhi, India"
-        },
-        {
-          "type": "text",
-          "id": "review_2_badge",
-          "label": "Review 2 Badge",
-          "default": "Artisan Patron"
-        },
-        {
-          "type": "header",
-          "content": "Review 3"
-        },
-        {
-          "type": "textarea",
-          "id": "review_3_text",
-          "label": "Review 3 Text",
-          "default": "Rarely does a contemporary house achieve such timeless gravitas. Samay has bottled the quiet golden hour of twilight."
-        },
-        {
-          "type": "text",
-          "id": "review_3_author",
-          "label": "Review 3 Author",
-          "default": "Harper's Bazaar Art"
-        },
-        {
-          "type": "text",
-          "id": "review_3_location",
-          "label": "Review 3 Location",
-          "default": "Editorial Feature"
-        },
-        {
-          "type": "text",
-          "id": "review_3_badge",
-          "label": "Review 3 Badge",
-          "default": "Fragrance of the Year Mention"
+          "default": "[TO FILL - Shipping or presentation inclusion 3]"
         }
       ]
     },
     {
       "type": "faq",
-      "name": "06 – FAQ",
+      "name": "05 – FAQ",
       "limit": 1,
       "settings": [
         {
@@ -2017,7 +1737,7 @@
           "type": "textarea",
           "id": "a1",
           "label": "Answer 1",
-          "default": "Samay is formulated at an Extrait concentration with 30% pure perfume oil. A single application delivers 12 to 16+ hours of projection on skin, and will gently linger on fine textiles like wool and cashmere for several days."
+          "default": "[TO FILL - Fragrance longevity, skin projection & oil concentration]"
         },
         {
           "type": "header",
@@ -2033,7 +1753,7 @@
           "type": "textarea",
           "id": "a2",
           "label": "Answer 2",
-          "default": "Yes. Samay is composed without traditional gender boundaries. The harmonic balance of crisp bergamot, Assam agarwood, Mysore sandalwood, and birch tar evolves dynamically with the natural chemistry and warmth of your skin."
+          "default": "[TO FILL - Olfactive profile, gender suitability & notes evolution]"
         },
         {
           "type": "header",
@@ -2049,7 +1769,7 @@
           "type": "textarea",
           "id": "a3",
           "label": "Answer 3",
-          "default": "We offer complimentary express shipping across India, delivered securely within 2-4 business days. International deliveries are handled via DHL Express with all applicable duties and taxes calculated transparently at checkout."
+          "default": "[TO FILL - Domestic & international shipping timelines, carriers & costs]"
         },
         {
           "type": "header",
@@ -2065,7 +1785,7 @@
           "type": "textarea",
           "id": "a4",
           "label": "Answer 4",
-          "default": "Every flacon arrives with a complimentary 5ml discovery vial. We encourage you to experience the vial first. If you decide the fragrance is not for you, you may return the unopened, intact full-size flacon within 14 days for a full refund."
+          "default": "[TO FILL - Return window, condition requirements & discovery guarantee terms]"
         },
         {
           "type": "header",
@@ -2081,7 +1801,7 @@
           "type": "textarea",
           "id": "a5",
           "label": "Answer 5",
-          "default": "Every flacon is individually numbered, hand-filled, and arrives sealed with a wax-stamped certificate of origin, detailing the harvest year, distillation date, and flacon serial number."
+          "default": "[TO FILL - Batch authenticity, seal verification & certification details]"
         },
         {
           "type": "header",
@@ -2097,13 +1817,13 @@
           "type": "textarea",
           "id": "a6",
           "label": "Answer 6",
-          "default": "To protect the pure resins and organic maceration, keep your flacon in a cool, shaded environment away from direct sunlight and sharp fluctuations in temperature or humidity."
+          "default": "[TO FILL - Storage temperature, light exposure & preservation recommendations]"
         }
       ]
     },
     {
       "type": "contact",
-      "name": "07 – Contact",
+      "name": "06 – Contact",
       "limit": 1,
       "settings": [
         {
@@ -2132,13 +1852,13 @@
           "type": "text",
           "id": "whatsapp_number",
           "label": "WhatsApp phone number (with country code, no + or spaces)",
-          "default": "919876543210"
+          "default": "[TO FILL]"
         },
         {
           "type": "text",
           "id": "whatsapp_message",
           "label": "WhatsApp prefilled message",
-          "default": "Hello Samay Parfumes, I would like to inquire about acquiring a flacon."
+          "default": "[TO FILL - WhatsApp prefilled inquiry message]"
         },
         {
           "type": "header",
@@ -2148,19 +1868,19 @@
           "type": "text",
           "id": "concierge_email",
           "label": "Email Address",
-          "default": "concierge@samayparfumes.com"
+          "default": "[TO FILL]"
         },
         {
           "type": "text",
           "id": "concierge_phone",
           "label": "Phone Number",
-          "default": "+91 (0) 11 4982 7700"
+          "default": "[TO FILL]"
         },
         {
           "type": "text",
           "id": "concierge_city",
           "label": "Atelier City / Locations",
-          "default": "New Delhi • Paris • Grasse"
+          "default": "[TO FILL - Atelier Locations & Cities]"
         },
         {
           "type": "url",
@@ -2171,7 +1891,7 @@
     },
     {
       "type": "footer_panel",
-      "name": "08 – Footer",
+      "name": "07 – Footer",
       "limit": 1,
       "settings": [
         {
@@ -2184,13 +1904,13 @@
           "type": "text",
           "id": "tagline",
           "label": "Tagline",
-          "default": "Time Captured in Scent"
+          "default": "[TO FILL - Brand Tagline]"
         },
         {
           "type": "textarea",
           "id": "atelier_text",
           "label": "Atelier Note",
-          "default": "Fine Fragrances Distilled in Grasse & New Delhi • Limited Edition Extraits"
+          "default": "[TO FILL - Atelier note & origins]"
         },
         {
           "type": "url",
@@ -2218,7 +1938,6 @@
         { "type": "story" },
         { "type": "notes" },
         { "type": "product" },
-        { "type": "reviews" },
         { "type": "faq" },
         { "type": "contact" },
         { "type": "footer_panel" }
