@@ -1,20 +1,15 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
-    "main": {
-      "type": "hello-world",
-      "settings": {}
+    "zayro-storefront": {
+      "type": "zayro-storefront",
+      "settings": {
+        "brand_title": "SAMAY PARFUMES",
+        "fragrance_title": "ZAYRO",
+        "fragrance_subtitle": "EAU DE PARFUM — 50 ML"
+      }
     }
   },
   "order": [
-    "main"
+    "zayro-storefront"
   ]
 }
