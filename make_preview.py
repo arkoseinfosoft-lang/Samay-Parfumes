@@ -25,6 +25,7 @@ full_html = f"""<!DOCTYPE html>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SAMAY PARFUMES — ZAYRO Eau de Parfum</title>
+  <link rel="icon" type="image/png" href="assets/logo-black.png">
   <link rel="stylesheet" href="assets/zayro.css">
 </head>
 <body>
