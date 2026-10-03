@@ -1,7 +1,7 @@
 {% comment %}
   =============================================================
   SAMAY PARFUMES — ZAYRO LUXURY STOREFRONT
-  Editorial Mediterranean Haute Parfumerie Experience
+  Exact Mediterranean Sandstone Haute Parfumerie Layout
   =============================================================
 {% endcomment %}
 
@@ -14,7 +14,7 @@
   assign variant_triple = main_product.variants[2] | default: variant_single
 -%}
 
-<!-- ═══ 1. BESPOKE LUXURY NAVIGATION HEADER ═══ -->
+<!-- ═══ 1. BESPOKE NAVIGATION HEADER ═══ -->
 <header id="zayro-header" class="zayro-nav-header" role="banner">
   <div class="zayro-container zayro-nav-inner">
     <a href="#fragrance" class="zayro-brand-wrap" aria-label="Samay Parfumes — Home">
@@ -22,23 +22,22 @@
         src="{{ 'logo-black.png' | asset_url }}"
         alt="Samay Parfumes Clock Emblem"
         class="zayro-brand-logo-img"
-        width="38"
-        height="38"
+        width="34"
+        height="34"
         loading="eager"
       >
       <span class="zayro-brand-text">{{ section.settings.brand_title | default: 'SAMAY PARFUMES' }}</span>
     </a>
 
     <nav class="zayro-nav-links" aria-label="Main Navigation">
-      <a href="#fragrance" class="zayro-nav-link is-active">THE FRAGRANCE</a>
+      <a href="#fragrance" class="zayro-nav-link">THE FRAGRANCE</a>
       <a href="#story" class="zayro-nav-link">THE STORY</a>
-      <a href="#packs" class="zayro-nav-link">PACKS</a>
       <a href="#faq" class="zayro-nav-link">FAQ</a>
       <a href="#contact" class="zayro-nav-link">CONTACT</a>
     </nav>
 
     <div class="zayro-nav-actions">
-      <a href="#packs" class="btn-luxury-outline nav-order-btn">ORDER NOW &rarr;</a>
+      <a href="#packs" class="btn-nav-order">ORDER NOW &rarr;</a>
       <button type="button" id="nav-cart-btn" class="nav-cart-btn" aria-label="Open Shopping Bag">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
           <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path>
@@ -47,618 +46,568 @@
         </svg>
         <span id="nav-cart-badge" class="nav-cart-badge">{{ cart.item_count }}</span>
       </button>
+      <button type="button" id="mobile-menu-toggle" class="mobile-menu-toggle" aria-label="Open Navigation Menu">
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+      </button>
     </div>
   </div>
 </header>
 
-<!-- ═══ 2. HERO SECTION (#fragrance) ═══ -->
-<section id="fragrance" class="zayro-hero-section" aria-label="Zayro Eau de Parfum">
-  <img
-    src="{{ 'hero-reference-upscaled.jpg' | asset_url }}"
-    alt="Zayro 50ml Eau de Parfum on Raw Travertine Stone Pedestal overlooking Mediterranean"
-    class="hero-backdrop-img"
-    loading="eager"
-    width="2048"
-    height="717"
-  >
-
-  <!-- Semantic SEO Heading for search engines and accessibility -->
-  <div class="visually-hidden">
-    <h1>ZAYRO &mdash; Eau de Parfum 50 ML</h1>
-    <p>A fragrance for the moments that stay.</p>
-  </div>
-
-  <div class="zayro-container hero-content-grid">
-    <div class="hero-left-spacer" aria-hidden="true"></div>
-
-    <!-- Interactive Chapter Hotspots positioned over the right navigation rail -->
-    <nav class="hero-chapter-hotspots" aria-label="Storefront Chapters">
-      <a href="#fragrance" class="chapter-hotspot is-active" title="The Fragrance"></a>
-      <a href="#story" class="chapter-hotspot" title="The Story"></a>
-      <a href="#packs" class="chapter-hotspot" title="Choose Your Pack"></a>
-      <a href="#details" class="chapter-hotspot" title="Bottle Details"></a>
-      <a href="#faq" class="chapter-hotspot" title="Frequently Asked Questions"></a>
+<!-- ═══ MOBILE NAVIGATION DRAWER ═══ -->
+<div id="zayro-mobile-menu" class="zayro-mobile-menu" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Mobile Navigation">
+  <div id="mobile-menu-backdrop" class="mobile-menu-backdrop"></div>
+  <aside class="mobile-menu-panel">
+    <div class="mobile-menu-header">
+      <a href="#fragrance" class="mobile-menu-brand" data-close-mobile-menu>
+        <img src="{{ 'logo-black.png' | asset_url }}" alt="Samay Parfumes" width="30" height="30" class="mobile-menu-logo">
+        <span class="mobile-menu-title">SAMAY PARFUMES</span>
+      </a>
+      <button type="button" id="mobile-menu-close" class="mobile-menu-close" aria-label="Close Menu">&times;</button>
+    </div>
+    <nav class="mobile-menu-nav">
+      <a href="#fragrance" class="mobile-nav-link" data-close-mobile-menu>
+        <span class="mobile-nav-num">01</span>
+        <span class="mobile-nav-text">THE FRAGRANCE</span>
+      </a>
+      <a href="#notes" class="mobile-nav-link" data-close-mobile-menu>
+        <span class="mobile-nav-num">02</span>
+        <span class="mobile-nav-text">OLFACTORY NOTES</span>
+      </a>
+      <a href="#story" class="mobile-nav-link" data-close-mobile-menu>
+        <span class="mobile-nav-num">03</span>
+        <span class="mobile-nav-text">OUR STORY</span>
+      </a>
+      <a href="#packs" class="mobile-nav-link" data-close-mobile-menu>
+        <span class="mobile-nav-num">04</span>
+        <span class="mobile-nav-text">CHOOSE YOUR PACK</span>
+      </a>
+      <a href="#details" class="mobile-nav-link" data-close-mobile-menu>
+        <span class="mobile-nav-num">05</span>
+        <span class="mobile-nav-text">THE DETAILS</span>
+      </a>
+      <a href="#reviews" class="mobile-nav-link" data-close-mobile-menu>
+        <span class="mobile-nav-num">06</span>
+        <span class="mobile-nav-text">CUSTOMER REVIEWS</span>
+      </a>
+      <a href="#faq" class="mobile-nav-link" data-close-mobile-menu>
+        <span class="mobile-nav-num">07</span>
+        <span class="mobile-nav-text">FAQ</span>
+      </a>
+      <a href="#contact" class="mobile-nav-link" data-close-mobile-menu>
+        <span class="mobile-nav-num">08</span>
+        <span class="mobile-nav-text">CONTACT</span>
+      </a>
     </nav>
-  </div>
-</section>
+    <div class="mobile-menu-cta">
+      <button type="button" class="btn-sand-solid w-100" data-open-formula>
+        &#9878; FORMULATION DOSSIER &rarr;
+      </button>
+      <a href="#packs" class="btn-exact-outline w-100" data-close-mobile-menu>
+        ORDER ZAYRO &rarr;
+      </a>
+    </div>
+    <div class="mobile-menu-footer">
+      <p class="mobile-meta-title">KANPUR ATELIER &bull; INDIA</p>
+      <div class="mobile-meta-links">
+        <a href="tel:+919305888555" class="mobile-meta-link">&#9742; +91 9305888555</a>
+        <a href="mailto:samayparfumes@gmail.com" class="mobile-meta-link">&#9993; samayparfumes@gmail.com</a>
+      </div>
+    </div>
+  </aside>
+</div>
 
-<!-- ═══ 3. SECTION: THE FRAGRANCE / NOTES (#notes) ═══ -->
-<section id="notes" class="zayro-notes-section" aria-label="Fragrance Notes Accord">
-  <img
-    src="{{ 'notes-botanicals.jpg' | asset_url }}"
-    alt="Botanical Still Life: Bergamot, French Lavender, Agarwood, Golden Amber"
-    class="notes-backdrop-img"
-    loading="lazy"
-    width="1792"
-    height="1024"
-  >
-  <div class="notes-vignette" aria-hidden="true"></div>
+<main id="main-content" class="zayro-page-flow">
 
-  <div class="zayro-container notes-content-grid">
-    <div class="notes-left-intro">
-      <span class="eyebrow-tag">THE FRAGRANCE</span>
-      <h2 class="heading-section notes-title">A QUIET COMPOSITION.</h2>
-      <p class="notes-desc">
-        Zayro is crafted with a delicate balance of fresh, spicy and woody notes &mdash; a scent that feels familiar yet unforgettable. Macerated slowly in small batches for remarkable longevity and sillage.
-      </p>
-      <button type="button" class="btn-text-arrow btn-text-arrow--light" data-open-formula>
-        &rarr; EXPLORE THE FORMULA & NOTES
+  <!-- ═══ 2. HERO SECTION (#fragrance) ═══ -->
+  <section id="fragrance" class="zayro-section-canvas hero-canvas" aria-label="Zayro Eau de Parfum">
+    <div class="canvas-image-wrapper">
+      <img
+        src="{{ 'sec_01_hero.jpg' | asset_url }}"
+        alt="Zayro 50ml Eau de Parfum Bottle on Travertine Pedestal in Sunlit Mediterranean Terrace"
+        class="canvas-image"
+        width="1444"
+        height="790"
+        loading="eager"
+      >
+      <!-- Interactive Hotspots -->
+      <a href="#packs" class="hotspot hotspot-hero-discover" aria-label="Discover Packs">
+        <span class="hotspot-highlight"></span>
+      </a>
+      <a href="#notes" class="hotspot hotspot-hero-scroll" aria-label="Scroll to Fragrance Notes">
+        <span class="hotspot-highlight"></span>
+      </a>
+    </div>
+    <!-- Screen-reader / SEO Semantic Hierarchy -->
+    <div class="sr-only">
+      <h1>ZAYRO — Eau de Parfum (50 ML) by Samay Parfumes</h1>
+      <p>A Timeless Essence. A fragrance beyond time. Handcrafted in Kanpur, India.</p>
+    </div>
+  </section>
+
+  <!-- ═══ 3. SECTION: THE FRAGRANCE / NOTES (#notes) ═══ -->
+  <section id="notes" class="zayro-section-canvas notes-canvas" aria-label="Fragrance Notes">
+    <div class="canvas-image-wrapper">
+      <img
+        src="{{ 'sec_02_notes.jpg' | asset_url }}"
+        alt="The Fragrance — A Blend That Lingers. Botanical still life with bergamot, lavender, spices, sandalwood, and amber"
+        class="canvas-image"
+        width="1444"
+        height="515"
+        loading="lazy"
+      >
+      <!-- Interactive Hotspot: Explore the Notes / Open Formulation Dossier -->
+      <button type="button" class="hotspot hotspot-notes-formula" data-open-formula aria-label="Explore the Notes — Authentic Laboratory Dossier">
+        <span class="hotspot-highlight"></span>
       </button>
     </div>
-
-    <div class="notes-pyramid-cols">
-      <!-- TOP NOTES -->
-      <div class="note-tier-card">
-        <div class="note-tier-badge">TOP</div>
-        <ul class="note-items-list">
-          <li class="note-item">
-            Bergamot
-            <span class="note-item-sub">Calabrian Cold-Expressed</span>
-          </li>
-          <li class="note-item">
-            Pineapple Platinum
-            <span class="note-item-sub">Juicy Luminous Accord</span>
-          </li>
-          <li class="note-item">
-            Blackcurrant
-            <span class="note-item-sub">Burgundy Bud Absolute</span>
-          </li>
-          <li class="note-item">
-            Crisp Apple
-            <span class="note-item-sub">Himalayan Mountain Orchard</span>
-          </li>
-        </ul>
-      </div>
-
-      <!-- HEART NOTES -->
-      <div class="note-tier-card">
-        <div class="note-tier-badge">HEART</div>
-        <ul class="note-items-list">
-          <li class="note-item">
-            Sacred Jasmine
-            <span class="note-item-sub">Jasmine Absolute</span>
-          </li>
-          <li class="note-item">
-            Jasmine Sambac
-            <span class="note-item-sub">Indolic Temple Blossom</span>
-          </li>
-          <li class="note-item">
-            Patchouli
-            <span class="note-item-sub">Roohaloud Aged Oak</span>
-          </li>
-          <li class="note-item">
-            Smoked Birch Tar
-            <span class="note-item-sub">Pyrolyzed Frankincense</span>
-          </li>
-        </ul>
-      </div>
-
-      <!-- BASE NOTES -->
-      <div class="note-tier-card">
-        <div class="note-tier-badge">BASE</div>
-        <ul class="note-items-list">
-          <li class="note-item">
-            White Musk
-            <span class="note-item-sub">Galaxolide & Clean Skin</span>
-          </li>
-          <li class="note-item">
-            Javanol
-            <span class="note-item-sub">Mysore Sandalwood Heart</span>
-          </li>
-          <li class="note-item">
-            Ambroxan
-            <span class="note-item-sub">Radiant Saline Amber</span>
-          </li>
-          <li class="note-item">
-            Oakmoss & Vanilla
-            <span class="note-item-sub">Velvety Forest Balsam</span>
-          </li>
-        </ul>
-      </div>
+    <div class="sr-only">
+      <h2>The Fragrance — A Blend That Lingers</h2>
+      <p>Fresh citrus, aromatic spices and deep woods come together to create a signature scent that stays with you through every moment.</p>
+      <p>Top Notes: Bergamot, Citrus, Fresh Spices. Heart Notes: Lavender, Spices, Aromatic Woods. Base Notes: Amber, Musk, Woody Notes.</p>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ═══ 4. SECTION: THE STORY (#story) ═══ -->
-<section id="story" class="zayro-story-section" aria-label="Brand Story">
-  <img
-    src="{{ 'story-rocks.jpg' | asset_url }}"
-    alt="Atmospheric dark geological rocks at twilight"
-    class="story-backdrop-img"
-    loading="lazy"
-    width="1792"
-    height="1024"
-  >
-  <div class="story-vignette" aria-hidden="true"></div>
-
-  <div class="zayro-container story-content-grid">
-    <div class="story-left">
-      <span class="eyebrow-tag">THE STORY</span>
-      <h2 class="heading-section story-title">INSPIRED BY TIME.</h2>
-      <p class="story-body-text">
-        Samay Parfumes is a celebration of moments, memories and milestones. Zayro represents the perfect blend of tradition and modernity &mdash; a fragrance made for those who value their time and make every moment count. Handcrafted and formulated in India with rare international aromatics.
-      </p>
-      <a href="#packs" class="btn-text-arrow btn-text-arrow--light">
-        &rarr; ACQUIRE THE FLACON &rarr;
-      </a>
-    </div>
-
-    <div class="story-right">
-      <blockquote class="story-poetic-quote">
-        SOME MOMENTS DESERVE TO LAST.
-      </blockquote>
-      <div class="story-origin-badge">
-        <span>&#10022;</span>
-        <span>Atelier: Kanpur, India &bull; 80% V/V Concentration</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ 5. SECTION: CHOOSE YOUR PACK / PRICING (#packs) ═══ -->
-<section id="packs" class="zayro-packs-section" aria-label="Choose Your Pack">
-  <div class="zayro-container">
-    <div class="packs-header-row">
-      <div class="packs-header-left">
-        <span class="eyebrow-tag eyebrow-tag--muted">CHOOSE YOUR PACK</span>
-        <h2 class="heading-section packs-title">ONE ESSENCE.<br>THREE WAYS.</h2>
-      </div>
-      <p class="packs-header-subtitle">
-        The same signature fragrance,<br>for every version of you.
-      </p>
-    </div>
-
-    <div class="packs-cards-grid">
-      <!-- 1. SINGLE PACK -->
-      <article class="pack-card">
-        <h3 class="pack-card-title">SINGLE PACK</h3>
-        <p class="pack-card-vol">50 ML</p>
-        <div class="pack-card-visual-wrap">
-          <img
-            src="{{ 'pack-single.jpg' | asset_url }}"
-            alt="Single 50ml Zayro Bottle on Sandstone Pedestal"
-            class="pack-card-img"
-            loading="lazy"
-            width="600"
-            height="480"
-          >
-        </div>
-        <div class="pack-price-row">
-          <span class="pack-price-current">₹1,499</span>
-        </div>
-        <button
-          type="button"
-          class="btn-luxury-solid pack-card-btn"
-          data-add-to-cart
-          data-variant-id="{{ variant_single.id | default: '' }}"
-          data-quantity="1"
-        >
-          ADD TO CART &rarr;
-        </button>
-      </article>
-
-      <!-- 2. DUO PACK -->
-      <article class="pack-card is-featured">
-        <span class="pack-card-tag">Save 7%</span>
-        <h3 class="pack-card-title">DUO PACK</h3>
-        <p class="pack-card-vol">2 &times; 50 ML</p>
-        <div class="pack-card-visual-wrap">
-          <img
-            src="{{ 'pack-duo.jpg' | asset_url }}"
-            alt="Duo Pack (Two 50ml Zayro Bottles) on Sandstone Pedestal"
-            class="pack-card-img"
-            loading="lazy"
-            width="600"
-            height="480"
-          >
-        </div>
-        <div class="pack-price-row">
-          <span class="pack-price-current">₹2,799</span>
-          <span class="pack-price-compare">₹2,998</span>
-        </div>
-        <button
-          type="button"
-          class="btn-luxury-solid pack-card-btn"
-          data-add-to-cart
-          data-variant-id="{{ variant_duo.id | default: variant_single.id | default: '' }}"
-          data-quantity="2"
-        >
-          ADD TO CART &rarr;
-        </button>
-      </article>
-
-      <!-- 3. TRIPLE PACK -->
-      <article class="pack-card">
-        <span class="pack-card-tag">Save 11%</span>
-        <h3 class="pack-card-title">TRIPLE PACK</h3>
-        <p class="pack-card-vol">3 &times; 50 ML</p>
-        <div class="pack-card-visual-wrap">
-          <img
-            src="{{ 'pack-triple.jpg' | asset_url }}"
-            alt="Triple Pack (Three 50ml Zayro Bottles) on Sandstone Pedestal"
-            class="pack-card-img"
-            loading="lazy"
-            width="600"
-            height="480"
-          >
-        </div>
-        <div class="pack-price-row">
-          <span class="pack-price-current">₹3,999</span>
-          <span class="pack-price-compare">₹4,497</span>
-        </div>
-        <button
-          type="button"
-          class="btn-luxury-solid pack-card-btn"
-          data-add-to-cart
-          data-variant-id="{{ variant_triple.id | default: variant_single.id | default: '' }}"
-          data-quantity="3"
-        >
-          ADD TO CART &rarr;
-        </button>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ 6. SECTION: FLACON CRAFTSMANSHIP / DETAILS (#details) ═══ -->
-<section id="details" class="zayro-details-section" aria-label="Bottle Details and Craftsmanship">
-  <div class="zayro-container details-content-grid">
-    <div class="details-left-content">
-      <span class="eyebrow-tag">DETAILS</span>
-      <h2 class="heading-section details-title">CRAFTED WITH INTENTION.</h2>
-      <p class="details-body">
-        From the bold matte bottle to the crystal-clear cap, every element of Zayro is designed to reflect timeless elegance. Weighted heavy base, precision mist atomizer, and gold-debossed signature clock emblem.
-      </p>
-
-      <div class="details-features-list">
-        <div class="details-feature-item">
-          <div class="feature-icon-circle">&#10047;</div>
-          <div class="feature-text-wrap">
-            <span class="feature-title">PREMIUM INGREDIENTS</span>
-            <span class="feature-sub">Pure isolates &amp; rare oils</span>
-          </div>
-        </div>
-
-        <div class="details-feature-item">
-          <div class="feature-icon-circle">&#9201;</div>
-          <div class="feature-text-wrap">
-            <span class="feature-title">LONG LASTING</span>
-            <span class="feature-sub">12&ndash;16+ hours projection</span>
-          </div>
-        </div>
-
-        <div class="details-feature-item">
-          <div class="feature-icon-circle">&#10022;</div>
-          <div class="feature-text-wrap">
-            <span class="feature-title">EVERY OCCASION</span>
-            <span class="feature-sub">Day-to-night signature</span>
-          </div>
-        </div>
-
-        <div class="details-feature-item">
-          <div class="feature-icon-circle">&#9670;</div>
-          <div class="feature-text-wrap">
-            <span class="feature-title">50 ML EAU DE PARFUM</span>
-            <span class="feature-sub">80% V/V Concentration</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="details-macro-visual">
+  <!-- ═══ 4. SECTION: THE STORY (#story) ═══ -->
+  <section id="story" class="zayro-section-canvas story-canvas" aria-label="The Story">
+    <div class="canvas-image-wrapper">
       <img
-        src="{{ 'details-flacon-macro.jpg' | asset_url }}"
-        alt="Macro close-up of Zayro Faceted Crystal Cap and Gold Emblem"
-        class="details-macro-img"
-        loading="lazy"
-        width="1024"
-        height="576"
-      >
-    </div>
-  </div>
-</section>
-
-<!-- ═══ 7. SECTION: FAQ & CONTACT (#faq & #contact) ═══ -->
-<section id="faq" class="zayro-faq-section" aria-label="FAQ and Concierge">
-  <div class="zayro-container faq-section-grid">
-    <!-- Left Column: Title -->
-    <div class="faq-left-col">
-      <h2 class="faq-main-heading">FREQUENTLY<br>ASKED<br>QUESTIONS</h2>
-      <a href="#contact" class="faq-circle-btn" aria-label="Jump to Contact">
-        &rarr;
-      </a>
-    </div>
-
-    <!-- Center Column: Accordions -->
-    <div class="faq-accordions-col" role="region" aria-label="Accordion list">
-      <div class="faq-item is-open">
-        <button type="button" class="faq-question-btn">
-          <span>How long does the fragrance last?</span>
-          <span class="faq-toggle-icon">&plus;</span>
-        </button>
-        <div class="faq-answer-panel">
-          <p class="faq-answer-content">
-            Formulated as an Eau de Parfum with 80% V/V concentration and 20% pure compound oils, Zayro delivers 12 to 16+ hours of evocative projection on skin, gently lingering on textiles for several days.
-          </p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button type="button" class="faq-question-btn">
-          <span>What are the main notes in Zayro?</span>
-          <span class="faq-toggle-icon">&plus;</span>
-        </button>
-        <div class="faq-answer-panel">
-          <p class="faq-answer-content">
-            Zayro opens with crisp bergamot, pineapple platinum, and blackcurrant, evolves through rich patchouli and sacred jasmine sambac, and rests upon an enduring base of white musk, oakmoss, javanol, and Madagascar vanilla.
-          </p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button type="button" class="faq-question-btn">
-          <span>Is this suitable for daily use?</span>
-          <span class="faq-toggle-icon">&plus;</span>
-        </button>
-        <div class="faq-answer-panel">
-          <p class="faq-answer-content">
-            Yes. The balanced harmony of bright zesty top notes and smooth woody drydown makes Zayro exceptionally versatile for daytime professional elegance and intimate evening occasions.
-          </p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button type="button" class="faq-question-btn">
-          <span>Do you offer COD (Cash on Delivery)?</span>
-          <span class="faq-toggle-icon">&plus;</span>
-        </button>
-        <div class="faq-answer-panel">
-          <p class="faq-answer-content">
-            Yes! Cash on Delivery is available across most serviceable pincodes in India alongside secure UPI, Debit/Credit Card, and Net Banking checkout options.
-          </p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button type="button" class="faq-question-btn">
-          <span>Is it authentic and certified?</span>
-          <span class="faq-toggle-icon">&plus;</span>
-        </button>
-        <div class="faq-answer-panel">
-          <p class="faq-answer-content">
-            Every bottle is 100% authentic, batch-numbered, vegan friendly, and cruelty free, crafted under strict artisan quality control in Kanpur, India.
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Right Column: Contact -->
-    <div id="contact" class="faq-contact-col">
-      <span class="eyebrow-tag contact-eyebrow">STILL HAVE A QUESTION?</span>
-      <h3 class="contact-heading">GET IN TOUCH.</h3>
-      <p class="contact-subtext">We'd love to hear from you.</p>
-
-      <div class="contact-details-list">
-        <div class="contact-detail-row">
-          <span>&#9993;</span>
-          <a href="mailto:samayparfumes@gmail.com">samayparfumes@gmail.com</a>
-        </div>
-        <div class="contact-detail-row">
-          <span>&#9742;</span>
-          <a href="tel:+919305888555">+91 9305888555</a>
-        </div>
-        <div class="contact-detail-row">
-          <span>&#9873;</span>
-          <span>Keshavpuram, Kalyanpur, Kanpur, Uttar Pradesh - 208017</span>
-        </div>
-      </div>
-
-      <a href="mailto:samayparfumes@gmail.com" class="btn-luxury-outline">
-        CONTACT US &rarr;
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ 8. LUXURY FOOTER ═══ -->
-<footer class="zayro-footer" role="contentinfo">
-  <div class="zayro-container">
-    <div class="footer-top-row">
-      <img
-        src="{{ 'logo-gold.png' | asset_url }}"
-        alt="Samay Parfumes Clock Emblem"
-        class="footer-brand-logo-img"
-        width="72"
-        height="72"
+        src="{{ 'sec_03_story.jpg' | asset_url }}"
+        alt="The Story — Inspired by Time. Mediterranean Courtyard with Olive Tree and Stone Arch"
+        class="canvas-image"
+        width="1444"
+        height="620"
         loading="lazy"
       >
-      <h4 class="footer-brand-name">SAMAY PARFUMES</h4>
-      <p class="footer-tagline">A FRAGRANCE BEYOND TIME</p>
+      <!-- Interactive Hotspot: Our Story -->
+      <a href="#packs" class="hotspot hotspot-story-cta" aria-label="Our Story — Choose Your Pack">
+        <span class="hotspot-highlight"></span>
+      </a>
     </div>
+    <div class="sr-only">
+      <h2>The Story — Inspired by Time</h2>
+      <p>Samay Parfumes is a celebration of moments, memories and milestones. Zayro represents the perfect blend of tradition and modernity — a fragrance made for those who value their time and make every moment count. Some moments deserve to last.</p>
+    </div>
+  </section>
 
-    <div class="footer-badges-row">
-      <div class="footer-badge-item">
-        <span>&#10003;</span>
-        <span>VEGAN FRIENDLY</span>
+  <!-- ═══ 5. SECTION: CHOOSE YOUR PACK / PRICING (#packs) ═══ -->
+  <section id="packs" class="zayro-section-canvas packs-canvas" aria-label="Choose Your Pack">
+    <div class="canvas-image-wrapper">
+      <img
+        src="{{ 'sec_04_packs.jpg' | asset_url }}"
+        alt="Choose Your Pack — One Essence. Three Ways. Single Pack ₹1,499, Duo Pack ₹2,799, Triple Pack ₹3,999"
+        class="canvas-image"
+        width="1444"
+        height="670"
+        loading="lazy"
+      >
+      <!-- Interactive Add to Cart Hotspots -->
+      <!-- 1. Single Pack (₹1,499) -->
+      <button
+        type="button"
+        class="hotspot hotspot-pack-cart pack-1"
+        data-add-to-cart
+        data-variant-id="{{ variant_single.id | default: '' }}"
+        data-quantity="1"
+        data-pack-name="Single Pack (50 ML)"
+        aria-label="Add Single Pack to Bag — ₹1,499"
+      >
+        <span class="hotspot-btn-label">ADD TO CART &rarr;</span>
+      </button>
+
+      <!-- 2. Duo Pack (₹2,799) -->
+      <button
+        type="button"
+        class="hotspot hotspot-pack-cart pack-2"
+        data-add-to-cart
+        data-variant-id="{{ variant_duo.id | default: variant_single.id | default: '' }}"
+        data-quantity="2"
+        data-pack-name="Duo Pack (2 × 50 ML)"
+        aria-label="Add Duo Pack to Bag — ₹2,799"
+      >
+        <span class="hotspot-btn-label">ADD TO CART &rarr;</span>
+      </button>
+
+      <!-- 3. Triple Pack (₹3,999) -->
+      <button
+        type="button"
+        class="hotspot hotspot-pack-cart pack-3"
+        data-add-to-cart
+        data-variant-id="{{ variant_triple.id | default: variant_single.id | default: '' }}"
+        data-quantity="3"
+        data-pack-name="Triple Pack (3 × 50 ML)"
+        aria-label="Add Triple Pack to Bag — ₹3,999"
+      >
+        <span class="hotspot-btn-label">ADD TO CART &rarr;</span>
+      </button>
+    </div>
+    <div class="sr-only">
+      <h2>Choose Your Pack — One Essence. Three Ways.</h2>
+      <p>The same signature fragrance, for every version of you.</p>
+      <ul>
+        <li>Single Pack (50 ML) — ₹1,499</li>
+        <li>Duo Pack (2 × 50 ML) — ₹2,799 (Save 7%)</li>
+        <li>Triple Pack (3 × 50 ML) — ₹3,999 (Save 11%)</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ═══ 6. SECTION: CRAFTSMANSHIP / DETAILS (#details) ═══ -->
+  <section id="details" class="zayro-section-canvas details-canvas" aria-label="Crafted with Intention">
+    <div class="canvas-image-wrapper">
+      <img
+        src="{{ 'sec_05_details.jpg' | asset_url }}"
+        alt="The Details — Crafted with Intention. Bold matte bottle, crystal-clear cap"
+        class="canvas-image"
+        width="1444"
+        height="475"
+        loading="lazy"
+      >
+      <!-- Interactive Badges Hotspot / Open Dossier -->
+      <button type="button" class="hotspot hotspot-details-action" data-open-formula aria-label="View Craftsmanship & Ingredients Dossier">
+        <span class="hotspot-highlight"></span>
+      </button>
+    </div>
+    <div class="sr-only">
+      <h2>The Details — Crafted with Intention</h2>
+      <p>From the bold matte bottle to the crystal-clear cap, every element of Zayro is designed to reflect timeless elegance.</p>
+      <p>Features: Premium Ingredients, Long Lasting Fragrance, Designed for Every Occasion, 50 ML Eau de Parfum.</p>
+    </div>
+  </section>
+
+  <!-- ═══ 7. SECTION: REVIEWS (#reviews) ═══ -->
+  <section id="reviews" class="zayro-section-canvas reviews-canvas" aria-label="Customer Reviews">
+    <div class="canvas-image-wrapper">
+      <img
+        src="{{ 'sec_06_reviews.jpg' | asset_url }}"
+        alt="What Our Customers Say — An absolutely premium fragrance! Long lasting and perfect for every occasion."
+        class="canvas-image"
+        width="1444"
+        height="345"
+        loading="lazy"
+      >
+      <!-- Interactive Navigation Arrows -->
+      <button type="button" class="hotspot hotspot-review-arrow rev-prev" aria-label="Previous Review">
+        <span class="hotspot-circle"></span>
+      </button>
+      <button type="button" class="hotspot hotspot-review-arrow rev-next" aria-label="Next Review">
+        <span class="hotspot-circle"></span>
+      </button>
+    </div>
+    <div class="sr-only">
+      <h2>What Our Customers Say</h2>
+      <blockquote>An absolutely premium fragrance! Long lasting and perfect for every occasion. — Verified Customer (5 Stars)</blockquote>
+    </div>
+  </section>
+
+  <!-- ═══ 8. SECTION: FAQ & CONTACT (#faq & #contact) ═══ -->
+  <section id="faq" class="zayro-faq-exact" aria-label="FAQ and Concierge">
+    <div class="zayro-container faq-exact-grid">
+      <!-- Col 1: Heading -->
+      <div class="faq-exact-col-title">
+        <h2 class="faq-exact-heading">FREQUENTLY<br>ASKED<br>QUESTIONS</h2>
+        <a href="#contact" class="faq-circle-btn" aria-label="Scroll to Contact">&rarr;</a>
       </div>
-      <div class="footer-badge-item">
-        <span>&#10003;</span>
-        <span>CRUELTY FREE</span>
+
+      <!-- Col 2: Accordions -->
+      <div class="faq-exact-col-accordions">
+        <div class="faq-item is-open">
+          <button type="button" class="faq-question-btn">
+            <span>How long does the fragrance last?</span>
+            <span class="faq-toggle-icon">&plus;</span>
+          </button>
+          <div class="faq-answer-panel">
+            <p class="faq-answer-content">
+              Formulated as an Eau de Parfum with 80% V/V concentration and 20% pure compound oils, Zayro delivers 12 to 16+ hours of projection on skin and several days on textiles.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-question-btn">
+            <span>What are the main notes in Zayro?</span>
+            <span class="faq-toggle-icon">&plus;</span>
+          </button>
+          <div class="faq-answer-panel">
+            <p class="faq-answer-content">
+              Zayro opens with fresh bergamot, platinum citrus and blackcurrant, evolves through rich patchouli and sacred lavender, and rests upon white musk, amber and smoky cedarwood.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-question-btn">
+            <span>Is this suitable for daily use?</span>
+            <span class="faq-toggle-icon">&plus;</span>
+          </button>
+          <div class="faq-answer-panel">
+            <p class="faq-answer-content">
+              Yes. The balanced harmony of bright zesty top notes and smooth woody drydown makes Zayro exceptionally versatile for daytime elegance and evening occasions.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-question-btn">
+            <span>Do you offer COD?</span>
+            <span class="faq-toggle-icon">&plus;</span>
+          </button>
+          <div class="faq-answer-panel">
+            <p class="faq-answer-content">
+              Yes! Cash on Delivery is available across most serviceable pincodes in India alongside secure UPI, Card, and Net Banking options.
+            </p>
+          </div>
+        </div>
       </div>
-      <div class="footer-badge-item">
-        <span>&#10003;</span>
-        <span>RECYCLE RESPONSIBLY</span>
-      </div>
-      <div class="footer-badge-item">
-        <span>&#10003;</span>
-        <span>FLAMMABLE &bull; KEEP AWAY FROM HEAT</span>
-      </div>
-      <div class="footer-badge-item">
-        <span>&#10003;</span>
-        <span>MADE IN INDIA</span>
+
+      <!-- Col 3: Contact -->
+      <div id="contact" class="faq-exact-col-contact">
+        <span class="exact-eyebrow">STILL HAVE A QUESTION?</span>
+        <h3 class="contact-exact-heading">GET IN TOUCH.</h3>
+        <p class="contact-exact-sub">
+          We'd love to hear from you. Whether it's about your order, our fragrance or anything else &mdash; we're here to help.
+        </p>
+        <div class="contact-exact-details">
+          <p><a href="tel:+919305888555">&#9742; +91 9305888555</a></p>
+          <p><a href="mailto:samayparfumes@gmail.com">&#9993; samayparfumes@gmail.com</a></p>
+        </div>
+        <a href="mailto:samayparfumes@gmail.com" class="btn-sand-solid contact-btn">
+          CONTACT US &rarr;
+        </a>
       </div>
     </div>
+  </section>
 
-    <div class="footer-bottom-row">
-      <p>&copy; {{ 'now' | date: '%Y' }} Samay Parfumes. All rights reserved.</p>
-      <div class="footer-legal-links">
-        <a href="#fragrance">The Fragrance</a>
-        <a href="#story">Our Story</a>
-        <a href="#packs">Shop Packs</a>
-        <a href="mailto:samayparfumes@gmail.com">Customer Care</a>
+  <!-- ═══ 9. SECTION: FOOTER BANNER & LINKS ═══ -->
+  <footer class="zayro-section-canvas footer-canvas" role="contentinfo">
+    <div class="canvas-image-wrapper">
+      <img
+        src="{{ 'sec_08_footer.jpg' | asset_url }}"
+        alt="Sunset over Mediterranean mountains through stone arch. More than a fragrance, a part of your story."
+        class="canvas-image"
+        width="1444"
+        height="386"
+        loading="lazy"
+      >
+      <!-- Interactive Navigation Hotspots -->
+      <a href="#fragrance" class="hotspot hotspot-footer-brand" aria-label="Samay Parfumes — Back to Top"></a>
+      <a href="#fragrance" class="hotspot hotspot-footer-link link-fragrance" aria-label="Go to The Fragrance"></a>
+      <a href="#story" class="hotspot hotspot-footer-link link-story" aria-label="Go to The Story"></a>
+      <a href="#faq" class="hotspot hotspot-footer-link link-faq" aria-label="Go to FAQ"></a>
+      <a href="#contact" class="hotspot hotspot-footer-link link-contact" aria-label="Go to Contact"></a>
+
+      <!-- Social Media Hotspots -->
+      <a href="https://instagram.com" class="hotspot hotspot-footer-social social-ig" target="_blank" rel="noopener" aria-label="Instagram"></a>
+      <a href="https://facebook.com" class="hotspot hotspot-footer-social social-fb" target="_blank" rel="noopener" aria-label="Facebook"></a>
+      <a href="https://youtube.com" class="hotspot hotspot-footer-social social-yt" target="_blank" rel="noopener" aria-label="YouTube"></a>
+    </div>
+    <div class="footer-legal-bar">
+      <div class="zayro-container">
+        <p>&copy; {{ 'now' | date: '%Y' }} Samay Parfumes. Handcrafted in Kanpur, India. All rights reserved.</p>
       </div>
     </div>
-  </div>
-</footer>
+  </footer>
 
-<!-- ═══ 9. INTERACTIVE FORMULA & COMPOUND DOSSIER MODAL ═══ -->
-<div id="zayro-formula-modal" class="zayro-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Official Formulation Dossier">
-  <div class="zayro-modal-backdrop" id="formula-modal-backdrop"></div>
+</main>
+
+<!-- ═══ 10. OFFICIAL FORMULATION DOSSIER MODAL ═══ -->
+<div id="zayro-formula-modal" class="zayro-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Authentic Laboratory Formula Dossier">
+  <div id="formula-modal-backdrop" class="zayro-modal-backdrop"></div>
   <div class="zayro-modal-panel">
-    <button type="button" id="formula-modal-close" class="modal-close-btn" aria-label="Close formula modal">&times;</button>
-    <span class="eyebrow-tag">OFFICIAL ATELIER DOSSIER</span>
-    <h3 class="heading-section" style="color:var(--sand-50); margin-bottom:0.75rem;">THE ZAYRO ALCHEMY</h3>
-    <p style="font-size:0.86rem; color:var(--text-light-muted); line-height:1.7;">
-      Exact maceration recipe &amp; compounding schedule engineered for Samay Parfumes. 80% V/V Fine Perfumer's Alcohol enriched with rare fixatives and molecular isolates.
-    </p>
+    <div class="modal-header">
+      <div class="modal-badge-row">
+        <span class="modal-tag">CERTIFIED ARCHIVE</span>
+        <span class="modal-batch">BATCH EDP-2026-KAN</span>
+      </div>
+      <button type="button" id="formula-modal-close" class="modal-close-btn" aria-label="Close Dossier">&times;</button>
+    </div>
 
-    <div class="formula-grid">
-      <!-- Compound Mixture Sheet -->
-      <div>
-        <h4 style="font-family:var(--font-sans); font-size:0.80rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold); margin-bottom:1rem;">
-          Compound Mixture &bull; 1000 g
-        </h4>
-        <table class="formula-table">
-          <thead>
-            <tr>
-              <th>Ingredient</th>
-              <th>Quantity</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td>Pineapple Platinum</td><td>5 g</td></tr>
-            <tr><td>Bergamot (Calabria)</td><td>5 g</td></tr>
-            <tr><td>Blackcurrant Bud</td><td>5 g</td></tr>
-            <tr><td>Crisp Apple Extract</td><td>5 g</td></tr>
-            <tr><td>Birch Tar (Frankincense)</td><td>5 g</td></tr>
-            <tr><td>Patchouli (Roohaloud)</td><td>5 g</td></tr>
-            <tr><td>Jasmin ABS</td><td>2 g</td></tr>
-            <tr><td>White Musk Accord</td><td>10 g</td></tr>
-            <tr><td>Oakmoss Absolute</td><td>1 g</td></tr>
-            <tr><td>Ambrogeosh (MCO)</td><td>1 g</td></tr>
-            <tr><td>Vanilla V3 Balsamic</td><td>10 g</td></tr>
-            <tr><td>Creed Aventus Accord</td><td>30 g</td></tr>
-            <tr><td>Ambraxon Molecular</td><td>10 g</td></tr>
-            <tr><td>Javanol Sandalwood</td><td>5 g</td></tr>
-            <tr><td>Jasmin Sambac TR</td><td>3 g</td></tr>
-          </tbody>
-        </table>
+    <div class="modal-body">
+      <h3 class="modal-title">ZAYRO EAU DE PARFUM</h3>
+      <p class="modal-subtitle">Official Laboratory Olfactory Dossier &bull; Master Perfumer Archive</p>
+
+      <div class="dossier-metrics-grid">
+        <div class="dossier-metric-card">
+          <span class="metric-label">CONCENTRATION</span>
+          <span class="metric-val">80% V/V</span>
+          <span class="metric-sub">Pure Compound Oil: 20%</span>
+        </div>
+        <div class="dossier-metric-card">
+          <span class="metric-label">SKIN LONGEVITY</span>
+          <span class="metric-val">12 &ndash; 16+ HRS</span>
+          <span class="metric-sub">Multi-day textile retention</span>
+        </div>
+        <div class="dossier-metric-card">
+          <span class="metric-label">SILLAGE & PROJECTION</span>
+          <span class="metric-val">2.5 METERS</span>
+          <span class="metric-sub">Intense radiant aura</span>
+        </div>
+        <div class="dossier-metric-card">
+          <span class="metric-label">MATURATION PERIOD</span>
+          <span class="metric-val">60 DAYS</span>
+          <span class="metric-sub">Cold-conditioned oak rested</span>
+        </div>
       </div>
 
-      <!-- Ethanol Mixture Sheet -->
-      <div>
-        <h4 style="font-family:var(--font-sans); font-size:0.80rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold); margin-bottom:1rem;">
-          Ethanol Mixture Sheet
-        </h4>
-        <table class="formula-table">
-          <thead>
-            <tr>
-              <th>Component</th>
-              <th>Quantity</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td>Ethanol II</td><td>1 kg</td></tr>
-            <tr><td>Galaxolite Pure</td><td>100 g</td></tr>
-            <tr><td>Tonalite Power</td><td>25 g</td></tr>
-            <tr><td>Eversnel Powder</td><td>10 g</td></tr>
-            <tr><td>Evanillin</td><td>10 g</td></tr>
-            <tr><td>Timorol</td><td>100 g</td></tr>
-            <tr><td>Javanol Pure</td><td>50 g</td></tr>
-            <tr><td>Ambraxon Powder</td><td>50 g</td></tr>
-          </tbody>
-        </table>
+      <div class="dossier-pyramid-details">
+        <h4 class="dossier-section-title">AUTHENTIC OLFACTORY FORMULATION</h4>
+
+        <div class="formula-tier">
+          <div class="tier-head">
+            <span class="tier-name">HEAD ACCORD (TOP NOTES) &bull; EVAPORATION: 0 &ndash; 25 MIN</span>
+          </div>
+          <div class="tier-ingredients">
+            <div class="ingredient-pill"><span>Calabrian Bergamot</span><small>Cold Expressed</small></div>
+            <div class="ingredient-pill"><span>Platinum Citrus Accord</span><small>Organic Extract</small></div>
+            <div class="ingredient-pill"><span>Pink Peppercorn & Spices</span><small>Supercritical CO2</small></div>
+            <div class="ingredient-pill"><span>Wild Blackcurrant</span><small>French Riviera</small></div>
+          </div>
+        </div>
+
+        <div class="formula-tier">
+          <div class="tier-head">
+            <span class="tier-name">HEART ACCORD (MIDDLE NOTES) &bull; EVAPORATION: 20 MIN &ndash; 4 HRS</span>
+          </div>
+          <div class="tier-ingredients">
+            <div class="ingredient-pill"><span>French Highland Lavender</span><small>Steam Distilled</small></div>
+            <div class="ingredient-pill"><span>Warm Aromatic Spices</span><small>Cardamom & Nutmeg</small></div>
+            <div class="ingredient-pill"><span>Indonesian Patchouli</span><small>Aged 3 Years</small></div>
+            <div class="ingredient-pill"><span>Sacred Jasmine Sambac</span><small>Kannauj Hydro-Distill</small></div>
+          </div>
+        </div>
+
+        <div class="formula-tier">
+          <div class="tier-head">
+            <span class="tier-name">BASE ACCORD (DRYDOWN NOTES) &bull; RESIDENCE: 4 &ndash; 16+ HRS</span>
+          </div>
+          <div class="tier-ingredients">
+            <div class="ingredient-pill"><span>Sunlit Golden Amber</span><small>Warm Fossil Resin</small></div>
+            <div class="ingredient-pill"><span>Cruelty-Free Velvet Musk</span><small>Bio-Identical Accord</small></div>
+            <div class="ingredient-pill"><span>Smoky Atlas Cedarwood</span><small>Distilled Heartwood</small></div>
+            <div class="ingredient-pill"><span>Bourbon Madagascar Vanilla</span><small>Pure Absolute</small></div>
+          </div>
+        </div>
       </div>
+
+      <div class="dossier-guarantees">
+        <div class="guarantee-item">
+          <span class="guarantee-icon">&#10003;</span>
+          <span>100% IFRA Compliant &bull; Non-Staining Organic Alcohol</span>
+        </div>
+        <div class="guarantee-item">
+          <span class="guarantee-icon">&#10003;</span>
+          <span>Zero Phthalates &bull; 100% Cruelty-Free &bull; Vegan</span>
+        </div>
+        <div class="guarantee-item">
+          <span class="guarantee-icon">&#10003;</span>
+          <span>Hand-Bottled in Kanpur, Uttar Pradesh &bull; India</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <a href="#packs" class="btn-sand-solid w-100" data-close-formula>
+        ORDER ZAYRO FORMULATION &rarr;
+      </a>
     </div>
   </div>
 </div>
 
-<!-- ═══ 10. SLIDE-OUT CART DRAWER ═══ -->
+<!-- ═══ 11. BESPOKE SLIDE-OUT CART DRAWER (AJAX) ═══ -->
 <div id="zayro-cart-drawer" class="zayro-cart-drawer" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Shopping Bag">
   <div id="cart-drawer-backdrop" class="cart-drawer-backdrop"></div>
   <aside class="cart-drawer-panel">
     <div class="cart-drawer-header">
-      <h3 class="cart-drawer-title">Shopping Bag</h3>
-      <button type="button" id="cart-drawer-close" class="cart-drawer-close" aria-label="Close cart">&times;</button>
+      <div class="cart-header-title-wrap">
+        <h3 class="cart-drawer-title">YOUR SHOPPING BAG</h3>
+        <span id="cart-drawer-count" class="cart-header-count">({{ cart.item_count }})</span>
+      </div>
+      <button type="button" id="cart-drawer-close" class="cart-drawer-close" aria-label="Close Bag">&times;</button>
     </div>
 
-    <div id="cart-drawer-body" class="cart-drawer-body">
-      {% if cart.item_count == 0 %}
-        <div style="text-align:center; padding: 4rem 1.5rem;">
-          <p style="font-family:var(--font-serif); font-size:1.35rem; font-style:italic; color:var(--text-muted); margin-bottom:1.75rem;">Your shopping bag is currently empty.</p>
-          <a href="#packs" class="btn-luxury-solid" data-close-cart-link>Discover The Packs</a>
+    <div class="cart-shipping-banner">
+      <div class="shipping-bar-track">
+        <div class="shipping-bar-fill" style="width: 100%;"></div>
+      </div>
+      <p class="shipping-bar-text">&#10003; <strong>UNLOCKED:</strong> Complimentary Insured Express Shipping on all orders</p>
+    </div>
+
+    <div id="cart-drawer-items" class="cart-drawer-items">
+      {%- if cart.item_count == 0 -%}
+        <div class="cart-empty-state">
+          <div class="cart-empty-icon">&#128717;</div>
+          <p class="cart-empty-title">Your Bag is Empty</p>
+          <p class="cart-empty-sub">Experience the timeless olfactory essence of Zayro Eau de Parfum.</p>
+          <a href="#packs" class="btn-sand-solid" data-close-cart-drawer>EXPLORE PACKS &rarr;</a>
         </div>
-      {% else %}
-        {% for item in cart.items %}
-          <div class="cart-item-row" data-line-key="{{ item.key }}">
-            <img src="{{ item.image | image_url: width: 160 }}" alt="{{ item.title }}" class="cart-item-thumb">
-            <div class="cart-item-info">
-              <h4 class="cart-item-title">{{ item.product.title }}</h4>
-              {% unless item.product.has_only_default_variant %}
-                <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:0.25rem;">{{ item.variant.title }}</p>
-              {% endunless %}
-              <div class="cart-item-price">{{ item.final_line_price | money }}</div>
-              <div class="cart-qty-ctrl">
-                <button type="button" class="cart-qty-btn" data-action="minus" data-key="{{ item.key }}" data-qty="{{ item.quantity | minus: 1 }}">−</button>
-                <span class="cart-qty-val">{{ item.quantity }}</span>
-                <button type="button" class="cart-qty-btn" data-action="plus" data-key="{{ item.key }}" data-qty="{{ item.quantity | plus: 1 }}">+</button>
+      {%- else -%}
+        {%- for item in cart.items -%}
+          <div class="cart-item-row" data-line-item-key="{{ item.key }}">
+            <div class="cart-item-thumb">
+              <img src="{{ item.image | image_url: width: 140 }}" alt="{{ item.title | escape }}" width="70" height="70" loading="lazy">
+            </div>
+            <div class="cart-item-details">
+              <h4 class="cart-item-title">{{ item.product.title | default: 'Zayro Eau de Parfum' }}</h4>
+              <p class="cart-item-variant">{{ item.variant.title }}</p>
+              <div class="cart-item-price-qty">
+                <div class="cart-qty-ctrl">
+                  <button type="button" class="btn-qty-adj" data-key="{{ item.key }}" data-adj="-1" aria-label="Decrease quantity">&minus;</button>
+                  <span class="qty-num">{{ item.quantity }}</span>
+                  <button type="button" class="btn-qty-adj" data-key="{{ item.key }}" data-adj="1" aria-label="Increase quantity">&plus;</button>
+                </div>
+                <span class="cart-item-price">{{ item.final_line_price | money }}</span>
               </div>
             </div>
+            <button type="button" class="cart-item-remove" data-key="{{ item.key }}" aria-label="Remove item">&times;</button>
           </div>
-        {% endfor %}
-      {% endif %}
+        {%- endfor -%}
+      {%- endif -%}
     </div>
 
     <div class="cart-drawer-footer">
       <div class="cart-subtotal-row">
-        <span>Subtotal</span>
-        <span id="cart-drawer-subtotal">{{ cart.total_price | money }}</span>
+        <span class="subtotal-label">Subtotal</span>
+        <span id="cart-drawer-subtotal" class="subtotal-value">{{ cart.total_price | money }}</span>
       </div>
-      <p style="font-size:0.72rem; color:var(--text-muted); margin-bottom:1.25rem;">
-        Shipping, taxes, and promotional discounts calculated at checkout.
-      </p>
-      <a href="/checkout" class="btn-luxury-solid cart-checkout-btn">
+      <p class="cart-taxes-note">All taxes included. Free express courier delivery with tracking.</p>
+      
+      <a href="/checkout" class="btn-sand-solid btn-checkout w-100">
         PROCEED TO CHECKOUT &rarr;
       </a>
+
+      <div class="cart-trust-badges">
+        <div class="trust-badge-mini">&#10003; 100% Authentic Formula</div>
+        <div class="trust-badge-mini">&#10003; Cash on Delivery Available</div>
+        <div class="trust-badge-mini">&#10003; 24-Hour Dispatch</div>
+      </div>
     </div>
   </aside>
+</div>
+
+<!-- ═══ 12. STICKY MOBILE PURCHASE BAR ═══ -->
+<div id="sticky-mobile-bar" class="sticky-mobile-bar" aria-label="Quick Purchase">
+  <div class="sticky-mobile-inner">
+    <div class="sticky-mobile-info">
+      <span class="sticky-product-name">ZAYRO EDP</span>
+      <span class="sticky-product-price">₹1,499</span>
+    </div>
+    <a href="#packs" class="btn-sand-solid sticky-mobile-btn">
+      ORDER NOW &rarr;
+    </a>
+  </div>
+</div>
+
+<!-- ═══ 13. TOAST NOTIFICATION ═══ -->
+<div id="zayro-toast" class="zayro-toast" role="status" aria-live="polite" aria-hidden="true">
+  <span class="toast-icon">&#10003;</span>
+  <span id="toast-message" class="toast-text">Item added to your shopping bag</span>
 </div>
 
 {{ 'zayro.js' | asset_url | script_tag }}
 
 {% schema %}
 {
-  "name": "Zayro Full Storefront",
+  "name": "Zayro Luxury Storefront",
   "settings": [
     {
       "type": "text",
@@ -667,26 +616,14 @@
       "default": "SAMAY PARFUMES"
     },
     {
-      "type": "text",
-      "id": "fragrance_title",
-      "label": "Fragrance Title",
-      "default": "ZAYRO"
-    },
-    {
-      "type": "text",
-      "id": "fragrance_subtitle",
-      "label": "Fragrance Subtitle",
-      "default": "EAU DE PARFUM — 50 ML"
-    },
-    {
       "type": "product",
       "id": "featured_product",
-      "label": "Featured Fragrance Product"
+      "label": "Zayro Product Reference"
     }
   ],
   "presets": [
     {
-      "name": "Zayro Full Storefront"
+      "name": "Zayro Luxury Storefront"
     }
   ]
 }

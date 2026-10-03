@@ -1,6 +1,6 @@
 /**
  * SAMAY PARFUMES — ZAYRO LUXURY STOREFRONT ENGINE
- * Fully delegated architecture resilient to dynamic updates and HotReload.
+ * Exact Mediterranean Sandstone Architecture
  * Handles chapter navigation, formula dossier modal, FAQ accordions, and Shopify AJAX cart drawer.
  */
 
@@ -12,7 +12,20 @@
     return '₹' + Math.round(cents / 100).toLocaleString('en-IN');
   }
 
-  // ── 1. Header Scroll Effect ─────────────────────────────
+  // ── Toast Notification ───────────────────────────────────
+  function showToast(message) {
+    const toast = document.getElementById('zayro-toast');
+    const toastMsg = document.getElementById('toast-message');
+    if (toast && toastMsg) {
+      toastMsg.textContent = message;
+      toast.classList.add('is-active');
+      setTimeout(() => {
+        toast.classList.remove('is-active');
+      }, 3500);
+    }
+  }
+
+  // ── 1. Header Scroll Effect & Mobile Sticky Bar ────────
   function handleScroll() {
     const header = document.getElementById('zayro-header');
     if (header) {
@@ -22,6 +35,35 @@
         header.classList.remove('is-scrolled');
       }
     }
+
+    // Mobile Quick Purchase Sticky Bar
+    const stickyBar = document.getElementById('sticky-mobile-bar') || document.getElementById('mobile-sticky-bar');
+    if (stickyBar) {
+      const scrollY = window.scrollY;
+      const packsSec = document.getElementById('packs');
+      const footer = document.querySelector('footer');
+
+      if (scrollY > 350) {
+        let hideBar = false;
+        if (packsSec) {
+          const top = packsSec.offsetTop - 120;
+          const bottom = top + packsSec.offsetHeight;
+          if (scrollY >= top && scrollY <= bottom) hideBar = true;
+        }
+        if (footer && scrollY >= footer.offsetTop - window.innerHeight + 80) {
+          hideBar = true;
+        }
+
+        if (hideBar) {
+          stickyBar.classList.remove('is-visible');
+        } else {
+          stickyBar.classList.add('is-visible');
+        }
+      } else {
+        stickyBar.classList.remove('is-visible');
+      }
+    }
+
     updateActiveChapter();
   }
 
@@ -30,7 +72,7 @@
   // ── 2. Chapter Navigation Active State ──────────────────
   function updateActiveChapter() {
     const sections = document.querySelectorAll('section[id]');
-    const chapterLinks = document.querySelectorAll('.chapter-rail-item, .chapter-menu-item, .zayro-nav-link');
+    const chapterLinks = document.querySelectorAll('.zayro-nav-link');
     const scrollPos = window.scrollY + 250;
 
     sections.forEach(sec => {
@@ -49,8 +91,27 @@
     });
   }
 
-  // ── 3. Modal Helpers ────────────────────────────────────
+  // ── 3. Modal & Drawer Helpers ───────────────────────────
+  function openMobileMenu() {
+    const menu = document.getElementById('zayro-mobile-menu');
+    if (menu) {
+      menu.classList.add('is-open');
+      menu.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  function closeMobileMenu() {
+    const menu = document.getElementById('zayro-mobile-menu');
+    if (menu) {
+      menu.classList.remove('is-open');
+      menu.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+  }
+
   function openFormula() {
+    closeMobileMenu();
     const modal = document.getElementById('zayro-formula-modal');
     if (modal) {
       modal.classList.add('is-open');
@@ -69,6 +130,8 @@
   }
 
   function openCart() {
+    closeMobileMenu();
+    closeFormula();
     const drawer = document.getElementById('zayro-cart-drawer');
     if (drawer) {
       drawer.classList.add('is-open');
@@ -101,19 +164,23 @@
 
   function renderCart(cart) {
     const navCartBadge = document.getElementById('nav-cart-badge');
+    const drawerCountEl = document.getElementById('cart-drawer-count');
     const cartSubtotalEl = document.getElementById('cart-drawer-subtotal');
-    const cartDrawerBody = document.getElementById('cart-drawer-body');
+    const cartDrawerItems = document.getElementById('cart-drawer-items') || document.getElementById('cart-drawer-body');
 
     if (navCartBadge) navCartBadge.textContent = cart.item_count || 0;
+    if (drawerCountEl) drawerCountEl.textContent = `(${cart.item_count || 0})`;
     if (cartSubtotalEl) cartSubtotalEl.textContent = formatMoney(cart.total_price || 0);
 
-    if (!cartDrawerBody) return;
+    if (!cartDrawerItems) return;
 
     if (!cart.item_count || cart.item_count === 0) {
-      cartDrawerBody.innerHTML = `
-        <div style="text-align:center; padding: 4rem 1.5rem;">
-          <p style="font-family:var(--font-serif); font-size:1.35rem; font-style:italic; color:var(--text-muted); margin-bottom:1.75rem;">Your shopping bag is currently empty.</p>
-          <a href="#packs" class="btn-luxury-solid" data-close-cart-link>Discover The Packs</a>
+      cartDrawerItems.innerHTML = `
+        <div class="cart-empty-state">
+          <div class="cart-empty-icon">&#128717;</div>
+          <p class="cart-empty-title">Your Bag is Empty</p>
+          <p class="cart-empty-sub">Experience the timeless olfactory essence of Zayro Eau de Parfum.</p>
+          <a href="#packs" class="btn-sand-solid" data-close-cart-link>EXPLORE PACKS &rarr;</a>
         </div>
       `;
       return;
@@ -122,25 +189,30 @@
     let html = '';
     cart.items.forEach(item => {
       const linePrice = formatMoney(item.final_line_price);
-      const imgUrl = item.image || '/assets/zayro-bottle-transparent.png';
+      const imgUrl = item.image || '{{ "logo-black.png" | asset_url }}';
       html += `
-        <div class="cart-item-row" data-line-key="${item.key}">
-          <img src="${imgUrl}" alt="${item.title}" class="cart-item-thumb">
-          <div class="cart-item-info">
-            <h4 class="cart-item-title">${item.product_title}</h4>
-            ${item.variant_title ? `<p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:0.25rem;">${item.variant_title}</p>` : ''}
-            <div class="cart-item-price">${linePrice}</div>
-            <div class="cart-qty-ctrl">
-              <button type="button" class="cart-qty-btn" data-action="minus" data-key="${item.key}" data-qty="${item.quantity - 1}">−</button>
-              <span class="cart-qty-val">${item.quantity}</span>
-              <button type="button" class="cart-qty-btn" data-action="plus" data-key="${item.key}" data-qty="${item.quantity + 1}">+</button>
+        <div class="cart-item-row" data-line-item-key="${item.key}">
+          <div class="cart-item-thumb">
+            <img src="${imgUrl}" alt="${item.title}" width="70" height="70">
+          </div>
+          <div class="cart-item-details">
+            <h4 class="cart-item-title">${item.product_title || 'Zayro Eau de Parfum'}</h4>
+            ${item.variant_title ? `<p class="cart-item-variant">${item.variant_title}</p>` : ''}
+            <div class="cart-item-price-qty">
+              <div class="cart-qty-ctrl">
+                <button type="button" class="btn-qty-adj" data-key="${item.key}" data-adj="-1" aria-label="Decrease quantity">&minus;</button>
+                <span class="qty-num">${item.quantity}</span>
+                <button type="button" class="btn-qty-adj" data-key="${item.key}" data-adj="1" aria-label="Increase quantity">&plus;</button>
+              </div>
+              <span class="cart-item-price">${linePrice}</span>
             </div>
           </div>
+          <button type="button" class="cart-item-remove" data-key="${item.key}" aria-label="Remove item">&times;</button>
         </div>
       `;
     });
 
-    cartDrawerBody.innerHTML = html;
+    cartDrawerItems.innerHTML = html;
   }
 
   async function updateCartItem(key, quantity) {
@@ -157,7 +229,7 @@
     }
   }
 
-  async function addToCart(variantId, quantity = 1) {
+  async function addToCart(variantId, quantity = 1, packName = 'Zayro') {
     try {
       await fetch('/cart/add.js', {
         method: 'POST',
@@ -165,6 +237,7 @@
         body: JSON.stringify({ id: variantId, quantity })
       });
       await refreshCart();
+      showToast(`${packName} added to your shopping bag`);
       openCart();
     } catch (err) {
       console.error('Zayro: Add to cart failed', err);
@@ -183,7 +256,7 @@
     }
 
     // Close Formula Modal
-    if (e.target.closest('#formula-modal-close') || e.target.closest('#formula-modal-backdrop')) {
+    if (e.target.closest('#formula-modal-close') || e.target.closest('#formula-modal-backdrop') || e.target.closest('[data-close-formula]')) {
       e.preventDefault();
       closeFormula();
       return;
@@ -197,7 +270,7 @@
     }
 
     // Close Cart Drawer
-    if (e.target.closest('#cart-drawer-close') || e.target.closest('#cart-drawer-backdrop') || e.target.closest('[data-close-cart-link]')) {
+    if (e.target.closest('#cart-drawer-close') || e.target.closest('#cart-drawer-backdrop') || e.target.closest('[data-close-cart-link]') || e.target.closest('[data-close-cart-drawer]')) {
       e.preventDefault();
       closeCart();
       return;
@@ -224,31 +297,75 @@
       e.preventDefault();
       const variantId = addBtn.getAttribute('data-variant-id');
       const quantity = parseInt(addBtn.getAttribute('data-quantity') || '1', 10);
-      const originalText = addBtn.innerHTML;
+      const packName = addBtn.getAttribute('data-pack-name') || 'Zayro Eau de Parfum';
 
-      addBtn.innerHTML = '<span>Adding...</span>';
-      addBtn.disabled = true;
+      addBtn.classList.add('is-loading');
 
       if (variantId) {
-        await addToCart(variantId, quantity);
+        await addToCart(variantId, quantity, packName);
       } else {
         window.location.href = '/collections/all';
       }
 
-      addBtn.innerHTML = originalText;
-      addBtn.disabled = false;
+      addBtn.classList.remove('is-loading');
+      return;
+    }
+
+    // Open Mobile Menu
+    if (e.target.closest('#mobile-menu-toggle')) {
+      e.preventDefault();
+      openMobileMenu();
+      return;
+    }
+
+    // Close Mobile Menu
+    if (e.target.closest('#mobile-menu-close') || e.target.closest('#mobile-menu-backdrop') || e.target.closest('[data-close-mobile-menu]')) {
+      closeMobileMenu();
+      const link = e.target.closest('a[href^="#"]');
+      if (link) {
+        const targetId = link.getAttribute('href').substring(1);
+        const targetEl = document.getElementById(targetId);
+        if (targetEl) {
+          setTimeout(() => {
+            targetEl.scrollIntoView({ behavior: 'smooth' });
+          }, 250);
+        }
+      }
       return;
     }
 
     // Cart Quantity Buttons
-    const qtyBtn = e.target.closest('.cart-qty-btn');
-    if (qtyBtn) {
+    const adjBtn = e.target.closest('.btn-qty-adj');
+    if (adjBtn) {
       e.preventDefault();
-      const key = qtyBtn.getAttribute('data-key');
-      const qty = parseInt(qtyBtn.getAttribute('data-qty'), 10);
+      const key = adjBtn.getAttribute('data-key');
+      const adj = parseInt(adjBtn.getAttribute('data-adj'), 10);
+      const row = adjBtn.closest('.cart-item-row');
+      const qtyNum = row ? row.querySelector('.qty-num') : null;
+      const currentQty = qtyNum ? parseInt(qtyNum.textContent, 10) : 1;
+      const newQty = Math.max(0, currentQty + adj);
       if (key) {
-        await updateCartItem(key, qty);
+        await updateCartItem(key, newQty);
       }
+      return;
+    }
+
+    // Remove Cart Item
+    const removeBtn = e.target.closest('.cart-item-remove');
+    if (removeBtn) {
+      e.preventDefault();
+      const key = removeBtn.getAttribute('data-key');
+      if (key) {
+        await updateCartItem(key, 0);
+      }
+      return;
+    }
+
+    // Review Arrow Click (Visual interaction)
+    const reviewArrow = e.target.closest('.hotspot-review-arrow');
+    if (reviewArrow) {
+      e.preventDefault();
+      showToast('Verified Customer: "An absolutely premium fragrance! Long lasting and perfect."');
       return;
     }
   });
@@ -258,6 +375,7 @@
     if (e.key === 'Escape') {
       closeFormula();
       closeCart();
+      closeMobileMenu();
     }
   });
 
