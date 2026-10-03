@@ -57,6 +57,30 @@ body {
   background: var(--sand-100);
 }
 
+/* Scroll offset for fixed luxury navigation */
+section[id],
+footer[id] {
+  scroll-margin-top: 70px;
+}
+
+/* Ensure zayro-storefront spans 100% full-width within Shopify section wrapper */
+.shopify-section:has(#main-content),
+.shopify-section:has(.zayro-page-flow),
+.shopify-section:has(#zayro-header) {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.shopify-section:has(#main-content) > *,
+.shopify-section:has(.zayro-page-flow) > * {
+  grid-column: 1 / -1 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
 img {
   max-width: 100%;
   height: auto;

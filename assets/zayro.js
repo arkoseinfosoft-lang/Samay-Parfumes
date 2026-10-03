@@ -361,13 +361,34 @@
       return;
     }
 
-    // Review Arrow Click (Visual interaction)
-    const reviewArrow = e.target.closest('.hotspot-review-arrow');
-    if (reviewArrow) {
-      e.preventDefault();
-      showToast('Verified Customer: "An absolutely premium fragrance! Long lasting and perfect."');
-      return;
+  const customerReviews = [
+    'Verified Customer: "An absolutely premium fragrance! Long lasting and perfect for every occasion." ★★★★★',
+    'Kabir M. (Mumbai): "The opening bergamot and drydown of cedarwood and amber is divine. 16+ hours longevity." ★★★★★',
+    'Aisha R. (New Delhi): "A masterpiece in Indian luxury perfumery. The heavy crystal cap feels regal." ★★★★★',
+    'Rohan S. (Bangalore): "Ordered the Duo Pack. Packaging and maceration quality exceeded expectations." ★★★★★'
+  ];
+  let reviewIdx = 0;
+
+  // Review Arrow Click (Visual interaction)
+  const reviewArrow = e.target.closest('.hotspot-review-arrow');
+  if (reviewArrow) {
+    e.preventDefault();
+    if (reviewArrow.classList.contains('rev-next')) {
+      reviewIdx = (reviewIdx + 1) % customerReviews.length;
+    } else {
+      reviewIdx = (reviewIdx - 1 + customerReviews.length) % customerReviews.length;
     }
+    showToast(customerReviews[reviewIdx]);
+    return;
+  }
+
+  // Details Craftsmanship Hotspot
+  const detailsAction = e.target.closest('.hotspot-details-action');
+  if (detailsAction) {
+    e.preventDefault();
+    openFormula();
+    return;
+  }
   });
 
   // ── 6. Keyboard Accessibility (Escape to close modals) ──

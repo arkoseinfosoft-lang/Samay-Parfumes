@@ -1,32 +1,31 @@
-{% comment %}
-  =============================================================
-  SAMAY PARFUMES — ZAYRO LUXURY STOREFRONT
-  Exact Mediterranean Sandstone Haute Parfumerie Layout
-  =============================================================
-{% endcomment %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAMAY PARFUMES — ZAYRO Eau de Parfum</title>
+  <link rel="stylesheet" href="assets/zayro.css">
+</head>
+<body>
 
-{{ 'zayro.css' | asset_url | stylesheet_tag }}
 
-{%- liquid
-  assign main_product = section.settings.featured_product | default: collections.all.products.first
-  assign variant_single = main_product.variants[0]
-  assign variant_duo    = main_product.variants[1] | default: variant_single
-  assign variant_triple = main_product.variants[2] | default: variant_single
--%}
+<link rel="stylesheet" href="assets/zayro.css">
+
+
 
 <!-- ═══ 1. BESPOKE NAVIGATION HEADER ═══ -->
 <header id="zayro-header" class="zayro-nav-header" role="banner">
   <div class="zayro-container zayro-nav-inner">
     <a href="#fragrance" class="zayro-brand-wrap" aria-label="Samay Parfumes — Home">
       <img
-        src="{{ 'logo-black.png' | asset_url }}"
+        src="assets/logo-black.png"
         alt="Samay Parfumes Clock Emblem"
         class="zayro-brand-logo-img"
         width="34"
         height="34"
         loading="eager"
       >
-      <span class="zayro-brand-text">{{ section.settings.brand_title | default: 'SAMAY PARFUMES' }}</span>
+      <span class="zayro-brand-text">SAMAY PARFUMES</span>
     </a>
 
     <nav class="zayro-nav-links" aria-label="Main Navigation">
@@ -44,7 +43,7 @@
           <path d="M3 6h18"></path>
           <path d="M16 10a4 4 0 0 1-8 0"></path>
         </svg>
-        <span id="nav-cart-badge" class="nav-cart-badge">{{ cart.item_count }}</span>
+        <span id="nav-cart-badge" class="nav-cart-badge">0</span>
       </button>
       <button type="button" id="mobile-menu-toggle" class="mobile-menu-toggle" aria-label="Open Navigation Menu">
         <span class="hamburger-bar"></span>
@@ -60,7 +59,7 @@
   <aside class="mobile-menu-panel">
     <div class="mobile-menu-header">
       <a href="#fragrance" class="mobile-menu-brand" data-close-mobile-menu>
-        <img src="{{ 'logo-black.png' | asset_url }}" alt="Samay Parfumes" width="30" height="30" class="mobile-menu-logo">
+        <img src="assets/logo-black.png" alt="Samay Parfumes" width="30" height="30" class="mobile-menu-logo">
         <span class="mobile-menu-title">SAMAY PARFUMES</span>
       </a>
       <button type="button" id="mobile-menu-close" class="mobile-menu-close" aria-label="Close Menu">&times;</button>
@@ -123,7 +122,7 @@
   <section id="fragrance" class="zayro-section-canvas hero-canvas" aria-label="Zayro Eau de Parfum">
     <div class="canvas-image-wrapper">
       <img
-        src="{{ 'sec_01_hero.jpg' | asset_url }}"
+        src="assets/sec_01_hero.jpg"
         alt="Zayro 50ml Eau de Parfum Bottle on Travertine Pedestal in Sunlit Mediterranean Terrace"
         class="canvas-image"
         width="1444"
@@ -149,7 +148,7 @@
   <section id="notes" class="zayro-section-canvas notes-canvas" aria-label="Fragrance Notes">
     <div class="canvas-image-wrapper">
       <img
-        src="{{ 'sec_02_notes.jpg' | asset_url }}"
+        src="assets/sec_02_notes.jpg"
         alt="The Fragrance — A Blend That Lingers. Botanical still life with bergamot, lavender, spices, sandalwood, and amber"
         class="canvas-image"
         width="1444"
@@ -172,7 +171,7 @@
   <section id="story" class="zayro-section-canvas story-canvas" aria-label="The Story">
     <div class="canvas-image-wrapper">
       <img
-        src="{{ 'sec_03_story.jpg' | asset_url }}"
+        src="assets/sec_03_story.jpg"
         alt="The Story — Inspired by Time. Mediterranean Courtyard with Olive Tree and Stone Arch"
         class="canvas-image"
         width="1444"
@@ -194,7 +193,7 @@
   <section id="packs" class="zayro-section-canvas packs-canvas" aria-label="Choose Your Pack">
     <div class="canvas-image-wrapper">
       <img
-        src="{{ 'sec_04_packs.jpg' | asset_url }}"
+        src="assets/sec_04_packs.jpg"
         alt="Choose Your Pack — One Essence. Three Ways. Single Pack ₹1,499, Duo Pack ₹2,799, Triple Pack ₹3,999"
         class="canvas-image"
         width="1444"
@@ -207,7 +206,7 @@
         type="button"
         class="hotspot hotspot-pack-cart pack-1"
         data-add-to-cart
-        data-variant-id="{{ variant_single.id | default: '' }}"
+        data-variant-id="variant-1"
         data-quantity="1"
         data-pack-name="Single Pack (50 ML)"
         aria-label="Add Single Pack to Bag — ₹1,499"
@@ -220,7 +219,7 @@
         type="button"
         class="hotspot hotspot-pack-cart pack-2"
         data-add-to-cart
-        data-variant-id="{{ variant_duo.id | default: variant_single.id | default: '' }}"
+        data-variant-id="variant-2"
         data-quantity="2"
         data-pack-name="Duo Pack (2 × 50 ML)"
         aria-label="Add Duo Pack to Bag — ₹2,799"
@@ -233,7 +232,7 @@
         type="button"
         class="hotspot hotspot-pack-cart pack-3"
         data-add-to-cart
-        data-variant-id="{{ variant_triple.id | default: variant_single.id | default: '' }}"
+        data-variant-id="variant-3"
         data-quantity="3"
         data-pack-name="Triple Pack (3 × 50 ML)"
         aria-label="Add Triple Pack to Bag — ₹3,999"
@@ -256,7 +255,7 @@
   <section id="details" class="zayro-section-canvas details-canvas" aria-label="Crafted with Intention">
     <div class="canvas-image-wrapper">
       <img
-        src="{{ 'sec_05_details.jpg' | asset_url }}"
+        src="assets/sec_05_details.jpg"
         alt="The Details — Crafted with Intention. Bold matte bottle, crystal-clear cap"
         class="canvas-image"
         width="1444"
@@ -279,7 +278,7 @@
   <section id="reviews" class="zayro-section-canvas reviews-canvas" aria-label="Customer Reviews">
     <div class="canvas-image-wrapper">
       <img
-        src="{{ 'sec_06_reviews.jpg' | asset_url }}"
+        src="assets/sec_06_reviews.jpg"
         alt="What Our Customers Say — An absolutely premium fragrance! Long lasting and perfect for every occasion."
         class="canvas-image"
         width="1444"
@@ -382,7 +381,7 @@
   <footer class="zayro-section-canvas footer-canvas" role="contentinfo">
     <div class="canvas-image-wrapper">
       <img
-        src="{{ 'sec_08_footer.jpg' | asset_url }}"
+        src="assets/sec_08_footer.jpg"
         alt="Sunset over Mediterranean mountains through stone arch. More than a fragrance, a part of your story."
         class="canvas-image"
         width="1444"
@@ -403,7 +402,7 @@
     </div>
     <div class="footer-legal-bar">
       <div class="zayro-container">
-        <p>&copy; {{ 'now' | date: '%Y' }} Samay Parfumes. Handcrafted in Kanpur, India. All rights reserved.</p>
+        <p>&copy; 2026 Samay Parfumes. Handcrafted in Kanpur, India. All rights reserved.</p>
       </div>
     </div>
   </footer>
@@ -520,7 +519,7 @@
     <div class="cart-drawer-header">
       <div class="cart-header-title-wrap">
         <h3 class="cart-drawer-title">YOUR SHOPPING BAG</h3>
-        <span id="cart-drawer-count" class="cart-header-count">({{ cart.item_count }})</span>
+        <span id="cart-drawer-count" class="cart-header-count">(0)</span>
       </div>
       <button type="button" id="cart-drawer-close" class="cart-drawer-close" aria-label="Close Bag">&times;</button>
     </div>
@@ -533,41 +532,13 @@
     </div>
 
     <div id="cart-drawer-items" class="cart-drawer-items">
-      {%- if cart.item_count == 0 -%}
-        <div class="cart-empty-state">
-          <div class="cart-empty-icon">&#128717;</div>
-          <p class="cart-empty-title">Your Bag is Empty</p>
-          <p class="cart-empty-sub">Experience the timeless olfactory essence of Zayro Eau de Parfum.</p>
-          <a href="#packs" class="btn-sand-solid" data-close-cart-drawer>EXPLORE PACKS &rarr;</a>
-        </div>
-      {%- else -%}
-        {%- for item in cart.items -%}
-          <div class="cart-item-row" data-line-item-key="{{ item.key }}">
-            <div class="cart-item-thumb">
-              <img src="{{ item.image | image_url: width: 140 }}" alt="{{ item.title | escape }}" width="70" height="70" loading="lazy">
-            </div>
-            <div class="cart-item-details">
-              <h4 class="cart-item-title">{{ item.product.title | default: 'Zayro Eau de Parfum' }}</h4>
-              <p class="cart-item-variant">{{ item.variant.title }}</p>
-              <div class="cart-item-price-qty">
-                <div class="cart-qty-ctrl">
-                  <button type="button" class="btn-qty-adj" data-key="{{ item.key }}" data-adj="-1" aria-label="Decrease quantity">&minus;</button>
-                  <span class="qty-num">{{ item.quantity }}</span>
-                  <button type="button" class="btn-qty-adj" data-key="{{ item.key }}" data-adj="1" aria-label="Increase quantity">&plus;</button>
-                </div>
-                <span class="cart-item-price">{{ item.final_line_price | money }}</span>
-              </div>
-            </div>
-            <button type="button" class="cart-item-remove" data-key="{{ item.key }}" aria-label="Remove item">&times;</button>
-          </div>
-        {%- endfor -%}
-      {%- endif -%}
+      <div class="cart-empty-state"><div class="cart-empty-icon">&#128717;</div><p class="cart-empty-title">Your Bag is Empty</p><p class="cart-empty-sub">Experience the timeless olfactory essence of Zayro Eau de Parfum.</p><a href="#packs" class="btn-sand-solid" data-close-cart-link>EXPLORE PACKS &rarr;</a></div>
     </div>
 
     <div class="cart-drawer-footer">
       <div class="cart-subtotal-row">
         <span class="subtotal-label">Subtotal</span>
-        <span id="cart-drawer-subtotal" class="subtotal-value">{{ cart.total_price | money }}</span>
+        <span id="cart-drawer-subtotal" class="subtotal-value">₹0</span>
       </div>
       <p class="cart-taxes-note">All taxes included. Free express courier delivery with tracking.</p>
       
@@ -603,28 +574,9 @@
   <span id="toast-message" class="toast-text">Item added to your shopping bag</span>
 </div>
 
-{{ 'zayro.js' | asset_url | script_tag }}
+<script src="assets/zayro.js"></script>
 
-{% schema %}
-{
-  "name": "Zayro Luxury Storefront",
-  "settings": [
-    {
-      "type": "text",
-      "id": "brand_title",
-      "label": "Brand Title",
-      "default": "SAMAY PARFUMES"
-    },
-    {
-      "type": "product",
-      "id": "featured_product",
-      "label": "Zayro Product Reference"
-    }
-  ],
-  "presets": [
-    {
-      "name": "Zayro Luxury Storefront"
-    }
-  ]
-}
-{% endschema %}
+
+
+</body>
+</html>
