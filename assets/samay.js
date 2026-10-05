@@ -1,117 +1,109 @@
 /**
- * SAMAY PARFUMES - Interactive Logic & E-Commerce Cart System
+ * SAMAY PARFUMES - Interactive Logic & E-Commerce Cart System (Shopify AJAX API)
  */
 
 (function () {
   'use strict';
 
-  // Default Zyro Product Catalog Definitions
-  const ZYRO_PRODUCTS = {
-    'zyro-single': {
-      id: 'zyro-single',
-      shopifyId: 1,
-      name: 'Samay Zayro 50ml Eau De Parfum',
-      variant: 'Single Bottle (1x 50ml)',
-      price: 1499,
-      comparePrice: 2199,
-      image: 'zyro-single.jpg'
-    },
-    'zyro-duo': {
-      id: 'zyro-duo',
-      shopifyId: 2,
-      name: 'Samay Zayro 50ml Duo Combo (2x 50ml)',
-      variant: '2-in-1 Combo (2x 50ml)',
-      price: 2599,
-      comparePrice: 4399,
-      image: 'zyro-duo.jpg'
-    },
-    'zyro-trio': {
-      id: 'zyro-trio',
-      shopifyId: 3,
-      name: 'Samay Zayro 50ml Grand Trio (3x 50ml)',
-      variant: '3-in-1 Combo (3x 50ml)',
-      price: 3499,
-      comparePrice: 6599,
-      image: 'zyro-trio.jpg'
-    }
-  };
-
-  // State Management
-  let cart = [];
-  try {
-    const saved = localStorage.getItem('samay_cart');
-    if (saved) cart = JSON.parse(saved);
-  } catch (e) {
-    cart = [];
+  // Format cents to Indian Rupee (₹) format
+  function formatMoney(cents) {
+    if (cents === null || cents === undefined) cents = 0;
+    const amount = Number(cents) / 100;
+    return '₹' + amount.toLocaleString('en-IN', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
   }
 
-  function saveCart() {
+  // Active Shopify Cart State
+  let currentCart = { item_count: 0, items: [], total_price: 0 };
+
+  // Fetch full cart state from Shopify /cart.js
+  async function fetchCart() {
     try {
-      localStorage.setItem('samay_cart', JSON.stringify(cart));
-    } catch (e) {}
-    renderCart();
-  }
-
-  function addToCart(productId, qty) {
-    qty = parseInt(qty, 10) || 1;
-    const itemInfo = ZYRO_PRODUCTS[productId];
-    if (!itemInfo) return;
-
-    const existing = cart.find(item => item.id === productId);
-    if (existing) {
-      existing.quantity += qty;
-    } else {
-      cart.push({
-        id: itemInfo.id,
-        name: itemInfo.name,
-        variant: itemInfo.variant,
-        price: itemInfo.price,
-        image: itemInfo.image,
-        quantity: qty
+      const res = await fetch('/cart.js', {
+        headers: { 'Accept': 'application/json' }
       });
+      if (!res.ok) throw new Error('Failed to fetch cart');
+      currentCart = await res.json();
+      renderCart(currentCart);
+      return currentCart;
+    } catch (err) {
+      console.error('[Samay Cart] Error fetching cart:', err);
+      return null;
+    }
+  }
+
+  // Add line item to Shopify /cart/add.js
+  async function addToCart(variantId, qty) {
+    qty = parseInt(qty, 10) || 1;
+    const id = Number(variantId);
+    if (!id) {
+      console.error('[Samay Cart] Invalid variant id:', variantId);
+      return;
     }
 
-    saveCart();
-    openCartDrawer();
-
-    // Also attempt Shopify AJAX Cart API if available
     try {
-      fetch('/cart/add.js', {
+      const res = await fetch('/cart/add.js', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
         body: JSON.stringify({
-          items: [{
-            quantity: qty,
-            id: itemInfo.shopifyId || 1,
-            properties: {
-              'Edition': itemInfo.variant
-            }
-          }]
+          id: id,
+          quantity: qty
         })
-      }).catch(() => {});
-    } catch (err) {}
-  }
+      });
 
-  function removeFromCart(productId) {
-    cart = cart.filter(item => item.id !== productId);
-    saveCart();
-  }
-
-  function updateQuantity(productId, delta) {
-    const item = cart.find(i => i.id === productId);
-    if (item) {
-      item.quantity += delta;
-      if (item.quantity <= 0) {
-        removeFromCart(productId);
-      } else {
-        saveCart();
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({}));
+        throw new Error(errData.description || errData.message || 'Error adding item to cart');
       }
+
+      await fetchCart();
+      openCartDrawer();
+    } catch (err) {
+      console.error('[Samay Cart] Add to cart error:', err);
+      alert(err.message || 'Could not add item to cart. Please try again.');
     }
   }
 
-  function renderCart() {
-    const countBubbles = document.querySelectorAll('.samay-cart-badge');
-    const totalCount = cart.reduce((acc, curr) => acc + curr.quantity, 0);
+  // Update line item quantity or remove via Shopify /cart/change.js
+  async function changeQuantity(lineKey, newQty) {
+    newQty = parseInt(newQty, 10);
+    if (isNaN(newQty) || newQty < 0) newQty = 0;
+
+    try {
+      const res = await fetch('/cart/change.js', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          id: String(lineKey),
+          quantity: newQty
+        })
+      });
+
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({}));
+        throw new Error(errData.description || 'Error updating cart item');
+      }
+
+      currentCart = await res.json();
+      renderCart(currentCart);
+    } catch (err) {
+      console.error('[Samay Cart] Change quantity error:', err);
+      await fetchCart();
+    }
+  }
+
+  // Render Cart Drawer DOM & Badges
+  function renderCart(cart) {
+    const totalCount = cart ? (cart.item_count || 0) : 0;
+    const countBubbles = document.querySelectorAll('.samay-cart-badge, #cartCount');
     countBubbles.forEach(b => {
       b.textContent = totalCount;
       b.style.display = totalCount > 0 ? 'flex' : 'none';
@@ -121,46 +113,48 @@
     const subtotalEl = document.getElementById('samayCartSubtotal');
     if (!drawerItemsContainer || !subtotalEl) return;
 
-    if (cart.length === 0) {
+    if (!cart || !cart.items || cart.items.length === 0) {
       drawerItemsContainer.innerHTML = `
         <div style="text-align: center; padding: 40px 10px; color: var(--taupe);">
           <div style="font-size: 2.4rem; color: var(--gold); margin-bottom: 12px;">⚜</div>
           <h4 style="font-family: var(--serif); font-size: 1.4rem; margin-bottom: 8px;">Your Shopping Bag is Empty</h4>
           <p style="font-size: 0.9rem; color: var(--dim);">Experience the timeless essence of Zyro Eau De Parfum.</p>
-          <a href="#collection" class="samay-btn samay-btn--gold" style="margin-top: 16px; padding: 12px 24px;" onclick="closeCartDrawer()">SHOP ZYRO</a>
+          <a href="#collection" class="samay-btn samay-btn--gold" style="margin-top: 16px; padding: 12px 24px;" onclick="window.samayCart && window.samayCart.close()">SHOP ZYRO</a>
         </div>
       `;
-      subtotalEl.textContent = '₹0';
+      subtotalEl.textContent = '₹0.00';
       return;
     }
 
-    let subtotal = 0;
-    drawerItemsContainer.innerHTML = cart.map(item => {
-      const lineTotal = item.price * item.quantity;
-      subtotal += lineTotal;
+    drawerItemsContainer.innerHTML = cart.items.map(item => {
+      const lineKey = item.key || item.id;
+      const itemImg = item.featured_image?.url || item.image || '';
+      const itemTitle = item.product_title || item.title;
+      const itemVariant = (item.variant_title && item.variant_title !== 'Default Title') ? item.variant_title : '';
+      const itemPriceFormatted = formatMoney(item.price);
       return `
-        <div class="samay-cart-item">
-          <img src="${window.samayAssetUrl ? window.samayAssetUrl + item.image : item.image}" alt="${item.name}" class="samay-cart-item-img">
+        <div class="samay-cart-item" data-line-key="${lineKey}">
+          ${itemImg ? `<img src="${itemImg}" alt="${itemTitle.replace(/"/g, '&quot;')}" class="samay-cart-item-img">` : ''}
           <div class="samay-cart-item-details">
-            <h5 class="samay-cart-item-title">${item.name}</h5>
-            <div class="samay-cart-item-variant">${item.variant}</div>
+            <h5 class="samay-cart-item-title">${itemTitle}</h5>
+            ${itemVariant ? `<div class="samay-cart-item-variant">${itemVariant}</div>` : ''}
             <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 6px;">
-              <span class="samay-cart-item-price">₹${item.price.toLocaleString('en-IN')} × ${item.quantity}</span>
+              <span class="samay-cart-item-price">${itemPriceFormatted} × ${item.quantity}</span>
               <div style="display: flex; align-items: center; gap: 6px;">
-                <button type="button" class="samay-qty-btn" style="width:24px;height:24px;font-size:0.8rem;" onclick="window.samayCart.updateQty('${item.id}', -1)">-</button>
+                <button type="button" class="samay-qty-btn" style="width:24px;height:24px;font-size:0.8rem;" onclick="window.samayCart && window.samayCart.change('${lineKey}', ${item.quantity - 1})">-</button>
                 <span style="font-size:0.85rem;font-weight:600;">${item.quantity}</span>
-                <button type="button" class="samay-qty-btn" style="width:24px;height:24px;font-size:0.8rem;" onclick="window.samayCart.updateQty('${item.id}', 1)">+</button>
+                <button type="button" class="samay-qty-btn" style="width:24px;height:24px;font-size:0.8rem;" onclick="window.samayCart && window.samayCart.change('${lineKey}', ${item.quantity + 1})">+</button>
               </div>
             </div>
             <div style="margin-top: 8px;">
-              <button type="button" class="samay-cart-item-remove" onclick="window.samayCart.remove('${item.id}')">Remove</button>
+              <button type="button" class="samay-cart-item-remove" onclick="window.samayCart && window.samayCart.remove('${lineKey}')">Remove</button>
             </div>
           </div>
         </div>
       `;
     }).join('');
 
-    subtotalEl.textContent = `₹${subtotal.toLocaleString('en-IN')}`;
+    subtotalEl.textContent = formatMoney(cart.total_price);
   }
 
   function openCartDrawer() {
@@ -179,18 +173,32 @@
     }
   }
 
-  // Expose Cart Functions to Window
+  // Expose Real Cart API to Window
   window.samayCart = {
     add: addToCart,
-    remove: removeFromCart,
-    updateQty: updateQuantity,
+    change: changeQuantity,
+    remove: function (key) { return changeQuantity(key, 0); },
+    updateQty: function (key, delta) {
+      if (!currentCart || !currentCart.items) return;
+      const item = currentCart.items.find(i => (i.key === key || String(i.id) === String(key)));
+      if (item) {
+        return changeQuantity(item.key || item.id, item.quantity + delta);
+      }
+    },
+    fetch: fetchCart,
     open: openCartDrawer,
     close: closeCartDrawer
   };
 
   // DOM Loaded Listeners
   document.addEventListener('DOMContentLoaded', function () {
-    renderCart();
+    // Clear any obsolete localStorage fake cart
+    try {
+      localStorage.removeItem('samay_cart');
+    } catch (e) {}
+
+    // Initialize Real Shopify Cart
+    fetchCart();
 
     // Header Scroll Effect
     const header = document.querySelector('.samay-header-wrapper');
@@ -258,13 +266,10 @@
     });
 
     // Quantity buttons on product cards
-    document.querySelectorAll('.samay-product-card').forEach(card => {
+    document.querySelectorAll('.samay-product-card, .ep-card').forEach(card => {
       const input = card.querySelector('.samay-qty-input');
       const minus = card.querySelector('.samay-qty-minus');
       const plus = card.querySelector('.samay-qty-plus');
-      const addBtn = card.querySelector('.samay-add-cart-btn');
-      const buyBtn = card.querySelector('.samay-buy-now-btn');
-      const productId = card.getAttribute('data-product-id');
 
       if (minus && input) {
         minus.addEventListener('click', () => {
@@ -277,22 +282,6 @@
         plus.addEventListener('click', () => {
           let val = parseInt(input.value, 10) || 1;
           input.value = val + 1;
-        });
-      }
-
-      if (addBtn && productId) {
-        addBtn.addEventListener('click', () => {
-          const qty = parseInt(input?.value, 10) || 1;
-          addToCart(productId, qty);
-        });
-      }
-
-      if (buyBtn && productId) {
-        buyBtn.addEventListener('click', () => {
-          const qty = parseInt(input?.value, 10) || 1;
-          addToCart(productId, qty);
-          // Redirect to checkout
-          window.location.href = '/checkout';
         });
       }
     });

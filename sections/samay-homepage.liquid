@@ -159,122 +159,150 @@
     </div>
 
     <div class="ep-grid">
-      <!-- CARD 1: 50ML SINGLE BOTTLE -->
-      <article class="ep-card is-active" data-product-id="zyro-single">
-        <div class="ep-media">
-          <div class="ep-media__viewport">
-            <div class="ep-media__inner">
-              <img 
-                src="{{ 'zyro-single.jpg' | asset_url }}" 
-                alt="SAMAY ZAYRO 50ML EAU DE PARFUM" 
-                class="ep-img"
-                loading="lazy"
-              >
+      {%- assign handle_list = "samay-zayro-50ml-eau-de-parfum,samay-zayro-50ml-duo-combo-2-in-1,samay-zayro-grand-trio-3-in-1-combo" | split: "," -%}
+      {%- assign rendered_count = 0 -%}
+
+      {%- for handle in handle_list -%}
+        {%- assign product = all_products[handle] -%}
+        {%- if product != blank and product.title != blank -%}
+          {%- assign rendered_count = rendered_count | plus: 1 -%}
+          {%- assign variant = product.selected_or_first_available_variant -%}
+          {%- assign price = variant.price -%}
+          {%- if variant.compare_at_price and variant.compare_at_price > price -%}
+            {%- assign compare_at = variant.compare_at_price -%}
+          {%- else -%}
+            {%- if price < 200000 -%}
+              {%- assign compare_at = 219900 -%}
+            {%- elsif price < 300000 -%}
+              {%- assign compare_at = 439900 -%}
+            {%- else -%}
+              {%- assign compare_at = 659900 -%}
+            {%- endif -%}
+          {%- endif -%}
+          {%- assign diff = compare_at | minus: price -%}
+          {%- assign discount_percent = diff | times: 100 | divided_by: compare_at -%}
+
+          <article class="ep-card is-active" data-product-id="{{ product.id }}" data-variant-id="{{ variant.id }}">
+            <div class="ep-media">
+              <div class="ep-media__viewport">
+                <div class="ep-media__inner">
+                  {%- if product.featured_image -%}
+                    <img 
+                      src="{{ product.featured_image | image_url: width: 800, height: 800 }}" 
+                      alt="{{ product.title | escape }}" 
+                      class="ep-img"
+                      loading="lazy"
+                      width="400"
+                      height="400"
+                    >
+                  {%- else -%}
+                    {%- assign fallback_img = 'zyro-single.jpg' -%}
+                    {%- if forloop.index == 2 -%}{%- assign fallback_img = 'zyro-duo.jpg' -%}{%- elsif forloop.index == 3 -%}{%- assign fallback_img = 'zyro-trio.jpg' -%}{%- endif -%}
+                    <img 
+                      src="{{ fallback_img | asset_url }}" 
+                      alt="{{ product.title | escape }}" 
+                      class="ep-img"
+                      loading="lazy"
+                    >
+                  {%- endif -%}
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
 
-        <div class="ep-info">
-          <a href="#collection" class="ep-title-link">SAMAY ZAYRO 50ML EAU DE PARFUM</a>
+            <div class="ep-info">
+              <a href="{{ product.url | default: '#collection' }}" class="ep-title-link">{{ product.title | upcase }}</a>
 
-          <div class="ep-price-row">
-            <span class="ep-price">₹1,499.00</span>
-            <span class="ep-price-compare">₹2,199.00</span>
-            <span class="ep-price-discount">-32%</span>
-          </div>
+              <div class="ep-price-row">
+                <span class="ep-price">{{ price | money }}</span>
+                {%- if compare_at > price -%}
+                  <span class="ep-price-compare">{{ compare_at | money }}</span>
+                  <span class="ep-price-discount">-{{ discount_percent }}%</span>
+                {%- endif -%}
+              </div>
 
-          <div class="snap_collection_category static_snap_collection">
-            <span>Pay <span class="snap_blue_color_text">₹1</span> now, rest in 2 EMI</span>
-            <span class="snap_know_more_text"><b>Buy on EMI</b></span>
-          </div>
+              <div class="snap_collection_category static_snap_collection">
+                <span>Pay <span class="snap_blue_color_text">₹1</span> now, rest in 2 EMI</span>
+                <span class="snap_know_more_text"><b>Buy on EMI</b></span>
+              </div>
 
-          <button 
-            type="button" 
-            class="ep-add samay-add-cart-btn" 
-            onclick="window.samayCart && window.samayCart.add('zyro-single', 1)"
-          >
-            ADD TO CART
-          </button>
-        </div>
-      </article>
-
-      <!-- CARD 2: 50ML + 50ML 2-IN-ONE COMBO -->
-      <article class="ep-card is-active" data-product-id="zyro-duo">
-        <div class="ep-media">
-          <div class="ep-media__viewport">
-            <div class="ep-media__inner">
-              <img 
-                src="{{ 'zyro-duo.jpg' | asset_url }}" 
-                alt="SAMAY ZAYRO 50ML DUO COMBO (2 IN 1)" 
-                class="ep-img"
-                loading="lazy"
+              <button 
+                type="button" 
+                class="ep-add samay-add-cart-btn" 
+                data-variant-id="{{ variant.id }}"
+                onclick="window.samayCart && window.samayCart.add({{ variant.id }}, 1)"
               >
+                ADD TO CART
+              </button>
             </div>
-          </div>
-        </div>
+          </article>
+        {%- endif -%}
+      {%- endfor -%}
 
-        <div class="ep-info">
-          <a href="#collection" class="ep-title-link">SAMAY ZAYRO 50ML DUO COMBO (2 IN 1)</a>
+      {%- if rendered_count == 0 -%}
+        {%- for product in collections.all.products -%}
+          {%- assign variant = product.selected_or_first_available_variant -%}
+          {%- assign price = variant.price -%}
+          {%- if variant.compare_at_price and variant.compare_at_price > price -%}
+            {%- assign compare_at = variant.compare_at_price -%}
+          {%- else -%}
+            {%- assign compare_at = price | times: 1.45 | round -%}
+          {%- endif -%}
+          {%- assign diff = compare_at | minus: price -%}
+          {%- assign discount_percent = diff | times: 100 | divided_by: compare_at -%}
 
-          <div class="ep-price-row">
-            <span class="ep-price">₹2,599.00</span>
-            <span class="ep-price-compare">₹4,399.00</span>
-            <span class="ep-price-discount">-41%</span>
-          </div>
+          <article class="ep-card is-active" data-product-id="{{ product.id }}" data-variant-id="{{ variant.id }}">
+            <div class="ep-media">
+              <div class="ep-media__viewport">
+                <div class="ep-media__inner">
+                  {%- if product.featured_image -%}
+                    <img 
+                      src="{{ product.featured_image | image_url: width: 800, height: 800 }}" 
+                      alt="{{ product.title | escape }}" 
+                      class="ep-img"
+                      loading="lazy"
+                      width="400"
+                      height="400"
+                    >
+                  {%- else -%}
+                    <img 
+                      src="{{ 'zyro-single.jpg' | asset_url }}" 
+                      alt="{{ product.title | escape }}" 
+                      class="ep-img"
+                      loading="lazy"
+                    >
+                  {%- endif -%}
+                </div>
+              </div>
+            </div>
 
-          <div class="snap_collection_category static_snap_collection">
-            <span>Pay <span class="snap_blue_color_text">₹1</span> now, rest in 2 EMI</span>
-            <span class="snap_know_more_text"><b>Buy on EMI</b></span>
-          </div>
+            <div class="ep-info">
+              <a href="{{ product.url | default: '#collection' }}" class="ep-title-link">{{ product.title | upcase }}</a>
 
-          <button 
-            type="button" 
-            class="ep-add samay-add-cart-btn" 
-            onclick="window.samayCart && window.samayCart.add('zyro-duo', 1)"
-          >
-            ADD TO CART
-          </button>
-        </div>
-      </article>
+              <div class="ep-price-row">
+                <span class="ep-price">{{ price | money }}</span>
+                {%- if compare_at > price -%}
+                  <span class="ep-price-compare">{{ compare_at | money }}</span>
+                  <span class="ep-price-discount">-{{ discount_percent }}%</span>
+                {%- endif -%}
+              </div>
 
-      <!-- CARD 3: 50ML + 50ML + 50ML 3-IN-ONE COMBO -->
-      <article class="ep-card is-active" data-product-id="zyro-trio">
-        <div class="ep-media">
-          <div class="ep-media__viewport">
-            <div class="ep-media__inner">
-              <img 
-                src="{{ 'zyro-trio.jpg' | asset_url }}" 
-                alt="SAMAY ZAYRO GRAND TRIO (3 IN 1 COMBO)" 
-                class="ep-img"
-                loading="lazy"
+              <div class="snap_collection_category static_snap_collection">
+                <span>Pay <span class="snap_blue_color_text">₹1</span> now, rest in 2 EMI</span>
+                <span class="snap_know_more_text"><b>Buy on EMI</b></span>
+              </div>
+
+              <button 
+                type="button" 
+                class="ep-add samay-add-cart-btn" 
+                data-variant-id="{{ variant.id }}"
+                onclick="window.samayCart && window.samayCart.add({{ variant.id }}, 1)"
               >
+                ADD TO CART
+              </button>
             </div>
-          </div>
-        </div>
-
-        <div class="ep-info">
-          <a href="#collection" class="ep-title-link">SAMAY ZAYRO GRAND TRIO (3 IN 1 COMBO)</a>
-
-          <div class="ep-price-row">
-            <span class="ep-price">₹3,499.00</span>
-            <span class="ep-price-compare">₹6,599.00</span>
-            <span class="ep-price-discount">-47%</span>
-          </div>
-
-          <div class="snap_collection_category static_snap_collection">
-            <span>Pay <span class="snap_blue_color_text">₹1</span> now, rest in 2 EMI</span>
-            <span class="snap_know_more_text"><b>Buy on EMI</b></span>
-          </div>
-
-          <button 
-            type="button" 
-            class="ep-add samay-add-cart-btn" 
-            onclick="window.samayCart && window.samayCart.add('zyro-trio', 1)"
-          >
-            ADD TO CART
-          </button>
-        </div>
-      </article>
+          </article>
+        {%- endfor -%}
+      {%- endif -%}
     </div>
   </div>
 </section>
@@ -665,9 +693,11 @@
         <strong id="samayCartSubtotal">₹0</strong>
       </div>
       <div class="samay-drawer-tax-note">Taxes & shipping calculated at checkout</div>
-      <a href="/checkout" class="samay-btn samay-btn--gold samay-btn--full" style="font-size: 0.95rem; padding: 18px 24px;">
-        PROCEED TO CHECKOUT
-      </a>
+      <form action="{{ routes.cart_url | default: '/cart' }}" method="post" id="samayCartDrawerForm" class="samay-cart-drawer-form" style="width: 100%; margin: 0;">
+        <button type="submit" name="checkout" class="samay-btn samay-btn--gold samay-btn--full" style="font-size: 0.95rem; padding: 18px 24px; cursor: pointer; border: none; width: 100%;">
+          PROCEED TO CHECKOUT
+        </button>
+      </form>
     </div>
   </div>
 </div>
