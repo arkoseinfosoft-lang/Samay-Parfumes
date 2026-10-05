@@ -11,36 +11,36 @@
   --cream3: #e5ddd0;
   --cream-card: #fdfbf7;
   --white: #ffffff;
-  
+
   --gold: #c9a96e;
   --gold-dark: #a8844a;
   --gold-hover: #b89659;
   --gold-light: #dfc89e;
   --gold-gradient: linear-gradient(135deg, #dfc89e 0%, #c9a96e 50%, #a8844a 100%);
-  
+
   --brown: #2c1f0e;
   --brown-dark: #1b1309;
   --taupe: #7a6a56;
   --dim: #a89880;
   --border: #ddd0bc;
   --border-light: #ece3d4;
-  
+
   --serif: 'Bodoni Moda', 'Playfair Display', Georgia, serif;
   --sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  
+
   --header-height: 82px;
   --page-width: 1440px;
-  
+
   --radius-xs: 4px;
   --radius-sm: 8px;
   --radius-md: 14px;
   --radius-lg: 22px;
-  
+
   --shadow-subtle: 0 4px 20px rgba(44, 31, 14, 0.05);
   --shadow-card: 0 10px 30px rgba(44, 31, 14, 0.07);
   --shadow-hover: 0 18px 45px rgba(44, 31, 14, 0.12);
   --shadow-modal: 0 25px 60px rgba(22, 17, 11, 0.25);
-  
+
   --transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
@@ -58,7 +58,9 @@ html {
   overflow-x: hidden;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: inherit;
 }
 
@@ -87,12 +89,18 @@ body {
   display: block !important;
 }
 
-.shopify-section > * {
+.shopify-section>* {
   width: 100% !important;
 }
 
 /* Typography Base */
-h1, h2, h3, h4, h5, h6, .serif-font {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.serif-font {
   font-family: var(--serif);
   font-weight: 400;
   margin: 0;
@@ -117,7 +125,10 @@ img {
   display: block;
 }
 
-button, input, textarea, select {
+button,
+input,
+textarea,
+select {
   font-family: inherit;
 }
 
@@ -664,8 +675,13 @@ button, input, textarea, select {
 }
 
 @keyframes samayMarquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 /* ==========================================================================
@@ -784,16 +800,26 @@ button, input, textarea, select {
 .samay-products-section {
   width: 100%;
   padding: 80px 0 90px;
-  background-color: #000000 !important;
-  color: #ffffff;
+  background-color: var(--cream) !important;
+  color: var(--brown);
   position: relative;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid var(--border-light);
+  border-bottom: 1px solid var(--border-light);
 }
 
 .ep-header {
   margin-bottom: 32px;
   text-align: left;
+}
+
+.ep-kicker {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+  margin-bottom: 8px;
+  font-weight: 600;
 }
 
 .ep-section-title {
@@ -803,7 +829,7 @@ button, input, textarea, select {
   line-height: 1.05;
   letter-spacing: -0.01em;
   text-transform: uppercase;
-  color: #ffffff;
+  color: var(--brown-dark, #1b1309);
   margin: 0;
 }
 
@@ -819,15 +845,17 @@ button, input, textarea, select {
   background: #0d0d0d;
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 4px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  transition: border-color 0.25s ease, transform 0.25s ease;
+  transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .ep-card:hover {
   border-color: rgba(255, 255, 255, 0.45);
   transform: translateY(-4px);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
 }
 
 .ep-media {
@@ -1401,19 +1429,24 @@ button, input, textarea, select {
   margin-bottom: 8px;
 }
 
-.samay-form-input, .samay-form-textarea, .samay-form-select {
+.samay-form-input,
+.samay-form-textarea,
+.samay-form-select {
   width: 100%;
   padding: 14px 16px;
   background: var(--white);
   border: 1px solid var(--border);
   border-radius: var(--radius-xs);
   color: var(--brown);
-  font-size: 16px; /* Prevents auto zoom on mobile */
+  font-size: 16px;
+  /* Prevents auto zoom on mobile */
   outline: none;
   transition: var(--transition);
 }
 
-.samay-form-input:focus, .samay-form-textarea:focus, .samay-form-select:focus {
+.samay-form-input:focus,
+.samay-form-textarea:focus,
+.samay-form-select:focus {
   border-color: var(--gold);
   box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.2);
 }
@@ -2143,7 +2176,9 @@ button, input, textarea, select {
   filter: drop-shadow(0 2px 6px rgba(44, 31, 14, 0.25));
 }
 
-@media (hover: none), (pointer: coarse) {
+@media (hover: none),
+(pointer: coarse) {
+
   .samay-atomizer,
   .samay-spray-canvas {
     display: none !important;
@@ -2151,6 +2186,7 @@ button, input, textarea, select {
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .samay-atomizer,
   .samay-spray-canvas {
     display: none !important;
