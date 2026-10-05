@@ -296,6 +296,15 @@
       });
     }
 
+    // Direct checkout navigation to avoid Shopify POST /cart 302 redirect warning in terminal
+    const checkoutForm = document.getElementById('samayCartDrawerForm');
+    if (checkoutForm) {
+      checkoutForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        window.location.href = '/checkout';
+      });
+    }
+
     // Contact Form handling
     const contactForm = document.getElementById('samayContactForm');
     if (contactForm) {
