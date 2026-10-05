@@ -1,0 +1,2200 @@
+/* ==========================================================================
+   SAMAY PARFUMES - LUXURY THEME STYLESHEET (FULL-SCREEN & MOBILE OPTIMIZED)
+   Inspired by House of Sasaa & Ultra-High-End French/Oriental Perfumery
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --cream: #f7f2ea;
+  --cream2: #efe8dc;
+  --cream3: #e5ddd0;
+  --cream-card: #fdfbf7;
+  --white: #ffffff;
+  
+  --gold: #c9a96e;
+  --gold-dark: #a8844a;
+  --gold-hover: #b89659;
+  --gold-light: #dfc89e;
+  --gold-gradient: linear-gradient(135deg, #dfc89e 0%, #c9a96e 50%, #a8844a 100%);
+  
+  --brown: #2c1f0e;
+  --brown-dark: #1b1309;
+  --taupe: #7a6a56;
+  --dim: #a89880;
+  --border: #ddd0bc;
+  --border-light: #ece3d4;
+  
+  --serif: 'Bodoni Moda', 'Playfair Display', Georgia, serif;
+  --sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  
+  --header-height: 82px;
+  --page-width: 1440px;
+  
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  
+  --shadow-subtle: 0 4px 20px rgba(44, 31, 14, 0.05);
+  --shadow-card: 0 10px 30px rgba(44, 31, 14, 0.07);
+  --shadow-hover: 0 18px 45px rgba(44, 31, 14, 0.12);
+  --shadow-modal: 0 25px 60px rgba(22, 17, 11, 0.25);
+  
+  --transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* ==========================================================================
+   EDGE-TO-EDGE FULL SCREEN RESET
+   ========================================================================== */
+html {
+  scroll-behavior: smooth;
+  box-sizing: border-box;
+  font-size: 16px;
+  background-color: var(--cream);
+  color: var(--brown);
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  font-family: var(--sans);
+  background-color: var(--cream);
+  color: var(--brown);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+#MainContent,
+.shopify-section,
+.shopify-section-group-header-group,
+.shopify-section-group-footer-group {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: block !important;
+}
+
+.shopify-section > * {
+  width: 100% !important;
+}
+
+/* Typography Base */
+h1, h2, h3, h4, h5, h6, .serif-font {
+  font-family: var(--serif);
+  font-weight: 400;
+  margin: 0;
+  color: var(--brown);
+  letter-spacing: -0.01em;
+}
+
+p {
+  margin: 0 0 1rem;
+  color: var(--taupe);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button, input, textarea, select {
+  font-family: inherit;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--page-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: clamp(16px, 4vw, 40px);
+  padding-right: clamp(16px, 4vw, 40px);
+  box-sizing: border-box;
+}
+
+/* ==========================================================================
+   TOP ANNOUNCEMENT BAR
+   ========================================================================== */
+.samay-announcement-bar {
+  background-color: var(--gold);
+  color: var(--cream);
+  padding: 9px 12px;
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  text-align: center;
+  position: relative;
+  z-index: 100;
+  overflow: hidden;
+  width: 100%;
+}
+
+.samay-announcement-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.samay-announce-track {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+}
+
+.samay-announce-track span.highlight {
+  font-weight: 700;
+  background: rgba(44, 31, 14, 0.2);
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 3px;
+  letter-spacing: 0.15em;
+}
+
+/* ==========================================================================
+   LUXURY HEADER
+   ========================================================================== */
+.samay-header-wrapper {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 99;
+  background-color: rgba(247, 242, 234, 0.96);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+  transition: var(--transition);
+}
+
+.samay-header-wrapper.is-scrolled {
+  box-shadow: var(--shadow-subtle);
+  background-color: rgba(247, 242, 234, 0.98);
+}
+
+.samay-header {
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.samay-logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.samay-header-logo-img {
+  height: 52px;
+  width: auto;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.samay-logo-link:hover .samay-header-logo-img {
+  transform: scale(1.02);
+}
+
+.samay-nav {
+  display: flex;
+  align-items: center;
+  gap: 2.2rem;
+}
+
+.samay-nav-link {
+  font-family: var(--sans);
+  font-size: 0.76rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--brown);
+  position: relative;
+  padding: 6px 0;
+  transition: color 0.25s ease;
+  white-space: nowrap;
+}
+
+.samay-nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background-color: var(--gold);
+  transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.samay-nav-link:hover {
+  color: var(--gold-dark);
+}
+
+.samay-nav-link:hover::after {
+  width: 100%;
+}
+
+.samay-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  flex-shrink: 0;
+}
+
+.samay-header-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 9px 20px;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  border-radius: var(--radius-xs);
+  background: var(--gold);
+  color: var(--brown-dark);
+  transition: var(--transition);
+}
+
+.samay-header-cta-btn:hover {
+  background: var(--gold-dark);
+  color: var(--white);
+  transform: translateY(-1px);
+}
+
+.samay-cart-trigger {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--cream2);
+  color: var(--brown);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.samay-cart-trigger:hover {
+  border-color: var(--gold);
+  background: var(--gold);
+  color: var(--white);
+  transform: translateY(-2px);
+}
+
+.samay-cart-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: var(--brown);
+  color: var(--cream);
+  font-size: 0.68rem;
+  font-weight: 700;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid var(--cream);
+}
+
+.samay-mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--brown);
+  cursor: pointer;
+  padding: 8px;
+  border-radius: var(--radius-xs);
+}
+
+/* Mobile Navigation Drawer */
+.samay-mobile-drawer-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(22, 17, 11, 0.7);
+  backdrop-filter: blur(5px);
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.35s ease;
+}
+
+.samay-mobile-drawer-overlay.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.samay-mobile-drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 82%;
+  max-width: 340px;
+  height: 100vh;
+  background: var(--cream);
+  z-index: 1001;
+  transform: translateX(-100%);
+  transition: transform 0.38s cubic-bezier(0.25, 1, 0.5, 1);
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-modal);
+}
+
+.samay-mobile-drawer-overlay.is-open .samay-mobile-drawer {
+  transform: translateX(0);
+}
+
+.samay-mobile-drawer-header {
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+}
+
+.samay-mobile-drawer-close {
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  color: var(--brown);
+  cursor: pointer;
+  padding: 4px;
+}
+
+.samay-mobile-drawer-links {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.samay-mobile-link {
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brown);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.samay-nav-tag {
+  font-size: 0.65rem;
+  padding: 2px 6px;
+  border-radius: 3px;
+  background: var(--brown);
+  color: var(--cream);
+  font-weight: 700;
+}
+
+.samay-nav-tag.gold {
+  background: var(--gold);
+  color: var(--brown-dark);
+}
+
+.samay-mobile-drawer-footer {
+  padding: 24px;
+  border-top: 1px solid var(--border);
+  background: var(--cream2);
+}
+
+/* ==========================================================================
+   HERO BANNER (FULL-SCREEN EDGE-TO-EDGE)
+   ========================================================================== */
+.samay-hero-section {
+  position: relative;
+  min-height: 92vh;
+  min-height: 92svh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background-color: #1a1309;
+}
+
+.samay-hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center right;
+  filter: brightness(0.9);
+  transform: scale(1.02);
+}
+
+.samay-hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(22, 17, 11, 0.92) 0%, rgba(22, 17, 11, 0.85) 45%, rgba(22, 17, 11, 0.3) 78%, rgba(22, 17, 11, 0.12) 100%);
+  pointer-events: none;
+}
+
+.samay-hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 680px;
+  padding: 70px 0;
+  color: var(--cream);
+}
+
+.samay-hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.4rem;
+  font-weight: 600;
+}
+
+.samay-hero-eyebrow::before {
+  content: '';
+  width: 32px;
+  height: 1.5px;
+  background-color: var(--gold);
+}
+
+.samay-hero-title {
+  font-family: var(--serif);
+  font-size: clamp(2.8rem, 5.2vw, 4.8rem);
+  font-weight: 300;
+  line-height: 1.06;
+  color: var(--cream);
+  margin-bottom: 1.4rem;
+}
+
+.samay-hero-title em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--gold-light);
+}
+
+.samay-hero-desc {
+  font-family: var(--sans);
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: rgba(247, 242, 234, 0.86);
+  margin-bottom: 2.4rem;
+  font-weight: 300;
+}
+
+.samay-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  align-items: center;
+}
+
+.samay-hero-highlights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.8rem;
+  margin-top: 3.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(221, 208, 188, 0.22);
+}
+
+.samay-highlight-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  font-weight: 500;
+}
+
+.samay-highlight-item svg {
+  color: var(--gold);
+}
+
+/* ==========================================================================
+   BUTTONS
+   ========================================================================== */
+.samay-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 36px;
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  border-radius: var(--radius-xs);
+  cursor: pointer;
+  transition: var(--transition);
+  text-decoration: none;
+  border: 1px solid transparent;
+  min-height: 50px;
+}
+
+.samay-btn--gold {
+  background: var(--gold);
+  color: var(--brown-dark);
+  border-color: var(--gold);
+}
+
+.samay-btn--gold:hover {
+  background: var(--gold-dark);
+  border-color: var(--gold-dark);
+  color: var(--white);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(201, 169, 110, 0.35);
+}
+
+.samay-btn--outline {
+  background: transparent;
+  color: var(--cream);
+  border-color: rgba(247, 242, 234, 0.5);
+}
+
+.samay-btn--outline:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: rgba(201, 169, 110, 0.1);
+  transform: translateY(-2px);
+}
+
+.samay-btn--dark {
+  background: var(--brown);
+  color: var(--cream);
+  border-color: var(--brown);
+}
+
+.samay-btn--dark:hover {
+  background: var(--brown-dark);
+  color: var(--gold);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(44, 31, 14, 0.25);
+}
+
+.samay-btn--full {
+  width: 100%;
+}
+
+/* ==========================================================================
+   INFINITE MARQUEE TICKER (FULL-SCREEN WIDTH)
+   ========================================================================== */
+.samay-marquee-section {
+  width: 100%;
+  background: var(--cream2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.samay-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: samayMarquee 32s linear infinite;
+}
+
+.samay-marquee-track:hover {
+  animation-play-state: paused;
+}
+
+.samay-marquee-content {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding-right: 2rem;
+  white-space: nowrap;
+  font-family: var(--sans);
+  font-size: 0.84rem;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--taupe);
+}
+
+.samay-marquee-dot {
+  color: var(--gold);
+  font-size: 1.1rem;
+}
+
+@keyframes samayMarquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ==========================================================================
+   3 PILLARS / INTRO FEATURES
+   ========================================================================== */
+.samay-pillars-section {
+  width: 100%;
+  background: var(--cream);
+  border-bottom: 1px solid var(--border);
+}
+
+.samay-pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-left: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+}
+
+.samay-pillar-card {
+  padding: 50px 36px;
+  text-align: center;
+  border-right: 1px solid var(--border);
+  transition: var(--transition);
+}
+
+.samay-pillar-card:last-child {
+  border-right: none;
+}
+
+.samay-pillar-card:hover {
+  background: var(--cream2);
+}
+
+.samay-pillar-icon {
+  font-size: 2rem;
+  color: var(--gold);
+  margin-bottom: 1.2rem;
+}
+
+.samay-pillar-eyebrow {
+  font-family: var(--sans);
+  font-size: 0.76rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+  font-weight: 600;
+  margin-bottom: 0.6rem;
+}
+
+.samay-pillar-title {
+  font-family: var(--serif);
+  font-size: 1.6rem;
+  font-style: italic;
+  color: var(--brown);
+  margin-bottom: 0.8rem;
+}
+
+.samay-pillar-desc {
+  font-size: 0.92rem;
+  color: var(--taupe);
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* ==========================================================================
+   SECTION HEADINGS & COMMONS
+   ========================================================================== */
+.samay-sec-header {
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto 50px;
+}
+
+.samay-sec-eyebrow {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.samay-sec-title {
+  font-family: var(--serif);
+  font-size: clamp(2.3rem, 4vw, 3.4rem);
+  font-weight: 300;
+  color: var(--brown);
+  line-height: 1.18;
+  margin-bottom: 14px;
+}
+
+.samay-sec-title em {
+  font-style: italic;
+  font-weight: 400;
+}
+
+.samay-sec-subtitle {
+  font-size: 0.98rem;
+  color: var(--taupe);
+  line-height: 1.8;
+  margin: 0;
+}
+
+.samay-sec-divider {
+  width: 60px;
+  height: 1px;
+  background-color: var(--gold);
+  margin: 20px auto 0;
+}
+
+/* ==========================================================================
+   PRODUCT VARIATIONS SECTION (CORE 3 CARDS)
+   ========================================================================== */
+.samay-products-section {
+  width: 100%;
+  padding: 90px 0;
+  background-color: var(--cream);
+  position: relative;
+}
+
+.samay-products-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  align-items: stretch;
+}
+
+.samay-product-card {
+  background: var(--cream-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: var(--transition);
+  box-shadow: var(--shadow-subtle);
+}
+
+.samay-product-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--gold);
+}
+
+.samay-product-card.is-popular {
+  border: 2px solid var(--gold);
+  background: #ffffff;
+  position: relative;
+}
+
+.samay-product-badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 5;
+  background: var(--gold);
+  color: var(--brown-dark);
+  font-family: var(--sans);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: var(--radius-xs);
+  box-shadow: 0 4px 12px rgba(201, 169, 110, 0.35);
+}
+
+.samay-product-badge.popular-badge {
+  background: var(--brown);
+  color: var(--gold-light);
+}
+
+.samay-product-badge.best-value-badge {
+  background: #2e7d32;
+  color: #ffffff;
+}
+
+.samay-card-image-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: var(--cream2);
+}
+
+.samay-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.samay-product-card:hover .samay-card-image {
+  transform: scale(1.06);
+}
+
+.samay-card-body {
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.samay-card-header {
+  margin-bottom: 12px;
+}
+
+.samay-card-subtitle {
+  font-family: var(--sans);
+  font-size: 0.74rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.samay-card-title {
+  font-family: var(--serif);
+  font-size: 1.55rem;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--brown);
+  line-height: 1.25;
+  margin-bottom: 8px;
+}
+
+.samay-card-rating {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.samay-stars {
+  color: #d4a017;
+  font-size: 0.95rem;
+  letter-spacing: 2px;
+}
+
+.samay-rating-count {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  color: var(--dim);
+}
+
+.samay-card-pricing {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.samay-price-current {
+  font-family: var(--sans);
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: var(--brown);
+}
+
+.samay-price-compare {
+  font-family: var(--sans);
+  font-size: 1.1rem;
+  text-decoration: line-through;
+  color: var(--dim);
+}
+
+.samay-price-save {
+  font-family: var(--sans);
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #2e7d32;
+  background: #e8f5e9;
+  padding: 3px 8px;
+  border-radius: var(--radius-xs);
+  letter-spacing: 0.05em;
+}
+
+.samay-card-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-grow: 1;
+}
+
+.samay-card-features li {
+  font-size: 0.86rem;
+  color: var(--taupe);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.samay-card-features li svg {
+  color: var(--gold);
+  flex-shrink: 0;
+}
+
+.samay-card-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: auto;
+}
+
+.samay-qty-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--cream2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xs);
+  padding: 4px;
+}
+
+.samay-qty-label {
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  padding-left: 10px;
+  font-weight: 600;
+}
+
+.samay-qty-stepper {
+  display: flex;
+  align-items: center;
+}
+
+.samay-qty-btn {
+  width: 34px;
+  height: 34px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xs);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: var(--brown);
+  transition: var(--transition);
+}
+
+.samay-qty-btn:hover {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--white);
+}
+
+.samay-qty-input {
+  width: 44px;
+  text-align: center;
+  border: none;
+  background: transparent;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--brown);
+}
+
+/* ==========================================================================
+   PHILOSOPHY BANNER (FULL-SCREEN WIDTH)
+   ========================================================================== */
+.samay-philosophy-section {
+  width: 100%;
+  padding: 100px 0;
+  background-color: var(--brown);
+  color: var(--cream);
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.samay-philosophy-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, rgba(44, 31, 14, 0.7) 0%, rgba(22, 17, 11, 0.98) 100%);
+  pointer-events: none;
+}
+
+.samay-philosophy-container {
+  position: relative;
+  z-index: 2;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.samay-philosophy-quote {
+  font-family: var(--serif);
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
+  font-weight: 300;
+  line-height: 1.35;
+  color: var(--cream);
+  margin-bottom: 2rem;
+}
+
+.samay-philosophy-quote em {
+  font-style: italic;
+  color: var(--gold-light);
+}
+
+.samay-philosophy-author {
+  font-family: var(--sans);
+  font-size: 0.88rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   THE NOTES SECTION (OLFACTORY PYRAMID)
+   ========================================================================== */
+.samay-notes-section {
+  width: 100%;
+  padding: 100px 0;
+  background-color: var(--cream);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.samay-notes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin-bottom: 60px;
+}
+
+.samay-note-card {
+  background: var(--cream-card);
+  padding: 50px 36px;
+  text-align: center;
+  transition: var(--transition);
+}
+
+.samay-note-card:hover {
+  background: var(--cream2);
+}
+
+.samay-note-card.is-center {
+  background: var(--cream2);
+  border-top: 3px solid var(--gold);
+}
+
+.samay-note-stage {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.samay-note-headline {
+  font-family: var(--serif);
+  font-size: 1.8rem;
+  font-style: italic;
+  color: var(--brown);
+  margin-bottom: 16px;
+}
+
+.samay-note-timing {
+  display: inline-block;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--dim);
+  background: rgba(44, 31, 14, 0.05);
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-bottom: 24px;
+}
+
+.samay-note-ingredients {
+  font-family: var(--sans);
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--brown);
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.samay-note-description {
+  font-size: 0.9rem;
+  color: var(--taupe);
+  line-height: 1.7;
+  font-style: italic;
+  margin: 0;
+}
+
+.samay-ingredients-showcase {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  align-items: center;
+  background: var(--cream2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 40px;
+}
+
+.samay-showcase-image-wrap {
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+
+.samay-showcase-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.samay-showcase-image-wrap:hover .samay-showcase-image {
+  transform: scale(1.04);
+}
+
+.samay-showcase-content h3 {
+  font-size: 2.2rem;
+  margin-bottom: 18px;
+}
+
+.samay-showcase-content p {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--taupe);
+  margin-bottom: 24px;
+}
+
+.samay-specs-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.samay-spec-box {
+  background: var(--cream);
+  padding: 16px;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--border);
+}
+
+.samay-spec-title {
+  font-size: 0.74rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.samay-spec-val {
+  font-size: 0.96rem;
+  font-weight: 600;
+  color: var(--brown);
+  margin: 0;
+}
+
+/* ==========================================================================
+   REVIEWS & TESTIMONIALS SECTION
+   ========================================================================== */
+.samay-reviews-section {
+  width: 100%;
+  padding: 100px 0;
+  background-color: var(--cream);
+}
+
+.samay-reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.samay-review-card {
+  background: var(--cream2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 36px 30px;
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.samay-review-card:hover {
+  transform: translateY(-5px);
+  background: var(--white);
+  border-color: var(--gold);
+  box-shadow: var(--shadow-card);
+}
+
+.samay-review-stars {
+  color: #d4a017;
+  font-size: 1.1rem;
+  letter-spacing: 3px;
+  margin-bottom: 16px;
+}
+
+.samay-review-quote {
+  font-family: var(--serif);
+  font-size: 1.22rem;
+  font-style: italic;
+  line-height: 1.6;
+  color: var(--brown);
+  margin-bottom: 24px;
+}
+
+.samay-review-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--border-light);
+  padding-top: 16px;
+}
+
+.samay-reviewer-name {
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brown);
+  margin: 0;
+}
+
+.samay-reviewer-city {
+  font-size: 0.74rem;
+  color: var(--dim);
+  letter-spacing: 0.05em;
+}
+
+.samay-verified-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.7rem;
+  color: #2e7d32;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   ABOUT US SECTION (ON HOMEPAGE)
+   ========================================================================== */
+.samay-about-section {
+  width: 100%;
+  padding: 100px 0;
+  background-color: var(--cream2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.samay-about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.samay-about-text h2 {
+  font-size: clamp(2.4rem, 4vw, 3.4rem);
+  line-height: 1.15;
+  margin-bottom: 24px;
+}
+
+.samay-about-text p {
+  font-size: 1.05rem;
+  line-height: 1.85;
+  color: var(--taupe);
+  margin-bottom: 20px;
+}
+
+.samay-about-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 36px;
+  padding-top: 30px;
+  border-top: 1px solid var(--border);
+}
+
+.samay-stat-item strong {
+  display: block;
+  font-family: var(--serif);
+  font-size: 2.6rem;
+  color: var(--brown);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.samay-stat-item span {
+  font-size: 0.74rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+  font-weight: 600;
+}
+
+.samay-about-media {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+
+.samay-about-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s ease;
+}
+
+.samay-about-media:hover img {
+  transform: scale(1.03);
+}
+
+/* ==========================================================================
+   CONTACT US & FAQ SECTION (ON HOMEPAGE)
+   ========================================================================== */
+.samay-contact-section {
+  width: 100%;
+  padding: 100px 0;
+  background-color: var(--cream);
+}
+
+.samay-contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+
+.samay-contact-form-box {
+  background: var(--cream2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 40px;
+  box-shadow: var(--shadow-subtle);
+}
+
+.samay-form-group {
+  margin-bottom: 18px;
+}
+
+.samay-form-label {
+  display: block;
+  font-size: 0.76rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--brown);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.samay-form-input, .samay-form-textarea, .samay-form-select {
+  width: 100%;
+  padding: 14px 16px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xs);
+  color: var(--brown);
+  font-size: 16px; /* Prevents auto zoom on mobile */
+  outline: none;
+  transition: var(--transition);
+}
+
+.samay-form-input:focus, .samay-form-textarea:focus, .samay-form-select:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.2);
+}
+
+.samay-whatsapp-direct-box {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+
+.samay-whatsapp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: #25d366;
+  color: #ffffff;
+  padding: 14px 28px;
+  border-radius: var(--radius-xs);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-size: 0.84rem;
+  transition: var(--transition);
+  text-decoration: none;
+  width: 100%;
+  min-height: 48px;
+}
+
+.samay-whatsapp-btn:hover {
+  background-color: #1ebd5b;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+}
+
+/* Accordion FAQ */
+.samay-faq-box {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.samay-faq-item {
+  background: var(--cream2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.samay-faq-item.is-open {
+  border-color: var(--gold);
+  background: var(--white);
+}
+
+.samay-faq-question {
+  width: 100%;
+  text-align: left;
+  padding: 20px 24px;
+  background: none;
+  border: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--sans);
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--brown);
+  cursor: pointer;
+  min-height: 52px;
+}
+
+.samay-faq-icon {
+  font-size: 1.2rem;
+  color: var(--gold-dark);
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+  margin-left: 12px;
+}
+
+.samay-faq-item.is-open .samay-faq-icon {
+  transform: rotate(45deg);
+}
+
+.samay-faq-answer {
+  padding: 0 24px 22px;
+  font-size: 0.92rem;
+  line-height: 1.75;
+  color: var(--taupe);
+  display: none;
+}
+
+.samay-faq-item.is-open .samay-faq-answer {
+  display: block;
+}
+
+/* ==========================================================================
+   VIP NEWSLETTER SECTION (FULL-SCREEN WIDTH)
+   ========================================================================== */
+.samay-newsletter-section {
+  width: 100%;
+  background: var(--brown);
+  color: var(--cream);
+  padding: 80px 0;
+  text-align: center;
+}
+
+.samay-newsletter-box {
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+.samay-newsletter-box h2 {
+  color: var(--cream);
+  font-size: 2.8rem;
+  margin-bottom: 12px;
+}
+
+.samay-newsletter-box p {
+  color: var(--gold-light);
+  font-size: 1.05rem;
+  margin-bottom: 30px;
+}
+
+.samay-newsletter-form {
+  display: flex;
+  gap: 10px;
+}
+
+.samay-newsletter-input {
+  flex-grow: 1;
+  padding: 16px 20px;
+  background: rgba(247, 242, 234, 0.08);
+  border: 1px solid var(--gold);
+  border-radius: var(--radius-xs);
+  color: var(--cream);
+  font-size: 16px;
+  outline: none;
+}
+
+.samay-newsletter-input::placeholder {
+  color: rgba(247, 242, 234, 0.5);
+}
+
+/* ==========================================================================
+   LUXURY FOOTER (FULL-SCREEN WIDTH)
+   ========================================================================== */
+.samay-footer {
+  width: 100%;
+  background: var(--brown-dark);
+  color: var(--cream);
+  padding: 80px 0 30px;
+  border-top: 3px solid var(--gold);
+}
+
+.samay-footer-top {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.5fr;
+  gap: 50px;
+  margin-bottom: 60px;
+}
+
+.samay-footer-brand p {
+  color: var(--dim);
+  font-size: 0.92rem;
+  line-height: 1.8;
+  max-width: 320px;
+  margin-top: 16px;
+}
+
+.samay-footer-logo-img {
+  height: 56px;
+  width: auto;
+  object-fit: contain;
+  filter: brightness(1.2);
+}
+
+.samay-footer-heading {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.samay-footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.samay-footer-links a {
+  font-size: 0.92rem;
+  color: var(--dim);
+  transition: color 0.25s ease;
+}
+
+.samay-footer-links a:hover {
+  color: var(--gold);
+}
+
+.samay-footer-bottom {
+  border-top: 1px solid rgba(221, 208, 188, 0.15);
+  padding-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  font-size: 0.82rem;
+  color: var(--dim);
+}
+
+/* ==========================================================================
+   SLIDE-IN CART DRAWER
+   ========================================================================== */
+.samay-cart-drawer-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(22, 17, 11, 0.65);
+  backdrop-filter: blur(4px);
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.35s ease;
+}
+
+.samay-cart-drawer-overlay.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.samay-cart-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  max-width: 440px;
+  height: 100vh;
+  background: var(--cream);
+  z-index: 1000;
+  transform: translateX(100%);
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-modal);
+}
+
+.samay-cart-drawer-overlay.is-open .samay-cart-drawer {
+  transform: translateX(0);
+}
+
+.samay-drawer-header {
+  padding: 24px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.samay-drawer-title {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  color: var(--brown);
+  margin: 0;
+}
+
+.samay-drawer-close {
+  background: none;
+  border: none;
+  font-size: 1.6rem;
+  color: var(--brown);
+  cursor: pointer;
+  padding: 4px;
+  transition: transform 0.25s ease;
+}
+
+.samay-drawer-close:hover {
+  transform: rotate(90deg);
+  color: var(--gold);
+}
+
+.samay-drawer-body {
+  padding: 24px;
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.samay-cart-free-shipping {
+  background: var(--cream2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xs);
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  font-size: 0.82rem;
+  text-align: center;
+  color: var(--brown);
+}
+
+.samay-cart-free-shipping strong {
+  color: var(--gold-dark);
+}
+
+.samay-cart-item {
+  display: flex;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.samay-cart-item-img {
+  width: 72px;
+  height: 72px;
+  border-radius: var(--radius-xs);
+  object-fit: cover;
+  background: var(--cream2);
+  border: 1px solid var(--border);
+}
+
+.samay-cart-item-details {
+  flex-grow: 1;
+}
+
+.samay-cart-item-title {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  font-style: italic;
+  color: var(--brown);
+  margin-bottom: 4px;
+}
+
+.samay-cart-item-variant {
+  font-size: 0.78rem;
+  color: var(--dim);
+  margin-bottom: 8px;
+}
+
+.samay-cart-item-price {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--brown);
+}
+
+.samay-cart-item-remove {
+  background: none;
+  border: none;
+  color: var(--dim);
+  font-size: 0.76rem;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+}
+
+.samay-cart-item-remove:hover {
+  color: #c62828;
+}
+
+.samay-drawer-footer {
+  padding: 24px;
+  border-top: 1px solid var(--border);
+  background: var(--cream2);
+}
+
+.samay-drawer-subtotal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.samay-drawer-subtotal span {
+  font-size: 0.92rem;
+  color: var(--taupe);
+}
+
+.samay-drawer-subtotal strong {
+  font-size: 1.5rem;
+  color: var(--brown);
+}
+
+.samay-drawer-tax-note {
+  font-size: 0.78rem;
+  color: var(--dim);
+  margin-bottom: 18px;
+  text-align: center;
+}
+
+/* Floating WhatsApp Button */
+.samay-floating-whatsapp {
+  position: fixed;
+  bottom: max(24px, env(safe-area-inset-bottom, 24px));
+  right: 24px;
+  z-index: 90;
+  width: 56px;
+  height: 56px;
+  background-color: #25d366;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.45);
+  transition: var(--transition);
+  text-decoration: none;
+}
+
+.samay-floating-whatsapp:hover {
+  transform: scale(1.1) translateY(-4px);
+  box-shadow: 0 12px 30px rgba(37, 211, 102, 0.6);
+}
+
+/* ==========================================================================
+   MOBILE & TABLET OPTIMIZATIONS (STRICTLY OPTIMIZED)
+   ========================================================================== */
+@media screen and (max-width: 1024px) {
+  :root {
+    --header-height: 74px;
+  }
+
+  .samay-nav {
+    gap: 1.4rem;
+  }
+
+  .samay-products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .samay-footer-top {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+
+  .samay-ingredients-showcase {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding: 28px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  :root {
+    --header-height: 66px;
+  }
+
+  /* Full Screen Container Gutters */
+  .container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  /* Announcement Bar on Mobile */
+  .samay-announcement-bar {
+    font-size: 0.68rem;
+    padding: 7px 8px;
+    letter-spacing: 0.12em;
+  }
+
+  .samay-announce-repeat {
+    display: none;
+  }
+
+  .samay-announce-track {
+    gap: 0.8rem;
+  }
+
+  /* Header on Mobile */
+  .samay-header {
+    height: var(--header-height);
+  }
+
+  .samay-nav,
+  .samay-header-cta-btn {
+    display: none;
+  }
+
+  .samay-mobile-menu-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .samay-header-logo-img {
+    height: 42px;
+  }
+
+  .samay-cart-trigger {
+    width: 40px;
+    height: 40px;
+  }
+
+  /* Hero Section on Mobile */
+  .samay-hero-section {
+    min-height: 86vh;
+    min-height: 86svh;
+  }
+
+  .samay-hero-bg {
+    object-position: 65% center;
+  }
+
+  .samay-hero-overlay {
+    background: linear-gradient(180deg, rgba(22, 17, 11, 0.9) 0%, rgba(22, 17, 11, 0.78) 40%, rgba(22, 17, 11, 0.92) 100%);
+  }
+
+  .samay-hero-content {
+    padding: 40px 0 60px;
+    max-width: 100%;
+  }
+
+  .samay-hero-eyebrow {
+    font-size: 0.74rem;
+    letter-spacing: 0.28em;
+    margin-bottom: 1rem;
+  }
+
+  .samay-hero-title {
+    font-size: 2.6rem;
+    line-height: 1.12;
+    margin-bottom: 1.2rem;
+  }
+
+  .samay-hero-desc {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+
+  .samay-hero-actions {
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .samay-hero-actions .samay-btn {
+    width: 100%;
+    min-height: 52px;
+  }
+
+  .samay-hero-highlights {
+    gap: 1rem;
+    margin-top: 2.2rem;
+    padding-top: 1.6rem;
+  }
+
+  .samay-highlight-item {
+    font-size: 0.74rem;
+  }
+
+  /* Pillars on Mobile */
+  .samay-pillars-grid {
+    grid-template-columns: 1fr;
+    border: none;
+  }
+
+  .samay-pillar-card {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    padding: 34px 16px;
+  }
+
+  /* Products on Mobile (The 3 Variations) */
+  .samay-products-section {
+    padding: 60px 0;
+  }
+
+  .samay-sec-header {
+    margin-bottom: 36px;
+  }
+
+  .samay-sec-title {
+    font-size: 2.2rem;
+  }
+
+  .samay-products-grid {
+    grid-template-columns: 1fr;
+    gap: 26px;
+  }
+
+  .samay-card-body {
+    padding: 24px 18px;
+  }
+
+  .samay-card-title {
+    font-size: 1.45rem;
+  }
+
+  .samay-price-current {
+    font-size: 1.65rem;
+  }
+
+  .samay-card-controls .samay-btn {
+    min-height: 50px;
+    font-size: 0.8rem;
+  }
+
+  /* Notes & Olfactory Pyramid on Mobile */
+  .samay-notes-section {
+    padding: 60px 0;
+  }
+
+  .samay-notes-grid {
+    grid-template-columns: 1fr;
+    border-radius: var(--radius-sm);
+    margin-bottom: 40px;
+  }
+
+  .samay-note-card {
+    padding: 36px 20px;
+  }
+
+  .samay-showcase-content h3 {
+    font-size: 1.8rem;
+  }
+
+  .samay-specs-list {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .samay-spec-box {
+    padding: 12px;
+  }
+
+  .samay-spec-title {
+    font-size: 0.68rem;
+  }
+
+  .samay-spec-val {
+    font-size: 0.88rem;
+  }
+
+  /* Reviews on Mobile */
+  .samay-reviews-section {
+    padding: 60px 0;
+  }
+
+  .samay-reviews-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .samay-review-card {
+    padding: 28px 20px;
+  }
+
+  /* About Us on Mobile */
+  .samay-about-section {
+    padding: 60px 0;
+  }
+
+  .samay-about-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .samay-about-text h2 {
+    font-size: 2.2rem;
+  }
+
+  .samay-about-stats {
+    gap: 12px;
+  }
+
+  .samay-stat-item strong {
+    font-size: 2.1rem;
+  }
+
+  /* Contact & FAQ on Mobile */
+  .samay-contact-section {
+    padding: 60px 0;
+  }
+
+  .samay-contact-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .samay-contact-form-box {
+    padding: 26px 18px;
+  }
+
+  .samay-faq-question {
+    padding: 16px 18px;
+    font-size: 0.92rem;
+  }
+
+  /* Newsletter on Mobile */
+  .samay-newsletter-section {
+    padding: 60px 0;
+  }
+
+  .samay-newsletter-box h2 {
+    font-size: 2.2rem;
+  }
+
+  .samay-newsletter-form {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .samay-newsletter-input,
+  .samay-newsletter-form .samay-btn {
+    width: 100%;
+    min-height: 50px;
+  }
+
+  /* Footer on Mobile */
+  .samay-footer {
+    padding: 60px 0 24px;
+  }
+
+  .samay-footer-top {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    margin-bottom: 40px;
+  }
+
+  .samay-footer-bottom {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 14px;
+  }
+
+  /* Cart Drawer on Mobile */
+  .samay-cart-drawer {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Floating WhatsApp on Mobile */
+  .samay-floating-whatsapp {
+    bottom: max(18px, env(safe-area-inset-bottom, 18px));
+    right: 18px;
+    width: 52px;
+    height: 52px;
+  }
+}
