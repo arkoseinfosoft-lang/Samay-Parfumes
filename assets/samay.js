@@ -322,5 +322,175 @@
         }
       });
     }
+
+    // Initialize Perfume Atomizer & Golden Spray Mist Cursor
+    initPerfumeSprayCursor();
   });
+
+  // ==========================================================================
+  // PERFUME ATOMIZER & GOLDEN SPRAY MIST CURSOR (HOUSE OF SASAA SIGNATURE)
+  // ==========================================================================
+  function initPerfumeSprayCursor() {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isTouch = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+    if (reduceMotion || isTouch) return;
+
+    const canvas = document.createElement('canvas');
+    canvas.className = 'samay-spray-canvas';
+    canvas.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(canvas);
+    const ctx = canvas.getContext('2d');
+
+    const atomizer = document.createElement('div');
+    atomizer.className = 'samay-atomizer';
+    atomizer.setAttribute('aria-hidden', 'true');
+    atomizer.innerHTML = `
+      <svg viewBox="0 0 36 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M14 14h8v4.5c0 1 .6 1.5 1.5 1.5H26c1.2 0 2 .8 2 2v1H8v-1c0-1.2.8-2 2-2h2.5c.9 0 1.5-.5 1.5-1.5V14Z" stroke="#C9A96E" stroke-width="1.2"/>
+        <rect x="11" y="23" width="14" height="24" rx="4" stroke="#C9A96E" stroke-width="1.2"/>
+        <path d="M15 30h6M15 35h6M15 40h4" stroke="#C9A96E" stroke-width="1" stroke-linecap="round" opacity="0.7"/>
+        <path d="M18 8.5c0-2.4 1.4-4.5 4-5.2" stroke="#C9A96E" stroke-width="1.2" stroke-linecap="round"/>
+        <circle cx="23.5" cy="2.6" r="1.4" fill="#C9A96E"/>
+        <rect x="16.5" y="8" width="3" height="6" rx="0.6" fill="#C9A96E"/>
+      </svg>
+    `;
+    document.body.appendChild(atomizer);
+
+    const particles = [];
+    let width = 0;
+    let height = 0;
+    let lastX = 0;
+    let lastY = 0;
+    let ax = -100;
+    let ay = -100;
+    let tx = -100;
+    let ty = -100;
+    let running = false;
+    let lastMove = 0;
+
+    const resize = () => {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+
+    const goldPalette = [
+      [201, 169, 110], // Warm Antique Gold
+      [247, 242, 234], // Champagne Sparkle
+      [168, 132, 74],  // Rich Amber
+      [239, 232, 220]  // Soft Luminous Cream
+    ];
+
+    const spawn = (x, y, vx, vy, burst = false) => {
+      const count = burst ? 28 : Math.min(10, 3 + Math.hypot(vx, vy) * 0.08);
+      const speed = burst ? 3.2 : 1.1;
+
+      for (let i = 0; i < count; i += 1) {
+        const angle = Math.atan2(vy, vx) + (Math.random() - 0.5) * (burst ? 2.4 : 0.9);
+        const mag = (burst ? 1.4 : 0.45) + Math.random() * speed;
+        const color = goldPalette[Math.floor(Math.random() * goldPalette.length)];
+
+        particles.push({
+          x: x + (Math.random() - 0.5) * 8,
+          y: y - 18 + (Math.random() - 0.5) * 6,
+          vx: Math.cos(angle) * mag * 2.2,
+          vy: Math.sin(angle) * mag * 2.2 - 0.35,
+          life: 1,
+          decay: 0.012 + Math.random() * 0.02,
+          size: burst ? 1.6 + Math.random() * 3.4 : 0.8 + Math.random() * 2.4,
+          r: color[0],
+          g: color[1],
+          b: color[2],
+          mist: Math.random() > 0.55
+        });
+      }
+    };
+
+    const tick = () => {
+      running = true;
+      ctx.clearRect(0, 0, width, height);
+
+      ax += (tx - ax) * 0.22;
+      ay += (ty - ay) * 0.22;
+      const angle = Math.max(-18, Math.min(18, (tx - ax) * 0.4));
+      atomizer.style.transform = `translate(${ax}px, ${ay}px) translate(-50%, -70%) rotate(${angle}deg)`;
+
+      for (let i = particles.length - 1; i >= 0; i -= 1) {
+        const p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vx *= 0.96;
+        p.vy *= 0.96;
+        p.vy -= 0.012;
+        p.life -= p.decay;
+
+        if (p.life <= 0) {
+          particles.splice(i, 1);
+          continue;
+        }
+
+        const alpha = p.life * (p.mist ? 0.28 : 0.7);
+
+        ctx.beginPath();
+        if (p.mist) {
+          const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * 6);
+          g.addColorStop(0, `rgba(${p.r},${p.g},${p.b},${alpha})`);
+          g.addColorStop(1, `rgba(${p.r},${p.g},${p.b},0)`);
+          ctx.fillStyle = g;
+          ctx.arc(p.x, p.y, p.size * 6, 0, Math.PI * 2);
+        } else {
+          ctx.fillStyle = `rgba(${p.r},${p.g},${p.b},${alpha})`;
+          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        }
+        ctx.fill();
+      }
+
+      if (Date.now() - lastMove > 140) {
+        atomizer.classList.remove('is-on');
+      }
+
+      if (particles.length || Date.now() - lastMove < 400) {
+        requestAnimationFrame(tick);
+      } else {
+        running = false;
+        ctx.clearRect(0, 0, width, height);
+      }
+    };
+
+    const onMove = (event) => {
+      const x = event.clientX;
+      const y = event.clientY;
+      const vx = x - lastX;
+      const vy = y - lastY;
+      lastX = x;
+      lastY = y;
+      tx = x;
+      ty = y;
+      lastMove = Date.now();
+      atomizer.classList.add('is-on');
+
+      if (Math.hypot(vx, vy) > 0.4) {
+        spawn(x, y, vx, vy, false);
+      }
+
+      if (!running) requestAnimationFrame(tick);
+    };
+
+    const onClick = (event) => {
+      spawn(event.clientX, event.clientY, 0, -2, true);
+      lastMove = Date.now();
+      if (!running) requestAnimationFrame(tick);
+    };
+
+    window.addEventListener('resize', resize);
+    window.addEventListener('mousemove', onMove, { passive: true });
+    window.addEventListener('click', onClick);
+    resize();
+  }
 })();
+
