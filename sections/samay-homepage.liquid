@@ -665,9 +665,11 @@
         <strong id="samayCartSubtotal">₹0</strong>
       </div>
       <div class="samay-drawer-tax-note">Taxes & shipping calculated at checkout</div>
-      <a href="/checkout" class="samay-btn samay-btn--gold samay-btn--full" style="font-size: 0.95rem; padding: 18px 24px;">
-        PROCEED TO CHECKOUT
-      </a>
+      <form action="{{ routes.cart_url | default: '/cart' }}" method="post" id="samayCartDrawerForm" class="samay-cart-drawer-form" style="width: 100%; margin: 0;">
+        <button type="submit" name="checkout" class="samay-btn samay-btn--gold samay-btn--full" style="font-size: 0.95rem; padding: 18px 24px; cursor: pointer; border: none; width: 100%;">
+          PROCEED TO CHECKOUT
+        </button>
+      </form>
     </div>
   </div>
 </div>
