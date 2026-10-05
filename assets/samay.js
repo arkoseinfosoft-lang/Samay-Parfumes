@@ -10,7 +10,7 @@
     'zyro-single': {
       id: 'zyro-single',
       shopifyId: 1,
-      name: 'Zyro Eau De Parfum (50ml)',
+      name: 'Samay Zayro 50ml Eau De Parfum',
       variant: 'Single Bottle (1x 50ml)',
       price: 1499,
       comparePrice: 2199,
@@ -19,19 +19,19 @@
     'zyro-duo': {
       id: 'zyro-duo',
       shopifyId: 2,
-      name: 'Zyro Duo Privilege Set (50ml + 50ml)',
+      name: 'Samay Zayro 50ml Duo Combo (2x 50ml)',
       variant: '2-in-1 Combo (2x 50ml)',
-      price: 2499,
-      comparePrice: 3699,
+      price: 2599,
+      comparePrice: 4399,
       image: 'zyro-duo.jpg'
     },
     'zyro-trio': {
       id: 'zyro-trio',
       shopifyId: 3,
-      name: 'Zyro Grand Trio Reserve (50ml + 50ml + 50ml)',
+      name: 'Samay Zayro 50ml Grand Trio (3x 50ml)',
       variant: '3-in-1 Combo (3x 50ml)',
-      price: 3299,
-      comparePrice: 5399,
+      price: 3499,
+      comparePrice: 6599,
       image: 'zyro-trio.jpg'
     }
   };

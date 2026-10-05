@@ -778,260 +778,224 @@ button, input, textarea, select {
 }
 
 /* ==========================================================================
-   PRODUCT VARIATIONS SECTION (CORE 3 CARDS)
+   4. PRODUCT VARIATIONS SECTION (FIKN SIGNATURE ELIXIR CARDS)
    ========================================================================== */
+.ep-section,
 .samay-products-section {
   width: 100%;
-  padding: 90px 0;
-  background-color: var(--cream);
+  padding: 80px 0 90px;
+  background-color: #000000 !important;
+  color: #ffffff;
   position: relative;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+.ep-header {
+  margin-bottom: 32px;
+  text-align: left;
+}
+
+.ep-section-title {
+  font-family: var(--sans);
+  font-size: clamp(28px, 4.4vw, 44px);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin: 0;
+}
+
+.ep-grid,
 .samay-products-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
+  gap: 22px;
   align-items: stretch;
 }
 
-.samay-product-card {
-  background: var(--cream-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  overflow: hidden;
+.ep-card {
+  background: #0d0d0d;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  transition: border-color 0.25s ease, transform 0.25s ease;
+}
+
+.ep-card:hover {
+  border-color: rgba(255, 255, 255, 0.45);
+  transform: translateY(-4px);
+}
+
+.ep-media {
   position: relative;
-  transition: var(--transition);
-  box-shadow: var(--shadow-subtle);
+  padding: 16px 16px 8px;
+  background: #0d0d0d;
+  border-radius: 4px 4px 0 0;
+  overflow: hidden;
 }
 
-.samay-product-card:hover {
-  transform: translateY(-8px);
-  box-shadow: var(--shadow-hover);
-  border-color: var(--gold);
-}
-
-.samay-product-card.is-popular {
-  border: 2px solid var(--gold);
-  background: #ffffff;
-  position: relative;
-}
-
-.samay-product-badge {
-  position: absolute;
-  top: 16px;
-  left: 16px;
-  z-index: 5;
-  background: var(--gold);
-  color: var(--brown-dark);
-  font-family: var(--sans);
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  padding: 6px 14px;
-  border-radius: var(--radius-xs);
-  box-shadow: 0 4px 12px rgba(201, 169, 110, 0.35);
-}
-
-.samay-product-badge.popular-badge {
-  background: var(--brown);
-  color: var(--gold-light);
-}
-
-.samay-product-badge.best-value-badge {
-  background: #2e7d32;
-  color: #ffffff;
-}
-
-.samay-card-image-wrap {
+.ep-media__viewport {
   position: relative;
   width: 100%;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 1 / 1;
   overflow: hidden;
-  background: var(--cream2);
+  border-radius: 3px;
+  background: #141414;
 }
 
-.samay-card-image {
+.ep-media__inner {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+.ep-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center center;
-  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  display: block;
+  user-select: none;
+  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-.samay-product-card:hover .samay-card-image {
-  transform: scale(1.06);
+.ep-card:hover .ep-img {
+  transform: scale(1.05);
 }
 
-.samay-card-body {
-  padding: 28px 24px;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-}
-
-.samay-card-header {
-  margin-bottom: 12px;
-}
-
-.samay-card-subtitle {
-  font-family: var(--sans);
-  font-size: 0.74rem;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--gold-dark);
-  font-weight: 600;
-  margin-bottom: 6px;
-}
-
-.samay-card-title {
-  font-family: var(--serif);
-  font-size: 1.55rem;
-  font-style: italic;
-  font-weight: 400;
-  color: var(--brown);
-  line-height: 1.25;
-  margin-bottom: 8px;
-}
-
-.samay-card-rating {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 16px;
-}
-
-.samay-stars {
-  color: #d4a017;
-  font-size: 0.95rem;
-  letter-spacing: 2px;
-}
-
-.samay-rating-count {
-  font-family: var(--sans);
-  font-size: 0.78rem;
-  color: var(--dim);
-}
-
-.samay-card-pricing {
-  display: flex;
-  align-items: baseline;
-  gap: 12px;
-  margin-bottom: 20px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--border-light);
-}
-
-.samay-price-current {
-  font-family: var(--sans);
-  font-size: 1.85rem;
-  font-weight: 700;
-  color: var(--brown);
-}
-
-.samay-price-compare {
-  font-family: var(--sans);
-  font-size: 1.1rem;
-  text-decoration: line-through;
-  color: var(--dim);
-}
-
-.samay-price-save {
-  font-family: var(--sans);
-  font-size: 0.76rem;
-  font-weight: 700;
-  color: #2e7d32;
-  background: #e8f5e9;
-  padding: 3px 8px;
-  border-radius: var(--radius-xs);
-  letter-spacing: 0.05em;
-}
-
-.samay-card-features {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  flex-grow: 1;
-}
-
-.samay-card-features li {
-  font-size: 0.86rem;
-  color: var(--taupe);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.samay-card-features li svg {
-  color: var(--gold);
-  flex-shrink: 0;
-}
-
-.samay-card-controls {
+.ep-info {
+  padding: 8px 16px 18px;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin-top: auto;
+  flex: 1 1 auto;
+  text-align: left;
 }
 
-.samay-qty-wrap {
+.ep-title-link {
+  color: #ffffff;
+  text-decoration: none;
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 2.6em;
+  transition: color 0.2s;
+}
+
+.ep-title-link:hover {
+  color: var(--gold);
+}
+
+.ep-price-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ep-price {
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 15px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.ep-price-compare {
+  font-size: 13px;
+  color: #888888;
+  text-decoration: line-through;
+}
+
+.ep-price-discount {
+  font-size: 11px;
+  font-weight: 700;
+  color: #ffffff;
+  background-color: #bc0000;
+  padding: 2px 6px;
+  border-radius: 2px;
+  line-height: 1.2;
+  letter-spacing: 0.05em;
+}
+
+.snap_collection_category {
+  cursor: pointer;
+  color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: var(--cream2);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-xs);
-  padding: 4px;
+  font-weight: 400;
+  font-family: var(--sans);
+  font-size: 11px;
+  line-height: normal;
+  border-radius: 3px;
+  background: #202020;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  width: 100%;
+  padding: 6px 10px;
+  text-transform: none;
+  margin: 2px 0 4px;
 }
 
-.samay-qty-label {
-  font-size: 0.78rem;
-  letter-spacing: 0.12em;
+.snap_blue_color_text {
+  margin-left: 3px;
+  font-weight: 700;
+  color: #00ff5c;
+  margin-right: 4px;
+  font-size: 13px;
+}
+
+.snap_know_more_text {
+  color: #ffffff;
+  font-size: 9px;
+  background: #bc0000;
+  border-radius: 2px;
+  padding: 3px 6px;
+  line-height: 1.3;
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--taupe);
-  padding-left: 10px;
-  font-weight: 600;
 }
 
-.samay-qty-stepper {
-  display: flex;
-  align-items: center;
-}
-
-.samay-qty-btn {
-  width: 34px;
-  height: 34px;
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-xs);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.1rem;
+.ep-add {
+  margin-top: auto;
+  width: 100%;
+  background: #bc0000;
+  color: #ffffff;
+  border: 0;
+  padding: 13px 0;
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
   cursor: pointer;
-  color: var(--brown);
-  transition: var(--transition);
-}
-
-.samay-qty-btn:hover {
-  background: var(--gold);
-  border-color: var(--gold);
-  color: var(--white);
-}
-
-.samay-qty-input {
-  width: 44px;
+  border-radius: 2px;
+  transition: background 0.25s, transform 0.15s;
+  text-decoration: none;
   text-align: center;
-  border: none;
-  background: transparent;
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--brown);
+  display: block;
+}
+
+.ep-add:hover {
+  background: #990000;
+}
+
+.ep-add:active {
+  transform: scale(0.98);
 }
 
 /* ==========================================================================
@@ -1968,39 +1932,38 @@ button, input, textarea, select {
     padding: 34px 16px;
   }
 
-  /* Products on Mobile (The 3 Variations) */
+  /* Products on Mobile (FIKN Elixir Style) */
+  .ep-section,
   .samay-products-section {
-    padding: 60px 0;
+    padding: 50px 0 60px;
   }
 
-  .samay-sec-header {
-    margin-bottom: 36px;
+  .ep-header {
+    margin-bottom: 24px;
   }
 
-  .samay-sec-title {
-    font-size: 2.2rem;
+  .ep-section-title {
+    font-size: 26px;
   }
 
-  .samay-products-grid {
-    grid-template-columns: 1fr;
-    gap: 26px;
+  .ep-grid {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 16px;
+    padding-bottom: 12px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
   }
 
-  .samay-card-body {
-    padding: 24px 18px;
+  .ep-grid::-webkit-scrollbar {
+    display: none;
   }
 
-  .samay-card-title {
-    font-size: 1.45rem;
-  }
-
-  .samay-price-current {
-    font-size: 1.65rem;
-  }
-
-  .samay-card-controls .samay-btn {
-    min-height: 50px;
-    font-size: 0.8rem;
+  .ep-card {
+    flex: 0 0 82%;
+    min-width: 260px;
+    scroll-snap-align: start;
   }
 
   /* Notes & Olfactory Pyramid on Mobile */

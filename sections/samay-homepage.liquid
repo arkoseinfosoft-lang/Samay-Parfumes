@@ -149,214 +149,134 @@
 </section>
 
 <!-- ==========================================================================
-     4. PRODUCT VARIATIONS SECTION (CORE 3 CARDS)
+     4. PRODUCT VARIATIONS SECTION (FIKN SIGNATURE ELIXIR CARDS)
      ========================================================================== -->
-<section class="samay-products-section" id="collection">
+<section class="samay-products-section ep-section" id="collection">
   <div class="container">
-    <div class="samay-sec-header">
-      <div class="samay-sec-eyebrow">THE SIGNATURE COLLECTION</div>
-      <h2 class="samay-sec-title">Zyro Eau De Parfum <em>50ml</em></h2>
-      <p class="samay-sec-subtitle">
-        Select your presentation edition. Every bottle is individually numbered and macerated for 60 days to unlock peak olfactory depth.
-      </p>
-      <div class="samay-sec-divider"></div>
+    <div class="ep-header">
+      <div style="font-size: 0.8rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; font-weight: 500;">
+        THE SIGNATURE COLLECTION
+      </div>
+      <h2 class="ep-section-title">ELIXIR COLLECTION</h2>
     </div>
 
-    <div class="samay-products-grid">
+    <div class="ep-grid">
       <!-- CARD 1: 50ML SINGLE BOTTLE -->
-      <div class="samay-product-card" data-product-id="zyro-single">
-        <span class="samay-product-badge">THE SOLO ESSENTIAL</span>
-        
-        <div class="samay-card-image-wrap">
-          <img 
-            src="{{ 'zyro-single.jpg' | asset_url }}" 
-            alt="Zyro Perfume 50ml Single Bottle" 
-            class="samay-card-image"
-            loading="lazy"
-          >
-        </div>
-
-        <div class="samay-card-body">
-          <div class="samay-card-header">
-            <div class="samay-card-subtitle">SINGLE FLACON · 1x 50ML</div>
-            <h3 class="samay-card-title">Zyro 50ml Perfume Single Bottle</h3>
-          </div>
-
-          <div class="samay-card-rating">
-            <span class="samay-stars">★★★★★</span>
-            <span class="samay-rating-count">4.9 (184 verified reviews)</span>
-          </div>
-
-          <div class="samay-card-pricing">
-            <span class="samay-price-current">₹1,499</span>
-            <span class="samay-price-compare">₹2,199</span>
-            <span class="samay-price-save">SAVE 32%</span>
-          </div>
-
-          <ul class="samay-card-features">
-            <li>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>1x 50ml Crystal Flacon with Magnetic Cap</span>
-            </li>
-            <li>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>14+ Hours Longevity & Sillage</span>
-            </li>
-            <li>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>Complimentary Express Delivery Included</span>
-            </li>
-          </ul>
-
-          <div class="samay-card-controls">
-            <div class="samay-qty-wrap">
-              <span class="samay-qty-label">Quantity:</span>
-              <div class="samay-qty-stepper">
-                <button type="button" class="samay-qty-btn samay-qty-minus">−</button>
-                <input type="text" class="samay-qty-input" value="1" readonly>
-                <button type="button" class="samay-qty-btn samay-qty-plus">+</button>
-              </div>
+      <article class="ep-card is-active" data-product-id="zyro-single">
+        <div class="ep-media">
+          <div class="ep-media__viewport">
+            <div class="ep-media__inner">
+              <img 
+                src="{{ 'zyro-single.jpg' | asset_url }}" 
+                alt="SAMAY ZAYRO 50ML EAU DE PARFUM" 
+                class="ep-img"
+                loading="lazy"
+              >
             </div>
-
-            <button type="button" class="samay-btn samay-btn--gold samay-btn--full samay-add-cart-btn">
-              ADD TO BAG
-            </button>
-            <button type="button" class="samay-btn samay-btn--dark samay-btn--full samay-buy-now-btn">
-              BUY NOW · INSTANT CHECKOUT
-            </button>
           </div>
         </div>
-      </div>
+
+        <div class="ep-info">
+          <a href="#collection" class="ep-title-link">SAMAY ZAYRO 50ML EAU DE PARFUM</a>
+
+          <div class="ep-price-row">
+            <span class="ep-price">₹1,499.00</span>
+            <span class="ep-price-compare">₹2,199.00</span>
+            <span class="ep-price-discount">-32%</span>
+          </div>
+
+          <div class="snap_collection_category static_snap_collection">
+            <span>Pay <span class="snap_blue_color_text">₹1</span> now, rest in 2 EMI</span>
+            <span class="snap_know_more_text"><b>Buy on EMI</b></span>
+          </div>
+
+          <button 
+            type="button" 
+            class="ep-add samay-add-cart-btn" 
+            onclick="window.samayCart && window.samayCart.add('zyro-single', 1)"
+          >
+            ADD TO CART
+          </button>
+        </div>
+      </article>
 
       <!-- CARD 2: 50ML + 50ML 2-IN-ONE COMBO -->
-      <div class="samay-product-card is-popular" data-product-id="zyro-duo">
-        <span class="samay-product-badge popular-badge">MOST POPULAR · SAVE ₹1,200</span>
-        
-        <div class="samay-card-image-wrap">
-          <img 
-            src="{{ 'zyro-duo.jpg' | asset_url }}" 
-            alt="Zyro 50ml + 50ml 2 in One Combo" 
-            class="samay-card-image"
-            loading="lazy"
-          >
-        </div>
-
-        <div class="samay-card-body">
-          <div class="samay-card-header">
-            <div class="samay-card-subtitle">DUO PRIVILEGE SET · 2x 50ML (100ML TOTAL)</div>
-            <h3 class="samay-card-title">50ml + 50ml Perfume 2 in One Combo</h3>
-          </div>
-
-          <div class="samay-card-rating">
-            <span class="samay-stars">★★★★★</span>
-            <span class="samay-rating-count">5.0 (312 verified reviews)</span>
-          </div>
-
-          <div class="samay-card-pricing">
-            <span class="samay-price-current">₹2,499</span>
-            <span class="samay-price-compare">₹3,699</span>
-            <span class="samay-price-save">SAVE ₹1,200</span>
-          </div>
-
-          <ul class="samay-card-features">
-            <li>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>2x 50ml Zyro Flacons in Deluxe Gift Presentation</span>
-            </li>
-            <li>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>Keep One for Day & One for Night, or Gift One</span>
-            </li>
-            <li>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>Includes Free Samay Luxury Gift Packaging</span>
-            </li>
-          </ul>
-
-          <div class="samay-card-controls">
-            <div class="samay-qty-wrap">
-              <span class="samay-qty-label">Quantity:</span>
-              <div class="samay-qty-stepper">
-                <button type="button" class="samay-qty-btn samay-qty-minus">−</button>
-                <input type="text" class="samay-qty-input" value="1" readonly>
-                <button type="button" class="samay-qty-btn samay-qty-plus">+</button>
-              </div>
+      <article class="ep-card is-active" data-product-id="zyro-duo">
+        <div class="ep-media">
+          <div class="ep-media__viewport">
+            <div class="ep-media__inner">
+              <img 
+                src="{{ 'zyro-duo.jpg' | asset_url }}" 
+                alt="SAMAY ZAYRO 50ML DUO COMBO (2 IN 1)" 
+                class="ep-img"
+                loading="lazy"
+              >
             </div>
-
-            <button type="button" class="samay-btn samay-btn--gold samay-btn--full samay-add-cart-btn">
-              ADD DUO TO BAG
-            </button>
-            <button type="button" class="samay-btn samay-btn--dark samay-btn--full samay-buy-now-btn">
-              BUY NOW · SAVE ₹1,200
-            </button>
           </div>
         </div>
-      </div>
+
+        <div class="ep-info">
+          <a href="#collection" class="ep-title-link">SAMAY ZAYRO 50ML DUO COMBO (2 IN 1)</a>
+
+          <div class="ep-price-row">
+            <span class="ep-price">₹2,599.00</span>
+            <span class="ep-price-compare">₹4,399.00</span>
+            <span class="ep-price-discount">-41%</span>
+          </div>
+
+          <div class="snap_collection_category static_snap_collection">
+            <span>Pay <span class="snap_blue_color_text">₹1</span> now, rest in 2 EMI</span>
+            <span class="snap_know_more_text"><b>Buy on EMI</b></span>
+          </div>
+
+          <button 
+            type="button" 
+            class="ep-add samay-add-cart-btn" 
+            onclick="window.samayCart && window.samayCart.add('zyro-duo', 1)"
+          >
+            ADD TO CART
+          </button>
+        </div>
+      </article>
 
       <!-- CARD 3: 50ML + 50ML + 50ML 3-IN-ONE COMBO -->
-      <div class="samay-product-card" data-product-id="zyro-trio">
-        <span class="samay-product-badge best-value-badge">BEST VALUE · SAVE ₹2,100</span>
-        
-        <div class="samay-card-image-wrap">
-          <img 
-            src="{{ 'zyro-trio.jpg' | asset_url }}" 
-            alt="Zyro 50ml + 50ml + 50ml 3 in One Combo" 
-            class="samay-card-image"
-            loading="lazy"
-          >
-        </div>
-
-        <div class="samay-card-body">
-          <div class="samay-card-header">
-            <div class="samay-card-subtitle">GRAND TRIO RESERVE · 3x 50ML (150ML TOTAL)</div>
-            <h3 class="samay-card-title">50ml + 50ml + 50ml Perfume 3 in One Combo</h3>
-          </div>
-
-          <div class="samay-card-rating">
-            <span class="samay-stars">★★★★★</span>
-            <span class="samay-rating-count">5.0 (429 verified reviews)</span>
-          </div>
-
-          <div class="samay-card-pricing">
-            <span class="samay-price-current">₹3,299</span>
-            <span class="samay-price-compare">₹5,399</span>
-            <span class="samay-price-save">SAVE ₹2,100</span>
-          </div>
-
-          <ul class="samay-card-features">
-            <li>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>3x 50ml Zyro Flacons in VIP Velvet Collector Box</span>
-            </li>
-            <li>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>Lowest Price Per ML Guaranteed (Max Value)</span>
-            </li>
-            <li>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>Priority VIP Air Courier Dispatch across India</span>
-            </li>
-          </ul>
-
-          <div class="samay-card-controls">
-            <div class="samay-qty-wrap">
-              <span class="samay-qty-label">Quantity:</span>
-              <div class="samay-qty-stepper">
-                <button type="button" class="samay-qty-btn samay-qty-minus">−</button>
-                <input type="text" class="samay-qty-input" value="1" readonly>
-                <button type="button" class="samay-qty-btn samay-qty-plus">+</button>
-              </div>
+      <article class="ep-card is-active" data-product-id="zyro-trio">
+        <div class="ep-media">
+          <div class="ep-media__viewport">
+            <div class="ep-media__inner">
+              <img 
+                src="{{ 'zyro-trio.jpg' | asset_url }}" 
+                alt="SAMAY ZAYRO GRAND TRIO (3 IN 1 COMBO)" 
+                class="ep-img"
+                loading="lazy"
+              >
             </div>
-
-            <button type="button" class="samay-btn samay-btn--gold samay-btn--full samay-add-cart-btn">
-              ADD TRIO TO BAG
-            </button>
-            <button type="button" class="samay-btn samay-btn--dark samay-btn--full samay-buy-now-btn">
-              BUY NOW · SAVE ₹2,100
-            </button>
           </div>
         </div>
-      </div>
+
+        <div class="ep-info">
+          <a href="#collection" class="ep-title-link">SAMAY ZAYRO GRAND TRIO (3 IN 1 COMBO)</a>
+
+          <div class="ep-price-row">
+            <span class="ep-price">₹3,499.00</span>
+            <span class="ep-price-compare">₹6,599.00</span>
+            <span class="ep-price-discount">-47%</span>
+          </div>
+
+          <div class="snap_collection_category static_snap_collection">
+            <span>Pay <span class="snap_blue_color_text">₹1</span> now, rest in 2 EMI</span>
+            <span class="snap_know_more_text"><b>Buy on EMI</b></span>
+          </div>
+
+          <button 
+            type="button" 
+            class="ep-add samay-add-cart-btn" 
+            onclick="window.samayCart && window.samayCart.add('zyro-trio', 1)"
+          >
+            ADD TO CART
+          </button>
+        </div>
+      </article>
     </div>
   </div>
 </section>
