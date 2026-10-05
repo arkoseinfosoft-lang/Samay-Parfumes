@@ -338,14 +338,16 @@
     const canvas = document.createElement('canvas');
     canvas.className = 'samay-spray-canvas';
     canvas.setAttribute('aria-hidden', 'true');
+    canvas.style.cssText = 'position:fixed!important;inset:0!important;top:0!important;left:0!important;width:100vw!important;height:100vh!important;pointer-events:none!important;z-index:99998!important;';
     document.body.appendChild(canvas);
     const ctx = canvas.getContext('2d');
 
     const atomizer = document.createElement('div');
     atomizer.className = 'samay-atomizer';
     atomizer.setAttribute('aria-hidden', 'true');
+    atomizer.style.cssText = 'position:fixed!important;top:0!important;left:0!important;width:36px!important;height:52px!important;max-width:36px!important;max-height:52px!important;pointer-events:none!important;z-index:99999!important;will-change:transform;transition:opacity 0.25s;';
     atomizer.innerHTML = `
-      <svg viewBox="0 0 36 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg width="36" height="52" viewBox="0 0 36 52" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:36px!important;height:52px!important;max-width:36px!important;max-height:52px!important;display:block!important;filter:drop-shadow(0 2px 6px rgba(44,31,14,0.25));">
         <path d="M14 14h8v4.5c0 1 .6 1.5 1.5 1.5H26c1.2 0 2 .8 2 2v1H8v-1c0-1.2.8-2 2-2h2.5c.9 0 1.5-.5 1.5-1.5V14Z" stroke="#C9A96E" stroke-width="1.2"/>
         <rect x="11" y="23" width="14" height="24" rx="4" stroke="#C9A96E" stroke-width="1.2"/>
         <path d="M15 30h6M15 35h6M15 40h4" stroke="#C9A96E" stroke-width="1" stroke-linecap="round" opacity="0.7"/>
@@ -465,6 +467,12 @@
     const onMove = (event) => {
       const x = event.clientX;
       const y = event.clientY;
+      if (ax === -100 && ay === -100) {
+        ax = x;
+        ay = y;
+        lastX = x;
+        lastY = y;
+      }
       const vx = x - lastX;
       const vy = y - lastY;
       lastX = x;

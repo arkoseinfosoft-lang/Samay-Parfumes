@@ -102,3 +102,51 @@ body {
   width: 100%;
 }
 
+/* Perfume Atomizer & Spray Mist Cursor (House of Sasaa) */
+.samay-spray-canvas {
+  position: fixed !important;
+  inset: 0 !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  pointer-events: none !important;
+  z-index: 99998 !important;
+}
+
+.samay-atomizer {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 36px !important;
+  height: 52px !important;
+  max-width: 36px !important;
+  max-height: 52px !important;
+  pointer-events: none !important;
+  z-index: 99999 !important;
+  opacity: 0;
+  transform: translate(-50%, -70%);
+  transition: opacity 0.25s ease;
+  will-change: transform;
+}
+
+.samay-atomizer.is-on {
+  opacity: 0.95 !important;
+}
+
+.samay-atomizer svg {
+  width: 36px !important;
+  height: 52px !important;
+  max-width: 36px !important;
+  max-height: 52px !important;
+  display: block !important;
+  filter: drop-shadow(0 2px 6px rgba(44, 31, 14, 0.25));
+}
+
+@media (hover: none), (pointer: coarse) {
+  .samay-atomizer,
+  .samay-spray-canvas {
+    display: none !important;
+  }
+}
+
