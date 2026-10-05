@@ -1454,37 +1454,7 @@ button, input, textarea, select {
   box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.2);
 }
 
-.samay-whatsapp-direct-box {
-  margin-top: 24px;
-  padding-top: 24px;
-  border-top: 1px solid var(--border);
-  text-align: center;
-}
 
-.samay-whatsapp-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  background-color: #25d366;
-  color: #ffffff;
-  padding: 14px 28px;
-  border-radius: var(--radius-xs);
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  font-size: 0.84rem;
-  transition: var(--transition);
-  text-decoration: none;
-  width: 100%;
-  min-height: 48px;
-}
-
-.samay-whatsapp-btn:hover {
-  background-color: #1ebd5b;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
-}
 
 /* Accordion FAQ */
 .samay-faq-box {
@@ -1846,29 +1816,7 @@ button, input, textarea, select {
   text-align: center;
 }
 
-/* Floating WhatsApp Button */
-.samay-floating-whatsapp {
-  position: fixed;
-  bottom: max(24px, env(safe-area-inset-bottom, 24px));
-  right: 24px;
-  z-index: 90;
-  width: 56px;
-  height: 56px;
-  background-color: #25d366;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #ffffff;
-  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.45);
-  transition: var(--transition);
-  text-decoration: none;
-}
 
-.samay-floating-whatsapp:hover {
-  transform: scale(1.1) translateY(-4px);
-  box-shadow: 0 12px 30px rgba(37, 211, 102, 0.6);
-}
 
 /* ==========================================================================
    MOBILE & TABLET OPTIMIZATIONS (STRICTLY OPTIMIZED)
@@ -2190,11 +2138,5 @@ button, input, textarea, select {
     max-width: 100%;
   }
 
-  /* Floating WhatsApp on Mobile */
-  .samay-floating-whatsapp {
-    bottom: max(18px, env(safe-area-inset-bottom, 18px));
-    right: 18px;
-    width: 52px;
-    height: 52px;
-  }
+
 }
