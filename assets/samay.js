@@ -128,7 +128,18 @@
 
     drawerItemsContainer.innerHTML = cart.items.map(item => {
       const lineKey = item.key || item.id;
-      const itemImg = item.featured_image?.url || item.image || '';
+      let itemImg = item.featured_image?.url || item.image || '';
+      if (window.samayAssets) {
+        const h = (item.handle || '').toLowerCase();
+        const t = (item.product_title || item.title || '').toLowerCase();
+        if (h.includes('trio') || t.includes('trio')) {
+          itemImg = window.samayAssets.trio;
+        } else if (h.includes('duo') || t.includes('duo')) {
+          itemImg = window.samayAssets.duo;
+        } else if (h.includes('zayro') || t.includes('zayro') || t.includes('samay')) {
+          itemImg = window.samayAssets.single;
+        }
+      }
       const itemTitle = item.product_title || item.title;
       const itemVariant = (item.variant_title && item.variant_title !== 'Default Title') ? item.variant_title : '';
       const itemPriceFormatted = formatMoney(item.price);

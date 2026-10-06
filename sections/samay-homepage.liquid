@@ -5,6 +5,11 @@
 
 <script>
   window.samayAssetUrl = "{{ 'zyro-single.jpg' | asset_url | split: 'zyro-single.jpg' | first }}";
+  window.samayAssets = {
+    single: "{{ 'samay-product-single.jpg' | asset_url }}",
+    duo: "{{ 'samay-product-duo.jpg' | asset_url }}",
+    trio: "{{ 'samay-product-trio.jpg' | asset_url }}"
+  };
 </script>
 
 <!-- ==========================================================================
@@ -186,25 +191,20 @@
             <div class="ep-media">
               <div class="ep-media__viewport">
                 <div class="ep-media__inner">
-                  {%- if product.featured_image -%}
-                    <img 
-                      src="{{ product.featured_image | image_url: width: 800, height: 800 }}" 
-                      alt="{{ product.title | escape }}" 
-                      class="ep-img"
-                      loading="lazy"
-                      width="400"
-                      height="400"
-                    >
-                  {%- else -%}
-                    {%- assign fallback_img = 'zyro-single.jpg' -%}
-                    {%- if forloop.index == 2 -%}{%- assign fallback_img = 'zyro-duo.jpg' -%}{%- elsif forloop.index == 3 -%}{%- assign fallback_img = 'zyro-trio.jpg' -%}{%- endif -%}
-                    <img 
-                      src="{{ fallback_img | asset_url }}" 
-                      alt="{{ product.title | escape }}" 
-                      class="ep-img"
-                      loading="lazy"
-                    >
+                  {%- assign custom_product_img = 'samay-product-single.jpg' | asset_url -%}
+                  {%- if forloop.index == 2 or handle contains 'duo' -%}
+                    {%- assign custom_product_img = 'samay-product-duo.jpg' | asset_url -%}
+                  {%- elsif forloop.index == 3 or handle contains 'trio' -%}
+                    {%- assign custom_product_img = 'samay-product-trio.jpg' | asset_url -%}
                   {%- endif -%}
+                  <img 
+                    src="{{ custom_product_img }}" 
+                    alt="{{ product.title | escape }}" 
+                    class="ep-img"
+                    loading="lazy"
+                    width="800"
+                    height="800"
+                  >
                 </div>
               </div>
             </div>
@@ -249,23 +249,20 @@
             <div class="ep-media">
               <div class="ep-media__viewport">
                 <div class="ep-media__inner">
-                  {%- if product.featured_image -%}
-                    <img 
-                      src="{{ product.featured_image | image_url: width: 800, height: 800 }}" 
-                      alt="{{ product.title | escape }}" 
-                      class="ep-img"
-                      loading="lazy"
-                      width="400"
-                      height="400"
-                    >
-                  {%- else -%}
-                    <img 
-                      src="{{ 'zyro-single.jpg' | asset_url }}" 
-                      alt="{{ product.title | escape }}" 
-                      class="ep-img"
-                      loading="lazy"
-                    >
+                  {%- assign custom_product_img = 'samay-product-single.jpg' | asset_url -%}
+                  {%- if forloop.index == 2 or product.handle contains 'duo' -%}
+                    {%- assign custom_product_img = 'samay-product-duo.jpg' | asset_url -%}
+                  {%- elsif forloop.index == 3 or product.handle contains 'trio' -%}
+                    {%- assign custom_product_img = 'samay-product-trio.jpg' | asset_url -%}
                   {%- endif -%}
+                  <img 
+                    src="{{ custom_product_img }}" 
+                    alt="{{ product.title | escape }}" 
+                    class="ep-img"
+                    loading="lazy"
+                    width="800"
+                    height="800"
+                  >
                 </div>
               </div>
             </div>
