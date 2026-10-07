@@ -25,9 +25,11 @@
     {% endif %}
 
     <!-- Google Fonts for Luxury Typography -->
+    {% # theme-check-disable RemoteAsset %}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    {% # theme-check-enable RemoteAsset %}
 
     {% # Inlined CSS Variables %}
     {% render 'css-variables' %}
