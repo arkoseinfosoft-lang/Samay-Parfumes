@@ -55,18 +55,6 @@
 
     {% sections 'footer-group' %}
 
-    {% render 'samay-cart-drawer' %}
-
-    <!-- Global Samay Configuration & Assets -->
-    <script>
-      window.samayAssetUrl = "{{ 'samay-product-single.jpg' | asset_url | split: 'samay-product-single.jpg' | first }}";
-      window.samayAssets = {
-        single: "{{ 'samay-product-single.jpg' | asset_url }}",
-        duo: "{{ 'samay-product-duo.jpg' | asset_url }}",
-        trio: "{{ 'samay-product-trio.jpg' | asset_url }}"
-      };
-    </script>
-
     <!-- Samay Interactive Script -->
     <script src="{{ 'samay.js' | asset_url }}" defer="defer"></script>
   </body>

@@ -661,9 +661,39 @@
   </div>
 </section>
 
-{% comment %}
-  Slide-out Cart Drawer is rendered globally in layout/theme.liquid via snippets/samay-cart-drawer.liquid
-{% endcomment %}
+<!-- ==========================================================================
+     11. SLIDE-OUT CART DRAWER & OVERLAY
+     ========================================================================== -->
+<div class="samay-cart-drawer-overlay" id="samayCartOverlay">
+  <div class="samay-cart-drawer">
+    <div class="samay-drawer-header">
+      <h3 class="samay-drawer-title">Shopping Bag</h3>
+      <button type="button" class="samay-drawer-close" onclick="window.samayCart && window.samayCart.close()" aria-label="Close Shopping Bag">✕</button>
+    </div>
+
+    <div class="samay-drawer-body">
+      <div class="samay-cart-free-shipping">
+        ✦ <strong>FREE EXPRESS SHIPPING</strong> unlocked on your order!
+      </div>
+      <div id="samayCartDrawerItems">
+        <!-- Rendered dynamically by samay.js -->
+      </div>
+    </div>
+
+    <div class="samay-drawer-footer">
+      <div class="samay-drawer-subtotal">
+        <span>Estimated Total</span>
+        <strong id="samayCartSubtotal">₹0</strong>
+      </div>
+      <div class="samay-drawer-tax-note">Taxes & shipping calculated at checkout</div>
+      <form action="{{ routes.cart_url | default: '/cart' }}" method="post" id="samayCartDrawerForm" class="samay-cart-drawer-form" style="width: 100%; margin: 0;">
+        <button type="submit" name="checkout" class="samay-btn samay-btn--gold samay-btn--full" style="font-size: 0.95rem; padding: 18px 24px; cursor: pointer; border: none; width: 100%;">
+          PROCEED TO CHECKOUT
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
 
 
 
