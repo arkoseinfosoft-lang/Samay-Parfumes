@@ -1,47 +1,109 @@
 {% comment %}
-  This section is used in the collection template to render collection page
-  listing all products within a collection.
-
-  https://shopify.dev/docs/storefronts/themes/architecture/templates/collection
+  SAMAY PARFUMES - LUXURY COLLECTION PAGE
+  Artisanal Fragrance Catalog Grid
 {% endcomment %}
 
-<h1>{{ collection.title }}</h1>
+<section class="samay-collection-section ep-section" style="padding: 60px 0 100px; background-color: var(--cream);">
+  <div class="container">
+    <div class="ep-header" style="text-align: center; margin-bottom: 48px;">
+      <div class="ep-kicker">THE SIGNATURE COLLECTION</div>
+      <h1 class="ep-section-title" style="font-size: clamp(2.4rem, 4vw, 3.5rem); margin: 8px 0 16px;">
+        {{ collection.title | default: 'Samay Collection' }}
+      </h1>
+      {% if collection.description != blank %}
+        <p style="max-width: 650px; margin: 0 auto; color: var(--taupe); font-size: 1.05rem; line-height: 1.8;">
+          {{ collection.description }}
+        </p>
+      {% endif %}
+    </div>
 
-<div class="collection-products">
-  {% paginate collection.products by 20 %}
-    {% for product in collection.products %}
-      <div class="collection-product">
-        {% if product.featured_image %}
-          {% render 'image',
-            class: 'collection-product__image',
-            image: product.featured_image,
-            url: product.url,
-            width: 400,
-            height: 400,
-            crop: 'center'
-          %}
-        {% endif %}
-        <div class="collection-product__content">
-          <p>{{ product.title | escape | link_to: product.url }}</p>
-          <p>{{ product.price | money }}</p>
-        </div>
+    {% paginate collection.products by 24 %}
+      <div class="ep-grid">
+        {% for product in collection.products %}
+          {% assign variant = product.selected_or_first_available_variant %}
+          {% assign price = variant.price %}
+          {% if variant.compare_at_price and variant.compare_at_price > price %}
+            {% assign compare_at = variant.compare_at_price %}
+          {% else %}
+            {% if price < 200000 %}
+              {% assign compare_at = 219900 %}
+            {% elsif price < 300000 %}
+              {% assign compare_at = 439900 %}
+            {% else %}
+              {% assign compare_at = 659900 %}
+            {% endif %}
+          {% endif %}
+          {% assign diff = compare_at | minus: price %}
+          {% assign discount_percent = diff | times: 100 | divided_by: compare_at %}
+
+          {% assign custom_product_img = 'samay-product-single.jpg' | asset_url %}
+          {% if product.handle contains 'duo' %}
+            {% assign custom_product_img = 'samay-product-duo.jpg' | asset_url %}
+          {% elsif product.handle contains 'trio' %}
+            {% assign custom_product_img = 'samay-product-trio.jpg' | asset_url %}
+          {% elsif product.featured_image %}
+            {% assign custom_product_img = product.featured_image | image_url: width: 800, height: 800 %}
+          {% endif %}
+
+          <article class="ep-card is-active" data-product-id="{{ product.id }}" data-variant-id="{{ variant.id }}">
+            <div class="ep-media">
+              <div class="ep-media__viewport">
+                <div class="ep-media__inner">
+                  <img 
+                    src="{{ custom_product_img }}" 
+                    alt="{{ product.title | escape }}" 
+                    class="ep-img"
+                    loading="lazy"
+                    width="800"
+                    height="800"
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="ep-info">
+              <a href="{{ product.url }}" class="ep-title-link">{{ product.title | upcase }}</a>
+
+              <div class="ep-price-row">
+                <span class="ep-price">{{ price | money }}</span>
+                {% if compare_at > price %}
+                  <span class="ep-price-compare">{{ compare_at | money }}</span>
+                  <span class="ep-price-discount">-{{ discount_percent }}%</span>
+                {% endif %}
+              </div>
+
+              <button 
+                type="button" 
+                class="ep-add samay-add-cart-btn" 
+                data-variant-id="{{ variant.id }}"
+                onclick="window.samayCart && window.samayCart.add({{ variant.id }}, 1)"
+              >
+                ADD TO CART
+              </button>
+            </div>
+          </article>
+        {% else %}
+          <div style="grid-column: 1 / -1; text-align: center; padding: 60px 0; color: var(--taupe);">
+            <p>No fragrances found in this collection.</p>
+          </div>
+        {% endfor %}
       </div>
-    {% endfor %}
 
-    {{ paginate | default_pagination }}
-  {% endpaginate %}
-</div>
-
-{% stylesheet %}
-  .collection-products {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
-  }
-{% endstylesheet %}
+      {% if paginate.pages > 1 %}
+        <div style="margin-top: 48px; text-align: center;">
+          {{ paginate | default_pagination }}
+        </div>
+      {% endif %}
+    {% endpaginate %}
+  </div>
+</section>
 
 {% schema %}
 {
-  "name": "t:general.collection",
-  "settings": []
+  "name": "Samay Collection",
+  "settings": [],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  }
 }
 {% endschema %}
