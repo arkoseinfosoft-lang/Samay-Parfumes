@@ -118,29 +118,29 @@ body {
   position: fixed !important;
   top: 0 !important;
   left: 0 !important;
-  width: 36px !important;
-  height: 52px !important;
-  max-width: 36px !important;
-  max-height: 52px !important;
+  width: 30px !important;
+  height: 46px !important;
+  max-width: 30px !important;
+  max-height: 46px !important;
   pointer-events: none !important;
   z-index: 99999 !important;
   opacity: 0;
-  transform: translate(-50%, -70%);
-  transition: opacity 0.25s ease;
+  transform: translate(-15px, -6px);
+  transition: opacity 0.2s ease;
   will-change: transform;
 }
 
 .samay-atomizer.is-on {
-  opacity: 0.95 !important;
+  opacity: 0.96 !important;
 }
 
 .samay-atomizer svg {
-  width: 36px !important;
-  height: 52px !important;
-  max-width: 36px !important;
-  max-height: 52px !important;
+  width: 30px !important;
+  height: 46px !important;
+  max-width: 30px !important;
+  max-height: 46px !important;
   display: block !important;
-  filter: drop-shadow(0 2px 6px rgba(44, 31, 14, 0.25));
+  filter: drop-shadow(0 3px 8px rgba(27, 19, 9, 0.4));
 }
 
 @media (hover: none), (pointer: coarse) {

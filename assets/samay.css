@@ -28,7 +28,7 @@
   --serif: 'Bodoni Moda', 'Playfair Display', Georgia, serif;
   --sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
-  --header-height: 82px;
+  --header-height: 88px;
   --page-width: 1440px;
 
   --radius-xs: 4px;
@@ -221,7 +221,8 @@ select {
 }
 
 .samay-header-logo-img {
-  height: 52px;
+  height: 68px;
+  max-height: 70px;
   width: auto;
   object-fit: contain;
   transition: transform 0.3s ease;
@@ -393,6 +394,14 @@ select {
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid var(--border);
+}
+
+.samay-mobile-drawer-logo-img {
+  height: 52px;
+  max-height: 54px;
+  width: auto;
+  object-fit: contain;
+  display: block;
 }
 
 .samay-mobile-drawer-close {
@@ -842,27 +851,27 @@ select {
 }
 
 .ep-card {
-  background: #0d0d0d;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 4px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+  background: var(--cream-card, #fdfbf7);
+  border: 1px solid var(--border, #ddd0bc);
+  border-radius: var(--radius-sm, 8px);
+  box-shadow: var(--shadow-card, 0 10px 30px rgba(44, 31, 14, 0.07));
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+  transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .ep-card:hover {
-  border-color: rgba(255, 255, 255, 0.45);
+  border-color: var(--gold, #c9a96e);
   transform: translateY(-4px);
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
+  box-shadow: var(--shadow-hover, 0 18px 45px rgba(44, 31, 14, 0.12));
 }
 
 .ep-media {
   position: relative;
   padding: 16px 16px 8px;
-  background: #0d0d0d;
-  border-radius: 4px 4px 0 0;
+  background: var(--cream-card, #fdfbf7);
+  border-radius: var(--radius-sm, 8px) var(--radius-sm, 8px) 0 0;
   overflow: hidden;
 }
 
@@ -871,8 +880,9 @@ select {
   width: 100%;
   aspect-ratio: 1 / 1;
   overflow: hidden;
-  border-radius: 3px;
-  background: #141414;
+  border-radius: var(--radius-xs, 4px);
+  background: var(--cream2, #efe8dc);
+  border: 1px solid var(--border-light, #ece3d4);
 }
 
 .ep-media__inner {
@@ -896,34 +906,35 @@ select {
 }
 
 .ep-info {
-  padding: 8px 16px 18px;
+  padding: 14px 18px 20px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
   flex: 1 1 auto;
   text-align: left;
+  background: var(--cream-card, #fdfbf7);
 }
 
 .ep-title-link {
-  color: #ffffff;
+  color: var(--brown-dark, #1b1309);
   text-decoration: none;
   font-family: var(--sans);
   font-size: 15px;
   font-weight: 700;
-  line-height: 1.3;
-  letter-spacing: 0.02em;
+  line-height: 1.35;
+  letter-spacing: 0.03em;
   text-transform: uppercase;
   margin: 0;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  min-height: 2.6em;
-  transition: color 0.2s;
+  min-height: 2.7em;
+  transition: color 0.25s ease;
 }
 
 .ep-title-link:hover {
-  color: var(--gold);
+  color: var(--gold-dark, #a8844a);
 }
 
 .ep-price-row {
@@ -934,42 +945,43 @@ select {
 }
 
 .ep-price {
-  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 15px;
+  font-family: var(--sans);
+  font-size: 16px;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--brown-dark, #1b1309);
 }
 
 .ep-price-compare {
   font-size: 13px;
-  color: #888888;
+  color: var(--dim, #a89880);
   text-decoration: line-through;
 }
 
 .ep-price-discount {
   font-size: 11px;
   font-weight: 700;
-  color: #ffffff;
-  background-color: #bc0000;
-  padding: 2px 6px;
-  border-radius: 2px;
+  color: var(--brown-dark, #1b1309);
+  background-color: var(--gold-light, #dfc89e);
+  padding: 3px 8px;
+  border-radius: var(--radius-xs, 4px);
   line-height: 1.2;
   letter-spacing: 0.05em;
+  border: 1px solid var(--gold, #c9a96e);
 }
 
 .snap_collection_category {
   cursor: pointer;
-  color: #ffffff;
+  color: var(--brown, #2c1f0e);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-weight: 400;
+  font-weight: 500;
   font-family: var(--sans);
   font-size: 11px;
   line-height: normal;
-  border-radius: 3px;
-  background: #202020;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-xs, 4px);
+  background: var(--cream2, #efe8dc);
+  border: 1px solid var(--border-light, #ece3d4);
   width: 100%;
   padding: 6px 10px;
   text-transform: none;
@@ -979,16 +991,16 @@ select {
 .snap_blue_color_text {
   margin-left: 3px;
   font-weight: 700;
-  color: #00ff5c;
+  color: var(--gold-dark, #a8844a);
   margin-right: 4px;
   font-size: 13px;
 }
 
 .snap_know_more_text {
-  color: #ffffff;
+  color: var(--brown-dark, #1b1309);
   font-size: 9px;
-  background: #bc0000;
-  border-radius: 2px;
+  background: var(--gold, #c9a96e);
+  border-radius: var(--radius-xs, 4px);
   padding: 3px 6px;
   line-height: 1.3;
   display: flex;
@@ -1001,25 +1013,29 @@ select {
 .ep-add {
   margin-top: auto;
   width: 100%;
-  background: #bc0000;
-  color: #ffffff;
-  border: 0;
-  padding: 13px 0;
-  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 13px;
+  background: var(--gold, #c9a96e);
+  color: var(--brown-dark, #1b1309);
+  border: 1px solid var(--gold, #c9a96e);
+  padding: 14px 0;
+  font-family: var(--sans);
+  font-size: 12px;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   cursor: pointer;
-  border-radius: 2px;
-  transition: background 0.25s, transform 0.15s;
+  border-radius: var(--radius-xs, 4px);
+  transition: var(--transition);
   text-decoration: none;
   text-align: center;
   display: block;
 }
 
 .ep-add:hover {
-  background: #990000;
+  background: var(--gold-dark, #a8844a);
+  border-color: var(--gold-dark, #a8844a);
+  color: var(--white, #ffffff);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(201, 169, 110, 0.35);
 }
 
 .ep-add:active {
@@ -1594,11 +1610,23 @@ select {
   margin-top: 16px;
 }
 
+.samay-footer-logo-link {
+  display: inline-block;
+  text-decoration: none;
+}
+
 .samay-footer-logo-img {
-  height: 56px;
+  height: 86px;
+  max-height: 90px;
   width: auto;
   object-fit: contain;
   filter: brightness(1.2);
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.samay-footer-logo-link:hover .samay-footer-logo-img {
+  transform: scale(1.03);
 }
 
 .samay-footer-heading {
@@ -1826,7 +1854,12 @@ select {
    ========================================================================== */
 @media screen and (max-width: 1024px) {
   :root {
-    --header-height: 74px;
+    --header-height: 80px;
+  }
+
+  .samay-header-logo-img {
+    height: 60px;
+    max-height: 62px;
   }
 
   .samay-nav {
@@ -1852,7 +1885,7 @@ select {
 
 @media screen and (max-width: 768px) {
   :root {
-    --header-height: 66px;
+    --header-height: 72px;
   }
 
   /* Full Screen Container Gutters */
@@ -1893,7 +1926,8 @@ select {
   }
 
   .samay-header-logo-img {
-    height: 42px;
+    height: 52px;
+    max-height: 54px;
   }
 
   .samay-cart-trigger {
@@ -2121,6 +2155,11 @@ select {
     padding: 60px 0 24px;
   }
 
+  .samay-footer-logo-img {
+    height: 70px;
+    max-height: 72px;
+  }
+
   .samay-footer-top {
     grid-template-columns: 1fr;
     gap: 32px;
@@ -2141,6 +2180,27 @@ select {
   }
 }
 
+@media screen and (max-width: 480px) {
+  :root {
+    --header-height: 68px;
+  }
+
+  .samay-header-logo-img {
+    height: 48px;
+    max-height: 50px;
+  }
+
+  .samay-mobile-drawer-logo-img {
+    height: 48px;
+    max-height: 50px;
+  }
+
+  .samay-footer-logo-img {
+    height: 64px;
+    max-height: 66px;
+  }
+}
+
 /* ==========================================================================
    PERFUME ATOMIZER & GOLDEN SPRAY MIST CURSOR (HOUSE OF SASAA SIGNATURE)
    ========================================================================== */
@@ -2157,29 +2217,29 @@ select {
   position: fixed !important;
   top: 0 !important;
   left: 0 !important;
-  width: 36px !important;
-  height: 52px !important;
-  max-width: 36px !important;
-  max-height: 52px !important;
+  width: 30px !important;
+  height: 46px !important;
+  max-width: 30px !important;
+  max-height: 46px !important;
   pointer-events: none !important;
-  z-index: 9999 !important;
+  z-index: 99999 !important;
   opacity: 0;
-  transform: translate(-50%, -70%);
-  transition: opacity 0.25s;
+  transform: translate(-15px, -6px);
+  transition: opacity 0.2s;
   will-change: transform;
 }
 
 .samay-atomizer.is-on {
-  opacity: 0.95 !important;
+  opacity: 0.96 !important;
 }
 
 .samay-atomizer svg {
-  width: 36px !important;
-  height: 52px !important;
-  max-width: 36px !important;
-  max-height: 52px !important;
+  width: 30px !important;
+  height: 46px !important;
+  max-width: 30px !important;
+  max-height: 46px !important;
   display: block !important;
-  filter: drop-shadow(0 2px 6px rgba(44, 31, 14, 0.25));
+  filter: drop-shadow(0 3px 8px rgba(27, 19, 9, 0.4));
 }
 
 @media (hover: none),

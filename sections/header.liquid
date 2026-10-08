@@ -38,8 +38,8 @@
           src="{{ 'samay-logo-black.png' | asset_url }}" 
           alt="Samay Parfumes Logo" 
           class="samay-header-logo-img"
-          width="180"
-          height="54"
+          width="192"
+          height="70"
           loading="eager"
         >
       </a>
@@ -81,13 +81,15 @@
 <div class="samay-mobile-drawer-overlay" id="samayMobileDrawerOverlay">
   <div class="samay-mobile-drawer">
     <div class="samay-mobile-drawer-header">
-      <img 
-        src="{{ 'samay-logo-black.png' | asset_url }}" 
-        alt="Samay Parfumes" 
-        width="1024"
-        height="724"
-        style="height: 40px; width: auto;"
-      >
+      <a href="{{ routes.root_url }}" aria-label="Samay Parfumes Home">
+        <img 
+          src="{{ 'samay-logo-black.png' | asset_url }}" 
+          alt="Samay Parfumes" 
+          class="samay-mobile-drawer-logo-img"
+          width="150"
+          height="54"
+        >
+      </a>
       <button type="button" class="samay-mobile-drawer-close" id="samayMobileDrawerClose" aria-label="Close Menu">
         ✕
       </button>
