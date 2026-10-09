@@ -291,6 +291,92 @@
       {%- endif -%}
     </div>
   </div>
+
+  <!-- Live Product & Offer Structured Data (Schema.org) -->
+  <script type="application/ld+json">
+  [
+    {%- assign schema_rendered = false -%}
+    {%- for handle in handle_list -%}
+      {%- assign p = all_products[handle] -%}
+      {%- if p != blank and p.title != blank -%}
+        {%- assign v = p.selected_or_first_available_variant -%}
+        {%- if schema_rendered -%},{%- endif -%}
+        {%- assign schema_rendered = true -%}
+        {
+          "@context": "https://schema.org",
+          "@type": "Product",
+          "name": {{ p.title | json }},
+          "url": {{ shop.url | append: p.url | json }},
+          "description": {{ p.description | strip_html | truncatewords: 45 | json }},
+          "brand": {
+            "@type": "Brand",
+            "name": {{ shop.name | json }}
+          },
+          {%- if p.featured_image -%}
+          "image": [
+            {{ p.featured_image | image_url: width: 1000 | prepend: "https:" | json }}
+          ],
+          {%- endif -%}
+          {%- if v.sku != blank -%}
+          "sku": {{ v.sku | json }},
+          {%- endif -%}
+          "offers": {
+            "@type": "Offer",
+            "url": {{ shop.url | append: p.url | json }},
+            "priceCurrency": {{ cart.currency.iso_code | default: "INR" | json }},
+            "price": {{ v.price | money_without_currency | remove: "," | json }},
+            "priceValidUntil": "{{ 'now' | date: '%s' | plus: 31536000 | date: '%Y-%m-%d' }}",
+            "itemCondition": "https://schema.org/NewCondition",
+            "availability": "{%- if v.available -%}https://schema.org/InStock{%- else -%}https://schema.org/OutOfStock{%- endif -%}",
+            "seller": {
+              "@type": "Organization",
+              "name": {{ shop.name | json }}
+            }
+          }
+        }
+      {%- endif -%}
+    {%- endfor -%}
+    {%- if schema_rendered == false -%}
+      {%- for p in collections.all.products -%}
+        {%- assign v = p.selected_or_first_available_variant -%}
+        {%- if schema_rendered -%},{%- endif -%}
+        {%- assign schema_rendered = true -%}
+        {
+          "@context": "https://schema.org",
+          "@type": "Product",
+          "name": {{ p.title | json }},
+          "url": {{ shop.url | append: p.url | json }},
+          "description": {{ p.description | strip_html | truncatewords: 45 | json }},
+          "brand": {
+            "@type": "Brand",
+            "name": {{ shop.name | json }}
+          },
+          {%- if p.featured_image -%}
+          "image": [
+            {{ p.featured_image | image_url: width: 1000 | prepend: "https:" | json }}
+          ],
+          {%- endif -%}
+          {%- if v.sku != blank -%}
+          "sku": {{ v.sku | json }},
+          {%- endif -%}
+          "offers": {
+            "@type": "Offer",
+            "url": {{ shop.url | append: p.url | json }},
+            "priceCurrency": {{ cart.currency.iso_code | default: "INR" | json }},
+            "price": {{ v.price | money_without_currency | remove: "," | json }},
+            "priceValidUntil": "{{ 'now' | date: '%s' | plus: 31536000 | date: '%Y-%m-%d' }}",
+            "itemCondition": "https://schema.org/NewCondition",
+            "availability": "{%- if v.available -%}https://schema.org/InStock{%- else -%}https://schema.org/OutOfStock{%- endif -%}",
+            "seller": {
+              "@type": "Organization",
+              "name": {{ shop.name | json }}
+            }
+          }
+        }
+      {%- endfor -%}
+    {%- endif -%}
+  ]
+  </script>
 </section>
 
 <!-- ==========================================================================
