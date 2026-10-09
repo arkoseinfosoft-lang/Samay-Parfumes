@@ -23,6 +23,7 @@
     width="1024"
     height="571"
     loading="eager"
+    fetchpriority="high"
   >
   <div class="samay-hero-overlay"></div>
 
@@ -196,14 +197,27 @@
                   {%- elsif forloop.index == 3 or handle contains 'trio' -%}
                     {%- assign custom_product_img = 'samay-product-trio.jpg' | asset_url -%}
                   {%- endif -%}
-                  <img 
-                    src="{{ custom_product_img }}" 
-                    alt="{{ product.title | escape }}" 
-                    class="ep-img"
-                    loading="lazy"
-                    width="800"
-                    height="800"
-                  >
+                  {%- if product.featured_image -%}
+                    <img 
+                      src="{{ product.featured_image | image_url: width: 800 }}" 
+                      srcset="{{ product.featured_image | image_url: width: 400 }} 400w, {{ product.featured_image | image_url: width: 800 }} 800w, {{ product.featured_image | image_url: width: 1200 }} 1200w"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      alt="{{ product.featured_image.alt | default: product.title | escape }}" 
+                      class="ep-img"
+                      loading="lazy"
+                      width="800"
+                      height="800"
+                    >
+                  {%- else -%}
+                    <img 
+                      src="{{ custom_product_img }}" 
+                      alt="{{ product.title | escape }}" 
+                      class="ep-img"
+                      loading="lazy"
+                      width="800"
+                      height="800"
+                    >
+                  {%- endif -%}
                 </div>
               </div>
             </div>
@@ -254,14 +268,27 @@
                   {%- elsif forloop.index == 3 or product.handle contains 'trio' -%}
                     {%- assign custom_product_img = 'samay-product-trio.jpg' | asset_url -%}
                   {%- endif -%}
-                  <img 
-                    src="{{ custom_product_img }}" 
-                    alt="{{ product.title | escape }}" 
-                    class="ep-img"
-                    loading="lazy"
-                    width="800"
-                    height="800"
-                  >
+                  {%- if product.featured_image -%}
+                    <img 
+                      src="{{ product.featured_image | image_url: width: 800 }}" 
+                      srcset="{{ product.featured_image | image_url: width: 400 }} 400w, {{ product.featured_image | image_url: width: 800 }} 800w, {{ product.featured_image | image_url: width: 1200 }} 1200w"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      alt="{{ product.featured_image.alt | default: product.title | escape }}" 
+                      class="ep-img"
+                      loading="lazy"
+                      width="800"
+                      height="800"
+                    >
+                  {%- else -%}
+                    <img 
+                      src="{{ custom_product_img }}" 
+                      alt="{{ product.title | escape }}" 
+                      class="ep-img"
+                      loading="lazy"
+                      width="800"
+                      height="800"
+                    >
+                  {%- endif -%}
                 </div>
               </div>
             </div>
@@ -632,51 +659,51 @@
         <h3 class="serif-font" style="font-size: 1.8rem; margin-bottom: 20px;">Frequently Asked Questions</h3>
 
         <div class="samay-faq-item is-open">
-          <button type="button" class="samay-faq-question">
+          <button type="button" class="samay-faq-question" id="FaqQuestion1" aria-expanded="true" aria-controls="FaqAnswer1">
             <span>How long does Zyro last on skin and clothes?</span>
             <span class="samay-faq-icon">+</span>
           </button>
-          <div class="samay-faq-answer">
+          <div class="samay-faq-answer" id="FaqAnswer1" role="region" aria-labelledby="FaqQuestion1">
             Zyro is formulated as an Eau de Parfum (EDP) with 15-20% perfume oil concentration. On moisturized skin, it lasts 6 to 8 hours. On clothing and outerwear, its rich amber and agarwood base notes can linger throughout the day.
           </div>
         </div>
 
         <div class="samay-faq-item">
-          <button type="button" class="samay-faq-question">
+          <button type="button" class="samay-faq-question" id="FaqQuestion2" aria-expanded="false" aria-controls="FaqAnswer2">
             <span>What is the difference between the single and combo packs?</span>
             <span class="samay-faq-icon">+</span>
           </button>
-          <div class="samay-faq-answer">
+          <div class="samay-faq-answer" id="FaqAnswer2" role="region" aria-labelledby="FaqQuestion2">
             The fragrance formulation in all 3 editions is identical (Zyro 50ml). The 2-in-1 Duo combo and 3-in-1 Grand Trio offer substantial volume savings per bottle and include complimentary luxury presentation gift boxes.
           </div>
         </div>
 
         <div class="samay-faq-item">
-          <button type="button" class="samay-faq-question">
+          <button type="button" class="samay-faq-question" id="FaqQuestion3" aria-expanded="false" aria-controls="FaqAnswer3">
             <span>What are the shipping times and is delivery free?</span>
             <span class="samay-faq-icon">+</span>
           </button>
-          <div class="samay-faq-answer">
+          <div class="samay-faq-answer" id="FaqAnswer3" role="region" aria-labelledby="FaqQuestion3">
             Yes, express shipping is 100% complimentary across all pin codes in India for all orders. Metro cities (Delhi NCR, Mumbai, Bangalore, Pune) typically receive delivery in 2-3 business days. All other locations take 3-5 business days with live tracking provided via SMS and email notifications.
           </div>
         </div>
 
         <div class="samay-faq-item">
-          <button type="button" class="samay-faq-question">
+          <button type="button" class="samay-faq-question" id="FaqQuestion4" aria-expanded="false" aria-controls="FaqAnswer4">
             <span>What is your damaged replacement guarantee?</span>
             <span class="samay-faq-icon">+</span>
           </button>
-          <div class="samay-faq-answer">
+          <div class="samay-faq-answer" id="FaqAnswer4" role="region" aria-labelledby="FaqQuestion4">
             Every bottle is packaged inside thick shock-resistant transit cushions. In the rare event of transit damage or leakage, simply share a quick photo with our concierge team within 48 hours and we will dispatch a brand-new replacement bottle immediately with zero hassle.
           </div>
         </div>
 
         <div class="samay-faq-item">
-          <button type="button" class="samay-faq-question">
+          <button type="button" class="samay-faq-question" id="FaqQuestion5" aria-expanded="false" aria-controls="FaqAnswer5">
             <span>Is Cash on Delivery (COD) supported?</span>
             <span class="samay-faq-icon">+</span>
           </button>
-          <div class="samay-faq-answer">
+          <div class="samay-faq-answer" id="FaqAnswer5" role="region" aria-labelledby="FaqQuestion5">
             Yes! We accept Cash on Delivery (COD), UPI (Google Pay, PhonePe, Paytm), and all major credit/debit cards during checkout.
           </div>
         </div>

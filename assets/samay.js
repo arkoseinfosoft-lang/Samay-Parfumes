@@ -271,8 +271,15 @@
       btn.addEventListener('click', function () {
         const item = this.closest('.samay-faq-item');
         const isOpen = item.classList.contains('is-open');
-        document.querySelectorAll('.samay-faq-item').forEach(i => i.classList.remove('is-open'));
-        if (!isOpen) item.classList.add('is-open');
+        document.querySelectorAll('.samay-faq-item').forEach(i => {
+          i.classList.remove('is-open');
+          const qBtn = i.querySelector('.samay-faq-question');
+          if (qBtn) qBtn.setAttribute('aria-expanded', 'false');
+        });
+        if (!isOpen) {
+          item.classList.add('is-open');
+          this.setAttribute('aria-expanded', 'true');
+        }
       });
     });
 
