@@ -316,21 +316,7 @@
       });
     }
 
-    // Contact Form handling
-    const contactForm = document.getElementById('samayContactForm');
-    if (contactForm) {
-      contactForm.addEventListener('submit', function (e) {
-        e.preventDefault();
-        const successMsg = document.getElementById('samayContactSuccess');
-        if (successMsg) {
-          successMsg.style.display = 'block';
-          contactForm.reset();
-          setTimeout(() => {
-            successMsg.style.display = 'none';
-          }, 6000);
-        }
-      });
-    }
+
 
     // Initialize Perfume Atomizer & Golden Spray Mist Cursor
     initPerfumeSprayCursor();

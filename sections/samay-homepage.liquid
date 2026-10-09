@@ -496,39 +496,46 @@
       <!-- Contact Form -->
       <div class="samay-contact-form-box">
         <h3 class="serif-font" style="font-size: 1.8rem; margin-bottom: 20px;">Send a Message</h3>
-        <form id="samayContactForm">
+        {% form 'contact', id: 'samayContactForm' %}
+          {% if form.posted_successfully? %}
+            <div style="padding: 16px; margin-bottom: 20px; background: rgba(46, 125, 50, 0.08); border: 1px solid #2e7d32; color: #2e7d32; border-radius: 4px; font-weight: 600; text-align: center; font-size: 0.92rem;">
+              ✦ Thank you! Our perfumery concierge will contact you within 2 hours.
+            </div>
+          {% elsif form.errors %}
+            <div style="padding: 16px; margin-bottom: 20px; background: rgba(211, 47, 47, 0.08); border: 1px solid #d32f2f; color: #d32f2f; border-radius: 4px; font-size: 0.88rem;">
+              {{ form.errors | default_errors }}
+            </div>
+          {% endif %}
+
           <div class="samay-form-group">
-            <label class="samay-form-label">Full Name</label>
-            <input type="text" class="samay-form-input" placeholder="e.g. Rahul Sharma" required>
+            <label class="samay-form-label" for="ContactFormName">Full Name</label>
+            <input type="text" id="ContactFormName" name="contact[name]" class="samay-form-input" placeholder="e.g. Rahul Sharma" value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}" required>
           </div>
           <div class="samay-form-group">
-            <label class="samay-form-label">Email Address</label>
-            <input type="email" class="samay-form-input" placeholder="e.g. rahul@example.com" required>
+            <label class="samay-form-label" for="ContactFormEmail">Email Address</label>
+            <input type="email" id="ContactFormEmail" name="contact[email]" class="samay-form-input" placeholder="e.g. rahul@example.com" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}" required>
           </div>
           <div class="samay-form-group">
-            <label class="samay-form-label">Phone / WhatsApp</label>
-            <input type="tel" class="samay-form-input" placeholder="+91 98765 43210" required>
+            <label class="samay-form-label" for="ContactFormPhone">Phone / WhatsApp</label>
+            <input type="tel" id="ContactFormPhone" name="contact[phone]" class="samay-form-input" placeholder="+91 98765 43210" value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}" required>
           </div>
           <div class="samay-form-group">
-            <label class="samay-form-label">Inquiry Topic</label>
-            <select class="samay-form-select">
-              <option value="order">Order Status & Tracking</option>
-              <option value="combo">Advice on 2-in-1 or 3-in-1 Combo</option>
-              <option value="gifting">Corporate / Bulk Gifting</option>
-              <option value="general">General Fragrance Inquiry</option>
+            <label class="samay-form-label" for="ContactFormTopic">Inquiry Topic</label>
+            <select id="ContactFormTopic" name="contact[Inquiry Topic]" class="samay-form-select">
+              <option value="Order Status & Tracking">Order Status & Tracking</option>
+              <option value="Advice on 2-in-1 or 3-in-1 Combo">Advice on 2-in-1 or 3-in-1 Combo</option>
+              <option value="Corporate / Bulk Gifting">Corporate / Bulk Gifting</option>
+              <option value="General Fragrance Inquiry">General Fragrance Inquiry</option>
             </select>
           </div>
           <div class="samay-form-group">
-            <label class="samay-form-label">Your Message</label>
-            <textarea class="samay-form-textarea" rows="4" placeholder="How can our concierge assist you today?" required></textarea>
+            <label class="samay-form-label" for="ContactFormMessage">Your Message</label>
+            <textarea id="ContactFormMessage" name="contact[body]" class="samay-form-textarea" rows="4" placeholder="How can our concierge assist you today?" required>{% if form.body %}{{ form.body }}{% endif %}</textarea>
           </div>
           <button type="submit" class="samay-btn samay-btn--gold samay-btn--full">
             SEND MESSAGE
           </button>
-          <div id="samayContactSuccess" style="display:none; margin-top:16px; color:#2e7d32; font-weight:600; text-align:center; font-size:0.9rem;">
-            ✦ Thank you! Our perfumery concierge will contact you within 2 hours.
-          </div>
-        </form>
+        {% endform %}
 
       </div>
 
@@ -651,12 +658,33 @@
       <p>
         Enjoy a complimentary 10% welcome privilege on your next reserve, private access to small-batch launches, and bespoke olfactory invitations.
       </p>
-      <form class="samay-newsletter-form" onsubmit="event.preventDefault(); alert('Welcome to the Samay Circle! Your VIP privilege code has been sent.'); this.reset();">
-        <input type="email" class="samay-newsletter-input" placeholder="Enter your email address" required>
-        <button type="submit" class="samay-btn samay-btn--gold">
-          SUBSCRIBE
-        </button>
-      </form>
+      {% form 'customer', class: 'samay-newsletter-form-container' %}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        {% if form.posted_successfully? %}
+          <div style="color: var(--gold-light); font-weight: 500; font-size: 0.95rem; text-align: center; margin-bottom: 16px;">
+            ✦ Welcome to the Samay Circle! Your VIP privilege code has been reserved.
+          </div>
+        {% elsif form.errors %}
+          <div style="color: #ff8a80; font-size: 0.88rem; text-align: center; margin-bottom: 16px;">
+            {{ form.errors | default_errors }}
+          </div>
+        {% endif %}
+
+        <div class="samay-newsletter-form">
+          <input 
+            type="email" 
+            name="contact[email]" 
+            class="samay-newsletter-input" 
+            placeholder="Enter your email address" 
+            value="{% if customer %}{{ customer.email }}{% endif %}" 
+            required
+            aria-label="Email address"
+          >
+          <button type="submit" class="samay-btn samay-btn--gold">
+            SUBSCRIBE
+          </button>
+        </div>
+      {% endform %}
     </div>
   </div>
 </section>
