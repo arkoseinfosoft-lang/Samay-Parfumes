@@ -4,9 +4,12 @@
 
 {%- liquid
   assign og_title = page_title | default: shop.name
+  if request.page_type == 'index' and page_title == shop.name
+    assign og_title = 'Samay Parfumes | Zyro Eau de Parfum 50ml'
+  endif
   assign og_url = canonical_url | default: request.origin
   assign og_type = 'website'
-  assign og_description = page_description | default: shop.description | default: shop.name
+  assign og_description = page_description | default: shop.description | default: 'Samay Parfumes — Zyro 50ml Eau de Parfum, a fragrance beyond time. Single, Duo and Trio editions.'
 
   if request.page_type == 'product'
     assign og_type = 'product'
@@ -86,10 +89,14 @@
 >
 
 <title>
-  {{ page_title }}
-  {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
-  {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
-  {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+  {%- if request.page_type == 'index' and page_title == shop.name -%}
+    Samay Parfumes | Zyro Eau de Parfum 50ml
+  {%- else -%}
+    {{ page_title }}
+    {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
+    {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+    {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+  {%- endif -%}
 </title>
 
 <link
@@ -101,5 +108,10 @@
   <meta
     name="description"
     content="{{ page_description | escape }}"
+  >
+{% else %}
+  <meta
+    name="description"
+    content="Samay Parfumes — Zyro 50ml Eau de Parfum, a fragrance beyond time. Single, Duo and Trio editions."
   >
 {% endif %}
