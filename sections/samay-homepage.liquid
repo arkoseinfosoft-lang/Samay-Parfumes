@@ -561,7 +561,7 @@
             <span class="samay-faq-icon">+</span>
           </button>
           <div class="samay-faq-answer">
-            The fragrance formulation in all 3 editions is identical (Zyro 50ml). The 2-in-1 Duo combo and 3-in-1 Grand Trio offer substantial volume discounts (up to ₹2,100 in savings) and include complimentary luxury presentation gift boxes.
+            The fragrance formulation in all 3 editions is identical (Zyro 50ml). The 2-in-1 Duo combo and 3-in-1 Grand Trio offer substantial volume savings per bottle and include complimentary luxury presentation gift boxes.
           </div>
         </div>
 
@@ -617,7 +617,7 @@
         "name": "What is the difference between the single and combo packs?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "The fragrance formulation in all 3 editions is identical (Zyro 50ml). The 2-in-1 Duo combo and 3-in-1 Grand Trio offer substantial volume discounts (up to ₹2,100 in savings) and include complimentary luxury presentation gift boxes."
+          "text": "The fragrance formulation in all 3 editions is identical (Zyro 50ml). The 2-in-1 Duo combo and 3-in-1 Grand Trio offer substantial volume savings per bottle and include complimentary luxury presentation gift boxes."
         }
       },
       {
@@ -658,13 +658,14 @@
       <div class="samay-sec-eyebrow" style="color: var(--gold-light);">PRIVATE PRIVILEGES</div>
       <h2>Join The Samay Circle</h2>
       <p>
-        Enjoy a complimentary 10% welcome privilege on your next reserve, private access to small-batch launches, and bespoke olfactory invitations.
+        Enjoy privileged early access to small-batch launches, private olfactory invitations, and exclusive updates from our maison.
       </p>
       {% form 'customer', class: 'samay-newsletter-form-container' %}
         <input type="hidden" name="contact[tags]" value="newsletter">
+        <input type="hidden" name="customer[accepts_marketing]" value="true">
         {% if form.posted_successfully? %}
           <div style="color: var(--gold-light); font-weight: 500; font-size: 0.95rem; text-align: center; margin-bottom: 16px;">
-            ✦ Welcome to the Samay Circle! Your VIP privilege code has been reserved.
+            ✦ Welcome to the Samay Circle! Thank you for subscribing.
           </div>
         {% elsif form.errors %}
           <div style="color: #ff8a80; font-size: 0.88rem; text-align: center; margin-bottom: 16px;">
