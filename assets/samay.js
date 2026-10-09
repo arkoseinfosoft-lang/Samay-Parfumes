@@ -323,11 +323,131 @@
       });
     }
 
-
+    // Initialize Mobile Product Carousel Controls
+    initProductCarousel();
 
     // Initialize Perfume Atomizer & Golden Spray Mist Cursor
     initPerfumeSprayCursor();
   });
+
+  // ==========================================================================
+  // MOBILE PRODUCT CAROUSEL CONTROLS (PAGINATION DOTS & NEXT/PREV ARROWS)
+  // ==========================================================================
+  function initProductCarousel() {
+    const grid = document.querySelector('.ep-grid');
+    if (!grid) return;
+    const cards = Array.from(grid.querySelectorAll('.ep-card'));
+    const prevBtn = document.querySelector('.ep-carousel-prev');
+    const nextBtn = document.querySelector('.ep-carousel-next');
+    const dots = Array.from(document.querySelectorAll('.ep-carousel-dot'));
+
+    if (!cards.length) return;
+
+    function getStep() {
+      if (cards.length > 1) {
+        return cards[1].offsetLeft - cards[0].offsetLeft;
+      }
+      return cards[0].offsetWidth + 16;
+    }
+
+    function updateControls() {
+      const scrollLeft = grid.scrollLeft;
+      const step = getStep() || 300;
+      const activeIndex = Math.min(cards.length - 1, Math.max(0, Math.round(scrollLeft / step)));
+
+      dots.forEach((dot, idx) => {
+        const isActive = idx === activeIndex;
+        dot.classList.toggle('is-active', isActive);
+        dot.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      });
+
+      if (prevBtn) {
+        if (activeIndex <= 0) {
+          prevBtn.setAttribute('disabled', 'true');
+        } else {
+          prevBtn.removeAttribute('disabled');
+        }
+      }
+
+      if (nextBtn) {
+        if (activeIndex >= cards.length - 1) {
+          nextBtn.setAttribute('disabled', 'true');
+        } else {
+          nextBtn.removeAttribute('disabled');
+        }
+      }
+    }
+
+    function scrollToIndex(index) {
+      if (index < 0 || index >= cards.length) return;
+      const targetCard = cards[index];
+      if (targetCard) {
+        const targetLeft = targetCard.offsetLeft - grid.offsetLeft;
+        grid.scrollTo({
+          left: targetLeft,
+          behavior: 'smooth'
+        });
+      }
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        const step = getStep() || 300;
+        const currentIndex = Math.round(grid.scrollLeft / step);
+        scrollToIndex(currentIndex - 1);
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        const step = getStep() || 300;
+        const currentIndex = Math.round(grid.scrollLeft / step);
+        scrollToIndex(currentIndex + 1);
+      });
+    }
+
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const idx = parseInt(dot.getAttribute('data-index'), 10) || 0;
+        scrollToIndex(idx);
+      });
+    });
+
+    let scrollRaf;
+    grid.addEventListener('scroll', () => {
+      if (scrollRaf) cancelAnimationFrame(scrollRaf);
+      scrollRaf = requestAnimationFrame(updateControls);
+    }, { passive: true });
+
+    // Enable drag-to-scroll for mouse in desktop responsive testing
+    let isDown = false;
+    let startX = 0;
+    let scrollStart = 0;
+
+    grid.addEventListener('mousedown', (e) => {
+      if (e.button !== 0) return;
+      isDown = true;
+      startX = e.pageX - grid.offsetLeft;
+      scrollStart = grid.scrollLeft;
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      const x = e.pageX - grid.offsetLeft;
+      const walk = (x - startX);
+      grid.scrollLeft = scrollStart - walk;
+    });
+
+    window.addEventListener('mouseup', () => {
+      if (isDown) {
+        isDown = false;
+        updateControls();
+      }
+    });
+
+    window.addEventListener('resize', updateControls);
+    updateControls();
+  }
 
   // ==========================================================================
   // PERFUME ATOMIZER & GOLDEN SPRAY MIST CURSOR (HOUSE OF SASAA SIGNATURE)
