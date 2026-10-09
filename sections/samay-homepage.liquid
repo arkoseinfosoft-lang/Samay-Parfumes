@@ -6,9 +6,9 @@
 <script>
   window.samayAssetUrl = "{{ 'zyro-single.jpg' | asset_url | split: 'zyro-single.jpg' | first }}";
   window.samayAssets = {
-    single: "{{ 'samay-product-single.jpg' | asset_url }}",
-    duo: "{{ 'samay-product-duo.jpg' | asset_url }}",
-    trio: "{{ 'samay-product-trio.jpg' | asset_url }}"
+    single: "{{ 'samay-product-single.webp' | asset_url }}",
+    duo: "{{ 'samay-product-duo.webp' | asset_url }}",
+    trio: "{{ 'samay-product-trio.webp' | asset_url }}"
   };
 </script>
 
@@ -191,11 +191,11 @@
             <div class="ep-media">
               <div class="ep-media__viewport">
                 <div class="ep-media__inner">
-                  {%- assign custom_product_img = 'samay-product-single.jpg' | asset_url -%}
+                  {%- assign custom_product_img = 'samay-product-single.webp' | asset_url -%}
                   {%- if forloop.index == 2 or handle contains 'duo' -%}
-                    {%- assign custom_product_img = 'samay-product-duo.jpg' | asset_url -%}
+                    {%- assign custom_product_img = 'samay-product-duo.webp' | asset_url -%}
                   {%- elsif forloop.index == 3 or handle contains 'trio' -%}
-                    {%- assign custom_product_img = 'samay-product-trio.jpg' | asset_url -%}
+                    {%- assign custom_product_img = 'samay-product-trio.webp' | asset_url -%}
                   {%- endif -%}
                   {%- if product.featured_image -%}
                     <img 
@@ -214,8 +214,8 @@
                       alt="{{ product.title | escape }}" 
                       class="ep-img"
                       loading="lazy"
-                      width="800"
-                      height="800"
+                      width="1024"
+                      height="1024"
                     >
                   {%- endif -%}
                 </div>
@@ -262,11 +262,11 @@
             <div class="ep-media">
               <div class="ep-media__viewport">
                 <div class="ep-media__inner">
-                  {%- assign custom_product_img = 'samay-product-single.jpg' | asset_url -%}
+                  {%- assign custom_product_img = 'samay-product-single.webp' | asset_url -%}
                   {%- if forloop.index == 2 or product.handle contains 'duo' -%}
-                    {%- assign custom_product_img = 'samay-product-duo.jpg' | asset_url -%}
+                    {%- assign custom_product_img = 'samay-product-duo.webp' | asset_url -%}
                   {%- elsif forloop.index == 3 or product.handle contains 'trio' -%}
-                    {%- assign custom_product_img = 'samay-product-trio.jpg' | asset_url -%}
+                    {%- assign custom_product_img = 'samay-product-trio.webp' | asset_url -%}
                   {%- endif -%}
                   {%- if product.featured_image -%}
                     <img 
@@ -285,8 +285,8 @@
                       alt="{{ product.title | escape }}" 
                       class="ep-img"
                       loading="lazy"
-                      width="800"
-                      height="800"
+                      width="1024"
+                      height="1024"
                     >
                   {%- endif -%}
                 </div>
@@ -490,11 +490,11 @@
     <div class="samay-ingredients-showcase">
       <div class="samay-showcase-image-wrap">
         <img 
-          src="{{ 'zyro-notes.jpg' | asset_url }}" 
+          src="{{ 'zyro-notes.webp' | asset_url }}" 
           alt="Raw artisan perfume ingredients of Zyro" 
           class="samay-showcase-image"
-          width="1376"
-          height="768"
+          width="1200"
+          height="670"
           loading="lazy"
         >
       </div>
@@ -582,11 +582,11 @@
 
       <div class="samay-about-media">
         <img 
-          src="{{ 'samay-story-atelier.jpg' | asset_url }}" 
+          src="{{ 'samay-story-atelier.webp' | asset_url }}" 
           alt="The Story of Samay Parfumes Atelier"
           loading="lazy"
-          width="768"
-          height="1024"
+          width="896"
+          height="1200"
         >
       </div>
     </div>
