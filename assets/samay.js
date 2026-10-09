@@ -136,7 +136,7 @@
           itemImg = window.samayAssets.trio;
         } else if (h.includes('duo') || t.includes('duo')) {
           itemImg = window.samayAssets.duo;
-        } else if (h.includes('zayro') || t.includes('zayro') || t.includes('samay')) {
+        } else if (h.includes('zyro') || t.includes('zyro') || h.includes('zayro') || t.includes('zayro') || t.includes('samay')) {
           itemImg = window.samayAssets.single;
         }
       }
@@ -407,9 +407,9 @@
         <line x1="15" y1="24.5" x2="15" y2="23" stroke="url(#liveGold)" stroke-width="0.45" stroke-linecap="round"/>
         <line x1="15" y1="24.5" x2="16.3" y2="24.5" stroke="url(#liveGold)" stroke-width="0.45" stroke-linecap="round"/>
 
-        <!-- Scent Line & Zayro Brand -->
+        <!-- Scent Line & Zyro Brand -->
         <line x1="11.5" y1="29.5" x2="18.5" y2="29.5" stroke="url(#liveGold)" stroke-width="0.35" opacity="0.7"/>
-        <text x="15" y="33" font-family="'Plus Jakarta Sans', serif" font-size="2" font-weight="700" fill="url(#liveGold)" text-anchor="middle" letter-spacing="0.3">ZAYRO</text>
+        <text x="15" y="33" font-family="'Plus Jakarta Sans', serif" font-size="2" font-weight="700" fill="url(#liveGold)" text-anchor="middle" letter-spacing="0.3">ZYRO</text>
       </svg>
     `;
     document.body.appendChild(atomizer);

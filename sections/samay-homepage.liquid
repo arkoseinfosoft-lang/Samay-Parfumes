@@ -18,7 +18,7 @@
 <section class="samay-hero-section" id="hero">
   <img 
     src="{{ 'samay-hero-clock.jpg' | asset_url }}" 
-    alt="Samay Parfumes Zayro Extrait Flacon Beyond Time" 
+    alt="Samay Parfumes Zyro Eau De Parfum Flacon Beyond Time" 
     class="samay-hero-bg"
     width="1024"
     height="571"
@@ -29,13 +29,13 @@
   <div class="container" style="position: relative; z-index: 2;">
     <div class="samay-hero-content">
       <div class="samay-hero-eyebrow">
-        <span>EXTRAIT DE PARFUM · ARTISANAL RESERVE</span>
+        <span>EAU DE PARFUM · ARTISANAL RESERVE</span>
       </div>
       <h1 class="samay-hero-title">
         A Fragrance <em>Beyond Time.</em>
       </h1>
       <p class="samay-hero-desc">
-        Introducing <strong>Zyro 50ml</strong> — A magnetic union of sun-drenched Italian citrus, velvety ambergris, and sacred midnight oud. Crafted to captivate senses and linger for 14+ hours.
+        Introducing <strong>Zyro 50ml</strong> — A magnetic union of sun-drenched Italian citrus, velvety ambergris, and sacred midnight oud. Crafted to captivate senses and linger for 6-8 hours.
       </p>
       
       <div class="samay-hero-actions">
@@ -53,13 +53,13 @@
             <circle cx="12" cy="12" r="10"></circle>
             <polyline points="12 6 12 12 16 14"></polyline>
           </svg>
-          <span>14+ Hours Wear</span>
+          <span>6-8 Hours Wear</span>
         </div>
         <div class="samay-highlight-item">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
           </svg>
-          <span>20% Extrait Strength</span>
+          <span>15-20% Perfume Oil</span>
         </div>
         <div class="samay-highlight-item">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -81,11 +81,11 @@
 <section class="samay-marquee-section">
   <div class="samay-marquee-track">
     <div class="samay-marquee-content">
-      <span>EXTRAIT DE PARFUM</span>
+      <span>EAU DE PARFUM</span>
       <span class="samay-marquee-dot">✦</span>
       <span>A FRAGRANCE BEYOND TIME</span>
       <span class="samay-marquee-dot">✦</span>
-      <span>14+ HOURS LONGEVITY</span>
+      <span>6-8 HOURS LONGEVITY</span>
       <span class="samay-marquee-dot">✦</span>
       <span>FRENCH & ORIENTAL ESSENCES</span>
       <span class="samay-marquee-dot">✦</span>
@@ -99,11 +99,11 @@
       <span class="samay-marquee-dot">✦</span>
     </div>
     <div class="samay-marquee-content">
-      <span>EXTRAIT DE PARFUM</span>
+      <span>EAU DE PARFUM</span>
       <span class="samay-marquee-dot">✦</span>
       <span>A FRAGRANCE BEYOND TIME</span>
       <span class="samay-marquee-dot">✦</span>
-      <span>14+ HOURS LONGEVITY</span>
+      <span>6-8 HOURS LONGEVITY</span>
       <span class="samay-marquee-dot">✦</span>
       <span>FRENCH & ORIENTAL ESSENCES</span>
       <span class="samay-marquee-dot">✦</span>
@@ -128,9 +128,9 @@
       <div class="samay-pillar-card">
         <div class="samay-pillar-icon">⌛</div>
         <div class="samay-pillar-eyebrow">UNRIVALED LONGEVITY</div>
-        <h3 class="samay-pillar-title">35% Extrait Strength</h3>
+        <h3 class="samay-pillar-title">15-20% Perfume Oil</h3>
         <p class="samay-pillar-desc">
-          Formulated at maximum oil concentration so your signature trail projects intensely through day and night.
+          Formulated at optimal Eau de Parfum concentration so your signature trail projects beautifully for 6-8 hours.
         </p>
       </div>
 
@@ -166,7 +166,10 @@
     </div>
 
     <div class="ep-grid">
-      {%- assign handle_list = "samay-zayro-50ml-eau-de-parfum,samay-zayro-50ml-duo-combo-2-in-1,samay-zayro-grand-trio-3-in-1-combo" | split: "," -%}
+      {%- assign handle_single = all_products['samay-zyro-50ml-eau-de-parfum'].handle | default: all_products['samay-zayro-50ml-eau-de-parfum'].handle | default: 'samay-zyro-50ml-eau-de-parfum' -%}
+      {%- assign handle_duo = all_products['samay-zyro-duo-combo-2-in-1'].handle | default: all_products['samay-zayro-duo-combo-2-in-1'].handle | default: 'samay-zyro-duo-combo-2-in-1' -%}
+      {%- assign handle_trio = all_products['samay-zyro-grand-trio-3-in-1-combo'].handle | default: all_products['samay-zayro-grand-trio-3-in-1-combo'].handle | default: 'samay-zyro-grand-trio-3-in-1-combo' -%}
+      {%- assign handle_list = handle_single | append: ',' | append: handle_duo | append: ',' | append: handle_trio | split: ',' -%}
       {%- assign rendered_count = 0 -%}
 
       {%- for handle in handle_list -%}
@@ -326,7 +329,7 @@
       <div class="samay-sec-eyebrow">THE OLFACTORY PYRAMID</div>
       <h2 class="samay-sec-title">What's in <em>Your Bottle?</em></h2>
       <p class="samay-sec-subtitle">
-        Zyro is crafted as an evolving three-act composition that transforms seamlessly with your skin chemistry over 14 hours.
+        Zyro is crafted as an evolving three-act composition that transforms seamlessly with your skin chemistry over 6-8 hours.
       </p>
       <div class="samay-sec-divider"></div>
     </div>
@@ -365,13 +368,13 @@
       <div class="samay-note-card">
         <div class="samay-note-stage">ACT III · BASE NOTES</div>
         <h3 class="samay-note-headline">What lingers on skin</h3>
-        <span class="samay-note-timing">5 to 14+ HOURS</span>
+        <span class="samay-note-timing">5 to 8 HOURS</span>
         <div class="samay-note-ingredients">
           Aged Indonesian Oud · Virginia Cedarwood<br>
           Bourbon Vanilla · Golden Amber Resin
         </div>
         <p class="samay-note-description">
-          An unforgettable, deeply addictive trail of rare woods and sweet resinous amber that remains vivid even until the next morning.
+          An unforgettable, deeply addictive trail of rare woods and sweet resinous amber that remains vivid throughout your day.
         </p>
       </div>
     </div>
@@ -397,11 +400,11 @@
         <div class="samay-specs-list">
           <div class="samay-spec-box">
             <div class="samay-spec-title">CONCENTRATION</div>
-            <div class="samay-spec-val">20% Extrait Oil</div>
+            <div class="samay-spec-val">15-20% Perfume Oil</div>
           </div>
           <div class="samay-spec-box">
             <div class="samay-spec-title">LONGEVITY</div>
-            <div class="samay-spec-val">14+ Hours Wear</div>
+            <div class="samay-spec-val">6-8 Hours Wear</div>
           </div>
           <div class="samay-spec-box">
             <div class="samay-spec-title">SILLAGE</div>
@@ -501,8 +504,8 @@
 
         <div class="samay-about-stats">
           <div class="samay-stat-item">
-            <strong>35%</strong>
-            <span>Pure Extrait Oil</span>
+            <strong>15-20%</strong>
+            <span>Perfume Oil</span>
           </div>
           <div class="samay-stat-item">
             <strong>60+</strong>
@@ -592,7 +595,7 @@
             <span class="samay-faq-icon">+</span>
           </button>
           <div class="samay-faq-answer">
-            Zyro is formulated as a 20% Extrait de Parfum concentration (significantly higher than typical EDTs or standard EDPs). On moisturized skin, it lasts 12 to 14+ hours. On clothing and outerwear, its rich amber and agarwood base notes can linger for multiple days.
+            Zyro is formulated as an Eau de Parfum (EDP) with 15-20% perfume oil concentration. On moisturized skin, it lasts 6 to 8 hours. On clothing and outerwear, its rich amber and agarwood base notes can linger throughout the day.
           </div>
         </div>
 
@@ -638,6 +641,56 @@
       </div>
     </div>
   </div>
+
+  <!-- FAQ Structured Data (Schema.org) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How long does Zyro last on skin and clothes?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Zyro is formulated as an Eau de Parfum (EDP) with 15-20% perfume oil concentration. On moisturized skin, it lasts 6 to 8 hours. On clothing and outerwear, its rich amber and agarwood base notes can linger throughout the day."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the difference between the single and combo packs?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The fragrance formulation in all 3 editions is identical (Zyro 50ml). The 2-in-1 Duo combo and 3-in-1 Grand Trio offer substantial volume discounts (up to ₹2,100 in savings) and include complimentary luxury presentation gift boxes."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What are the shipping times and is delivery free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, express shipping is 100% complimentary across all pin codes in India for all orders. Metro cities (Delhi NCR, Mumbai, Bangalore, Pune) typically receive delivery in 2-3 business days. All other locations take 3-5 business days with live tracking provided via SMS and email notifications."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is your damaged replacement guarantee?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Every bottle is packaged inside thick shock-resistant transit cushions. In the rare event of transit damage or leakage, simply share a quick photo with our concierge team within 48 hours and we will dispatch a brand-new replacement bottle immediately with zero hassle."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is Cash on Delivery (COD) supported?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! We accept Cash on Delivery (COD), UPI (Google Pay, PhonePe, Paytm), and all major credit/debit cards during checkout."
+        }
+      }
+    ]
+  }
+  </script>
 </section>
 
 <!-- ==========================================================================
