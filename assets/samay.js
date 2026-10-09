@@ -118,8 +118,8 @@
         <div style="text-align: center; padding: 40px 10px; color: var(--taupe);">
           <div style="font-size: 2.4rem; color: var(--gold); margin-bottom: 12px;">⚜</div>
           <h4 style="font-family: var(--serif); font-size: 1.4rem; margin-bottom: 8px;">Your Shopping Bag is Empty</h4>
-          <p style="font-size: 0.9rem; color: var(--dim);">Experience the timeless essence of Zyro Eau De Parfum.</p>
-          <a href="#collection" class="samay-btn samay-btn--gold" style="margin-top: 16px; padding: 12px 24px;" onclick="window.samayCart && window.samayCart.close()">SHOP ZYRO</a>
+          <p style="font-size: 0.9rem; color: var(--dim);">Experience the timeless essence of Zayro Eau De Parfum.</p>
+          <a href="#collection" class="samay-btn samay-btn--gold" style="margin-top: 16px; padding: 12px 24px;" onclick="window.samayCart && window.samayCart.close()">SHOP ZAYRO</a>
         </div>
       `;
       subtotalEl.textContent = '₹0.00';
@@ -136,7 +136,7 @@
           itemImg = window.samayAssets.trio;
         } else if (h.includes('duo') || t.includes('duo')) {
           itemImg = window.samayAssets.duo;
-        } else if (h.includes('zyro') || t.includes('zyro') || h.includes('zayro') || t.includes('zayro') || t.includes('samay')) {
+        } else if (h.includes('zayro') || t.includes('zayro') || t.includes('samay')) {
           itemImg = window.samayAssets.single;
         }
       }
@@ -400,9 +400,9 @@
         <line x1="15" y1="24.5" x2="15" y2="23" stroke="url(#liveGold)" stroke-width="0.45" stroke-linecap="round"/>
         <line x1="15" y1="24.5" x2="16.3" y2="24.5" stroke="url(#liveGold)" stroke-width="0.45" stroke-linecap="round"/>
 
-        <!-- Scent Line & Zyro Brand -->
+        <!-- Scent Line & Zayro Brand -->
         <line x1="11.5" y1="29.5" x2="18.5" y2="29.5" stroke="url(#liveGold)" stroke-width="0.35" opacity="0.7"/>
-        <text x="15" y="33" font-family="'Plus Jakarta Sans', serif" font-size="2" font-weight="700" fill="url(#liveGold)" text-anchor="middle" letter-spacing="0.3">ZYRO</text>
+        <text x="15" y="33" font-family="'Plus Jakarta Sans', serif" font-size="2" font-weight="700" fill="url(#liveGold)" text-anchor="middle" letter-spacing="0.3">ZAYRO</text>
       </svg>
     `;
     document.body.appendChild(atomizer);
