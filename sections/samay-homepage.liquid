@@ -178,19 +178,13 @@
           {%- assign rendered_count = rendered_count | plus: 1 -%}
           {%- assign variant = product.selected_or_first_available_variant -%}
           {%- assign price = variant.price -%}
+          {%- assign compare_at = nil -%}
+          {%- assign discount_percent = 0 -%}
           {%- if variant.compare_at_price and variant.compare_at_price > price -%}
             {%- assign compare_at = variant.compare_at_price -%}
-          {%- else -%}
-            {%- if price < 200000 -%}
-              {%- assign compare_at = 219900 -%}
-            {%- elsif price < 300000 -%}
-              {%- assign compare_at = 439900 -%}
-            {%- else -%}
-              {%- assign compare_at = 659900 -%}
-            {%- endif -%}
+            {%- assign diff = compare_at | minus: price -%}
+            {%- assign discount_percent = diff | times: 100 | divided_by: compare_at -%}
           {%- endif -%}
-          {%- assign diff = compare_at | minus: price -%}
-          {%- assign discount_percent = diff | times: 100 | divided_by: compare_at -%}
 
           <article class="ep-card is-active" data-product-id="{{ product.id }}" data-variant-id="{{ variant.id }}">
             <div class="ep-media">
@@ -219,7 +213,7 @@
 
               <div class="ep-price-row">
                 <span class="ep-price">{{ price | money }}</span>
-                {%- if compare_at > price -%}
+                {%- if compare_at and compare_at > price -%}
                   <span class="ep-price-compare">{{ compare_at | money }}</span>
                   <span class="ep-price-discount">-{{ discount_percent }}%</span>
                 {%- endif -%}
@@ -242,13 +236,13 @@
         {%- for product in collections.all.products -%}
           {%- assign variant = product.selected_or_first_available_variant -%}
           {%- assign price = variant.price -%}
+          {%- assign compare_at = nil -%}
+          {%- assign discount_percent = 0 -%}
           {%- if variant.compare_at_price and variant.compare_at_price > price -%}
             {%- assign compare_at = variant.compare_at_price -%}
-          {%- else -%}
-            {%- assign compare_at = price | times: 1.45 | round -%}
+            {%- assign diff = compare_at | minus: price -%}
+            {%- assign discount_percent = diff | times: 100 | divided_by: compare_at -%}
           {%- endif -%}
-          {%- assign diff = compare_at | minus: price -%}
-          {%- assign discount_percent = diff | times: 100 | divided_by: compare_at -%}
 
           <article class="ep-card is-active" data-product-id="{{ product.id }}" data-variant-id="{{ variant.id }}">
             <div class="ep-media">
@@ -277,7 +271,7 @@
 
               <div class="ep-price-row">
                 <span class="ep-price">{{ price | money }}</span>
-                {%- if compare_at > price -%}
+                {%- if compare_at and compare_at > price -%}
                   <span class="ep-price-compare">{{ compare_at | money }}</span>
                   <span class="ep-price-discount">-{{ discount_percent }}%</span>
                 {%- endif -%}
