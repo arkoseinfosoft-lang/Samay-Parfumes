@@ -420,62 +420,15 @@
 <section class="samay-reviews-section" id="reviews">
   <div class="container">
     <div class="samay-sec-header">
-      <div class="samay-sec-eyebrow">VERIFIED EXPERIENCES</div>
+      <div class="samay-sec-eyebrow">CUSTOMER REVIEWS</div>
       <h2 class="samay-sec-title">What Connoisseurs <em>Are Saying</em></h2>
-      <p class="samay-sec-subtitle">
-        Join over 1,500+ fragrance enthusiasts who made Zyro by Samay Parfumes their everyday signature scent.
-      </p>
       <div class="samay-sec-divider"></div>
     </div>
 
-    <div class="samay-reviews-grid">
-      <div class="samay-review-card">
-        <div>
-          <div class="samay-review-stars">★★★★★</div>
-          <p class="samay-review-quote">
-            "Zyro is unbelievable. I applied two sprays at 8:00 AM before a client meeting, and my colleague asked me what I was wearing at 9:00 PM dinner! The oud and bergamot blend is top notch."
-          </p>
-        </div>
-        <div class="samay-review-footer">
-          <div>
-            <div class="samay-reviewer-name">Vikram Malhotra</div>
-            <div class="samay-reviewer-city">Delhi · Verified Buyer</div>
-          </div>
-          <span class="samay-verified-tag">✓ Verified</span>
-        </div>
-      </div>
-
-      <div class="samay-review-card">
-        <div>
-          <div class="samay-review-stars">★★★★★</div>
-          <p class="samay-review-quote">
-            "We bought the 2-in-1 Duo combo so my partner and I could each have one. The bottle weight and magnetic cap feel like a ₹15,000 niche perfume. Absolutely mesmerizing drydown."
-          </p>
-        </div>
-        <div class="samay-review-footer">
-          <div>
-            <div class="samay-reviewer-name">Ananya Singhania</div>
-            <div class="samay-reviewer-city">Mumbai · Verified Buyer</div>
-          </div>
-          <span class="samay-verified-tag">✓ Verified</span>
-        </div>
-      </div>
-
-      <div class="samay-review-card">
-        <div>
-          <div class="samay-review-stars">★★★★★</div>
-          <p class="samay-review-quote">
-            "I ordered the 3-bottle Grand Trio combo to save maximum money and gave one to my brother. Everyone in the office noticed immediately. Best fragrance blind-buy of the year!"
-          </p>
-        </div>
-        <div class="samay-review-footer">
-          <div>
-            <div class="samay-reviewer-name">Rohan Mehta</div>
-            <div class="samay-reviewer-city">Bangalore · Verified Buyer</div>
-          </div>
-          <span class="samay-verified-tag">✓ Verified</span>
-        </div>
-      </div>
+    <!-- Reviews App Integration Placeholder (e.g. Judge.me, Loox, Okendo, Shopify Reviews) -->
+    <div class="samay-reviews-app-placeholder" style="text-align: center; padding: 48px 20px; color: var(--dim);">
+      <div id="shopify-product-reviews" data-id="{{ all_products['samay-zyro-50ml-eau-de-parfum'].id | default: all_products['samay-zayro-50ml-eau-de-parfum'].id }}"></div>
+      <p style="font-size: 0.95rem; font-style: italic; margin: 0;">Verified customer reviews will appear here once connected to your reviews app.</p>
     </div>
   </div>
 </section>
