@@ -1584,6 +1584,15 @@ select {
   color: rgba(247, 242, 234, 0.5);
 }
 
+.samay-newsletter-consent {
+  font-size: 0.76rem;
+  color: rgba(247, 242, 234, 0.65);
+  margin-top: 14px;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  text-align: center;
+}
+
 /* ==========================================================================
    LUXURY FOOTER (FULL-SCREEN WIDTH)
    ========================================================================== */

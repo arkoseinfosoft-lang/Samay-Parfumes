@@ -748,6 +748,7 @@
       </p>
       {% form 'customer', class: 'samay-newsletter-form-container' %}
         <input type="hidden" name="contact[tags]" value="newsletter">
+        <input type="hidden" name="contact[accepts_marketing]" value="true">
         <input type="hidden" name="customer[accepts_marketing]" value="true">
         {% if form.posted_successfully? %}
           <div style="color: var(--gold-light); font-weight: 500; font-size: 0.95rem; text-align: center; margin-bottom: 16px;">
@@ -773,6 +774,9 @@
             SUBSCRIBE
           </button>
         </div>
+        <p class="samay-newsletter-consent">
+          By subscribing, you consent to receive email marketing communications from Samay Parfumes. Unsubscribe anytime.
+        </p>
       {% endform %}
     </div>
   </div>
