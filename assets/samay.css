@@ -1612,8 +1612,8 @@ select {
 
 .samay-footer-top {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1.5fr;
-  gap: 50px;
+  grid-template-columns: 2fr 1fr 1fr 1.1fr 1.3fr;
+  gap: 36px;
   margin-bottom: 60px;
 }
 
@@ -1670,6 +1670,28 @@ select {
 }
 
 .samay-footer-links a:hover {
+  color: var(--gold);
+}
+
+.samay-footer-contact {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.samay-footer-contact a {
+  font-size: 0.85rem;
+  color: var(--dim);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.25s ease;
+  word-break: break-all;
+}
+
+.samay-footer-contact a:hover {
   color: var(--gold);
 }
 
