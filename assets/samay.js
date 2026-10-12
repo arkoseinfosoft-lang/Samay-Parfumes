@@ -314,6 +314,17 @@
       });
     }
 
+    // Header Cart Trigger to open drawer on every page
+    const cartTriggers = document.querySelectorAll('.samay-cart-trigger, #samayCartTrigger');
+    cartTriggers.forEach(function (trigger) {
+      trigger.addEventListener('click', function (e) {
+        if (window.samayCart && typeof window.samayCart.open === 'function') {
+          e.preventDefault();
+          window.samayCart.open();
+        }
+      });
+    });
+
     // Direct checkout navigation to avoid Shopify POST /cart 302 redirect warning in terminal
     const checkoutForm = document.getElementById('samayCartDrawerForm');
     if (checkoutForm) {

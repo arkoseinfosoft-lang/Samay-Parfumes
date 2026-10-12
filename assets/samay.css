@@ -312,6 +312,7 @@ select {
   color: var(--brown);
   cursor: pointer;
   transition: var(--transition);
+  text-decoration: none;
 }
 
 .samay-cart-trigger:hover {
@@ -2916,6 +2917,41 @@ select {
   text-transform: uppercase;
   color: var(--brown-dark);
   font-weight: 600;
+}
+
+.samay-cart-drawer-card {
+  background: var(--cream);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+.samay-qty-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--border);
+  background: var(--cream2);
+  color: var(--brown);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  line-height: 1;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  user-select: none;
+  padding: 0;
+}
+
+.samay-qty-btn:hover {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--white);
+  transform: translateY(-1px);
 }
 
 .samay-cart-page-grid {

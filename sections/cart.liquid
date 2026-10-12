@@ -1,39 +1,43 @@
 {% comment %}
-  SAMAY PARFUMES - LUXURY DEDICATED CART TEMPLATE (/cart)
-  Mobile-first architecture, responsive line item cards, quantity stepper,
-  free express shipping banner, order notes, and luxury order summary.
+  SAMAY PARFUMES - LUXURY SHOPPING BAG TEMPLATE (/cart)
+  Mobile-first architecture mirroring the slide-out cart drawer look & feel.
+  Works natively without JavaScript (real form to /cart with name="checkout"
+  and direct /cart/change links), enhanced with AJAX via window.samayCart.
 {% endcomment %}
 
-<div class="samay-cart-page" id="samayCartPage">
-  <div class="container">
-    <nav class="samay-breadcrumb" aria-label="Breadcrumb">
+<div class="samay-cart-page-wrapper" id="samayCartPage">
+  <div class="container" style="max-width: 620px; padding: 40px 16px 80px; margin: 0 auto;">
+    <!-- Breadcrumb -->
+    <nav class="samay-breadcrumb" style="margin-bottom: 24px; justify-content: center;" aria-label="Breadcrumb">
       <a href="{{ routes.root_url }}">Home</a>
       <span class="samay-breadcrumb-sep">/</span>
       <span aria-current="page">Shopping Bag</span>
     </nav>
 
-    <div class="samay-cart-page-header">
-      <h1 class="samay-cart-page-title">
-        YOUR SHOPPING BAG
-        {%- if cart.item_count > 0 -%}
-          <span style="font-family: var(--sans); font-size: 1.1rem; color: var(--gold-dark); font-weight: 600; margin-left: 8px;">
-            ({{ cart.item_count }} {% if cart.item_count == 1 %}item{% else %}items{% endif %})
-          </span>
-        {%- endif -%}
-      </h1>
-    </div>
-
-    {%- if cart.item_count > 0 -%}
-      <!-- Free Shipping Banner -->
-      <div class="samay-cart-page-free-shipping">
-        <span>✦</span>
-        <span><strong>FREE EXPRESS SHIPPING ACROSS INDIA</strong> UNLOCKED ON YOUR ORDER</span>
+    <!-- Luxury Cart Container (Drawer-Look Aesthetic) -->
+    <div class="samay-cart-drawer-card">
+      <div class="samay-drawer-header" style="padding: 24px;">
+        <h1 class="samay-drawer-title" style="font-size: 1.5rem; margin: 0;">
+          Shopping Bag
+          {%- if cart.item_count > 0 -%}
+            <span style="font-family: var(--sans); font-size: 0.9rem; color: var(--gold-dark); font-weight: 600; margin-left: 8px;">
+              ({{ cart.item_count }})
+            </span>
+          {%- endif -%}
+        </h1>
       </div>
 
-      <form action="{{ routes.cart_url }}" method="post" id="samayCartPageForm" class="samay-cart-page-form">
-        <div class="samay-cart-page-grid">
-          <!-- Line Items Column -->
-          <div class="samay-cart-page-items">
+      {%- if cart.item_count > 0 -%}
+        <!-- Free Shipping Unlock Banner -->
+        <div style="padding: 16px 20px 0;">
+          <div class="samay-cart-free-shipping" style="margin: 0;">
+            ✦ <strong>FREE EXPRESS SHIPPING ACROSS INDIA</strong> unlocked on your order!
+          </div>
+        </div>
+
+        <!-- Real Form to /cart working with and without JS -->
+        <form action="{{ routes.cart_url }}" method="post" id="samayCartPageForm" style="margin: 0;">
+          <div class="samay-cart-items-body" style="padding: 12px 24px 24px;">
             {%- for item in cart.items -%}
               {%- assign item_img = item.image -%}
               {%- assign fallback_img = 'samay-product-single.webp' | asset_url -%}
@@ -43,243 +47,206 @@
                 {%- assign fallback_img = 'samay-product-trio.webp' | asset_url -%}
               {%- endif -%}
 
-              <div class="samay-cart-page-item" data-line-key="{{ item.key }}">
+              <div class="samay-cart-item" data-line-key="{{ item.key }}" style="align-items: flex-start;">
                 {%- if item_img -%}
-                  <a href="{{ item.url }}">
+                  <a href="{{ item.url }}" style="display: block; flex-shrink: 0;">
                     <img 
-                      src="{{ item_img | image_url: width: 220, height: 220, crop: 'center' }}" 
+                      src="{{ item_img | image_url: width: 160, height: 160, crop: 'center' }}" 
                       alt="{{ item.title | escape }}" 
-                      class="samay-cart-page-item-img"
-                      width="110"
-                      height="110"
+                      class="samay-cart-item-img"
+                      width="72"
+                      height="72"
                       loading="lazy"
                     >
                   </a>
                 {%- else -%}
-                  <a href="{{ item.url }}">
+                  <a href="{{ item.url }}" style="display: block; flex-shrink: 0;">
                     <img 
                       src="{{ fallback_img }}" 
                       alt="{{ item.title | escape }}" 
-                      class="samay-cart-page-item-img"
-                      width="110"
-                      height="110"
+                      class="samay-cart-item-img"
+                      width="72"
+                      height="72"
                       loading="lazy"
                     >
                   </a>
                 {%- endif -%}
 
-                <div class="samay-cart-page-item-info">
-                  <a href="{{ item.url }}" class="samay-cart-page-item-title">
-                    {{ item.product.title }}
+                <div class="samay-cart-item-details">
+                  <a href="{{ item.url }}" style="text-decoration: none; color: inherit;">
+                    <h2 class="samay-cart-item-title" style="margin: 0 0 4px; font-size: 1.15rem; line-height: 1.3;">
+                      {{ item.product.title }}
+                    </h2>
                   </a>
 
                   {%- unless item.product.has_only_default_variant -%}
-                    <div class="samay-cart-page-item-variant">
+                    <div class="samay-cart-item-variant" style="margin-bottom: 8px;">
                       {{ item.variant.title }}
                     </div>
                   {%- endunless -%}
 
-                  <div class="samay-cart-page-item-price">
-                    {{ item.final_price | money }}
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px; flex-wrap: wrap; gap: 8px;">
+                    <span class="samay-cart-item-price">
+                      {{ item.final_price | money }}
+                    </span>
+
+                    <!-- Quantity Stepper (-/+, not a text box) -->
+                    <div class="samay-cart-stepper-wrap" style="display: inline-flex; align-items: center; gap: 6px;">
+                      <a 
+                        href="{{ routes.cart_change_url }}?line={{ forloop.index }}&quantity={{ item.quantity | minus: 1 }}" 
+                        class="samay-qty-btn samay-page-qty-minus" 
+                        data-key="{{ item.key }}" 
+                        data-qty="{{ item.quantity | minus: 1 }}" 
+                        aria-label="Decrease quantity"
+                      >−</a>
+
+                      <span class="samay-cart-qty-display" style="font-size: 0.88rem; font-weight: 600; min-width: 22px; text-align: center; color: var(--brown);">
+                        {{ item.quantity }}
+                      </span>
+
+                      <a 
+                        href="{{ routes.cart_change_url }}?line={{ forloop.index }}&quantity={{ item.quantity | plus: 1 }}" 
+                        class="samay-qty-btn samay-page-qty-plus" 
+                        data-key="{{ item.key }}" 
+                        data-qty="{{ item.quantity | plus: 1 }}" 
+                        aria-label="Increase quantity"
+                      >+</a>
+                    </div>
                   </div>
 
-                  <div class="samay-cart-page-item-controls">
-                    <!-- Interactive Quantity Stepper -->
-                    <div class="samay-qty-stepper" style="height: 40px;">
-                      <button 
-                        type="button" 
-                        class="samay-page-qty-minus" 
-                        data-key="{{ item.key }}" 
-                        data-qty="{{ item.quantity | minus: 1 }}"
-                        aria-label="Decrease quantity"
-                      >−</button>
-                      <input 
-                        type="number" 
-                        name="updates[]" 
-                        id="updates_{{ item.key }}" 
-                        value="{{ item.quantity }}" 
-                        min="0" 
-                        max="99" 
-                        style="width: 40px; font-size: 0.9rem;"
-                        aria-label="Item quantity"
-                      >
-                      <button 
-                        type="button" 
-                        class="samay-page-qty-plus" 
-                        data-key="{{ item.key }}" 
-                        data-qty="{{ item.quantity | plus: 1 }}"
-                        aria-label="Increase quantity"
-                      >+</button>
-                    </div>
-
-                    <div class="samay-cart-page-item-total">
-                      {{ item.final_line_price | money }}
-                    </div>
-
+                  <div style="margin-top: 8px;">
                     <a 
                       href="{{ routes.cart_change_url }}?line={{ forloop.index }}&quantity=0" 
-                      class="samay-cart-page-remove-btn"
+                      class="samay-cart-item-remove samay-page-remove-btn" 
                       data-key="{{ item.key }}"
                       aria-label="Remove {{ item.title | escape }}"
                     >
-                      Remove ✕
+                      Remove
                     </a>
                   </div>
                 </div>
               </div>
             {%- endfor -%}
+          </div>
 
-            <div style="margin-top: 24px; display: flex; justify-content: space-between; align-items: center;">
-              <a href="{{ routes.all_products_collection_url | default: '/collections/all' }}" style="font-size: 0.85rem; color: var(--taupe); text-decoration: none;">
+          <!-- Drawer-Matched Footer with Subtotal & Full-Width Gold Checkout Button -->
+          <div class="samay-drawer-footer">
+            <div class="samay-drawer-subtotal">
+              <span>Subtotal</span>
+              <strong id="samayCartSubtotalVal" style="font-size: 1.25rem; color: var(--brown-dark);">
+                {{ cart.total_price | money }}
+              </strong>
+            </div>
+
+            <div class="samay-drawer-tax-note" style="margin-bottom: 18px; font-size: 0.82rem; color: var(--dim);">
+              All taxes included · Free express shipping across India
+            </div>
+
+            <button 
+              type="submit" 
+              name="checkout" 
+              class="samay-btn samay-btn--gold samay-btn--full" 
+              style="font-size: 0.95rem; padding: 18px 24px; cursor: pointer; border: none; width: 100%;"
+            >
+              PROCEED TO CHECKOUT
+            </button>
+
+            <div style="text-align: center; margin-top: 16px;">
+              <a 
+                href="{{ routes.all_products_collection_url | default: '/collections/all' }}" 
+                style="font-size: 0.84rem; color: var(--taupe); text-decoration: none; transition: color 0.25s ease;"
+                onmouseover="this.style.color='var(--gold-dark)'"
+                onmouseout="this.style.color='var(--taupe)'"
+              >
                 ← Continue Shopping
               </a>
-              <button type="submit" name="update" class="samay-btn samay-btn--outline" style="min-height: 42px; padding: 10px 20px; font-size: 0.76rem;">
-                UPDATE BAG
-              </button>
             </div>
           </div>
+        </form>
 
-          <!-- Order Summary Column -->
-          <div class="samay-cart-summary-col">
-            <div class="samay-cart-summary-card">
-              <h2 class="samay-cart-summary-title">ORDER SUMMARY</h2>
-
-              <div class="samay-cart-summary-row">
-                <span>Items Subtotal</span>
-                <strong>{{ cart.items_subtotal_price | default: cart.total_price | money }}</strong>
-              </div>
-
-              {%- if cart.total_discounts > 0 -%}
-                <div class="samay-cart-summary-row" style="color: #27ae60;">
-                  <span>Savings</span>
-                  <strong>-{{ cart.total_discounts | money }}</strong>
-                </div>
-              {%- endif -%}
-
-              <div class="samay-cart-summary-row">
-                <span>Shipping</span>
-                <span style="color: var(--gold-dark); font-weight: 700;">FREE EXPRESS</span>
-              </div>
-
-              <div class="samay-cart-summary-row" style="border-top: 1px solid var(--border-light); padding-top: 14px;">
-                <span style="font-weight: 700; color: var(--brown-dark);">Estimated Total</span>
-                <span class="samay-cart-summary-total">{{ cart.total_price | money }}</span>
-              </div>
-
-              <div class="samay-cart-summary-note">
-                ✦ Taxes included. Shipping calculated at checkout.<br>
-                ✦ 100% Genuine Artisan Fragrance Guarantee.
-              </div>
-
-              <!-- Gift Note / Special Instructions -->
-              <div>
-                <label for="CartSpecialInstructions" class="samay-cart-note-label">Special Order Instructions / Gift Note</label>
-                <textarea 
-                  name="note" 
-                  id="CartSpecialInstructions" 
-                  class="samay-cart-note-textarea"
-                  placeholder="Optional gift message or courier delivery instructions..."
-                >{{ cart.note }}</textarea>
-              </div>
-
-              <button 
-                type="submit" 
-                name="checkout" 
-                class="samay-btn samay-btn--gold samay-btn--full"
-                style="padding: 18px 24px; font-size: 0.92rem; border: none; cursor: pointer;"
-              >
-                PROCEED TO CHECKOUT
-              </button>
-
-              <div style="text-align: center; margin-top: 8px;">
-                <span style="font-size: 0.78rem; color: var(--dim); letter-spacing: 0.08em; text-transform: uppercase;">
-                  🔒 256-Bit SSL Encrypted Checkout
-                </span>
-                <div style="display: flex; gap: 10px; justify-content: center; margin-top: 8px; font-size: 0.78rem; color: var(--taupe);">
-                  <span>UPI</span>
-                  <span>•</span>
-                  <span>Cash on Delivery</span>
-                  <span>•</span>
-                  <span>Cards</span>
-                  <span>•</span>
-                  <span>NetBanking</span>
-                </div>
-              </div>
-            </div>
-          </div>
+      {%- else -%}
+        <!-- Styled Empty Cart State matching Cart Drawer with link to Collection -->
+        <div style="text-align: center; padding: 60px 24px; color: var(--taupe);">
+          <div style="font-size: 2.8rem; color: var(--gold); margin-bottom: 14px;">⚜</div>
+          <h2 style="font-family: var(--serif); font-size: 1.5rem; color: var(--brown); margin-bottom: 8px;">
+            Your Shopping Bag is Empty
+          </h2>
+          <p style="font-size: 0.92rem; color: var(--dim); margin-bottom: 24px;">
+            Experience the timeless essence of Zayro Eau De Parfum.
+          </p>
+          <a 
+            href="{{ routes.all_products_collection_url | default: '/collections/all' }}" 
+            class="samay-btn samay-btn--gold" 
+            style="padding: 14px 32px; display: inline-flex;"
+          >
+            DISCOVER THE COLLECTION
+          </a>
         </div>
-      </form>
-
-    {%- else -%}
-      <!-- Empty Cart State -->
-      <div class="samay-empty-state">
-        <div class="samay-empty-icon">⚜</div>
-        <h2 class="samay-empty-title">Your Shopping Bag is Empty</h2>
-        <p class="samay-empty-desc">
-          Indulge in the master-crafted formulations of Maison Samay. Discover our signature Zayro Eau De Parfum editions.
-        </p>
-        <a href="{{ routes.root_url }}#collection" class="samay-btn samay-btn--gold">
-          EXPLORE THE COLLECTION
-        </a>
-      </div>
-    {%- endif -%}
+      {%- endif -%}
+    </div>
   </div>
 </div>
 
-<!-- Cart Page AJAX & Client Script -->
+<!-- Progressive Enhancement for AJAX Interception if JS is enabled -->
 <script>
   (function() {
-    function initCartPage() {
-      // Connect Stepper Buttons to window.samayCart.change
+    function initCartPageInteractions() {
       var minusBtns = document.querySelectorAll('.samay-page-qty-minus');
       var plusBtns = document.querySelectorAll('.samay-page-qty-plus');
+      var removeBtns = document.querySelectorAll('.samay-page-remove-btn');
 
-      function updateItemQty(key, targetQty) {
+      function changeItemQuantity(key, targetQty) {
         if (window.samayCart && typeof window.samayCart.change === 'function') {
           window.samayCart.change(key, targetQty).then(function() {
             window.location.reload();
           });
-        } else {
-          // Native form fallback
-          var input = document.getElementById('updates_' + key);
-          if (input) {
-            input.value = targetQty;
-            var form = document.getElementById('samayCartPageForm');
-            if (form) form.submit();
-          }
         }
       }
 
       minusBtns.forEach(function(btn) {
         btn.addEventListener('click', function(e) {
-          e.preventDefault();
-          var key = btn.getAttribute('data-key');
-          var qty = parseInt(btn.getAttribute('data-qty'), 10);
-          updateItemQty(key, qty < 0 ? 0 : qty);
+          if (window.samayCart && typeof window.samayCart.change === 'function') {
+            e.preventDefault();
+            var key = btn.getAttribute('data-key');
+            var qty = parseInt(btn.getAttribute('data-qty'), 10);
+            changeItemQuantity(key, qty < 0 ? 0 : qty);
+          }
         });
       });
 
       plusBtns.forEach(function(btn) {
         btn.addEventListener('click', function(e) {
-          e.preventDefault();
-          var key = btn.getAttribute('data-key');
-          var qty = parseInt(btn.getAttribute('data-qty'), 10);
-          updateItemQty(key, qty);
+          if (window.samayCart && typeof window.samayCart.change === 'function') {
+            e.preventDefault();
+            var key = btn.getAttribute('data-key');
+            var qty = parseInt(btn.getAttribute('data-qty'), 10);
+            changeItemQuantity(key, qty);
+          }
+        });
+      });
+
+      removeBtns.forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+          if (window.samayCart && typeof window.samayCart.change === 'function') {
+            e.preventDefault();
+            var key = btn.getAttribute('data-key');
+            changeItemQuantity(key, 0);
+          }
         });
       });
     }
 
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initCartPage);
+      document.addEventListener('DOMContentLoaded', initCartPageInteractions);
     } else {
-      initCartPage();
+      initCartPageInteractions();
     }
   })();
 </script>
 
 {% schema %}
 {
-  "name": "Luxury Cart Page",
+  "name": "Luxury Shopping Bag",
   "settings": [],
   "disabled_on": {
     "groups": ["header", "footer"]
