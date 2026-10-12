@@ -8,5 +8,11 @@
  * ------------------------------------------------------------
  */
 {
-  "current": {}
+  "current": {
+    "checkout_accent_color": "#c9a96e",
+    "checkout_button_color": "#c9a96e",
+    "checkout_error_color": "#b33939",
+    "checkout_body_background_color": "#f7f2ea",
+    "checkout_sidebar_background_color": "#efe8dc"
+  }
 }

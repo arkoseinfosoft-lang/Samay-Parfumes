@@ -79,5 +79,72 @@
         "default": 4
       }
     ]
+  },
+  {
+    "name": "Checkout",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Logo"
+      },
+      {
+        "type": "image_picker",
+        "id": "checkout_logo_image",
+        "label": "Logo image"
+      },
+      {
+        "type": "select",
+        "id": "checkout_logo_position",
+        "label": "Logo position",
+        "options": [
+          { "value": "left", "label": "Left" },
+          { "value": "center", "label": "Center" },
+          { "value": "right", "label": "Right" }
+        ],
+        "default": "left"
+      },
+      {
+        "type": "header",
+        "content": "Colors"
+      },
+      {
+        "type": "color",
+        "id": "checkout_accent_color",
+        "label": "Accents & Links",
+        "default": "#c9a96e"
+      },
+      {
+        "type": "color",
+        "id": "checkout_button_color",
+        "label": "Primary Buttons",
+        "default": "#c9a96e"
+      },
+      {
+        "type": "color",
+        "id": "checkout_error_color",
+        "label": "Errors",
+        "default": "#b33939"
+      },
+      {
+        "type": "header",
+        "content": "Main content area"
+      },
+      {
+        "type": "color",
+        "id": "checkout_body_background_color",
+        "label": "Background color",
+        "default": "#f7f2ea"
+      },
+      {
+        "type": "header",
+        "content": "Order summary"
+      },
+      {
+        "type": "color",
+        "id": "checkout_sidebar_background_color",
+        "label": "Background color",
+        "default": "#efe8dc"
+      }
+    ]
   }
 ]
