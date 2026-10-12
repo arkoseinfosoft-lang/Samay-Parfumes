@@ -1,49 +1,396 @@
 {% comment %}
-  This section is used in the product template to render product page with
-  media, content, and add-to-cart form.
-
-  https://shopify.dev/docs/storefronts/themes/architecture/templates/product
+  SAMAY PARFUMES - LUXURY PRODUCT DETAIL TEMPLATE (PDP)
+  Mobile-first architecture, rich imagery, variant picker, quantity stepper,
+  AJAX cart integration via window.samayCart, and olfactory accordions.
 {% endcomment %}
 
-<div class="product-images">
-  {% for image in product.images %}
-    {% render 'image', class: 'product-image', image: image %}
-  {% endfor %}
-</div>
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+{%- assign compare_at = current_variant.compare_at_price -%}
+{%- assign price = current_variant.price -%}
+{%- assign on_sale = false -%}
+{%- if compare_at and compare_at > price -%}
+  {%- assign on_sale = true -%}
+  {%- assign discount_percent = compare_at | minus: price | times: 100 | divided_by: compare_at -%}
+{%- endif -%}
 
-<div class="product-info">
-  <h1>{{ product.title }}</h1>
-  <p>{{ product.price | money }}</p>
-  <p>{{ product.description }}</p>
-</div>
+{%- assign fallback_img = 'samay-product-single.webp' | asset_url -%}
+{%- if product.handle contains 'duo' -%}
+  {%- assign fallback_img = 'samay-product-duo.webp' | asset_url -%}
+{%- elsif product.handle contains 'trio' -%}
+  {%- assign fallback_img = 'samay-product-trio.webp' | asset_url -%}
+{%- endif -%}
 
-<div class="product-form">
-  {% form 'product', product %}
-    {% assign current_variant = product.selected_or_first_available_variant %}
+<section class="samay-pdp-section" id="samayPdpSection" data-product-id="{{ product.id }}">
+  <div class="container">
+    <!-- Breadcrumb -->
+    <nav class="samay-breadcrumb" aria-label="Breadcrumb">
+      <a href="{{ routes.root_url }}">Home</a>
+      <span class="samay-breadcrumb-sep">/</span>
+      <a href="{{ routes.all_products_collection_url | default: '/collections/all' }}">Collections</a>
+      <span class="samay-breadcrumb-sep">/</span>
+      <span aria-current="page">{{ product.title }}</span>
+    </nav>
 
-    <select name="id">
-      {% for variant in product.variants %}
-        <option
-          value="{{ variant.id }}"
-          {% if variant == current_variant %}
-            selected="selected"
-          {% endif %}
-        >
-          {{ variant.title }} - {{ variant.price | money }}
-        </option>
-      {% endfor %}
-    </select>
+    <div class="samay-pdp-grid">
+      <!-- Media Gallery -->
+      <div class="samay-pdp-gallery">
+        <div class="samay-pdp-main-media">
+          <span class="samay-pdp-badge">✦ EAU DE PARFUM · 50ML</span>
+          {%- if product.featured_image -%}
+            <img 
+              id="samayPdpMainImg"
+              src="{{ product.featured_image | image_url: width: 1024 }}" 
+              alt="{{ product.title | escape }}" 
+              class="samay-pdp-main-img"
+              width="1024"
+              height="1024"
+              loading="eager"
+            >
+          {%- else -%}
+            <img 
+              id="samayPdpMainImg"
+              src="{{ fallback_img }}" 
+              alt="{{ product.title | escape }}" 
+              class="samay-pdp-main-img"
+              width="1024"
+              height="1024"
+              loading="eager"
+            >
+          {%- endif -%}
+        </div>
 
-    <input type="text" name="quantity" min="1" value="1">
+        {%- if product.images.size > 1 -%}
+          <div class="samay-pdp-thumbs" id="samayPdpThumbs" role="tablist" aria-label="Product Gallery Thumbnails">
+            {%- for img in product.images -%}
+              <button 
+                type="button" 
+                class="samay-pdp-thumb-btn {% if forloop.first %}is-active{% endif %}"
+                data-image-src="{{ img | image_url: width: 1024 }}"
+                aria-label="View product image {{ forloop.index }}"
+              >
+                <img src="{{ img | image_url: width: 150, height: 150, crop: 'center' }}" alt="{{ img.alt | default: product.title | escape }}" width="72" height="72" loading="lazy">
+              </button>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
 
-    <input type="submit" value="Add to cart">
-    {{ form | payment_button }}
-  {% endform %}
-</div>
+      <!-- Product Information & Order Actions -->
+      <div class="samay-pdp-details">
+        <div class="samay-pdp-kicker">MAISON SAMAY · ARTISAN PERFUMERY</div>
+        <h1 class="samay-pdp-title">{{ product.title }}</h1>
+        
+        <div class="samay-pdp-rating">
+          <span class="samay-pdp-stars">★★★★★</span>
+          <span>4.9 / 5.0 · Proven 6-8 Hours Longevity</span>
+        </div>
+
+        <!-- Price Row -->
+        <div class="samay-pdp-price-row">
+          <span class="samay-pdp-price" id="samayPdpPrice">{{ price | money }}</span>
+          <span class="samay-pdp-compare" id="samayPdpCompare" style="{% unless on_sale %}display: none;{% endunless %}">
+            {{ compare_at | money }}
+          </span>
+          <span class="samay-pdp-save-badge" id="samayPdpDiscount" style="{% unless on_sale %}display: none;{% endunless %}">
+            -{{ discount_percent }}% OFF
+          </span>
+        </div>
+
+        <div class="samay-pdp-shipping-badge">
+          <span>✦</span>
+          <span><strong>Free Express Shipping across India</strong> · Inclusive of all taxes</span>
+        </div>
+
+        {%- if product.description != blank -%}
+          <div class="samay-pdp-desc">
+            {{ product.description }}
+          </div>
+        {%- else -%}
+          <p class="samay-pdp-desc">
+            Handcrafted with authentic Grasse bergamot, master-distilled florals, and aged oriental amber oud. Zayro is formulated with a potent 15-20% pure perfume oil concentration to command presence and leave an indelible olfactory impression.
+          </p>
+        {%- endif -%}
+
+        <!-- Add to Cart Form -->
+        {%- form 'product', product, id: 'samayProductForm', class: 'samay-pdp-form' -%}
+          <!-- Hidden Variant Select for Native Fallback -->
+          <select name="id" id="samayVariantSelect" style="display: none;">
+            {%- for variant in product.variants -%}
+              <option 
+                value="{{ variant.id }}"
+                {% if variant == current_variant %}selected="selected"{% endif %}
+                data-price="{{ variant.price | money }}"
+                data-compare="{{ variant.compare_at_price | money }}"
+                data-raw-price="{{ variant.price }}"
+                data-raw-compare="{{ variant.compare_at_price }}"
+                data-available="{{ variant.available }}"
+              >
+                {{ variant.title }}
+              </option>
+            {%- endfor -%}
+          </select>
+
+          <!-- Interactive Variant Pills (if more than 1 variant) -->
+          {%- if product.variants.size > 1 -%}
+            <div class="samay-pdp-variants">
+              <span class="samay-pdp-label">Select Edition</span>
+              <div class="samay-variant-pills" id="samayVariantPills">
+                {%- for variant in product.variants -%}
+                  <button 
+                    type="button" 
+                    class="samay-variant-pill {% if variant == current_variant %}is-active{% endif %}"
+                    data-variant-id="{{ variant.id }}"
+                    data-available="{{ variant.available }}"
+                  >
+                    {{ variant.title }}
+                  </button>
+                {%- endfor -%}
+              </div>
+            </div>
+          {%- endif -%}
+
+          <!-- Quantity Stepper & Add to Cart -->
+          <div class="samay-pdp-actions">
+            <div class="samay-pdp-qty-row">
+              <div class="samay-qty-stepper">
+                <button type="button" id="samayPdpQtyMinus" aria-label="Decrease quantity">−</button>
+                <input type="number" id="samayPdpQtyInput" name="quantity" value="1" min="1" max="99" aria-label="Product Quantity">
+                <button type="button" id="samayPdpQtyPlus" aria-label="Increase quantity">+</button>
+              </div>
+
+              <button 
+                type="button" 
+                id="samayPdpAddToCartBtn"
+                class="samay-btn samay-btn--gold samay-pdp-add-btn"
+                {% unless current_variant.available %}disabled="disabled"{% endunless %}
+              >
+                {%- if current_variant.available -%}
+                  ADD TO SHOPPING BAG
+                {%- else -%}
+                  OUT OF STOCK
+                {%- endif -%}
+              </button>
+            </div>
+
+            {{ form | payment_button }}
+          </div>
+        {%- endform -%}
+
+        <!-- Trust Badges Strip -->
+        <div class="samay-pdp-trust">
+          <div class="samay-pdp-trust-item">
+            <span>✦</span>
+            <span>Free Express Courier</span>
+          </div>
+          <div class="samay-pdp-trust-item">
+            <span>⌛</span>
+            <span>6-8 Hours Longevity</span>
+          </div>
+          <div class="samay-pdp-trust-item">
+            <span>⚜</span>
+            <span>15-20% Perfume Oil</span>
+          </div>
+          <div class="samay-pdp-trust-item">
+            <span>🛡</span>
+            <span>IFRA Skin Safe</span>
+          </div>
+        </div>
+
+        <!-- Luxury Accordions for Olfactory Notes & Details -->
+        <div class="samay-pdp-accordions" id="samayPdpAccordions">
+          <!-- Accordion 1: Olfactory Pyramid -->
+          <div class="samay-accordion is-open">
+            <button type="button" class="samay-accordion-trigger" aria-expanded="true">
+              <span>Olfactory Pyramid & Notes</span>
+              <span class="samay-accordion-icon">+</span>
+            </button>
+            <div class="samay-accordion-body">
+              <p style="margin-bottom: 10px;">
+                <strong>Top Notes:</strong> Italian Sun-Drenched Bergamot, Sparkling Lemon Zest, Crisp Green Apple.<br>
+                <strong>Heart Notes:</strong> French Provençal Lavender, Birch Wood, Violet Leaf.<br>
+                <strong>Base Notes:</strong> Aged Oriental Amber Crystals, Smoked Cedarwood, Sensual White Musk.
+              </p>
+              <p style="font-size: 0.85rem; color: var(--dim); margin: 0;">
+                Designed to evolve dynamically over 8 hours from radiant citrus to an addictive warm oriental trail.
+              </p>
+            </div>
+          </div>
+
+          <!-- Accordion 2: Performance & Application -->
+          <div class="samay-accordion">
+            <button type="button" class="samay-accordion-trigger" aria-expanded="false">
+              <span>Performance & Longevity</span>
+              <span class="samay-accordion-icon">+</span>
+            </button>
+            <div class="samay-accordion-body">
+              <p>
+                Concentrated at an authentic 15-20% pure oil ratio (Eau de Parfum grade). Delivers 6 to 8 hours of proven skin longevity with moderate to strong projection for the first 3 hours. Apply 3-4 sprays to pulse points (neck, collarbones, inner wrists) for optimal sillage.
+              </p>
+            </div>
+          </div>
+
+          <!-- Accordion 3: Delivery & Complimentary Shipping -->
+          <div class="samay-accordion">
+            <button type="button" class="samay-accordion-trigger" aria-expanded="false">
+              <span>Shipping & Delivery across India</span>
+              <span class="samay-accordion-icon">+</span>
+            </button>
+            <div class="samay-accordion-body">
+              <p>
+                Express courier delivery is 100% complimentary across all pin codes in India. Metro cities receive dispatch in 24 hours with arrival in 2-3 business days. All orders ship with secure packaging and real-time SMS tracking updates.
+              </p>
+            </div>
+          </div>
+
+          <!-- Accordion 4: Artisan Flacon & Packaging -->
+          <div class="samay-accordion">
+            <button type="button" class="samay-accordion-trigger" aria-expanded="false">
+              <span>Flacon & Presentation</span>
+              <span class="samay-accordion-icon">+</span>
+            </button>
+            <div class="samay-accordion-body">
+              <p>
+                Each flacon is cast from heavyweight crystal glass embossed with the timeless Samay pocket-watch emblem, crowned by a satisfying magnetic closure and Italian micro-mist atomiser. Presented in an embossed gold-foil gift presentation box.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PDP Interactive Client Logic -->
+<script>
+  (function() {
+    function initPdp() {
+      // 1. Gallery Thumbnail Click
+      var thumbs = document.querySelectorAll('.samay-pdp-thumb-btn');
+      var mainImg = document.getElementById('samayPdpMainImg');
+      if (thumbs.length && mainImg) {
+        thumbs.forEach(function(btn) {
+          btn.addEventListener('click', function() {
+            thumbs.forEach(function(b) { b.classList.remove('is-active'); });
+            btn.classList.add('is-active');
+            var newSrc = btn.getAttribute('data-image-src');
+            if (newSrc) {
+              mainImg.src = newSrc;
+            }
+          });
+        });
+      }
+
+      // 2. Quantity Stepper
+      var minusBtn = document.getElementById('samayPdpQtyMinus');
+      var plusBtn = document.getElementById('samayPdpQtyPlus');
+      var qtyInput = document.getElementById('samayPdpQtyInput');
+      if (minusBtn && plusBtn && qtyInput) {
+        minusBtn.addEventListener('click', function() {
+          var val = parseInt(qtyInput.value, 10) || 1;
+          if (val > 1) qtyInput.value = val - 1;
+        });
+        plusBtn.addEventListener('click', function() {
+          var val = parseInt(qtyInput.value, 10) || 1;
+          if (val < 99) qtyInput.value = val + 1;
+        });
+      }
+
+      // 3. Variant Pills Selection
+      var pills = document.querySelectorAll('.samay-variant-pill');
+      var select = document.getElementById('samayVariantSelect');
+      var priceEl = document.getElementById('samayPdpPrice');
+      var compareEl = document.getElementById('samayPdpCompare');
+      var discountEl = document.getElementById('samayPdpDiscount');
+      var addBtn = document.getElementById('samayPdpAddToCartBtn');
+
+      if (pills.length && select) {
+        pills.forEach(function(pill) {
+          pill.addEventListener('click', function() {
+            pills.forEach(function(p) { p.classList.remove('is-active'); });
+            pill.classList.add('is-active');
+            var varId = pill.getAttribute('data-variant-id');
+            select.value = varId;
+
+            var opt = select.querySelector('option[value="' + varId + '"]');
+            if (opt) {
+              var priceText = opt.getAttribute('data-price');
+              var compareText = opt.getAttribute('data-compare');
+              var rawPrice = parseFloat(opt.getAttribute('data-raw-price')) || 0;
+              var rawCompare = parseFloat(opt.getAttribute('data-raw-compare')) || 0;
+              var isAvail = opt.getAttribute('data-available') === 'true';
+
+              if (priceEl && priceText) priceEl.textContent = priceText;
+              if (compareEl) {
+                if (rawCompare > rawPrice) {
+                  compareEl.textContent = compareText;
+                  compareEl.style.display = 'inline';
+                  if (discountEl) {
+                    var pct = Math.round(((rawCompare - rawPrice) / rawCompare) * 100);
+                    discountEl.textContent = '-' + pct + '% OFF';
+                    discountEl.style.display = 'inline';
+                  }
+                } else {
+                  compareEl.style.display = 'none';
+                  if (discountEl) discountEl.style.display = 'none';
+                }
+              }
+
+              if (addBtn) {
+                if (isAvail) {
+                  addBtn.disabled = false;
+                  addBtn.textContent = 'ADD TO SHOPPING BAG';
+                } else {
+                  addBtn.disabled = true;
+                  addBtn.textContent = 'OUT OF STOCK';
+                }
+              }
+            }
+          });
+        });
+      }
+
+      // 4. Add to Cart with window.samayCart
+      if (addBtn) {
+        addBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          var variantId = select ? select.value : '{{ current_variant.id }}';
+          var qty = qtyInput ? (parseInt(qtyInput.value, 10) || 1) : 1;
+
+          if (window.samayCart && typeof window.samayCart.add === 'function') {
+            window.samayCart.add(variantId, qty);
+          } else {
+            // Fallback native submit
+            var form = document.getElementById('samayProductForm');
+            if (form) form.submit();
+          }
+        });
+      }
+
+      // 5. Accordion Toggles
+      var accordions = document.querySelectorAll('.samay-accordion');
+      accordions.forEach(function(acc) {
+        var trigger = acc.querySelector('.samay-accordion-trigger');
+        if (trigger) {
+          trigger.addEventListener('click', function() {
+            var isOpen = acc.classList.contains('is-open');
+            acc.classList.toggle('is-open', !isOpen);
+            trigger.setAttribute('aria-expanded', !isOpen);
+          });
+        }
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initPdp);
+    } else {
+      initPdp();
+    }
+  })();
+</script>
 
 {% schema %}
 {
-  "name": "t:general.product",
+  "name": "Luxury Product Detail",
   "settings": [],
   "disabled_on": {
     "groups": ["header", "footer"]

@@ -1,47 +1,153 @@
 {% comment %}
-  This section is used in the collection template to render collection page
-  listing all products within a collection.
-
-  https://shopify.dev/docs/storefronts/themes/architecture/templates/collection
+  SAMAY PARFUMES - LUXURY COLLECTION TEMPLATE
+  Mobile-first architecture, reusing ep-grid and ep-card luxury styling,
+  price + compare-at, discount badge, and window.samayCart AJAX add-to-bag.
 {% endcomment %}
 
-<h1>{{ collection.title }}</h1>
+<div class="samay-collection-page" id="samayCollectionPage">
+  <!-- Collection Hero Banner -->
+  <section class="samay-collection-hero">
+    <div class="container">
+      <nav class="samay-breadcrumb" style="justify-content: center; margin-bottom: 16px;" aria-label="Breadcrumb">
+        <a href="{{ routes.root_url }}">Home</a>
+        <span class="samay-breadcrumb-sep">/</span>
+        <span aria-current="page">{{ collection.title | default: 'Signature Collection' }}</span>
+      </nav>
 
-<div class="collection-products">
-  {% paginate collection.products by 20 %}
-    {% for product in collection.products %}
-      <div class="collection-product">
-        {% if product.featured_image %}
-          {% render 'image',
-            class: 'collection-product__image',
-            image: product.featured_image,
-            url: product.url,
-            width: 400,
-            height: 400,
-            crop: 'center'
-          %}
-        {% endif %}
-        <div class="collection-product__content">
-          <p>{{ product.title | escape | link_to: product.url }}</p>
-          <p>{{ product.price | money }}</p>
-        </div>
+      <div class="samay-collection-kicker">MAISON SAMAY · ARTISAN HAUTE PARFUMERIE</div>
+      <h1 class="samay-collection-title">{{ collection.title | default: 'THE SIGNATURE EDITIONS' }}</h1>
+
+      <p class="samay-collection-desc">
+        {%- if collection.description != blank -%}
+          {{ collection.description }}
+        {%- else -%}
+          Handcrafted with aged oriental amber oud and master-distilled French essences. Each edition is formulated at 15-20% pure perfume oil concentration to deliver an enduring 6-8 hour signature trail.
+        {%- endif -%}
+      </p>
+
+      <div class="samay-collection-meta">
+        <span>✦</span>
+        <span>{{ collection.products_count }} Fragrance Editions · Free Express Shipping across India</span>
       </div>
-    {% endfor %}
+    </div>
+  </section>
 
-    {{ paginate | default_pagination }}
-  {% endpaginate %}
+  <!-- Collection Products Grid -->
+  <section class="samay-collection-body">
+    <div class="container">
+      {%- paginate collection.products by 24 -%}
+        {%- if collection.products.size > 0 -%}
+          <div class="ep-grid" id="samayCollectionGrid">
+            {%- for product in collection.products -%}
+              {%- assign variant = product.selected_or_first_available_variant -%}
+              {%- assign price = variant.price -%}
+              {%- assign compare_at = nil -%}
+              {%- assign discount_percent = 0 -%}
+              {%- if variant.compare_at_price and variant.compare_at_price > price -%}
+                {%- assign compare_at = variant.compare_at_price -%}
+                {%- assign diff = compare_at | minus: price -%}
+                {%- assign discount_percent = diff | times: 100 | divided_by: compare_at -%}
+              {%- endif -%}
+
+              {%- assign product_img = product.featured_image | default: product.images.first -%}
+              {%- assign fallback_img = 'samay-product-single.webp' | asset_url -%}
+              {%- if product.handle contains 'duo' -%}
+                {%- assign fallback_img = 'samay-product-duo.webp' | asset_url -%}
+              {%- elsif product.handle contains 'trio' -%}
+                {%- assign fallback_img = 'samay-product-trio.webp' | asset_url -%}
+              {%- endif -%}
+
+              <article class="ep-card" data-product-id="{{ product.id }}" data-variant-id="{{ variant.id }}">
+                <div class="ep-media">
+                  <div class="ep-media__viewport">
+                    <div class="ep-media__inner">
+                      {%- if product_img -%}
+                        <img 
+                          src="{{ product_img | image_url: width: 800, height: 800, crop: 'center' }}" 
+                          alt="{{ product.title | escape }}" 
+                          class="ep-img"
+                          loading="lazy"
+                          width="800"
+                          height="800"
+                        >
+                      {%- else -%}
+                        <img 
+                          src="{{ fallback_img }}" 
+                          alt="{{ product.title | escape }}" 
+                          class="ep-img"
+                          loading="lazy"
+                          width="800"
+                          height="800"
+                        >
+                      {%- endif -%}
+                    </div>
+                  </div>
+                </div>
+
+                <div class="ep-info">
+                  <a href="{{ product.url }}" class="ep-title-link">{{ product.title | upcase }}</a>
+
+                  <div class="ep-price-row">
+                    <span class="ep-price">{{ price | money }}</span>
+                    {%- if compare_at and compare_at > price -%}
+                      <span class="ep-price-compare">{{ compare_at | money }}</span>
+                      <span class="ep-price-discount">-{{ discount_percent }}%</span>
+                    {%- endif -%}
+                  </div>
+
+                  <div style="font-size: 0.78rem; color: var(--taupe); display: flex; align-items: center; gap: 6px;">
+                    <span>✦</span>
+                    <span>15-20% Perfume Oil · 6-8h Longevity</span>
+                  </div>
+
+                  <button 
+                    type="button" 
+                    class="ep-add samay-add-cart-btn" 
+                    data-variant-id="{{ variant.id }}"
+                    onclick="window.samayCart && window.samayCart.add({{ variant.id }}, 1)"
+                    {% unless variant.available %}disabled="disabled" style="opacity: 0.6; cursor: not-allowed;"{% endunless %}
+                  >
+                    {%- if variant.available -%}
+                      ADD TO SHOPPING BAG
+                    {%- else -%}
+                      OUT OF STOCK
+                    {%- endif -%}
+                  </button>
+                </div>
+              </article>
+            {%- endfor -%}
+          </div>
+
+          {%- if paginate.pages > 1 -%}
+            <div style="margin-top: 50px; text-align: center;">
+              {{ paginate | default_pagination }}
+            </div>
+          {%- endif -%}
+
+        {%- else -%}
+          <!-- Empty Collection Fallback -->
+          <div class="samay-empty-state">
+            <div class="samay-empty-icon">⚜</div>
+            <h2 class="samay-empty-title">No Fragrances Found</h2>
+            <p class="samay-empty-desc">
+              We are currently preparing the next limited batch distillation for this edition.
+            </p>
+            <a href="{{ routes.root_url }}#collection" class="samay-btn samay-btn--gold">
+              VIEW SIGNATURE EDITIONS
+            </a>
+          </div>
+        {%- endif -%}
+      {%- endpaginate -%}
+    </div>
+  </section>
 </div>
-
-{% stylesheet %}
-  .collection-products {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
-  }
-{% endstylesheet %}
 
 {% schema %}
 {
-  "name": "t:general.collection",
-  "settings": []
+  "name": "Luxury Collection",
+  "settings": [],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  }
 }
 {% endschema %}

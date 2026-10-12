@@ -2383,3 +2383,744 @@ select {
     display: none !important;
   }
 }
+
+/* ==========================================================================
+   SAMAY LUXURY TEMPLATES - PDP, COLLECTION, & CART
+   ========================================================================== */
+
+/* Breadcrumbs */
+.samay-breadcrumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-family: var(--sans);
+  font-size: 0.76rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  margin-bottom: 24px;
+}
+
+.samay-breadcrumb a {
+  color: var(--taupe);
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+.samay-breadcrumb a:hover {
+  color: var(--gold-dark);
+}
+
+.samay-breadcrumb-sep {
+  color: var(--dim);
+}
+
+/* --------------------------------------------------------------------------
+   PRODUCT DETAIL PAGE (PDP) - MOBILE FIRST
+   -------------------------------------------------------------------------- */
+.samay-pdp-section {
+  padding: 40px 0 80px;
+  background-color: var(--cream);
+  min-height: 80vh;
+}
+
+.samay-pdp-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 36px;
+}
+
+@media screen and (min-width: 992px) {
+  .samay-pdp-grid {
+    grid-template-columns: 1.05fr 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+}
+
+/* PDP Media Gallery */
+.samay-pdp-gallery {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.samay-pdp-main-media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: var(--cream2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+
+.samay-pdp-main-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.samay-pdp-badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: var(--brown-dark);
+  color: var(--gold-light);
+  border: 1px solid var(--gold);
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 6px 12px;
+  border-radius: var(--radius-xs);
+  z-index: 2;
+  box-shadow: 0 4px 12px rgba(27, 19, 9, 0.3);
+}
+
+.samay-pdp-thumbs {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.samay-pdp-thumb-btn {
+  width: 72px;
+  height: 72px;
+  flex-shrink: 0;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--border);
+  background: var(--cream2);
+  overflow: hidden;
+  padding: 0;
+  cursor: pointer;
+  transition: border-color 0.25s ease, transform 0.25s ease;
+}
+
+.samay-pdp-thumb-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.samay-pdp-thumb-btn.is-active,
+.samay-pdp-thumb-btn:hover {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 2px rgba(201, 169, 110, 0.4);
+  transform: translateY(-2px);
+}
+
+/* PDP Details Column */
+.samay-pdp-details {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.samay-pdp-kicker {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+  margin-bottom: -10px;
+}
+
+.samay-pdp-title {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 3.8vw, 3.2rem);
+  font-weight: 400;
+  line-height: 1.12;
+  color: var(--brown-dark);
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.samay-pdp-rating {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.85rem;
+  color: var(--taupe);
+}
+
+.samay-pdp-stars {
+  color: var(--gold);
+  letter-spacing: 2px;
+  font-size: 1rem;
+}
+
+.samay-pdp-price-row {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 14px 0;
+  border-top: 1px solid var(--border-light);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.samay-pdp-price {
+  font-family: var(--sans);
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: var(--brown-dark);
+}
+
+.samay-pdp-compare {
+  font-size: 1.15rem;
+  color: var(--dim);
+  text-decoration: line-through;
+}
+
+.samay-pdp-save-badge {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--brown-dark);
+  background: var(--gold-light);
+  border: 1px solid var(--gold);
+  padding: 4px 10px;
+  border-radius: var(--radius-xs);
+  text-transform: uppercase;
+}
+
+.samay-pdp-shipping-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.84rem;
+  color: var(--taupe);
+  background: rgba(201, 169, 110, 0.1);
+  padding: 8px 14px;
+  border-radius: var(--radius-xs);
+  border: 1px solid rgba(201, 169, 110, 0.25);
+}
+
+.samay-pdp-desc {
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: var(--taupe);
+  margin: 0;
+}
+
+/* Variant Selector */
+.samay-pdp-variants {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.samay-pdp-label {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--brown);
+}
+
+.samay-variant-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.samay-variant-pill {
+  padding: 10px 20px;
+  background: var(--cream-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xs);
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--brown);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.samay-variant-pill:hover {
+  border-color: var(--gold);
+}
+
+.samay-variant-pill.is-active {
+  background: rgba(201, 169, 110, 0.15);
+  border-color: var(--gold-dark);
+  color: var(--brown-dark);
+  box-shadow: 0 0 0 1px var(--gold-dark);
+}
+
+/* Quantity Stepper & Actions */
+.samay-pdp-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.samay-pdp-qty-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.samay-qty-stepper {
+  display: inline-flex;
+  align-items: center;
+  background: var(--cream-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xs);
+  height: 52px;
+}
+
+.samay-qty-stepper button {
+  width: 44px;
+  height: 100%;
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--brown);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+.samay-qty-stepper button:hover {
+  background: var(--cream2);
+  color: var(--gold-dark);
+}
+
+.samay-qty-stepper input {
+  width: 48px;
+  height: 100%;
+  border: none;
+  background: transparent;
+  text-align: center;
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--brown-dark);
+  padding: 0;
+  -moz-appearance: textfield;
+}
+
+.samay-qty-stepper input::-webkit-outer-spin-button,
+.samay-qty-stepper input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.samay-pdp-add-btn {
+  flex: 1;
+  min-height: 52px;
+  font-size: 0.88rem;
+  letter-spacing: 0.22em;
+}
+
+/* Trust Badges Strip on PDP */
+.samay-pdp-trust {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  padding: 18px 0;
+  border-top: 1px solid var(--border-light);
+  border-bottom: 1px solid var(--border-light);
+  margin-top: 6px;
+}
+
+@media screen and (min-width: 600px) {
+  .samay-pdp-trust {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.samay-pdp-trust-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  font-weight: 600;
+}
+
+.samay-pdp-trust-item span:first-child {
+  color: var(--gold-dark);
+  font-size: 1rem;
+}
+
+/* Accordions */
+.samay-pdp-accordions {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.samay-accordion {
+  border-top: 1px solid var(--border-light);
+}
+
+.samay-accordion-trigger {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--sans);
+  font-size: 0.86rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--brown-dark);
+  transition: color 0.25s ease;
+}
+
+.samay-accordion-trigger:hover {
+  color: var(--gold-dark);
+}
+
+.samay-accordion-icon {
+  font-size: 1.2rem;
+  font-weight: 300;
+  color: var(--gold);
+  transition: transform 0.3s ease;
+}
+
+.samay-accordion.is-open .samay-accordion-icon {
+  transform: rotate(45deg);
+}
+
+.samay-accordion-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease, padding 0.35s ease;
+  font-size: 0.92rem;
+  line-height: 1.75;
+  color: var(--taupe);
+}
+
+.samay-accordion.is-open .samay-accordion-body {
+  max-height: 600px;
+  padding-bottom: 20px;
+}
+
+/* --------------------------------------------------------------------------
+   COLLECTION TEMPLATE - MOBILE FIRST
+   -------------------------------------------------------------------------- */
+.samay-collection-hero {
+  padding: 60px 0 36px;
+  text-align: center;
+  background: var(--cream2);
+  border-bottom: 1px solid var(--border);
+}
+
+.samay-collection-kicker {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+  margin-bottom: 12px;
+}
+
+.samay-collection-title {
+  font-family: var(--serif);
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-weight: 300;
+  text-transform: uppercase;
+  color: var(--brown-dark);
+  margin: 0;
+  line-height: 1.08;
+}
+
+.samay-collection-desc {
+  max-width: 680px;
+  margin: 16px auto 0;
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--taupe);
+}
+
+.samay-collection-meta {
+  margin-top: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--dim);
+  border: 1px solid var(--border);
+  padding: 6px 14px;
+  border-radius: var(--radius-xs);
+  background: var(--cream-card);
+}
+
+.samay-collection-body {
+  padding: 50px 0 90px;
+}
+
+/* --------------------------------------------------------------------------
+   CART PAGE (/cart) - MOBILE FIRST
+   -------------------------------------------------------------------------- */
+.samay-cart-page {
+  padding: 40px 0 80px;
+  min-height: 80vh;
+}
+
+.samay-cart-page-header {
+  margin-bottom: 28px;
+  text-align: left;
+}
+
+.samay-cart-page-title {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 400;
+  text-transform: uppercase;
+  color: var(--brown-dark);
+  margin: 0;
+  line-height: 1.1;
+}
+
+.samay-cart-page-free-shipping {
+  margin: 20px 0 30px;
+  background: linear-gradient(90deg, rgba(201, 169, 110, 0.18), rgba(223, 200, 158, 0.12));
+  border: 1px solid var(--gold);
+  border-radius: var(--radius-xs);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brown-dark);
+  font-weight: 600;
+}
+
+.samay-cart-page-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 36px;
+}
+
+@media screen and (min-width: 960px) {
+  .samay-cart-page-grid {
+    grid-template-columns: 1.8fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+}
+
+.samay-cart-page-items {
+  display: flex;
+  flex-direction: column;
+}
+
+.samay-cart-page-item {
+  display: flex;
+  gap: 18px;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.samay-cart-page-item-img {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--border);
+  background: var(--cream2);
+  flex-shrink: 0;
+}
+
+@media screen and (min-width: 600px) {
+  .samay-cart-page-item-img {
+    width: 110px;
+    height: 110px;
+  }
+}
+
+.samay-cart-page-item-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.samay-cart-page-item-title {
+  font-family: var(--sans);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--brown-dark);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  transition: color 0.25s ease;
+}
+
+.samay-cart-page-item-title:hover {
+  color: var(--gold-dark);
+}
+
+.samay-cart-page-item-variant {
+  font-size: 0.82rem;
+  color: var(--taupe);
+}
+
+.samay-cart-page-item-price {
+  font-weight: 600;
+  color: var(--brown);
+  font-size: 0.92rem;
+}
+
+.samay-cart-page-item-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.samay-cart-page-remove-btn {
+  background: transparent;
+  border: none;
+  font-size: 0.78rem;
+  color: var(--dim);
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.2s ease;
+}
+
+.samay-cart-page-remove-btn:hover {
+  color: #b33939;
+}
+
+.samay-cart-page-item-total {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--brown-dark);
+}
+
+/* Cart Summary Card */
+.samay-cart-summary-card {
+  background: var(--cream-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 28px;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.samay-cart-summary-title {
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+  margin: 0;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.samay-cart-summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.92rem;
+  color: var(--taupe);
+}
+
+.samay-cart-summary-total {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--brown-dark);
+}
+
+.samay-cart-summary-note {
+  font-size: 0.82rem;
+  color: var(--dim);
+  line-height: 1.5;
+}
+
+.samay-cart-note-label {
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--brown);
+  margin-top: 6px;
+  display: block;
+}
+
+.samay-cart-note-textarea {
+  width: 100%;
+  background: var(--cream2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xs);
+  padding: 10px;
+  font-family: var(--sans);
+  font-size: 0.88rem;
+  color: var(--brown);
+  resize: vertical;
+  min-height: 60px;
+}
+
+.samay-cart-note-textarea:focus {
+  outline: none;
+  border-color: var(--gold);
+}
+
+/* Empty State */
+.samay-empty-state {
+  text-align: center;
+  padding: 70px 20px;
+  max-width: 540px;
+  margin: 0 auto;
+}
+
+.samay-empty-icon {
+  font-size: 3rem;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+
+.samay-empty-title {
+  font-family: var(--serif);
+  font-size: 2rem;
+  font-weight: 400;
+  color: var(--brown-dark);
+  margin-bottom: 10px;
+}
+
+.samay-empty-desc {
+  font-size: 0.95rem;
+  color: var(--taupe);
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
