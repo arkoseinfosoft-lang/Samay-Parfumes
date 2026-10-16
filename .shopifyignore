@@ -11,3 +11,9 @@
 #
 # Ignore templates and sections with a regular expression:
 #   /(templates|sections)/.*\.json/
+
+# Temporary files created by CLI tools (e.g. sed) or editors
+**/sed*
+**/*.tmp
+**/*.swp
+**/*~
