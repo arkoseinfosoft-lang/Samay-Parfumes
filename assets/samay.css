@@ -2113,8 +2113,8 @@ select {
   }
 
   .ep-carousel-arrow {
-    width: 38px;
-    height: 38px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
     border: 1px solid var(--border, #ddd0bc);
     background: var(--cream-card, #fdfbf7);
@@ -2126,6 +2126,8 @@ select {
     transition: all 0.2s ease;
     box-shadow: 0 2px 8px rgba(44, 31, 14, 0.06);
     padding: 0;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .ep-carousel-arrow:active {
@@ -2143,10 +2145,12 @@ select {
   .ep-carousel-dots {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
+    padding: 4px 0;
   }
 
   .ep-carousel-dot {
+    position: relative;
     width: 8px;
     height: 8px;
     border-radius: 4px;
@@ -2155,6 +2159,18 @@ select {
     cursor: pointer;
     padding: 0;
     transition: width 0.25s ease, background 0.25s ease;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .ep-carousel-dot::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(100% + 10px);
+    height: 44px;
   }
 
   .ep-carousel-dot.is-active {
