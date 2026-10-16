@@ -101,15 +101,37 @@
           <span><strong>Free Express Shipping across India</strong> · Inclusive of all taxes</span>
         </div>
 
-        {%- if product.description != blank -%}
-          <div class="samay-pdp-desc">
-            {{ product.description }}
+        <!-- Product Description Dropdown (Amazon-style on mobile) -->
+        <div class="samay-pdp-desc-wrap">
+          <div class="samay-pdp-desc-accordion samay-accordion" id="samayPdpDescAccordion">
+            <button 
+              type="button" 
+              class="samay-accordion-trigger samay-pdp-desc-trigger" 
+              aria-expanded="false"
+              aria-controls="samayPdpDescBody"
+            >
+              <span class="samay-pdp-desc-trigger-label">
+                <span class="samay-pdp-desc-title">Description</span>
+              </span>
+              <span class="samay-accordion-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="samay-pdp-desc-chevron" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </span>
+            </button>
+            <div class="samay-accordion-body samay-pdp-desc-body" id="samayPdpDescBody">
+              {%- if product.description != blank -%}
+                <div class="samay-pdp-desc">
+                  {{ product.description }}
+                </div>
+              {%- else -%}
+                <div class="samay-pdp-desc">
+                  <p>
+                    Handcrafted with authentic Grasse bergamot, master-distilled florals, and aged oriental amber oud. Zayro is formulated with a potent 15-20% pure perfume oil concentration to command presence and leave an indelible olfactory impression.
+                  </p>
+                </div>
+              {%- endif -%}
+            </div>
           </div>
-        {%- else -%}
-          <p class="samay-pdp-desc">
-            Handcrafted with authentic Grasse bergamot, master-distilled florals, and aged oriental amber oud. Zayro is formulated with a potent 15-20% pure perfume oil concentration to command presence and leave an indelible olfactory impression.
-          </p>
-        {%- endif -%}
+        </div>
 
         <!-- Add to Cart Form -->
         {%- form 'product', product, id: 'samayProductForm', class: 'samay-pdp-form' -%}

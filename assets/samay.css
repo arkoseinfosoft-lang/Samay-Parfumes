@@ -2821,6 +2821,133 @@ select {
   padding-bottom: 20px;
 }
 
+/* ==========================================================================
+   PRODUCT DESCRIPTION DROPDOWN (AMAZON-STYLE ON MOBILE)
+   ========================================================================== */
+.samay-pdp-desc-wrap {
+  width: 100%;
+}
+
+/* Mobile View: Amazon-style Collapsible Dropdown */
+@media screen and (max-width: 768px) {
+  .samay-pdp-desc-wrap {
+    margin: 14px 0 16px;
+  }
+
+  .samay-pdp-desc-accordion {
+    background: var(--cream-card, #fdfbf7);
+    border: 1px solid var(--border, #ddd0bc);
+    border-radius: var(--radius-xs, 4px);
+    overflow: hidden;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .samay-pdp-desc-accordion.is-open {
+    border-color: var(--gold, #c9a96e);
+    box-shadow: 0 4px 16px rgba(44, 31, 14, 0.05);
+  }
+
+  .samay-pdp-desc-trigger {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 13px 14px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    font-family: var(--sans);
+    font-size: 0.84rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--brown-dark, #1b1309);
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+
+  .samay-pdp-desc-trigger:hover,
+  .samay-pdp-desc-trigger:active {
+    background: rgba(201, 169, 110, 0.08);
+  }
+
+  .samay-pdp-desc-trigger-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .samay-pdp-desc-title {
+    color: var(--brown-dark, #1b1309);
+  }
+
+  .samay-pdp-desc-chevron {
+    color: var(--gold, #c9a96e);
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    flex-shrink: 0;
+  }
+
+  .samay-pdp-desc-accordion.is-open .samay-pdp-desc-chevron {
+    transform: rotate(180deg);
+  }
+
+  .samay-pdp-desc-accordion .samay-accordion-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.25, 1, 0.5, 1), padding 0.3s ease;
+    padding: 0 14px;
+  }
+
+  .samay-pdp-desc-accordion.is-open .samay-accordion-body {
+    max-height: 3000px;
+    padding: 14px 14px 18px;
+    border-top: 1px solid var(--border-light, #ece3d4);
+  }
+
+  .samay-pdp-desc-accordion .samay-pdp-desc {
+    font-size: 0.88rem;
+    line-height: 1.7;
+    color: var(--taupe, #7a6a56);
+  }
+
+  .samay-pdp-desc-accordion .samay-pdp-desc h2,
+  .samay-pdp-desc-accordion .samay-pdp-desc h3,
+  .samay-pdp-desc-accordion .samay-pdp-desc h4,
+  .samay-pdp-desc-accordion .samay-pdp-desc strong {
+    color: var(--brown-dark, #1b1309);
+    font-size: 0.92rem;
+  }
+
+  .samay-pdp-desc-accordion .samay-pdp-desc ul {
+    margin: 8px 0 12px 18px;
+    padding: 0;
+  }
+
+  .samay-pdp-desc-accordion .samay-pdp-desc li {
+    margin-bottom: 5px;
+    line-height: 1.55;
+  }
+}
+
+/* Desktop View: Keep description naturally open without dropdown trigger */
+@media screen and (min-width: 769px) {
+  .samay-pdp-desc-trigger {
+    display: none !important;
+  }
+
+  .samay-pdp-desc-accordion .samay-accordion-body {
+    max-height: none !important;
+    overflow: visible !important;
+    display: block !important;
+    padding: 0 !important;
+  }
+
+  .samay-pdp-desc-accordion {
+    border: none !important;
+    background: transparent !important;
+  }
+}
+
 /* --------------------------------------------------------------------------
    COLLECTION TEMPLATE - MOBILE FIRST
    -------------------------------------------------------------------------- */
