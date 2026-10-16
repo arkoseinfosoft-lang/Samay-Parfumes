@@ -2,7 +2,324 @@
   "sections": {
     "main": {
       "type": "samay-homepage",
-      "settings": {}
+      "blocks": {
+        "highlight_1": {
+          "type": "hero_highlight",
+          "settings": {
+            "icon": "clock",
+            "text": "6-8 Hours Wear"
+          }
+        },
+        "highlight_2": {
+          "type": "hero_highlight",
+          "settings": {
+            "icon": "star",
+            "text": "15-20% Perfume Oil"
+          }
+        },
+        "highlight_3": {
+          "type": "hero_highlight",
+          "settings": {
+            "icon": "shipping",
+            "text": "Free Express Shipping"
+          }
+        },
+        "marquee_1": {
+          "type": "marquee_item",
+          "settings": {
+            "text": "EAU DE PARFUM"
+          }
+        },
+        "marquee_2": {
+          "type": "marquee_item",
+          "settings": {
+            "text": "A FRAGRANCE BEYOND TIME"
+          }
+        },
+        "marquee_3": {
+          "type": "marquee_item",
+          "settings": {
+            "text": "6-8 HOURS LONGEVITY"
+          }
+        },
+        "marquee_4": {
+          "type": "marquee_item",
+          "settings": {
+            "text": "FRENCH & ORIENTAL ESSENCES"
+          }
+        },
+        "marquee_5": {
+          "type": "marquee_item",
+          "settings": {
+            "text": "HANDCRAFTED IN INDIA"
+          }
+        },
+        "marquee_6": {
+          "type": "marquee_item",
+          "settings": {
+            "text": "COMPLIMENT MAGNET"
+          }
+        },
+        "marquee_7": {
+          "type": "marquee_item",
+          "settings": {
+            "text": "MAGNETIC LUXURY CAP"
+          }
+        },
+        "marquee_8": {
+          "type": "marquee_item",
+          "settings": {
+            "text": "100% CRUELTY FREE"
+          }
+        },
+        "pillar_1": {
+          "type": "brand_pillar",
+          "settings": {
+            "icon": "⌛",
+            "eyebrow": "UNRIVALED LONGEVITY",
+            "title": "15-20% Perfume Oil",
+            "description": "Formulated at optimal Eau de Parfum concentration so your signature trail projects beautifully for 6-8 hours."
+          }
+        },
+        "pillar_2": {
+          "type": "brand_pillar",
+          "settings": {
+            "icon": "⚜",
+            "eyebrow": "MASTER ALCHEMY",
+            "title": "Rare French Essences",
+            "description": "Distilled with authentic Grasse bergamot, rare Indonesian agarwood, and ethically harvested amber crystals."
+          }
+        },
+        "pillar_3": {
+          "type": "brand_pillar",
+          "settings": {
+            "icon": "✦",
+            "eyebrow": "ARTISAN FLACON",
+            "title": "Heavy Crystal & Magnetic Cap",
+            "description": "Weighted luxury flacon with tactile pocket-watch motif, micro-mist atomiser, and satisfying magnetic snap."
+          }
+        },
+        "tier_single": {
+          "type": "bundle_tier",
+          "settings": {
+            "fallback_handle": "samay-zayro-50ml-eau-de-parfum",
+            "specs": "15-20% Perfume Oil · 6-8h Longevity",
+            "button_label": "ADD TO CART"
+          }
+        },
+        "tier_duo": {
+          "type": "bundle_tier",
+          "settings": {
+            "fallback_handle": "samay-zayro-duo-combo-2-in-1",
+            "badge": "Popular",
+            "specs": "15-20% Perfume Oil · 6-8h Longevity",
+            "button_label": "ADD TO CART"
+          }
+        },
+        "tier_trio": {
+          "type": "bundle_tier",
+          "settings": {
+            "fallback_handle": "samay-zayro-grand-trio-3-in-1-combo",
+            "badge": "Best Value",
+            "specs": "15-20% Perfume Oil · 6-8h Longevity",
+            "button_label": "ADD TO CART"
+          }
+        },
+        "note_top": {
+          "type": "olfactory_note",
+          "settings": {
+            "stage": "ACT I · TOP NOTES",
+            "headline": "What you smell first",
+            "timing": "0 to 45 MINUTES",
+            "ingredients": "Italian Bergamot · Sun-Ripened Mandarin\nPink Peppercorn · Crisp Juniper Berry",
+            "description": "An electrifying burst of sparkling Mediterranean citrus spiced with freshly ground pepper that commands instant intrigue.",
+            "is_featured": false
+          }
+        },
+        "note_heart": {
+          "type": "olfactory_note",
+          "settings": {
+            "stage": "ACT II · HEART NOTES",
+            "headline": "The soul of the scent",
+            "timing": "45 MINS to 5 HOURS",
+            "ingredients": "French Lavender · Golden Ambergris\nSmoked Green Cardamom · Velvet Orris",
+            "description": "A hypnotic warmth settles in. Rich aromatic spices intertwine with royal florals to project confidence and refined sophistication.",
+            "is_featured": true
+          }
+        },
+        "note_base": {
+          "type": "olfactory_note",
+          "settings": {
+            "stage": "ACT III · BASE NOTES",
+            "headline": "What lingers on skin",
+            "timing": "5 to 8 HOURS",
+            "ingredients": "Aged Indonesian Oud · Virginia Cedarwood\nBourbon Vanilla · Golden Amber Resin",
+            "description": "An unforgettable, deeply addictive trail of rare woods and sweet resinous amber that remains vivid throughout your day.",
+            "is_featured": false
+          }
+        },
+        "spec_1": {
+          "type": "spec_item",
+          "settings": {
+            "title": "CONCENTRATION",
+            "value": "15-20% Perfume Oil"
+          }
+        },
+        "spec_2": {
+          "type": "spec_item",
+          "settings": {
+            "title": "LONGEVITY",
+            "value": "6-8 Hours Wear"
+          }
+        },
+        "spec_3": {
+          "type": "spec_item",
+          "settings": {
+            "title": "SILLAGE",
+            "value": "Arm's Length Aura"
+          }
+        },
+        "spec_4": {
+          "type": "spec_item",
+          "settings": {
+            "title": "FORMULATION",
+            "value": "Formulated to IFRA Standards"
+          }
+        },
+        "stat_1": {
+          "type": "about_stat",
+          "settings": {
+            "value": "15-20%",
+            "label": "Perfume Oil"
+          }
+        },
+        "stat_2": {
+          "type": "about_stat",
+          "settings": {
+            "value": "60+",
+            "label": "Days Maceration"
+          }
+        },
+        "stat_3": {
+          "type": "about_stat",
+          "settings": {
+            "value": "100%",
+            "label": "Cruelty Free"
+          }
+        },
+        "faq_1": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How long does Zayro last on skin and clothes?",
+            "answer": "Zayro is formulated as an Eau de Parfum (EDP) with 15-20% perfume oil concentration. On moisturized skin, it lasts 6 to 8 hours. On clothing and outerwear, its rich amber and agarwood base notes can linger throughout the day.",
+            "is_open": true
+          }
+        },
+        "faq_2": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What is the difference between the single and combo packs?",
+            "answer": "The fragrance formulation in all 3 editions is identical (Zayro 50ml). The 2-in-1 Duo combo and 3-in-1 Grand Trio offer substantial volume savings per bottle and include complimentary luxury presentation gift boxes.",
+            "is_open": false
+          }
+        },
+        "faq_3": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What are the shipping times and is delivery free?",
+            "answer": "Yes, express shipping is 100% complimentary across all pin codes in India for all orders. Metro cities (Delhi NCR, Mumbai, Bangalore, Pune) typically receive delivery in 2-3 business days. All other locations take 3-5 business days with live tracking provided via SMS and email notifications.",
+            "is_open": false
+          }
+        },
+        "faq_4": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What is your damaged replacement guarantee?",
+            "answer": "Every bottle is packaged inside thick shock-resistant transit cushions. In the rare event of transit damage or leakage, simply share a quick photo with our concierge team within 48 hours and we will dispatch a brand-new replacement bottle immediately with zero hassle.",
+            "is_open": false
+          }
+        },
+        "faq_5": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is Cash on Delivery (COD) supported?",
+            "answer": "Yes! We accept Cash on Delivery (COD), UPI (Google Pay, PhonePe, Paytm), and all major credit/debit cards during checkout.",
+            "is_open": false
+          }
+        }
+      },
+      "block_order": [
+        "highlight_1",
+        "highlight_2",
+        "highlight_3",
+        "marquee_1",
+        "marquee_2",
+        "marquee_3",
+        "marquee_4",
+        "marquee_5",
+        "marquee_6",
+        "marquee_7",
+        "marquee_8",
+        "pillar_1",
+        "pillar_2",
+        "pillar_3",
+        "tier_single",
+        "tier_duo",
+        "tier_trio",
+        "note_top",
+        "note_heart",
+        "note_base",
+        "spec_1",
+        "spec_2",
+        "spec_3",
+        "spec_4",
+        "stat_1",
+        "stat_2",
+        "stat_3",
+        "faq_1",
+        "faq_2",
+        "faq_3",
+        "faq_4",
+        "faq_5"
+      ],
+      "settings": {
+        "hero_eyebrow": "EAU DE PARFUM · ARTISANAL RESERVE",
+        "hero_title": "A Fragrance <em>Beyond Time.</em>",
+        "hero_desc": "Introducing <strong>Zayro 50ml</strong> — A magnetic union of sun-drenched Italian citrus, velvety ambergris, and sacred midnight oud. Crafted to captivate senses and linger for 6-8 hours.",
+        "hero_btn1_label": "SHOP ZAYRO 50ML",
+        "hero_btn2_label": "EXPLORE NOTES",
+        "collection_kicker": "THE SIGNATURE COLLECTION",
+        "collection_title": "SAMAY COLLECTION",
+        "collection_hint": "Swipe to explore all 3 editions",
+        "philosophy_eyebrow": "THE PHILOSOPHY",
+        "philosophy_quote": "\"In a world where everything moves too fast, true luxury is a fragrance that makes <em>time stand still.</em>\"",
+        "philosophy_author": "— SAMAY PARFUMES · A FRAGRANCE BEYOND TIME",
+        "philosophy_btn_label": "EXPLORE THE EDITIONS",
+        "notes_eyebrow": "THE OLFACTORY PYRAMID",
+        "notes_title": "What's in <em>Your Bottle?</em>",
+        "notes_subtitle": "Zayro is crafted as an evolving three-act composition that transforms seamlessly with your skin chemistry over 6-8 hours.",
+        "showcase_eyebrow": "SOURCED FROM MASTER TERROIRS",
+        "showcase_title": "Pure Artisanal Ingredients",
+        "showcase_desc": "We refuse to cut corners with diluted fillers. Zayro is formulated with raw Grasse bergamot oils, wild Indonesian agarwood harvested sustainably, and hand-scraped Bourbon vanilla pods.",
+        "about_eyebrow": "THE MAISON",
+        "about_title": "The Story of <em>Samay Parfumes</em>",
+        "about_p1": "In Sanskrit and Hindi, <strong>Samay</strong> means <em>Time</em>. Our perfumery was born from a singular obsession: creating fragrances that refuse to be forgotten. While fashion changes every season, memories ignited by scent echo forever.",
+        "about_p2": "Every bottle of Zayro is meticulously crafted in small batches in India, marrying traditional Indian distillation of rare resins and agarwood with French Grasse perfumery techniques. We do not mass produce; each flacon is macerated in dark temperature-controlled cellars for over 60 days to ensure a rich, intoxicating trail.",
+        "contact_eyebrow": "ASSISTANCE & CONCIERGE",
+        "contact_title": "We are Here <em>For You</em>",
+        "contact_subtitle": "Have a question about your order, tracking, or choosing between our single bottle and combos? Reach out directly to our concierge team.",
+        "contact_form_heading": "Send a Message",
+        "contact_success_message": "✦ Thank you! Our perfumery concierge will contact you within 24 hours.",
+        "contact_topics": "Order Status & Tracking\nAdvice on 2-in-1 or 3-in-1 Combo\nCorporate / Bulk Gifting\nGeneral Fragrance Inquiry",
+        "contact_btn_label": "SEND MESSAGE",
+        "faq_heading": "Frequently Asked Questions",
+        "newsletter_eyebrow": "PRIVATE PRIVILEGES",
+        "newsletter_title": "Join The Samay Circle",
+        "newsletter_desc": "Enjoy privileged early access to small-batch launches, private olfactory invitations, and exclusive updates from our maison.",
+        "newsletter_success_message": "✦ Welcome to the Samay Circle! Thank you for subscribing.",
+        "newsletter_btn_label": "SUBSCRIBE",
+        "newsletter_consent": "By subscribing, you consent to receive email marketing communications from Samay Parfumes. Unsubscribe anytime."
+      }
     }
   },
   "order": [

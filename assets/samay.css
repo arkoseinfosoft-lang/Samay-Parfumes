@@ -3160,3 +3160,117 @@ select {
   line-height: 1.7;
   margin-bottom: 24px;
 }
+
+/* ==========================================================================
+   HOMEPAGE DYNAMIC COMPONENTS & UTILITIES (ZERO INLINE STYLES)
+   ========================================================================== */
+.samay-hero-container {
+  position: relative;
+  z-index: 2;
+}
+
+.ep-card {
+  position: relative;
+}
+
+.ep-badge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 3;
+  background: var(--gold, #c9a96e);
+  color: var(--brown-dark, #1b1309);
+  font-family: var(--sans);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: var(--radius-xs, 4px);
+  box-shadow: 0 4px 12px rgba(27, 19, 9, 0.15);
+  pointer-events: none;
+  line-height: 1.2;
+}
+
+.ep-specs {
+  font-size: 0.78rem;
+  color: var(--taupe);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.ep-add:disabled,
+.ep-add[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.samay-sec-eyebrow--gold {
+  color: var(--gold-light);
+}
+
+.samay-philosophy-actions {
+  margin-top: 32px;
+}
+
+.samay-showcase-title {
+  font-family: var(--serif);
+  font-size: 2.2rem;
+  margin-bottom: 16px;
+}
+
+.samay-about-text h2 em {
+  font-style: italic;
+  font-weight: 300;
+}
+
+.samay-contact-heading {
+  font-family: var(--serif);
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+
+.samay-form-success {
+  padding: 16px;
+  margin-bottom: 20px;
+  background: rgba(46, 125, 50, 0.08);
+  border: 1px solid #2e7d32;
+  color: #2e7d32;
+  border-radius: 4px;
+  font-weight: 600;
+  text-align: center;
+  font-size: 0.92rem;
+}
+
+.samay-form-error {
+  padding: 16px;
+  margin-bottom: 20px;
+  background: rgba(211, 47, 47, 0.08);
+  border: 1px solid #d32f2f;
+  color: #d32f2f;
+  border-radius: 4px;
+  font-size: 0.88rem;
+}
+
+.samay-faq-heading {
+  font-family: var(--serif);
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+
+.samay-newsletter-success {
+  color: var(--gold-light);
+  font-weight: 500;
+  font-size: 0.95rem;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.samay-newsletter-error {
+  color: #ff8a80;
+  font-size: 0.88rem;
+  text-align: center;
+  margin-bottom: 16px;
+}

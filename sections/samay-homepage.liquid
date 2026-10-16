@@ -1,6 +1,8 @@
+{% # theme-check-disable ExcessiveSettingsCount %}
 {% comment %}
   SAMAY PARFUMES - COMPLETE LUXURY HOMEPAGE
   Inspired by House of Sasaa | Light Theme | Single Product with 3 Variations
+  Fully dynamic and configurable via the Shopify Theme Editor (Online Store 2.0)
 {% endcomment %}
 
 <script>
@@ -16,61 +18,110 @@
      1. HERO BANNER SECTION
      ========================================================================== -->
 <section class="samay-hero-section" id="hero">
-  <img 
-    src="{{ 'samay-hero-clock.jpg' | asset_url }}" 
-    alt="Samay Parfumes Zayro Eau De Parfum Flacon Beyond Time" 
-    class="samay-hero-bg"
-    width="1024"
-    height="571"
-    loading="eager"
-    fetchpriority="high"
-  >
+  {%- if section.settings.hero_image != blank -%}
+    <img 
+      src="{{ section.settings.hero_image | image_url: width: 1400 }}" 
+      alt="{{ section.settings.hero_image.alt | default: section.settings.hero_title | strip_html | escape }}" 
+      class="samay-hero-bg"
+      width="1024"
+      height="571"
+      loading="eager"
+      fetchpriority="high"
+    >
+  {%- else -%}
+    <img 
+      src="{{ 'samay-hero-clock.jpg' | asset_url }}" 
+      alt="Samay Parfumes Zayro Eau De Parfum Flacon Beyond Time" 
+      class="samay-hero-bg"
+      width="1024"
+      height="571"
+      loading="eager"
+      fetchpriority="high"
+    >
+  {%- endif -%}
   <div class="samay-hero-overlay"></div>
 
-  <div class="container" style="position: relative; z-index: 2;">
+  <div class="container samay-hero-container">
     <div class="samay-hero-content">
-      <div class="samay-hero-eyebrow">
-        <span>EAU DE PARFUM · ARTISANAL RESERVE</span>
-      </div>
-      <h1 class="samay-hero-title">
-        A Fragrance <em>Beyond Time.</em>
-      </h1>
-      <p class="samay-hero-desc">
-        Introducing <strong>Zayro 50ml</strong> — A magnetic union of sun-drenched Italian citrus, velvety ambergris, and sacred midnight oud. Crafted to captivate senses and linger for 6-8 hours.
-      </p>
+      {%- if section.settings.hero_eyebrow != blank -%}
+        <div class="samay-hero-eyebrow">
+          <span>{{ section.settings.hero_eyebrow }}</span>
+        </div>
+      {%- endif -%}
+      {%- if section.settings.hero_title != blank -%}
+        <h1 class="samay-hero-title">
+          {{ section.settings.hero_title }}
+        </h1>
+      {%- endif -%}
+      {%- if section.settings.hero_desc != blank -%}
+        <p class="samay-hero-desc">
+          {{ section.settings.hero_desc }}
+        </p>
+      {%- endif -%}
       
       <div class="samay-hero-actions">
-        <a href="#collection" class="samay-btn samay-btn--gold">
-          SHOP ZAYRO 50ML
-        </a>
-        <a href="#notes" class="samay-btn samay-btn--outline">
-          EXPLORE NOTES
-        </a>
+        {%- if section.settings.hero_btn1_label != blank -%}
+          <a href="{{ section.settings.hero_btn1_link | default: '#collection' }}" class="samay-btn samay-btn--gold">
+            {{ section.settings.hero_btn1_label }}
+          </a>
+        {%- endif -%}
+        {%- if section.settings.hero_btn2_label != blank -%}
+          <a href="{{ section.settings.hero_btn2_link | default: '#notes' }}" class="samay-btn samay-btn--outline">
+            {{ section.settings.hero_btn2_label }}
+          </a>
+        {%- endif -%}
       </div>
 
       <div class="samay-hero-highlights">
-        <div class="samay-highlight-item">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"></circle>
-            <polyline points="12 6 12 12 16 14"></polyline>
-          </svg>
-          <span>6-8 Hours Wear</span>
-        </div>
-        <div class="samay-highlight-item">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-          </svg>
-          <span>15-20% Perfume Oil</span>
-        </div>
-        <div class="samay-highlight-item">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="1" y="3" width="15" height="13"></rect>
-            <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
-            <circle cx="5.5" cy="18.5" r="2.5"></circle>
-            <circle cx="18.5" cy="18.5" r="2.5"></circle>
-          </svg>
-          <span>Free Express Shipping</span>
-        </div>
+        {%- assign highlight_blocks = section.blocks | where: 'type', 'hero_highlight' -%}
+        {%- if highlight_blocks.size > 0 -%}
+          {%- for block in highlight_blocks -%}
+            <div class="samay-highlight-item" {{ block.shopify_attributes }}>
+              {%- case block.settings.icon -%}
+                {%- when 'star' -%}
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                  </svg>
+                {%- when 'shipping' -%}
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="1" y="3" width="15" height="13"></rect>
+                    <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                    <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                    <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                  </svg>
+                {%- else -%}
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+              {%- endcase -%}
+              <span>{{ block.settings.text }}</span>
+            </div>
+          {%- endfor -%}
+        {%- else -%}
+          <div class="samay-highlight-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            <span>6-8 Hours Wear</span>
+          </div>
+          <div class="samay-highlight-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+            </svg>
+            <span>15-20% Perfume Oil</span>
+          </div>
+          <div class="samay-highlight-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="1" y="3" width="15" height="13"></rect>
+              <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+              <circle cx="5.5" cy="18.5" r="2.5"></circle>
+              <circle cx="18.5" cy="18.5" r="2.5"></circle>
+            </svg>
+            <span>Free Express Shipping</span>
+          </div>
+        {%- endif -%}
       </div>
     </div>
   </div>
@@ -79,116 +130,223 @@
 <!-- ==========================================================================
      2. INFINITE MARQUEE TICKER
      ========================================================================== -->
+{%- assign marquee_blocks = section.blocks | where: 'type', 'marquee_item' -%}
+{%- capture marquee_items_html -%}
+  {%- if marquee_blocks.size > 0 -%}
+    {%- for block in marquee_blocks -%}
+      <span {{ block.shopify_attributes }}>{{ block.settings.text }}</span>
+      <span class="samay-marquee-dot">✦</span>
+    {%- endfor -%}
+  {%- else -%}
+    <span>EAU DE PARFUM</span>
+    <span class="samay-marquee-dot">✦</span>
+    <span>A FRAGRANCE BEYOND TIME</span>
+    <span class="samay-marquee-dot">✦</span>
+    <span>6-8 HOURS LONGEVITY</span>
+    <span class="samay-marquee-dot">✦</span>
+    <span>FRENCH & ORIENTAL ESSENCES</span>
+    <span class="samay-marquee-dot">✦</span>
+    <span>HANDCRAFTED IN INDIA</span>
+    <span class="samay-marquee-dot">✦</span>
+    <span>COMPLIMENT MAGNET</span>
+    <span class="samay-marquee-dot">✦</span>
+    <span>MAGNETIC LUXURY CAP</span>
+    <span class="samay-marquee-dot">✦</span>
+    <span>100% CRUELTY FREE</span>
+    <span class="samay-marquee-dot">✦</span>
+  {%- endif -%}
+{%- endcapture -%}
 <section class="samay-marquee-section">
   <div class="samay-marquee-track">
     <div class="samay-marquee-content">
-      <span>EAU DE PARFUM</span>
-      <span class="samay-marquee-dot">✦</span>
-      <span>A FRAGRANCE BEYOND TIME</span>
-      <span class="samay-marquee-dot">✦</span>
-      <span>6-8 HOURS LONGEVITY</span>
-      <span class="samay-marquee-dot">✦</span>
-      <span>FRENCH & ORIENTAL ESSENCES</span>
-      <span class="samay-marquee-dot">✦</span>
-      <span>HANDCRAFTED IN INDIA</span>
-      <span class="samay-marquee-dot">✦</span>
-      <span>COMPLIMENT MAGNET</span>
-      <span class="samay-marquee-dot">✦</span>
-      <span>MAGNETIC LUXURY CAP</span>
-      <span class="samay-marquee-dot">✦</span>
-      <span>100% CRUELTY FREE</span>
-      <span class="samay-marquee-dot">✦</span>
+      {{ marquee_items_html }}
     </div>
-    <div class="samay-marquee-content">
-      <span>EAU DE PARFUM</span>
-      <span class="samay-marquee-dot">✦</span>
-      <span>A FRAGRANCE BEYOND TIME</span>
-      <span class="samay-marquee-dot">✦</span>
-      <span>6-8 HOURS LONGEVITY</span>
-      <span class="samay-marquee-dot">✦</span>
-      <span>FRENCH & ORIENTAL ESSENCES</span>
-      <span class="samay-marquee-dot">✦</span>
-      <span>HANDCRAFTED IN INDIA</span>
-      <span class="samay-marquee-dot">✦</span>
-      <span>COMPLIMENT MAGNET</span>
-      <span class="samay-marquee-dot">✦</span>
-      <span>MAGNETIC LUXURY CAP</span>
-      <span class="samay-marquee-dot">✦</span>
-      <span>100% CRUELTY FREE</span>
-      <span class="samay-marquee-dot">✦</span>
+    <div class="samay-marquee-content" aria-hidden="true">
+      {{ marquee_items_html }}
     </div>
   </div>
 </section>
 
 <!-- ==========================================================================
-     3. BRAND PILLARS
+     3. BRAND PILLARS / CREDENTIALS
      ========================================================================== -->
 <section class="samay-pillars-section">
   <div class="container">
     <div class="samay-pillars-grid">
-      <div class="samay-pillar-card">
-        <div class="samay-pillar-icon">⌛</div>
-        <div class="samay-pillar-eyebrow">UNRIVALED LONGEVITY</div>
-        <h3 class="samay-pillar-title">15-20% Perfume Oil</h3>
-        <p class="samay-pillar-desc">
-          Formulated at optimal Eau de Parfum concentration so your signature trail projects beautifully for 6-8 hours.
-        </p>
-      </div>
+      {%- assign pillar_blocks = section.blocks | where: 'type', 'brand_pillar' -%}
+      {%- if pillar_blocks.size > 0 -%}
+        {%- for block in pillar_blocks -%}
+          <div class="samay-pillar-card" {{ block.shopify_attributes }}>
+            <div class="samay-pillar-icon">{{ block.settings.icon }}</div>
+            <div class="samay-pillar-eyebrow">{{ block.settings.eyebrow }}</div>
+            <h3 class="samay-pillar-title">{{ block.settings.title }}</h3>
+            <p class="samay-pillar-desc">
+              {{ block.settings.description }}
+            </p>
+          </div>
+        {%- endfor -%}
+      {%- else -%}
+        <div class="samay-pillar-card">
+          <div class="samay-pillar-icon">⌛</div>
+          <div class="samay-pillar-eyebrow">UNRIVALED LONGEVITY</div>
+          <h3 class="samay-pillar-title">15-20% Perfume Oil</h3>
+          <p class="samay-pillar-desc">
+            Formulated at optimal Eau de Parfum concentration so your signature trail projects beautifully for 6-8 hours.
+          </p>
+        </div>
 
-      <div class="samay-pillar-card">
-        <div class="samay-pillar-icon">⚜</div>
-        <div class="samay-pillar-eyebrow">MASTER ALCHEMY</div>
-        <h3 class="samay-pillar-title">Rare French Essences</h3>
-        <p class="samay-pillar-desc">
-          Distilled with authentic Grasse bergamot, rare Indonesian agarwood, and ethically harvested amber crystals.
-        </p>
-      </div>
+        <div class="samay-pillar-card">
+          <div class="samay-pillar-icon">⚜</div>
+          <div class="samay-pillar-eyebrow">MASTER ALCHEMY</div>
+          <h3 class="samay-pillar-title">Rare French Essences</h3>
+          <p class="samay-pillar-desc">
+            Distilled with authentic Grasse bergamot, rare Indonesian agarwood, and ethically harvested amber crystals.
+          </p>
+        </div>
 
-      <div class="samay-pillar-card">
-        <div class="samay-pillar-icon">✦</div>
-        <div class="samay-pillar-eyebrow">ARTISAN FLACON</div>
-        <h3 class="samay-pillar-title">Heavy Crystal & Magnetic Cap</h3>
-        <p class="samay-pillar-desc">
-          Weighted luxury flacon with tactile pocket-watch motif, micro-mist atomiser, and satisfying magnetic snap.
-        </p>
-      </div>
+        <div class="samay-pillar-card">
+          <div class="samay-pillar-icon">✦</div>
+          <div class="samay-pillar-eyebrow">ARTISAN FLACON</div>
+          <h3 class="samay-pillar-title">Heavy Crystal & Magnetic Cap</h3>
+          <p class="samay-pillar-desc">
+            Weighted luxury flacon with tactile pocket-watch motif, micro-mist atomiser, and satisfying magnetic snap.
+          </p>
+        </div>
+      {%- endif -%}
     </div>
   </div>
 </section>
 
 <!-- ==========================================================================
-     4. PRODUCT VARIATIONS SECTION (FIKN SIGNATURE ELIXIR CARDS)
+     4. PRODUCT VARIATIONS SECTION (SIGNATURE ELIXIR CARDS)
      ========================================================================== -->
 <section class="samay-products-section ep-section" id="collection">
   <div class="container">
     <div class="ep-header">
-      <div class="ep-kicker">THE SIGNATURE COLLECTION</div>
-      <h2 class="ep-section-title">SAMAY COLLECTION</h2>
+      {%- if section.settings.collection_kicker != blank -%}
+        <div class="ep-kicker">{{ section.settings.collection_kicker }}</div>
+      {%- endif -%}
+      {%- if section.settings.collection_title != blank -%}
+        <h2 class="ep-section-title">{{ section.settings.collection_title }}</h2>
+      {%- endif -%}
     </div>
 
-    <div class="ep-carousel-hint" aria-hidden="true">
-      <span class="ep-hint-arrow">←</span>
-      <span>Swipe to explore all 3 editions</span>
-      <span class="ep-hint-arrow">→</span>
-    </div>
+    {%- if section.settings.collection_hint != blank -%}
+      <div class="ep-carousel-hint" aria-hidden="true">
+        <span class="ep-hint-arrow">←</span>
+        <span>{{ section.settings.collection_hint }}</span>
+        <span class="ep-hint-arrow">→</span>
+      </div>
+    {%- endif -%}
 
     <div class="ep-grid">
-      {%- assign handle_single = all_products['samay-zayro-50ml-eau-de-parfum'].handle | default: 'samay-zayro-50ml-eau-de-parfum' -%}
-      {%- assign handle_duo = all_products['samay-zayro-duo-combo-2-in-1'].handle | default: 'samay-zayro-duo-combo-2-in-1' -%}
-      {%- assign handle_trio = all_products['samay-zayro-grand-trio-3-in-1-combo'].handle | default: 'samay-zayro-grand-trio-3-in-1-combo' -%}
-      {%- assign handle_list = handle_single | append: ',' | append: handle_duo | append: ',' | append: handle_trio | split: ',' -%}
+      {%- assign bundle_blocks = section.blocks | where: 'type', 'bundle_tier' -%}
       {%- assign rendered_count = 0 -%}
 
-      {%- for handle in handle_list -%}
-        {%- assign product = all_products[handle] -%}
-        {%- if product != blank and product.title != blank -%}
+      {%- if bundle_blocks.size > 0 -%}
+        {%- for block in bundle_blocks -%}
+          {%- assign product = block.settings.product -%}
+          {%- if product == blank and block.settings.fallback_handle != blank -%}
+            {%- assign product = all_products[block.settings.fallback_handle] -%}
+          {%- endif -%}
+          {%- if product == blank -%}
+            {%- assign default_handles = 'samay-zayro-50ml-eau-de-parfum,samay-zayro-duo-combo-2-in-1,samay-zayro-grand-trio-3-in-1-combo' | split: ',' -%}
+            {%- assign default_handle = default_handles[forloop.index0] -%}
+            {%- assign product = all_products[default_handle] -%}
+          {%- endif -%}
+
+          {%- if product != blank and product.title != blank -%}
+            {%- assign rendered_count = rendered_count | plus: 1 -%}
+            {%- assign variant = product.selected_or_first_available_variant -%}
+            {%- assign price = variant.price -%}
+            {%- assign compare_at = nil -%}
+            {%- assign discount_percent = 0 -%}
+            {%- assign compare_at = variant.compare_at_price -%}
+            {%- if compare_at > price -%}
+              {%- assign diff = compare_at | minus: price -%}
+              {%- assign discount_percent = diff | times: 100 | divided_by: compare_at -%}
+            {%- endif -%}
+
+            <article class="ep-card is-active" data-product-id="{{ product.id }}" data-variant-id="{{ variant.id }}" {{ block.shopify_attributes }}>
+              {%- if block.settings.badge != blank -%}
+                <span class="ep-badge">{{ block.settings.badge }}</span>
+              {%- endif -%}
+
+              <div class="ep-media">
+                <div class="ep-media__viewport">
+                  <div class="ep-media__inner">
+                    {%- if block.settings.custom_image != blank -%}
+                      {%- assign card_img = block.settings.custom_image | image_url: width: 1024 -%}
+                    {%- elsif product.featured_image != blank -%}
+                      {%- assign card_img = product.featured_image | image_url: width: 1024 -%}
+                    {%- elsif forloop.index == 2 -%}
+                      {%- assign card_img = 'samay-product-duo.webp' | asset_url -%}
+                    {%- elsif forloop.index == 3 -%}
+                      {%- assign card_img = 'samay-product-trio.webp' | asset_url -%}
+                    {%- else -%}
+                      {%- assign card_img = 'samay-product-single.webp' | asset_url -%}
+                    {%- endif -%}
+
+                    <img 
+                      src="{{ card_img }}" 
+                      alt="{{ product.title | escape }}" 
+                      class="ep-img"
+                      loading="lazy"
+                      width="1024"
+                      height="1024"
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div class="ep-info">
+                {%- assign card_title = block.settings.title | default: product.title -%}
+                <a href="{{ product.url | default: '#collection' }}" class="ep-title-link">{{ card_title | upcase }}</a>
+
+                <div class="ep-price-row">
+                  <span class="ep-price">{{ price | money }}</span>
+                  {%- if compare_at and compare_at > price -%}
+                    <span class="ep-price-compare">{{ compare_at | money }}</span>
+                    <span class="ep-price-discount">-{{ discount_percent }}%</span>
+                  {%- endif -%}
+                </div>
+
+                {%- if block.settings.specs != blank -%}
+                  <div class="ep-specs">
+                    <span>✦</span>
+                    <span>{{ block.settings.specs }}</span>
+                  </div>
+                {%- endif -%}
+
+                <button 
+                  type="button" 
+                  class="ep-add samay-add-cart-btn" 
+                  data-variant-id="{{ variant.id }}"
+                  onclick="window.samayCart && window.samayCart.add({{ variant.id }}, 1)"
+                  {% unless variant.available %}disabled="disabled"{% endunless %}
+                >
+                  {%- if variant.available -%}
+                    {{ block.settings.button_label }}
+                  {%- else -%}
+                    OUT OF STOCK
+                  {%- endif -%}
+                </button>
+              </div>
+            </article>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
+
+
+      {%- if rendered_count == 0 -%}
+        {%- for product in collections.all.products limit: 3 -%}
           {%- assign rendered_count = rendered_count | plus: 1 -%}
           {%- assign variant = product.selected_or_first_available_variant -%}
           {%- assign price = variant.price -%}
           {%- assign compare_at = nil -%}
           {%- assign discount_percent = 0 -%}
-          {%- if variant.compare_at_price and variant.compare_at_price > price -%}
-            {%- assign compare_at = variant.compare_at_price -%}
+          {%- assign compare_at = variant.compare_at_price -%}
+          {%- if compare_at > price -%}
             {%- assign diff = compare_at | minus: price -%}
             {%- assign discount_percent = diff | times: 100 | divided_by: compare_at -%}
           {%- endif -%}
@@ -197,72 +355,17 @@
             <div class="ep-media">
               <div class="ep-media__viewport">
                 <div class="ep-media__inner">
-                  {%- assign custom_product_img = 'samay-product-single.webp' | asset_url -%}
-                  {%- if forloop.index == 2 or handle contains 'duo' -%}
-                    {%- assign custom_product_img = 'samay-product-duo.webp' | asset_url -%}
-                  {%- elsif forloop.index == 3 or handle contains 'trio' -%}
-                    {%- assign custom_product_img = 'samay-product-trio.webp' | asset_url -%}
+                  {%- if product.featured_image != blank -%}
+                    {%- assign fallback_card_img = product.featured_image | image_url: width: 1024 -%}
+                  {%- elsif forloop.index == 2 -%}
+                    {%- assign fallback_card_img = 'samay-product-duo.webp' | asset_url -%}
+                  {%- elsif forloop.index == 3 -%}
+                    {%- assign fallback_card_img = 'samay-product-trio.webp' | asset_url -%}
+                  {%- else -%}
+                    {%- assign fallback_card_img = 'samay-product-single.webp' | asset_url -%}
                   {%- endif -%}
                   <img 
-                    src="{{ custom_product_img }}" 
-                    alt="{{ product.title | escape }}" 
-                    class="ep-img"
-                    loading="lazy"
-                    width="1024"
-                    height="1024"
-                  >
-                </div>
-              </div>
-            </div>
-
-            <div class="ep-info">
-              <a href="{{ product.url | default: '#collection' }}" class="ep-title-link">{{ product.title | upcase }}</a>
-
-              <div class="ep-price-row">
-                <span class="ep-price">{{ price | money }}</span>
-                {%- if compare_at and compare_at > price -%}
-                  <span class="ep-price-compare">{{ compare_at | money }}</span>
-                  <span class="ep-price-discount">-{{ discount_percent }}%</span>
-                {%- endif -%}
-              </div>
-
-              <button 
-                type="button" 
-                class="ep-add samay-add-cart-btn" 
-                data-variant-id="{{ variant.id }}"
-                onclick="window.samayCart && window.samayCart.add({{ variant.id }}, 1)"
-              >
-                ADD TO CART
-              </button>
-            </div>
-          </article>
-        {%- endif -%}
-      {%- endfor -%}
-
-      {%- if rendered_count == 0 -%}
-        {%- for product in collections.all.products -%}
-          {%- assign variant = product.selected_or_first_available_variant -%}
-          {%- assign price = variant.price -%}
-          {%- assign compare_at = nil -%}
-          {%- assign discount_percent = 0 -%}
-          {%- if variant.compare_at_price and variant.compare_at_price > price -%}
-            {%- assign compare_at = variant.compare_at_price -%}
-            {%- assign diff = compare_at | minus: price -%}
-            {%- assign discount_percent = diff | times: 100 | divided_by: compare_at -%}
-          {%- endif -%}
-
-          <article class="ep-card is-active" data-product-id="{{ product.id }}" data-variant-id="{{ variant.id }}">
-            <div class="ep-media">
-              <div class="ep-media__viewport">
-                <div class="ep-media__inner">
-                  {%- assign custom_product_img = 'samay-product-single.webp' | asset_url -%}
-                  {%- if forloop.index == 2 or product.handle contains 'duo' -%}
-                    {%- assign custom_product_img = 'samay-product-duo.webp' | asset_url -%}
-                  {%- elsif forloop.index == 3 or product.handle contains 'trio' -%}
-                    {%- assign custom_product_img = 'samay-product-trio.webp' | asset_url -%}
-                  {%- endif -%}
-                  <img 
-                    src="{{ custom_product_img }}" 
+                    src="{{ fallback_card_img }}" 
                     alt="{{ product.title | escape }}" 
                     class="ep-img"
                     loading="lazy"
@@ -303,9 +406,18 @@
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
       </button>
       <div class="ep-carousel-dots" role="tablist" aria-label="Product editions">
-        <button type="button" class="ep-carousel-dot is-active" role="tab" aria-selected="true" aria-label="Edition 1: Zayro 50ml Single" data-index="0"></button>
-        <button type="button" class="ep-carousel-dot" role="tab" aria-selected="false" aria-label="Edition 2: Zayro Duo Combo" data-index="1"></button>
-        <button type="button" class="ep-carousel-dot" role="tab" aria-selected="false" aria-label="Edition 3: Zayro Grand Trio" data-index="2"></button>
+        {%- assign total_dots = rendered_count | default: 3 -%}
+        {%- for i in (1..total_dots) -%}
+          {%- assign dot_index = forloop.index0 -%}
+          <button 
+            type="button" 
+            class="ep-carousel-dot{% if forloop.first %} is-active{% endif %}" 
+            role="tab" 
+            aria-selected="{{ forloop.first }}" 
+            aria-label="Edition {{ forloop.index }}" 
+            data-index="{{ dot_index }}"
+          ></button>
+        {%- endfor -%}
       </div>
       <button type="button" class="ep-carousel-arrow ep-carousel-next" aria-label="Next edition">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
@@ -317,48 +429,61 @@
   <script type="application/ld+json">
   [
     {%- assign schema_rendered = false -%}
-    {%- for handle in handle_list -%}
-      {%- assign p = all_products[handle] -%}
-      {%- if p != blank and p.title != blank -%}
-        {%- assign v = p.selected_or_first_available_variant -%}
-        {%- if schema_rendered -%},{%- endif -%}
-        {%- assign schema_rendered = true -%}
-        {
-          "@context": "https://schema.org",
-          "@type": "Product",
-          "name": {{ p.title | json }},
-          "url": {{ shop.url | append: p.url | json }},
-          "description": {{ p.description | strip_html | truncatewords: 45 | json }},
-          "brand": {
-            "@type": "Brand",
-            "name": {{ shop.name | json }}
-          },
-          {%- if p.featured_image -%}
-          "image": [
-            {{ p.featured_image | image_url: width: 1000 | prepend: "https:" | json }}
-          ],
-          {%- endif -%}
-          {%- if v.sku != blank -%}
-          "sku": {{ v.sku | json }},
-          {%- endif -%}
-          "offers": {
-            "@type": "Offer",
+    {%- if bundle_blocks.size > 0 -%}
+      {%- for block in bundle_blocks -%}
+        {%- assign p = block.settings.product -%}
+        {%- if p == blank and block.settings.fallback_handle != blank -%}
+          {%- assign p = all_products[block.settings.fallback_handle] -%}
+        {%- endif -%}
+        {%- if p == blank -%}
+          {%- assign default_handles = 'samay-zayro-50ml-eau-de-parfum,samay-zayro-duo-combo-2-in-1,samay-zayro-grand-trio-3-in-1-combo' | split: ',' -%}
+          {%- assign default_handle = default_handles[forloop.index0] -%}
+          {%- assign p = all_products[default_handle] -%}
+        {%- endif -%}
+        {%- if p != blank and p.title != blank -%}
+          {%- assign v = p.selected_or_first_available_variant -%}
+          {%- if schema_rendered -%},{%- endif -%}
+          {%- assign schema_rendered = true -%}
+          {
+            "@context": "https://schema.org",
+            "@type": "Product",
+            "name": {{ p.title | json }},
             "url": {{ shop.url | append: p.url | json }},
-            "priceCurrency": {{ cart.currency.iso_code | default: "INR" | json }},
-            "price": {{ v.price | money_without_currency | remove: "," | json }},
-            "priceValidUntil": "{{ 'now' | date: '%s' | plus: 31536000 | date: '%Y-%m-%d' }}",
-            "itemCondition": "https://schema.org/NewCondition",
-            "availability": "{%- if v.available -%}https://schema.org/InStock{%- else -%}https://schema.org/OutOfStock{%- endif -%}",
-            "seller": {
-              "@type": "Organization",
+            "description": {{ p.description | strip_html | truncatewords: 45 | json }},
+            "brand": {
+              "@type": "Brand",
               "name": {{ shop.name | json }}
+            },
+            {%- if p.featured_image -%}
+              {%- assign p_img = p.featured_image | image_url: width: 1000 -%}
+              {%- assign p_slice = p_img | slice: 0, 2 -%}
+              {%- if p_slice == '//' -%}{%- assign p_img = 'https:' | append: p_img -%}{%- endif -%}
+            "image": [
+              {{ p_img | json }}
+            ],
+            {%- endif -%}
+            {%- if v.sku != blank -%}
+            "sku": {{ v.sku | json }},
+            {%- endif -%}
+            "offers": {
+              "@type": "Offer",
+              "url": {{ shop.url | append: p.url | json }},
+              "priceCurrency": {{ cart.currency.iso_code | default: "INR" | json }},
+              "price": {{ v.price | money_without_currency | remove: "," | json }},
+              "priceValidUntil": "{{ 'now' | date: '%s' | plus: 31536000 | date: '%Y-%m-%d' }}",
+              "itemCondition": "https://schema.org/NewCondition",
+              "availability": "https://schema.org/{% if v.available %}InStock{% else %}OutOfStock{% endif %}",
+              "seller": {
+                "@type": "Organization",
+                "name": {{ shop.name | json }}
+              }
             }
           }
-        }
-      {%- endif -%}
-    {%- endfor -%}
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
     {%- if schema_rendered == false -%}
-      {%- for p in collections.all.products -%}
+      {%- for p in collections.all.products limit: 3 -%}
         {%- assign v = p.selected_or_first_available_variant -%}
         {%- if schema_rendered -%},{%- endif -%}
         {%- assign schema_rendered = true -%}
@@ -373,8 +498,11 @@
             "name": {{ shop.name | json }}
           },
           {%- if p.featured_image -%}
+            {%- assign p_img = p.featured_image | image_url: width: 1000 -%}
+            {%- assign p_slice = p_img | slice: 0, 2 -%}
+            {%- if p_slice == '//' -%}{%- assign p_img = 'https:' | append: p_img -%}{%- endif -%}
           "image": [
-            {{ p.featured_image | image_url: width: 1000 | prepend: "https:" | json }}
+            {{ p_img | json }}
           ],
           {%- endif -%}
           {%- if v.sku != blank -%}
@@ -387,7 +515,7 @@
             "price": {{ v.price | money_without_currency | remove: "," | json }},
             "priceValidUntil": "{{ 'now' | date: '%s' | plus: 31536000 | date: '%Y-%m-%d' }}",
             "itemCondition": "https://schema.org/NewCondition",
-            "availability": "{%- if v.available -%}https://schema.org/InStock{%- else -%}https://schema.org/OutOfStock{%- endif -%}",
+            "availability": "https://schema.org/{% if v.available %}InStock{% else %}OutOfStock{% endif %}",
             "seller": {
               "@type": "Organization",
               "name": {{ shop.name | json }}
@@ -406,18 +534,26 @@
 <section class="samay-philosophy-section">
   <div class="samay-philosophy-bg"></div>
   <div class="samay-philosophy-container">
-    <div class="samay-sec-eyebrow" style="color: var(--gold-light);">THE PHILOSOPHY</div>
-    <blockquote class="samay-philosophy-quote">
-      "In a world where everything moves too fast, true luxury is a fragrance that makes <em>time stand still.</em>"
-    </blockquote>
-    <div class="samay-philosophy-author">
-      — SAMAY PARFUMES · A FRAGRANCE BEYOND TIME
-    </div>
-    <div style="margin-top: 32px;">
-      <a href="#collection" class="samay-btn samay-btn--outline">
-        EXPLORE THE EDITIONS
-      </a>
-    </div>
+    {%- if section.settings.philosophy_eyebrow != blank -%}
+      <div class="samay-sec-eyebrow samay-sec-eyebrow--gold">{{ section.settings.philosophy_eyebrow }}</div>
+    {%- endif -%}
+    {%- if section.settings.philosophy_quote != blank -%}
+      <blockquote class="samay-philosophy-quote">
+        {{ section.settings.philosophy_quote }}
+      </blockquote>
+    {%- endif -%}
+    {%- if section.settings.philosophy_author != blank -%}
+      <div class="samay-philosophy-author">
+        {{ section.settings.philosophy_author }}
+      </div>
+    {%- endif -%}
+    {%- if section.settings.philosophy_btn_label != blank -%}
+      <div class="samay-philosophy-actions">
+        <a href="{{ section.settings.philosophy_btn_link | default: '#collection' }}" class="samay-btn samay-btn--outline">
+          {{ section.settings.philosophy_btn_label }}
+        </a>
+      </div>
+    {%- endif -%}
   </div>
 </section>
 
@@ -427,280 +563,369 @@
 <section class="samay-notes-section" id="notes">
   <div class="container">
     <div class="samay-sec-header">
-      <div class="samay-sec-eyebrow">THE OLFACTORY PYRAMID</div>
-      <h2 class="samay-sec-title">What's in <em>Your Bottle?</em></h2>
-      <p class="samay-sec-subtitle">
-        Zayro is crafted as an evolving three-act composition that transforms seamlessly with your skin chemistry over 6-8 hours.
-      </p>
+      {%- if section.settings.notes_eyebrow != blank -%}
+        <div class="samay-sec-eyebrow">{{ section.settings.notes_eyebrow }}</div>
+      {%- endif -%}
+      {%- if section.settings.notes_title != blank -%}
+        <h2 class="samay-sec-title">{{ section.settings.notes_title }}</h2>
+      {%- endif -%}
+      {%- if section.settings.notes_subtitle != blank -%}
+        <p class="samay-sec-subtitle">
+          {{ section.settings.notes_subtitle }}
+        </p>
+      {%- endif -%}
       <div class="samay-sec-divider"></div>
     </div>
 
-    <!-- 3 Notes Cards -->
+    <!-- Notes Cards -->
     <div class="samay-notes-grid">
-      <!-- TOP NOTES -->
-      <div class="samay-note-card">
-        <div class="samay-note-stage">ACT I · TOP NOTES</div>
-        <h3 class="samay-note-headline">What you smell first</h3>
-        <span class="samay-note-timing">0 to 45 MINUTES</span>
-        <div class="samay-note-ingredients">
-          Italian Bergamot · Sun-Ripened Mandarin<br>
-          Pink Peppercorn · Crisp Juniper Berry
+      {%- assign note_blocks = section.blocks | where: 'type', 'olfactory_note' -%}
+      {%- if note_blocks.size > 0 -%}
+        {%- for block in note_blocks -%}
+          <div class="samay-note-card{% if block.settings.is_featured or forloop.index == 2 %} is-center{% endif %}" {{ block.shopify_attributes }}>
+            <div class="samay-note-stage">{{ block.settings.stage }}</div>
+            <h3 class="samay-note-headline">{{ block.settings.headline }}</h3>
+            <span class="samay-note-timing">{{ block.settings.timing }}</span>
+            <div class="samay-note-ingredients">
+              {{ block.settings.ingredients | newline_to_br }}
+            </div>
+            <p class="samay-note-description">
+              {{ block.settings.description }}
+            </p>
+          </div>
+        {%- endfor -%}
+      {%- else -%}
+        <!-- TOP NOTES -->
+        <div class="samay-note-card">
+          <div class="samay-note-stage">ACT I · TOP NOTES</div>
+          <h3 class="samay-note-headline">What you smell first</h3>
+          <span class="samay-note-timing">0 to 45 MINUTES</span>
+          <div class="samay-note-ingredients">
+            Italian Bergamot · Sun-Ripened Mandarin<br>
+            Pink Peppercorn · Crisp Juniper Berry
+          </div>
+          <p class="samay-note-description">
+            An electrifying burst of sparkling Mediterranean citrus spiced with freshly ground pepper that commands instant intrigue.
+          </p>
         </div>
-        <p class="samay-note-description">
-          An electrifying burst of sparkling Mediterranean citrus spiced with freshly ground pepper that commands instant intrigue.
-        </p>
-      </div>
 
-      <!-- HEART NOTES -->
-      <div class="samay-note-card is-center">
-        <div class="samay-note-stage">ACT II · HEART NOTES</div>
-        <h3 class="samay-note-headline">The soul of the scent</h3>
-        <span class="samay-note-timing">45 MINS to 5 HOURS</span>
-        <div class="samay-note-ingredients">
-          French Lavender · Golden Ambergris<br>
-          Smoked Green Cardamom · Velvet Orris
+        <!-- HEART NOTES -->
+        <div class="samay-note-card is-center">
+          <div class="samay-note-stage">ACT II · HEART NOTES</div>
+          <h3 class="samay-note-headline">The soul of the scent</h3>
+          <span class="samay-note-timing">45 MINS to 5 HOURS</span>
+          <div class="samay-note-ingredients">
+            French Lavender · Golden Ambergris<br>
+            Smoked Green Cardamom · Velvet Orris
+          </div>
+          <p class="samay-note-description">
+            A hypnotic warmth settles in. Rich aromatic spices intertwine with royal florals to project confidence and refined sophistication.
+          </p>
         </div>
-        <p class="samay-note-description">
-          A hypnotic warmth settles in. Rich aromatic spices intertwine with royal florals to project confidence and refined sophistication.
-        </p>
-      </div>
 
-      <!-- BASE NOTES -->
-      <div class="samay-note-card">
-        <div class="samay-note-stage">ACT III · BASE NOTES</div>
-        <h3 class="samay-note-headline">What lingers on skin</h3>
-        <span class="samay-note-timing">5 to 8 HOURS</span>
-        <div class="samay-note-ingredients">
-          Aged Indonesian Oud · Virginia Cedarwood<br>
-          Bourbon Vanilla · Golden Amber Resin
+        <!-- BASE NOTES -->
+        <div class="samay-note-card">
+          <div class="samay-note-stage">ACT III · BASE NOTES</div>
+          <h3 class="samay-note-headline">What lingers on skin</h3>
+          <span class="samay-note-timing">5 to 8 HOURS</span>
+          <div class="samay-note-ingredients">
+            Aged Indonesian Oud · Virginia Cedarwood<br>
+            Bourbon Vanilla · Golden Amber Resin
+          </div>
+          <p class="samay-note-description">
+            An unforgettable, deeply addictive trail of rare woods and sweet resinous amber that remains vivid throughout your day.
+          </p>
         </div>
-        <p class="samay-note-description">
-          An unforgettable, deeply addictive trail of rare woods and sweet resinous amber that remains vivid throughout your day.
-        </p>
-      </div>
+      {%- endif -%}
     </div>
 
     <!-- Raw Ingredients Visual Showcase -->
     <div class="samay-ingredients-showcase">
       <div class="samay-showcase-image-wrap">
-        <img 
-          src="{{ 'zyro-notes.webp' | asset_url }}" 
-          alt="Raw artisan perfume ingredients of Zayro" 
-          class="samay-showcase-image"
-          width="1200"
-          height="670"
-          loading="lazy"
-        >
+        {%- if section.settings.showcase_image != blank -%}
+          <img 
+            src="{{ section.settings.showcase_image | image_url: width: 1200 }}" 
+            alt="{{ section.settings.showcase_image.alt | default: section.settings.showcase_title | escape }}" 
+            class="samay-showcase-image"
+            width="1200"
+            height="670"
+            loading="lazy"
+          >
+        {%- else -%}
+          <img 
+            src="{{ 'zyro-notes.webp' | asset_url }}" 
+            alt="Raw artisan perfume ingredients of Zayro" 
+            class="samay-showcase-image"
+            width="1200"
+            height="670"
+            loading="lazy"
+          >
+        {%- endif -%}
       </div>
       <div class="samay-showcase-content">
-        <div class="samay-sec-eyebrow">SOURCED FROM MASTER TERROIRS</div>
-        <h3 class="serif-font" style="font-size: 2.2rem; margin-bottom: 16px;">Pure Artisanal Ingredients</h3>
-        <p>
-          We refuse to cut corners with diluted fillers. Zayro is formulated with raw Grasse bergamot oils, wild Indonesian agarwood harvested sustainably, and hand-scraped Bourbon vanilla pods.
-        </p>
+        {%- if section.settings.showcase_eyebrow != blank -%}
+          <div class="samay-sec-eyebrow">{{ section.settings.showcase_eyebrow }}</div>
+        {%- endif -%}
+        {%- if section.settings.showcase_title != blank -%}
+          <h3 class="serif-font samay-showcase-title">{{ section.settings.showcase_title }}</h3>
+        {%- endif -%}
+        {%- if section.settings.showcase_desc != blank -%}
+          <p>
+            {{ section.settings.showcase_desc }}
+          </p>
+        {%- endif -%}
         <div class="samay-specs-list">
-          <div class="samay-spec-box">
-            <div class="samay-spec-title">CONCENTRATION</div>
-            <div class="samay-spec-val">15-20% Perfume Oil</div>
-          </div>
-          <div class="samay-spec-box">
-            <div class="samay-spec-title">LONGEVITY</div>
-            <div class="samay-spec-val">6-8 Hours Wear</div>
-          </div>
-          <div class="samay-spec-box">
-            <div class="samay-spec-title">SILLAGE</div>
-            <div class="samay-spec-val">Arm's Length Aura</div>
-          </div>
-          <div class="samay-spec-box">
-            <div class="samay-spec-title">FORMULATION</div>
-            <div class="samay-spec-val">Formulated to IFRA Standards</div>
-          </div>
+          {%- assign spec_blocks = section.blocks | where: 'type', 'spec_item' -%}
+          {%- if spec_blocks.size > 0 -%}
+            {%- for block in spec_blocks -%}
+              <div class="samay-spec-box" {{ block.shopify_attributes }}>
+                <div class="samay-spec-title">{{ block.settings.title }}</div>
+                <div class="samay-spec-val">{{ block.settings.value }}</div>
+              </div>
+            {%- endfor -%}
+          {%- else -%}
+            <div class="samay-spec-box">
+              <div class="samay-spec-title">CONCENTRATION</div>
+              <div class="samay-spec-val">15-20% Perfume Oil</div>
+            </div>
+            <div class="samay-spec-box">
+              <div class="samay-spec-title">LONGEVITY</div>
+              <div class="samay-spec-val">6-8 Hours Wear</div>
+            </div>
+            <div class="samay-spec-box">
+              <div class="samay-spec-title">SILLAGE</div>
+              <div class="samay-spec-val">Arm's Length Aura</div>
+            </div>
+            <div class="samay-spec-box">
+              <div class="samay-spec-title">FORMULATION</div>
+              <div class="samay-spec-val">Formulated to IFRA Standards</div>
+            </div>
+          {%- endif -%}
         </div>
       </div>
     </div>
   </div>
 </section>
 
-{% comment %}
-  ==========================================================================
-  7. REVIEWS & TESTIMONIALS (Hidden until reviews app is installed)
-  ==========================================================================
-<section class="samay-reviews-section" id="reviews">
-  <div class="container">
-    <div class="samay-sec-header">
-      <div class="samay-sec-eyebrow">CUSTOMER REVIEWS</div>
-      <h2 class="samay-sec-title">What Connoisseurs <em>Are Saying</em></h2>
-      <div class="samay-sec-divider"></div>
-    </div>
-
-    <!-- Reviews App Integration Placeholder (e.g. Judge.me, Loox, Okendo, Shopify Reviews) -->
-    <div class="samay-reviews-app-placeholder" style="text-align: center; padding: 48px 20px; color: var(--dim);">
-      <div id="shopify-product-reviews" data-id="{{ all_products['samay-zayro-50ml-eau-de-parfum'].id }}"></div>
-      <p style="font-size: 0.95rem; font-style: italic; margin: 0;">Verified customer reviews will appear here once connected to your reviews app.</p>
-    </div>
-  </div>
-</section>
-{% endcomment %}
-
 <!-- ==========================================================================
-     8. ABOUT US (ON HOMEPAGE)
+     7. ABOUT US (ON HOMEPAGE)
      ========================================================================== -->
 <section class="samay-about-section" id="about">
   <div class="container">
     <div class="samay-about-grid">
       <div class="samay-about-text">
-        <div class="samay-sec-eyebrow">THE MAISON</div>
-        <h2>The Story of <em style="font-style: italic; font-weight: 300;">Samay Parfumes</em></h2>
-        <p>
-          In Sanskrit and Hindi, <strong>Samay</strong> means <em>Time</em>. Our perfumery was born from a singular obsession: creating fragrances that refuse to be forgotten. While fashion changes every season, memories ignited by scent echo forever.
-        </p>
-        <p>
-          Every bottle of Zayro is meticulously crafted in small batches in India, marrying traditional Indian distillation of rare resins and agarwood with French Grasse perfumery techniques. We do not mass produce; each flacon is macerated in dark temperature-controlled cellars for over 60 days to ensure a rich, intoxicating trail.
-        </p>
+        {%- if section.settings.about_eyebrow != blank -%}
+          <div class="samay-sec-eyebrow">{{ section.settings.about_eyebrow }}</div>
+        {%- endif -%}
+        {%- if section.settings.about_title != blank -%}
+          <h2>{{ section.settings.about_title }}</h2>
+        {%- endif -%}
+        {%- if section.settings.about_p1 != blank -%}
+          <p>{{ section.settings.about_p1 }}</p>
+        {%- endif -%}
+        {%- if section.settings.about_p2 != blank -%}
+          <p>{{ section.settings.about_p2 }}</p>
+        {%- endif -%}
 
         <div class="samay-about-stats">
-          <div class="samay-stat-item">
-            <strong>15-20%</strong>
-            <span>Perfume Oil</span>
-          </div>
-          <div class="samay-stat-item">
-            <strong>60+</strong>
-            <span>Days Maceration</span>
-          </div>
-          <div class="samay-stat-item">
-            <strong>100%</strong>
-            <span>Cruelty Free</span>
-          </div>
+          {%- assign stat_blocks = section.blocks | where: 'type', 'about_stat' -%}
+          {%- if stat_blocks.size > 0 -%}
+            {%- for block in stat_blocks -%}
+              <div class="samay-stat-item" {{ block.shopify_attributes }}>
+                <strong>{{ block.settings.value }}</strong>
+                <span>{{ block.settings.label }}</span>
+              </div>
+            {%- endfor -%}
+          {%- else -%}
+            <div class="samay-stat-item">
+              <strong>15-20%</strong>
+              <span>Perfume Oil</span>
+            </div>
+            <div class="samay-stat-item">
+              <strong>60+</strong>
+              <span>Days Maceration</span>
+            </div>
+            <div class="samay-stat-item">
+              <strong>100%</strong>
+              <span>Cruelty Free</span>
+            </div>
+          {%- endif -%}
         </div>
       </div>
 
       <div class="samay-about-media">
-        <img 
-          src="{{ 'samay-story-atelier.webp' | asset_url }}" 
-          alt="The Story of Samay Parfumes Atelier"
-          loading="lazy"
-          width="896"
-          height="1200"
-        >
+        {%- if section.settings.about_image != blank -%}
+          <img 
+            src="{{ section.settings.about_image | image_url: width: 896 }}" 
+            alt="{{ section.settings.about_image.alt | default: 'The Story of Samay Parfumes Atelier' | escape }}"
+            loading="lazy"
+            width="896"
+            height="1200"
+          >
+        {%- else -%}
+          <img 
+            src="{{ 'samay-story-atelier.webp' | asset_url }}" 
+            alt="The Story of Samay Parfumes Atelier"
+            loading="lazy"
+            width="896"
+            height="1200"
+          >
+        {%- endif -%}
       </div>
     </div>
   </div>
 </section>
 
 <!-- ==========================================================================
-     9. INTERACTIVE CONTACT US & FAQ (ON HOMEPAGE)
+     8. INTERACTIVE CONTACT US & FAQ (ON HOMEPAGE)
      ========================================================================== -->
 <section class="samay-contact-section" id="contact">
   <div class="container">
     <div class="samay-sec-header">
-      <div class="samay-sec-eyebrow">ASSISTANCE & CONCIERGE</div>
-      <h2 class="samay-sec-title">We are Here <em>For You</em></h2>
-      <p class="samay-sec-subtitle">
-        Have a question about your order, tracking, or choosing between our single bottle and combos? Reach out directly to our concierge team.
-      </p>
+      {%- if section.settings.contact_eyebrow != blank -%}
+        <div class="samay-sec-eyebrow">{{ section.settings.contact_eyebrow }}</div>
+      {%- endif -%}
+      {%- if section.settings.contact_title != blank -%}
+        <h2 class="samay-sec-title">{{ section.settings.contact_title }}</h2>
+      {%- endif -%}
+      {%- if section.settings.contact_subtitle != blank -%}
+        <p class="samay-sec-subtitle">
+          {{ section.settings.contact_subtitle }}
+        </p>
+      {%- endif -%}
       <div class="samay-sec-divider"></div>
     </div>
 
     <div class="samay-contact-grid">
       <!-- Contact Form -->
       <div class="samay-contact-form-box">
-        <h3 class="serif-font" style="font-size: 1.8rem; margin-bottom: 20px;">Send a Message</h3>
+        {%- if section.settings.contact_form_heading != blank -%}
+          <h3 class="serif-font samay-contact-heading">{{ section.settings.contact_form_heading }}</h3>
+        {%- endif -%}
         {% form 'contact', id: 'samayContactForm' %}
           {% if form.posted_successfully? %}
-            <div style="padding: 16px; margin-bottom: 20px; background: rgba(46, 125, 50, 0.08); border: 1px solid #2e7d32; color: #2e7d32; border-radius: 4px; font-weight: 600; text-align: center; font-size: 0.92rem;">
-              ✦ Thank you! Our perfumery concierge will contact you within 24 hours.
+            <div class="samay-form-success">
+              {{ section.settings.contact_success_message }}
             </div>
           {% elsif form.errors %}
-            <div style="padding: 16px; margin-bottom: 20px; background: rgba(211, 47, 47, 0.08); border: 1px solid #d32f2f; color: #d32f2f; border-radius: 4px; font-size: 0.88rem;">
+            <div class="samay-form-error">
               {{ form.errors | default_errors }}
             </div>
           {% endif %}
 
           <div class="samay-form-group">
             <label class="samay-form-label" for="ContactFormName">Full Name</label>
-            <input type="text" id="ContactFormName" name="contact[name]" class="samay-form-input" placeholder="e.g. Rahul Sharma" value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}" required>
+            <input type="text" id="ContactFormName" name="contact[name]" class="samay-form-input" placeholder="e.g. Rahul Sharma" value="{{ form.name | default: customer.name | escape }}" required>
           </div>
           <div class="samay-form-group">
             <label class="samay-form-label" for="ContactFormEmail">Email Address</label>
-            <input type="email" id="ContactFormEmail" name="contact[email]" class="samay-form-input" placeholder="e.g. rahul@example.com" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}" required>
+            <input type="email" id="ContactFormEmail" name="contact[email]" class="samay-form-input" placeholder="e.g. rahul@example.com" value="{{ form.email | default: customer.email | escape }}" required>
           </div>
           <div class="samay-form-group">
             <label class="samay-form-label" for="ContactFormPhone">Phone / WhatsApp</label>
-            <input type="tel" id="ContactFormPhone" name="contact[phone]" class="samay-form-input" placeholder="+91 98765 43210" value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}" required>
+            <input type="tel" id="ContactFormPhone" name="contact[phone]" class="samay-form-input" placeholder="+91 98765 43210" value="{{ form.phone | default: customer.phone | escape }}" required>
           </div>
           <div class="samay-form-group">
             <label class="samay-form-label" for="ContactFormTopic">Inquiry Topic</label>
+            {%- capture newline %}
+{% endcapture -%}
+            {%- assign topic_options = section.settings.contact_topics | split: newline -%}
             <select id="ContactFormTopic" name="contact[Inquiry Topic]" class="samay-form-select">
-              <option value="Order Status & Tracking">Order Status & Tracking</option>
-              <option value="Advice on 2-in-1 or 3-in-1 Combo">Advice on 2-in-1 or 3-in-1 Combo</option>
-              <option value="Corporate / Bulk Gifting">Corporate / Bulk Gifting</option>
-              <option value="General Fragrance Inquiry">General Fragrance Inquiry</option>
+              {%- for topic in topic_options -%}
+                {%- assign clean_topic = topic | strip -%}
+                {%- if clean_topic != blank -%}
+                  <option value="{{ clean_topic | escape }}">{{ clean_topic }}</option>
+                {%- endif -%}
+              {%- endfor -%}
             </select>
           </div>
           <div class="samay-form-group">
             <label class="samay-form-label" for="ContactFormMessage">Your Message</label>
-            <textarea id="ContactFormMessage" name="contact[body]" class="samay-form-textarea" rows="4" placeholder="How can our concierge assist you today?" required>{% if form.body %}{{ form.body }}{% endif %}</textarea>
+            <textarea id="ContactFormMessage" name="contact[body]" class="samay-form-textarea" rows="4" placeholder="How can our concierge assist you today?" required>{{ form.body | escape }}</textarea>
           </div>
-          <button type="submit" class="samay-btn samay-btn--gold samay-btn--full">
-            SEND MESSAGE
-          </button>
+          {%- if section.settings.contact_btn_label != blank -%}
+            <button type="submit" class="samay-btn samay-btn--gold samay-btn--full">
+              {{ section.settings.contact_btn_label }}
+            </button>
+          {%- endif -%}
         {% endform %}
 
       </div>
 
       <!-- FAQ Accordion -->
       <div class="samay-faq-box">
-        <h3 class="serif-font" style="font-size: 1.8rem; margin-bottom: 20px;">Frequently Asked Questions</h3>
+        {%- if section.settings.faq_heading != blank -%}
+          <h3 class="serif-font samay-faq-heading">{{ section.settings.faq_heading }}</h3>
+        {%- endif -%}
 
-        <div class="samay-faq-item is-open">
-          <button type="button" class="samay-faq-question" id="FaqQuestion1" aria-expanded="true" aria-controls="FaqAnswer1">
-            <span>How long does Zayro last on skin and clothes?</span>
-            <span class="samay-faq-icon">+</span>
-          </button>
-          <div class="samay-faq-answer" id="FaqAnswer1" role="region" aria-labelledby="FaqQuestion1">
-            Zayro is formulated as an Eau de Parfum (EDP) with 15-20% perfume oil concentration. On moisturized skin, it lasts 6 to 8 hours. On clothing and outerwear, its rich amber and agarwood base notes can linger throughout the day.
+        {%- assign faq_blocks = section.blocks | where: 'type', 'faq_item' -%}
+        {%- if faq_blocks.size > 0 -%}
+          {%- for block in faq_blocks -%}
+            {%- assign is_open = false -%}
+            {%- if forloop.first or block.settings.is_open -%}
+              {%- assign is_open = true -%}
+            {%- endif -%}
+            <div class="samay-faq-item{% if is_open %} is-open{% endif %}" {{ block.shopify_attributes }}>
+              <button type="button" class="samay-faq-question" id="FaqQuestion{{ forloop.index }}" aria-expanded="{{ is_open }}" aria-controls="FaqAnswer{{ forloop.index }}">
+                <span>{{ block.settings.question }}</span>
+                <span class="samay-faq-icon">+</span>
+              </button>
+              <div class="samay-faq-answer" id="FaqAnswer{{ forloop.index }}" role="region" aria-labelledby="FaqQuestion{{ forloop.index }}">
+                {{ block.settings.answer }}
+              </div>
+            </div>
+          {%- endfor -%}
+        {%- else -%}
+          <div class="samay-faq-item is-open">
+            <button type="button" class="samay-faq-question" id="FaqQuestion1" aria-expanded="true" aria-controls="FaqAnswer1">
+              <span>How long does Zayro last on skin and clothes?</span>
+              <span class="samay-faq-icon">+</span>
+            </button>
+            <div class="samay-faq-answer" id="FaqAnswer1" role="region" aria-labelledby="FaqQuestion1">
+              Zayro is formulated as an Eau de Parfum (EDP) with 15-20% perfume oil concentration. On moisturized skin, it lasts 6 to 8 hours. On clothing and outerwear, its rich amber and agarwood base notes can linger throughout the day.
+            </div>
           </div>
-        </div>
 
-        <div class="samay-faq-item">
-          <button type="button" class="samay-faq-question" id="FaqQuestion2" aria-expanded="false" aria-controls="FaqAnswer2">
-            <span>What is the difference between the single and combo packs?</span>
-            <span class="samay-faq-icon">+</span>
-          </button>
-          <div class="samay-faq-answer" id="FaqAnswer2" role="region" aria-labelledby="FaqQuestion2">
-            The fragrance formulation in all 3 editions is identical (Zayro 50ml). The 2-in-1 Duo combo and 3-in-1 Grand Trio offer substantial volume savings per bottle and include complimentary luxury presentation gift boxes.
+          <div class="samay-faq-item">
+            <button type="button" class="samay-faq-question" id="FaqQuestion2" aria-expanded="false" aria-controls="FaqAnswer2">
+              <span>What is the difference between the single and combo packs?</span>
+              <span class="samay-faq-icon">+</span>
+            </button>
+            <div class="samay-faq-answer" id="FaqAnswer2" role="region" aria-labelledby="FaqQuestion2">
+              The fragrance formulation in all 3 editions is identical (Zayro 50ml). The 2-in-1 Duo combo and 3-in-1 Grand Trio offer substantial volume savings per bottle and include complimentary luxury presentation gift boxes.
+            </div>
           </div>
-        </div>
 
-        <div class="samay-faq-item">
-          <button type="button" class="samay-faq-question" id="FaqQuestion3" aria-expanded="false" aria-controls="FaqAnswer3">
-            <span>What are the shipping times and is delivery free?</span>
-            <span class="samay-faq-icon">+</span>
-          </button>
-          <div class="samay-faq-answer" id="FaqAnswer3" role="region" aria-labelledby="FaqQuestion3">
-            Yes, express shipping is 100% complimentary across all pin codes in India for all orders. Metro cities (Delhi NCR, Mumbai, Bangalore, Pune) typically receive delivery in 2-3 business days. All other locations take 3-5 business days with live tracking provided via SMS and email notifications.
+          <div class="samay-faq-item">
+            <button type="button" class="samay-faq-question" id="FaqQuestion3" aria-expanded="false" aria-controls="FaqAnswer3">
+              <span>What are the shipping times and is delivery free?</span>
+              <span class="samay-faq-icon">+</span>
+            </button>
+            <div class="samay-faq-answer" id="FaqAnswer3" role="region" aria-labelledby="FaqQuestion3">
+              Yes, express shipping is 100% complimentary across all pin codes in India for all orders. Metro cities (Delhi NCR, Mumbai, Bangalore, Pune) typically receive delivery in 2-3 business days. All other locations take 3-5 business days with live tracking provided via SMS and email notifications.
+            </div>
           </div>
-        </div>
 
-        <div class="samay-faq-item">
-          <button type="button" class="samay-faq-question" id="FaqQuestion4" aria-expanded="false" aria-controls="FaqAnswer4">
-            <span>What is your damaged replacement guarantee?</span>
-            <span class="samay-faq-icon">+</span>
-          </button>
-          <div class="samay-faq-answer" id="FaqAnswer4" role="region" aria-labelledby="FaqQuestion4">
-            Every bottle is packaged inside thick shock-resistant transit cushions. In the rare event of transit damage or leakage, simply share a quick photo with our concierge team within 48 hours and we will dispatch a brand-new replacement bottle immediately with zero hassle.
+          <div class="samay-faq-item">
+            <button type="button" class="samay-faq-question" id="FaqQuestion4" aria-expanded="false" aria-controls="FaqAnswer4">
+              <span>What is your damaged replacement guarantee?</span>
+              <span class="samay-faq-icon">+</span>
+            </button>
+            <div class="samay-faq-answer" id="FaqAnswer4" role="region" aria-labelledby="FaqQuestion4">
+              Every bottle is packaged inside thick shock-resistant transit cushions. In the rare event of transit damage or leakage, simply share a quick photo with our concierge team within 48 hours and we will dispatch a brand-new replacement bottle immediately with zero hassle.
+            </div>
           </div>
-        </div>
 
-        <div class="samay-faq-item">
-          <button type="button" class="samay-faq-question" id="FaqQuestion5" aria-expanded="false" aria-controls="FaqAnswer5">
-            <span>Is Cash on Delivery (COD) supported?</span>
-            <span class="samay-faq-icon">+</span>
-          </button>
-          <div class="samay-faq-answer" id="FaqAnswer5" role="region" aria-labelledby="FaqQuestion5">
-            Yes! We accept Cash on Delivery (COD), UPI (Google Pay, PhonePe, Paytm), and all major credit/debit cards during checkout.
+          <div class="samay-faq-item">
+            <button type="button" class="samay-faq-question" id="FaqQuestion5" aria-expanded="false" aria-controls="FaqAnswer5">
+              <span>Is Cash on Delivery (COD) supported?</span>
+              <span class="samay-faq-icon">+</span>
+            </button>
+            <div class="samay-faq-answer" id="FaqAnswer5" role="region" aria-labelledby="FaqQuestion5">
+              Yes! We accept Cash on Delivery (COD), UPI (Google Pay, PhonePe, Paytm), and all major credit/debit cards during checkout.
+            </div>
           </div>
-        </div>
+        {%- endif -%}
       </div>
     </div>
   </div>
@@ -711,72 +936,92 @@
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How long does Zayro last on skin and clothes?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Zayro is formulated as an Eau de Parfum (EDP) with 15-20% perfume oil concentration. On moisturized skin, it lasts 6 to 8 hours. On clothing and outerwear, its rich amber and agarwood base notes can linger throughout the day."
+      {%- if faq_blocks.size > 0 -%}
+        {%- for block in faq_blocks -%}
+          {%- unless forloop.first -%},{%- endunless -%}
+          {
+            "@type": "Question",
+            "name": {{ block.settings.question | json }},
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": {{ block.settings.answer | strip_html | json }}
+            }
+          }
+        {%- endfor -%}
+      {%- else -%}
+        {
+          "@type": "Question",
+          "name": "How long does Zayro last on skin and clothes?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Zayro is formulated as an Eau de Parfum (EDP) with 15-20% perfume oil concentration. On moisturized skin, it lasts 6 to 8 hours. On clothing and outerwear, its rich amber and agarwood base notes can linger throughout the day."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between the single and combo packs?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The fragrance formulation in all 3 editions is identical (Zayro 50ml). The 2-in-1 Duo combo and 3-in-1 Grand Trio offer substantial volume savings per bottle and include complimentary luxury presentation gift boxes."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What are the shipping times and is delivery free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, express shipping is 100% complimentary across all pin codes in India for all orders. Metro cities (Delhi NCR, Mumbai, Bangalore, Pune) typically receive delivery in 2-3 business days. All other locations take 3-5 business days with live tracking provided via SMS and email notifications."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is your damaged replacement guarantee?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Every bottle is packaged inside thick shock-resistant transit cushions. In the rare event of transit damage or leakage, simply share a quick photo with our concierge team within 48 hours and we will dispatch a brand-new replacement bottle immediately with zero hassle."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is Cash on Delivery (COD) supported?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes! We accept Cash on Delivery (COD), UPI (Google Pay, PhonePe, Paytm), and all major credit/debit cards during checkout."
+          }
         }
-      },
-      {
-        "@type": "Question",
-        "name": "What is the difference between the single and combo packs?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The fragrance formulation in all 3 editions is identical (Zayro 50ml). The 2-in-1 Duo combo and 3-in-1 Grand Trio offer substantial volume savings per bottle and include complimentary luxury presentation gift boxes."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What are the shipping times and is delivery free?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes, express shipping is 100% complimentary across all pin codes in India for all orders. Metro cities (Delhi NCR, Mumbai, Bangalore, Pune) typically receive delivery in 2-3 business days. All other locations take 3-5 business days with live tracking provided via SMS and email notifications."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is your damaged replacement guarantee?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Every bottle is packaged inside thick shock-resistant transit cushions. In the rare event of transit damage or leakage, simply share a quick photo with our concierge team within 48 hours and we will dispatch a brand-new replacement bottle immediately with zero hassle."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Is Cash on Delivery (COD) supported?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes! We accept Cash on Delivery (COD), UPI (Google Pay, PhonePe, Paytm), and all major credit/debit cards during checkout."
-        }
-      }
+      {%- endif -%}
     ]
   }
   </script>
 </section>
 
 <!-- ==========================================================================
-     10. VIP NEWSLETTER
+     9. VIP NEWSLETTER
      ========================================================================== -->
 <section class="samay-newsletter-section">
   <div class="container">
     <div class="samay-newsletter-box">
-      <div class="samay-sec-eyebrow" style="color: var(--gold-light);">PRIVATE PRIVILEGES</div>
-      <h2>Join The Samay Circle</h2>
-      <p>
-        Enjoy privileged early access to small-batch launches, private olfactory invitations, and exclusive updates from our maison.
-      </p>
+      {%- if section.settings.newsletter_eyebrow != blank -%}
+        <div class="samay-sec-eyebrow samay-sec-eyebrow--gold">{{ section.settings.newsletter_eyebrow }}</div>
+      {%- endif -%}
+      {%- if section.settings.newsletter_title != blank -%}
+        <h2>{{ section.settings.newsletter_title }}</h2>
+      {%- endif -%}
+      {%- if section.settings.newsletter_desc != blank -%}
+        <p>
+          {{ section.settings.newsletter_desc }}
+        </p>
+      {%- endif -%}
       {% form 'customer', class: 'samay-newsletter-form-container' %}
         <input type="hidden" name="contact[tags]" value="newsletter">
         <input type="hidden" name="contact[accepts_marketing]" value="true">
         <input type="hidden" name="customer[accepts_marketing]" value="true">
         {% if form.posted_successfully? %}
-          <div style="color: var(--gold-light); font-weight: 500; font-size: 0.95rem; text-align: center; margin-bottom: 16px;">
-            ✦ Welcome to the Samay Circle! Thank you for subscribing.
+          <div class="samay-newsletter-success">
+            {{ section.settings.newsletter_success_message }}
           </div>
         {% elsif form.errors %}
-          <div style="color: #ff8a80; font-size: 0.88rem; text-align: center; margin-bottom: 16px;">
+          <div class="samay-newsletter-error">
             {{ form.errors | default_errors }}
           </div>
         {% endif %}
@@ -787,29 +1032,739 @@
             name="contact[email]" 
             class="samay-newsletter-input" 
             placeholder="Enter your email address" 
-            value="{% if customer %}{{ customer.email }}{% endif %}" 
+            value="{{ customer.email | escape }}" 
             required
             aria-label="Email address"
           >
-          <button type="submit" class="samay-btn samay-btn--gold">
-            SUBSCRIBE
-          </button>
+          {%- if section.settings.newsletter_btn_label != blank -%}
+            <button type="submit" class="samay-btn samay-btn--gold">
+              {{ section.settings.newsletter_btn_label }}
+            </button>
+          {%- endif -%}
         </div>
-        <p class="samay-newsletter-consent">
-          By subscribing, you consent to receive email marketing communications from Samay Parfumes. Unsubscribe anytime.
-        </p>
+        {%- if section.settings.newsletter_consent != blank -%}
+          <p class="samay-newsletter-consent">
+            {{ section.settings.newsletter_consent }}
+          </p>
+        {%- endif -%}
       {% endform %}
     </div>
   </div>
 </section>
 
-{% comment %} Cart drawer is rendered globally via footer snippet {% endcomment %}
-
-
-
 {% schema %}
 {
   "name": "Samay Homepage",
-  "settings": []
+  "settings": [
+    {
+      "type": "header",
+      "content": "Hero & Signature Collection"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero Background Image",
+      "info": "Falls back to samay-hero-clock.jpg."
+    },
+    {
+      "type": "text",
+      "id": "hero_eyebrow",
+      "label": "Hero Eyebrow",
+      "default": "EAU DE PARFUM · ARTISANAL RESERVE"
+    },
+    {
+      "type": "text",
+      "id": "hero_title",
+      "label": "Hero Heading (supports HTML)",
+      "default": "A Fragrance <em>Beyond Time.</em>"
+    },
+    {
+      "type": "textarea",
+      "id": "hero_desc",
+      "label": "Hero Description",
+      "default": "Introducing <strong>Zayro 50ml</strong> — A magnetic union of sun-drenched Italian citrus, velvety ambergris, and sacred midnight oud. Crafted to captivate senses and linger for 6-8 hours."
+    },
+    {
+      "type": "text",
+      "id": "hero_btn1_label",
+      "label": "Primary Button Label",
+      "default": "SHOP ZAYRO 50ML"
+    },
+    {
+      "type": "url",
+      "id": "hero_btn1_link",
+      "label": "Primary Button Link"
+    },
+    {
+      "type": "text",
+      "id": "hero_btn2_label",
+      "label": "Secondary Button Label",
+      "default": "EXPLORE NOTES"
+    },
+    {
+      "type": "url",
+      "id": "hero_btn2_link",
+      "label": "Secondary Button Link"
+    },
+    {
+      "type": "text",
+      "id": "collection_kicker",
+      "label": "Collection Kicker",
+      "default": "THE SIGNATURE COLLECTION"
+    },
+    {
+      "type": "text",
+      "id": "collection_title",
+      "label": "Collection Title",
+      "default": "SAMAY COLLECTION"
+    },
+    {
+      "type": "text",
+      "id": "collection_hint",
+      "label": "Mobile Carousel Hint",
+      "default": "Swipe to explore all 3 editions"
+    },
+    {
+      "type": "text",
+      "id": "philosophy_eyebrow",
+      "label": "Philosophy Eyebrow",
+      "default": "THE PHILOSOPHY"
+    },
+    {
+      "type": "textarea",
+      "id": "philosophy_quote",
+      "label": "Philosophy Quote (supports HTML)",
+      "default": "\"In a world where everything moves too fast, true luxury is a fragrance that makes <em>time stand still.</em>\""
+    },
+    {
+      "type": "text",
+      "id": "philosophy_author",
+      "label": "Philosophy Author",
+      "default": "— SAMAY PARFUMES · A FRAGRANCE BEYOND TIME"
+    },
+    {
+      "type": "text",
+      "id": "philosophy_btn_label",
+      "label": "Philosophy Button Label",
+      "default": "EXPLORE THE EDITIONS"
+    },
+    {
+      "type": "url",
+      "id": "philosophy_btn_link",
+      "label": "Philosophy Button Link"
+    },
+    {
+      "type": "header",
+      "content": "Olfactory Notes & Atelier Story"
+    },
+    {
+      "type": "text",
+      "id": "notes_eyebrow",
+      "label": "Notes Eyebrow",
+      "default": "THE OLFACTORY PYRAMID"
+    },
+    {
+      "type": "text",
+      "id": "notes_title",
+      "label": "Notes Title (supports HTML)",
+      "default": "What's in <em>Your Bottle?</em>"
+    },
+    {
+      "type": "textarea",
+      "id": "notes_subtitle",
+      "label": "Notes Subtitle",
+      "default": "Zayro is crafted as an evolving three-act composition that transforms seamlessly with your skin chemistry over 6-8 hours."
+    },
+    {
+      "type": "image_picker",
+      "id": "showcase_image",
+      "label": "Showcase Image",
+      "info": "Falls back to zyro-notes.webp."
+    },
+    {
+      "type": "text",
+      "id": "showcase_eyebrow",
+      "label": "Showcase Eyebrow",
+      "default": "SOURCED FROM MASTER TERROIRS"
+    },
+    {
+      "type": "text",
+      "id": "showcase_title",
+      "label": "Showcase Title",
+      "default": "Pure Artisanal Ingredients"
+    },
+    {
+      "type": "textarea",
+      "id": "showcase_desc",
+      "label": "Showcase Description",
+      "default": "We refuse to cut corners with diluted fillers. Zayro is formulated with raw Grasse bergamot oils, wild Indonesian agarwood harvested sustainably, and hand-scraped Bourbon vanilla pods."
+    },
+    {
+      "type": "text",
+      "id": "about_eyebrow",
+      "label": "About Eyebrow",
+      "default": "THE MAISON"
+    },
+    {
+      "type": "text",
+      "id": "about_title",
+      "label": "About Heading (supports HTML)",
+      "default": "The Story of <em>Samay Parfumes</em>"
+    },
+    {
+      "type": "textarea",
+      "id": "about_p1",
+      "label": "About Story Paragraph 1",
+      "default": "In Sanskrit and Hindi, <strong>Samay</strong> means <em>Time</em>. Our perfumery was born from a singular obsession: creating fragrances that refuse to be forgotten. While fashion changes every season, memories ignited by scent echo forever."
+    },
+    {
+      "type": "textarea",
+      "id": "about_p2",
+      "label": "About Story Paragraph 2",
+      "default": "Every bottle of Zayro is meticulously crafted in small batches in India, marrying traditional Indian distillation of rare resins and agarwood with French Grasse perfumery techniques. We do not mass produce; each flacon is macerated in dark temperature-controlled cellars for over 60 days to ensure a rich, intoxicating trail."
+    },
+    {
+      "type": "image_picker",
+      "id": "about_image",
+      "label": "Atelier Story Image",
+      "info": "Falls back to samay-story-atelier.webp."
+    },
+    {
+      "type": "header",
+      "content": "Concierge, FAQ & Newsletter"
+    },
+    {
+      "type": "text",
+      "id": "contact_eyebrow",
+      "label": "Contact Eyebrow",
+      "default": "ASSISTANCE & CONCIERGE"
+    },
+    {
+      "type": "text",
+      "id": "contact_title",
+      "label": "Contact Title (supports HTML)",
+      "default": "We are Here <em>For You</em>"
+    },
+    {
+      "type": "textarea",
+      "id": "contact_subtitle",
+      "label": "Contact Subtitle",
+      "default": "Have a question about your order, tracking, or choosing between our single bottle and combos? Reach out directly to our concierge team."
+    },
+    {
+      "type": "text",
+      "id": "contact_form_heading",
+      "label": "Contact Form Heading",
+      "default": "Send a Message"
+    },
+    {
+      "type": "text",
+      "id": "contact_success_message",
+      "label": "Contact Form Success Message",
+      "default": "✦ Thank you! Our perfumery concierge will contact you within 24 hours."
+    },
+    {
+      "type": "textarea",
+      "id": "contact_topics",
+      "label": "Contact Inquiry Topics (one per line)",
+      "default": "Order Status & Tracking\nAdvice on 2-in-1 or 3-in-1 Combo\nCorporate / Bulk Gifting\nGeneral Fragrance Inquiry"
+    },
+    {
+      "type": "text",
+      "id": "contact_btn_label",
+      "label": "Submit Button Label",
+      "default": "SEND MESSAGE"
+    },
+    {
+      "type": "text",
+      "id": "faq_heading",
+      "label": "FAQ Accordion Heading",
+      "default": "Frequently Asked Questions"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_eyebrow",
+      "label": "Newsletter Eyebrow",
+      "default": "PRIVATE PRIVILEGES"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_title",
+      "label": "Newsletter Title",
+      "default": "Join The Samay Circle"
+    },
+    {
+      "type": "textarea",
+      "id": "newsletter_desc",
+      "label": "Newsletter Description",
+      "default": "Enjoy privileged early access to small-batch launches, private olfactory invitations, and exclusive updates from our maison."
+    },
+    {
+      "type": "text",
+      "id": "newsletter_success_message",
+      "label": "Newsletter Success Message",
+      "default": "✦ Welcome to the Samay Circle! Thank you for subscribing."
+    },
+    {
+      "type": "text",
+      "id": "newsletter_btn_label",
+      "label": "Subscribe Button Label",
+      "default": "SUBSCRIBE"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_consent",
+      "label": "Newsletter Consent Disclaimer",
+      "default": "By subscribing, you consent to receive email marketing communications from Samay Parfumes. Unsubscribe anytime."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "hero_highlight",
+      "name": "Hero Credential Badge",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Badge Icon",
+          "options": [
+            { "value": "clock", "label": "Clock / Longevity" },
+            { "value": "star", "label": "Star / Concentration" },
+            { "value": "shipping", "label": "Truck / Free Shipping" }
+          ],
+          "default": "clock"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Badge Text",
+          "default": "6-8 Hours Wear"
+        }
+      ]
+    },
+    {
+      "type": "marquee_item",
+      "name": "Marquee Ticker Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Ticker Text",
+          "default": "EAU DE PARFUM"
+        }
+      ]
+    },
+    {
+      "type": "brand_pillar",
+      "name": "Brand Pillar Card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Emoji or Symbol Icon",
+          "default": "⌛"
+        },
+        {
+          "type": "text",
+          "id": "eyebrow",
+          "label": "Pillar Eyebrow",
+          "default": "UNRIVALED LONGEVITY"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Pillar Title",
+          "default": "15-20% Perfume Oil"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Pillar Description",
+          "default": "Formulated at optimal Eau de Parfum concentration so your signature trail projects beautifully for 6-8 hours."
+        }
+      ]
+    },
+    {
+      "type": "bundle_tier",
+      "name": "Bundle / Edition Tier",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product Picker"
+        },
+        {
+          "type": "text",
+          "id": "fallback_handle",
+          "label": "Fallback Product Handle",
+          "info": "Used if no product is chosen above"
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_image",
+          "label": "Custom Card Image (optional)"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title Override (optional)"
+        },
+        {
+          "type": "text",
+          "id": "badge",
+          "label": "Badge (e.g. Popular, Best Value)"
+        },
+        {
+          "type": "text",
+          "id": "specs",
+          "label": "Specifications Note (optional)",
+          "default": "15-20% Perfume Oil · 6-8h Longevity"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button Label",
+          "default": "ADD TO CART"
+        }
+      ]
+    },
+    {
+      "type": "olfactory_note",
+      "name": "Olfactory Note Card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "stage",
+          "label": "Stage / Act",
+          "default": "ACT I · TOP NOTES"
+        },
+        {
+          "type": "text",
+          "id": "headline",
+          "label": "Headline",
+          "default": "What you smell first"
+        },
+        {
+          "type": "text",
+          "id": "timing",
+          "label": "Timing Window",
+          "default": "0 to 45 MINUTES"
+        },
+        {
+          "type": "textarea",
+          "id": "ingredients",
+          "label": "Ingredients (use new lines)",
+          "default": "Italian Bergamot · Sun-Ripened Mandarin\nPink Peppercorn · Crisp Juniper Berry"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "An electrifying burst of sparkling Mediterranean citrus spiced with freshly ground pepper that commands instant intrigue."
+        },
+        {
+          "type": "checkbox",
+          "id": "is_featured",
+          "label": "Highlight Center Card",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "spec_item",
+      "name": "Ingredients Spec Badge",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Spec Title",
+          "default": "CONCENTRATION"
+        },
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Spec Value",
+          "default": "15-20% Perfume Oil"
+        }
+      ]
+    },
+    {
+      "type": "about_stat",
+      "name": "Maison Statistic",
+      "settings": [
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Stat Value",
+          "default": "15-20%"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Stat Label",
+          "default": "Perfume Oil"
+        }
+      ]
+    },
+    {
+      "type": "faq_item",
+      "name": "FAQ Question & Answer",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "How long does Zayro last on skin and clothes?"
+        },
+        {
+          "type": "textarea",
+          "id": "answer",
+          "label": "Answer",
+          "default": "Zayro is formulated as an Eau de Parfum (EDP) with 15-20% perfume oil concentration. On moisturized skin, it lasts 6 to 8 hours. On clothing and outerwear, its rich amber and agarwood base notes can linger throughout the day."
+        },
+        {
+          "type": "checkbox",
+          "id": "is_open",
+          "label": "Open by Default",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Samay Homepage",
+      "blocks": [
+        {
+          "type": "hero_highlight",
+          "settings": {
+            "icon": "clock",
+            "text": "6-8 Hours Wear"
+          }
+        },
+        {
+          "type": "hero_highlight",
+          "settings": {
+            "icon": "star",
+            "text": "15-20% Perfume Oil"
+          }
+        },
+        {
+          "type": "hero_highlight",
+          "settings": {
+            "icon": "shipping",
+            "text": "Free Express Shipping"
+          }
+        },
+        {
+          "type": "marquee_item",
+          "settings": { "text": "EAU DE PARFUM" }
+        },
+        {
+          "type": "marquee_item",
+          "settings": { "text": "A FRAGRANCE BEYOND TIME" }
+        },
+        {
+          "type": "marquee_item",
+          "settings": { "text": "6-8 HOURS LONGEVITY" }
+        },
+        {
+          "type": "marquee_item",
+          "settings": { "text": "FRENCH & ORIENTAL ESSENCES" }
+        },
+        {
+          "type": "marquee_item",
+          "settings": { "text": "HANDCRAFTED IN INDIA" }
+        },
+        {
+          "type": "marquee_item",
+          "settings": { "text": "COMPLIMENT MAGNET" }
+        },
+        {
+          "type": "marquee_item",
+          "settings": { "text": "MAGNETIC LUXURY CAP" }
+        },
+        {
+          "type": "marquee_item",
+          "settings": { "text": "100% CRUELTY FREE" }
+        },
+        {
+          "type": "brand_pillar",
+          "settings": {
+            "icon": "⌛",
+            "eyebrow": "UNRIVALED LONGEVITY",
+            "title": "15-20% Perfume Oil",
+            "description": "Formulated at optimal Eau de Parfum concentration so your signature trail projects beautifully for 6-8 hours."
+          }
+        },
+        {
+          "type": "brand_pillar",
+          "settings": {
+            "icon": "⚜",
+            "eyebrow": "MASTER ALCHEMY",
+            "title": "Rare French Essences",
+            "description": "Distilled with authentic Grasse bergamot, rare Indonesian agarwood, and ethically harvested amber crystals."
+          }
+        },
+        {
+          "type": "brand_pillar",
+          "settings": {
+            "icon": "✦",
+            "eyebrow": "ARTISAN FLACON",
+            "title": "Heavy Crystal & Magnetic Cap",
+            "description": "Weighted luxury flacon with tactile pocket-watch motif, micro-mist atomiser, and satisfying magnetic snap."
+          }
+        },
+        {
+          "type": "bundle_tier",
+          "settings": {
+            "fallback_handle": "samay-zayro-50ml-eau-de-parfum",
+            "specs": "15-20% Perfume Oil · 6-8h Longevity",
+            "button_label": "ADD TO CART"
+          }
+        },
+        {
+          "type": "bundle_tier",
+          "settings": {
+            "fallback_handle": "samay-zayro-duo-combo-2-in-1",
+            "badge": "Popular",
+            "specs": "15-20% Perfume Oil · 6-8h Longevity",
+            "button_label": "ADD TO CART"
+          }
+        },
+        {
+          "type": "bundle_tier",
+          "settings": {
+            "fallback_handle": "samay-zayro-grand-trio-3-in-1-combo",
+            "badge": "Best Value",
+            "specs": "15-20% Perfume Oil · 6-8h Longevity",
+            "button_label": "ADD TO CART"
+          }
+        },
+        {
+          "type": "olfactory_note",
+          "settings": {
+            "stage": "ACT I · TOP NOTES",
+            "headline": "What you smell first",
+            "timing": "0 to 45 MINUTES",
+            "ingredients": "Italian Bergamot · Sun-Ripened Mandarin\nPink Peppercorn · Crisp Juniper Berry",
+            "description": "An electrifying burst of sparkling Mediterranean citrus spiced with freshly ground pepper that commands instant intrigue.",
+            "is_featured": false
+          }
+        },
+        {
+          "type": "olfactory_note",
+          "settings": {
+            "stage": "ACT II · HEART NOTES",
+            "headline": "The soul of the scent",
+            "timing": "45 MINS to 5 HOURS",
+            "ingredients": "French Lavender · Golden Ambergris\nSmoked Green Cardamom · Velvet Orris",
+            "description": "A hypnotic warmth settles in. Rich aromatic spices intertwine with royal florals to project confidence and refined sophistication.",
+            "is_featured": true
+          }
+        },
+        {
+          "type": "olfactory_note",
+          "settings": {
+            "stage": "ACT III · BASE NOTES",
+            "headline": "What lingers on skin",
+            "timing": "5 to 8 HOURS",
+            "ingredients": "Aged Indonesian Oud · Virginia Cedarwood\nBourbon Vanilla · Golden Amber Resin",
+            "description": "An unforgettable, deeply addictive trail of rare woods and sweet resinous amber that remains vivid throughout your day.",
+            "is_featured": false
+          }
+        },
+        {
+          "type": "spec_item",
+          "settings": {
+            "title": "CONCENTRATION",
+            "value": "15-20% Perfume Oil"
+          }
+        },
+        {
+          "type": "spec_item",
+          "settings": {
+            "title": "LONGEVITY",
+            "value": "6-8 Hours Wear"
+          }
+        },
+        {
+          "type": "spec_item",
+          "settings": {
+            "title": "SILLAGE",
+            "value": "Arm's Length Aura"
+          }
+        },
+        {
+          "type": "spec_item",
+          "settings": {
+            "title": "FORMULATION",
+            "value": "Formulated to IFRA Standards"
+          }
+        },
+        {
+          "type": "about_stat",
+          "settings": {
+            "value": "15-20%",
+            "label": "Perfume Oil"
+          }
+        },
+        {
+          "type": "about_stat",
+          "settings": {
+            "value": "60+",
+            "label": "Days Maceration"
+          }
+        },
+        {
+          "type": "about_stat",
+          "settings": {
+            "value": "100%",
+            "label": "Cruelty Free"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "How long does Zayro last on skin and clothes?",
+            "answer": "Zayro is formulated as an Eau de Parfum (EDP) with 15-20% perfume oil concentration. On moisturized skin, it lasts 6 to 8 hours. On clothing and outerwear, its rich amber and agarwood base notes can linger throughout the day.",
+            "is_open": true
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "What is the difference between the single and combo packs?",
+            "answer": "The fragrance formulation in all 3 editions is identical (Zayro 50ml). The 2-in-1 Duo combo and 3-in-1 Grand Trio offer substantial volume savings per bottle and include complimentary luxury presentation gift boxes.",
+            "is_open": false
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "What are the shipping times and is delivery free?",
+            "answer": "Yes, express shipping is 100% complimentary across all pin codes in India for all orders. Metro cities (Delhi NCR, Mumbai, Bangalore, Pune) typically receive delivery in 2-3 business days. All other locations take 3-5 business days with live tracking provided via SMS and email notifications.",
+            "is_open": false
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "What is your damaged replacement guarantee?",
+            "answer": "Every bottle is packaged inside thick shock-resistant transit cushions. In the rare event of transit damage or leakage, simply share a quick photo with our concierge team within 48 hours and we will dispatch a brand-new replacement bottle immediately with zero hassle.",
+            "is_open": false
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is Cash on Delivery (COD) supported?",
+            "answer": "Yes! We accept Cash on Delivery (COD), UPI (Google Pay, PhonePe, Paytm), and all major credit/debit cards during checkout.",
+            "is_open": false
+          }
+        }
+      ]
+    }
+  ]
 }
 {% endschema %}
