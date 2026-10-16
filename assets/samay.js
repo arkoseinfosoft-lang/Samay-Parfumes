@@ -334,8 +334,9 @@
       });
     }
 
-    // Initialize Mobile Product Carousel Controls
+    // Initialize Mobile Product Carousel Controls & Card Click Handling
     initProductCarousel();
+    initProductCardClicks();
 
     // Initialize Perfume Atomizer & Golden Spray Mist Cursor
     initPerfumeSprayCursor();
@@ -458,6 +459,74 @@
 
     window.addEventListener('resize', updateControls);
     updateControls();
+  }
+
+  // ==========================================================================
+  // MOBILE PRODUCT CARD CLICK (OPEN PRODUCT PAGE ANYWHERE ON CARD)
+  // ==========================================================================
+  function initProductCardClicks() {
+    const cards = document.querySelectorAll('.ep-card');
+    cards.forEach(card => {
+      let touchStartX = 0;
+      let touchStartY = 0;
+      let hasSwiped = false;
+
+      card.addEventListener('touchstart', (e) => {
+        if (e.touches && e.touches.length > 0) {
+          touchStartX = e.touches[0].clientX;
+          touchStartY = e.touches[0].clientY;
+          hasSwiped = false;
+        }
+      }, { passive: true });
+
+      card.addEventListener('touchmove', (e) => {
+        if (e.touches && e.touches.length > 0) {
+          const diffX = Math.abs(e.touches[0].clientX - touchStartX);
+          const diffY = Math.abs(e.touches[0].clientY - touchStartY);
+          if (diffX > 10 || diffY > 10) {
+            hasSwiped = true;
+          }
+        }
+      }, { passive: true });
+
+      // Guard link clicks inside card during carousel swipe
+      card.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', (e) => {
+          if (hasSwiped) {
+            e.preventDefault();
+            e.stopPropagation();
+            hasSwiped = false;
+          }
+        });
+      });
+
+      card.addEventListener('click', (e) => {
+        // Run when screen is mobile (<= 768px)
+        if (window.innerWidth > 768) return;
+
+        // If the user was swiping the carousel, do not navigate
+        if (hasSwiped) {
+          hasSwiped = false;
+          return;
+        }
+
+        // If the user tapped the Add to Cart button, allow button action without navigation
+        if (e.target.closest('.ep-add, .samay-add-cart-btn')) {
+          return;
+        }
+
+        // If user clicked directly on an anchor (image or title), let native link proceed
+        if (e.target.closest('a')) {
+          return;
+        }
+
+        // Otherwise (clicked on price, specs, badge, card background), navigate to product
+        const url = card.dataset.productUrl || card.querySelector('.ep-title-link')?.getAttribute('href');
+        if (url && url !== '#' && url !== '#collection') {
+          window.location.href = url;
+        }
+      });
+    });
   }
 
   // ==========================================================================

@@ -57,32 +57,34 @@
                 {%- assign fallback_img = 'samay-product-trio.webp' | asset_url -%}
               {%- endif -%}
 
-              <article class="ep-card" data-product-id="{{ product.id }}" data-variant-id="{{ variant.id }}">
-                <div class="ep-media">
-                  <div class="ep-media__viewport">
-                    <div class="ep-media__inner">
-                      {%- if product_img -%}
-                        <img 
-                          src="{{ product_img | image_url: width: 800, height: 800, crop: 'center' }}" 
-                          alt="{{ product.title | escape }}" 
-                          class="ep-img"
-                          loading="lazy"
-                          width="800"
-                          height="800"
-                        >
-                      {%- else -%}
-                        <img 
-                          src="{{ fallback_img }}" 
-                          alt="{{ product.title | escape }}" 
-                          class="ep-img"
-                          loading="lazy"
-                          width="800"
-                          height="800"
-                        >
-                      {%- endif -%}
+              <article class="ep-card" data-product-id="{{ product.id }}" data-variant-id="{{ variant.id }}" data-product-url="{{ product.url }}">
+                <a href="{{ product.url }}" class="ep-media-link" aria-label="{{ product.title | escape }}">
+                  <div class="ep-media">
+                    <div class="ep-media__viewport">
+                      <div class="ep-media__inner">
+                        {%- if product_img -%}
+                          <img 
+                            src="{{ product_img | image_url: width: 800, height: 800, crop: 'center' }}" 
+                            alt="{{ product.title | escape }}" 
+                            class="ep-img"
+                            loading="lazy"
+                            width="800"
+                            height="800"
+                          >
+                        {%- else -%}
+                          <img 
+                            src="{{ fallback_img }}" 
+                            alt="{{ product.title | escape }}" 
+                            class="ep-img"
+                            loading="lazy"
+                            width="800"
+                            height="800"
+                          >
+                        {%- endif -%}
+                      </div>
                     </div>
                   </div>
-                </div>
+                </a>
 
                 <div class="ep-info">
                   <a href="{{ product.url }}" class="ep-title-link">{{ product.title | upcase }}</a>

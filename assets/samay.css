@@ -872,6 +872,13 @@ select {
   box-shadow: var(--shadow-hover, 0 18px 45px rgba(44, 31, 14, 0.12));
 }
 
+.ep-media-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
 .ep-media {
   position: relative;
   padding: 16px 16px 8px;
@@ -2102,6 +2109,8 @@ select {
     flex: 0 0 82%;
     min-width: 260px;
     scroll-snap-align: start;
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(201, 169, 110, 0.1);
   }
 
   .ep-carousel-controls {

@@ -267,41 +267,55 @@
               {%- assign discount_percent = diff | times: 100 | divided_by: compare_at -%}
             {%- endif -%}
 
-            <article class="ep-card is-active" data-product-id="{{ product.id }}" data-variant-id="{{ variant.id }}" {{ block.shopify_attributes }}>
+            {%- assign card_url = product.url -%}
+            {%- if card_url == blank and block.settings.fallback_handle != blank -%}
+              {%- assign card_url = '/products/' | append: block.settings.fallback_handle -%}
+            {%- endif -%}
+            {%- if card_url == blank and default_handle != blank -%}
+              {%- assign card_url = '/products/' | append: default_handle -%}
+            {%- endif -%}
+            {%- if card_url == blank -%}
+              {%- assign card_url = '#collection' -%}
+            {%- endif -%}
+
+            {%- assign card_title = block.settings.title | default: product.title -%}
+
+            <article class="ep-card is-active" data-product-id="{{ product.id }}" data-variant-id="{{ variant.id }}" data-product-url="{{ card_url }}" {{ block.shopify_attributes }}>
               {%- if block.settings.badge != blank -%}
                 <span class="ep-badge">{{ block.settings.badge }}</span>
               {%- endif -%}
 
-              <div class="ep-media">
-                <div class="ep-media__viewport">
-                  <div class="ep-media__inner">
-                    {%- if block.settings.custom_image != blank -%}
-                      {%- assign card_img = block.settings.custom_image | image_url: width: 1024 -%}
-                    {%- elsif product.featured_image != blank -%}
-                      {%- assign card_img = product.featured_image | image_url: width: 1024 -%}
-                    {%- elsif forloop.index == 2 -%}
-                      {%- assign card_img = 'samay-product-duo.webp' | asset_url -%}
-                    {%- elsif forloop.index == 3 -%}
-                      {%- assign card_img = 'samay-product-trio.webp' | asset_url -%}
-                    {%- else -%}
-                      {%- assign card_img = 'samay-product-single.webp' | asset_url -%}
-                    {%- endif -%}
+              <a href="{{ card_url }}" class="ep-media-link" aria-label="{{ card_title | escape }}">
+                <div class="ep-media">
+                  <div class="ep-media__viewport">
+                    <div class="ep-media__inner">
+                      {%- if block.settings.custom_image != blank -%}
+                        {%- assign card_img = block.settings.custom_image | image_url: width: 1024 -%}
+                      {%- elsif product.featured_image != blank -%}
+                        {%- assign card_img = product.featured_image | image_url: width: 1024 -%}
+                      {%- elsif forloop.index == 2 -%}
+                        {%- assign card_img = 'samay-product-duo.webp' | asset_url -%}
+                      {%- elsif forloop.index == 3 -%}
+                        {%- assign card_img = 'samay-product-trio.webp' | asset_url -%}
+                      {%- else -%}
+                        {%- assign card_img = 'samay-product-single.webp' | asset_url -%}
+                      {%- endif -%}
 
-                    <img 
-                      src="{{ card_img }}" 
-                      alt="{{ product.title | escape }}" 
-                      class="ep-img"
-                      loading="lazy"
-                      width="1024"
-                      height="1024"
-                    >
+                      <img 
+                        src="{{ card_img }}" 
+                        alt="{{ product.title | escape }}" 
+                        class="ep-img"
+                        loading="lazy"
+                        width="1024"
+                        height="1024"
+                      >
+                    </div>
                   </div>
                 </div>
-              </div>
+              </a>
 
               <div class="ep-info">
-                {%- assign card_title = block.settings.title | default: product.title -%}
-                <a href="{{ product.url | default: '#collection' }}" class="ep-title-link">{{ card_title | upcase }}</a>
+                <a href="{{ card_url }}" class="ep-title-link">{{ card_title | upcase }}</a>
 
                 <div class="ep-price-row">
                   <span class="ep-price">{{ price | money }}</span>
@@ -351,33 +365,37 @@
             {%- assign discount_percent = diff | times: 100 | divided_by: compare_at -%}
           {%- endif -%}
 
-          <article class="ep-card is-active" data-product-id="{{ product.id }}" data-variant-id="{{ variant.id }}">
-            <div class="ep-media">
-              <div class="ep-media__viewport">
-                <div class="ep-media__inner">
-                  {%- if product.featured_image != blank -%}
-                    {%- assign fallback_card_img = product.featured_image | image_url: width: 1024 -%}
-                  {%- elsif forloop.index == 2 -%}
-                    {%- assign fallback_card_img = 'samay-product-duo.webp' | asset_url -%}
-                  {%- elsif forloop.index == 3 -%}
-                    {%- assign fallback_card_img = 'samay-product-trio.webp' | asset_url -%}
-                  {%- else -%}
-                    {%- assign fallback_card_img = 'samay-product-single.webp' | asset_url -%}
-                  {%- endif -%}
-                  <img 
-                    src="{{ fallback_card_img }}" 
-                    alt="{{ product.title | escape }}" 
-                    class="ep-img"
-                    loading="lazy"
-                    width="1024"
-                    height="1024"
-                  >
+          {%- assign fallback_url = product.url | default: '#collection' -%}
+
+          <article class="ep-card is-active" data-product-id="{{ product.id }}" data-variant-id="{{ variant.id }}" data-product-url="{{ fallback_url }}">
+            <a href="{{ fallback_url }}" class="ep-media-link" aria-label="{{ product.title | escape }}">
+              <div class="ep-media">
+                <div class="ep-media__viewport">
+                  <div class="ep-media__inner">
+                    {%- if product.featured_image != blank -%}
+                      {%- assign fallback_card_img = product.featured_image | image_url: width: 1024 -%}
+                    {%- elsif forloop.index == 2 -%}
+                      {%- assign fallback_card_img = 'samay-product-duo.webp' | asset_url -%}
+                    {%- elsif forloop.index == 3 -%}
+                      {%- assign fallback_card_img = 'samay-product-trio.webp' | asset_url -%}
+                    {%- else -%}
+                      {%- assign fallback_card_img = 'samay-product-single.webp' | asset_url -%}
+                    {%- endif -%}
+                    <img 
+                      src="{{ fallback_card_img }}" 
+                      alt="{{ product.title | escape }}" 
+                      class="ep-img"
+                      loading="lazy"
+                      width="1024"
+                      height="1024"
+                    >
+                  </div>
                 </div>
               </div>
-            </div>
+            </a>
 
             <div class="ep-info">
-              <a href="{{ product.url | default: '#collection' }}" class="ep-title-link">{{ product.title | upcase }}</a>
+              <a href="{{ fallback_url }}" class="ep-title-link">{{ product.title | upcase }}</a>
 
               <div class="ep-price-row">
                 <span class="ep-price">{{ price | money }}</span>
