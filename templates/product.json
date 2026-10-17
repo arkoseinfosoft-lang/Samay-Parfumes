@@ -11,7 +11,9 @@
   "sections": {
     "main": {
       "type": "product",
-      "settings": {}
+      "settings": {
+        "low_stock_threshold": 50
+      }
     }
   },
   "order": [
