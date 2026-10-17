@@ -162,7 +162,7 @@
       const qty = parseInt(item.quantity, 10) || 0;
       return `
         <div class="samay-cart-item" data-line-key="${safeLineKey}">
-          ${safeImg ? `<img src="${safeImg}" alt="${safeTitle}" class="samay-cart-item-img">` : ''}
+          ${safeImg ? `<img src="${safeImg}" alt="${safeTitle}" class="samay-cart-item-img" width="80" height="80" loading="lazy">` : ''}
           <div class="samay-cart-item-details">
             <h5 class="samay-cart-item-title">${safeTitle}</h5>
             ${safeVariant ? `<div class="samay-cart-item-variant">${safeVariant}</div>` : ''}
