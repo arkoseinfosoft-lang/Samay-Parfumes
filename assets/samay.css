@@ -1603,7 +1603,7 @@ select {
 
 .samay-newsletter-consent {
   font-size: 0.76rem;
-  color: rgba(247, 242, 234, 0.65);
+  color: rgba(247, 242, 234, 0.85);
   margin-top: 14px;
   line-height: 1.5;
   letter-spacing: 0.02em;
@@ -1628,8 +1628,9 @@ select {
   margin-bottom: 60px;
 }
 
+.samay-footer p,
 .samay-footer-brand p {
-  color: var(--dim);
+  color: #e2d7c5;
   font-size: 0.92rem;
   line-height: 1.8;
   max-width: 320px;
@@ -1660,7 +1661,7 @@ select {
   font-size: 0.8rem;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--gold-light);
   font-weight: 600;
   margin-bottom: 20px;
 }
@@ -1676,12 +1677,12 @@ select {
 
 .samay-footer-links a {
   font-size: 0.92rem;
-  color: var(--dim);
+  color: #e2d7c5;
   transition: color 0.25s ease;
 }
 
 .samay-footer-links a:hover {
-  color: var(--gold);
+  color: var(--gold-light);
 }
 
 .samay-footer-contact {
@@ -1693,7 +1694,7 @@ select {
 
 .samay-footer-contact a {
   font-size: 0.85rem;
-  color: var(--dim);
+  color: #e2d7c5;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
@@ -1703,7 +1704,7 @@ select {
 }
 
 .samay-footer-contact a:hover {
-  color: var(--gold);
+  color: var(--gold-light);
 }
 
 .samay-footer-bottom {
@@ -1715,7 +1716,7 @@ select {
   flex-wrap: wrap;
   gap: 20px;
   font-size: 0.82rem;
-  color: var(--dim);
+  color: #d1c4b2;
 }
 
 /* ==========================================================================
