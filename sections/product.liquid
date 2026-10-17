@@ -13,6 +13,8 @@
   {%- assign discount_percent = compare_at | minus: price | times: 100 | divided_by: compare_at -%}
 {%- endif -%}
 
+{%- assign low_stock_threshold = section.settings.low_stock_threshold | default: 20 -%}
+
 {%- assign fallback_img = 'samay-product-single.webp' | asset_url -%}
 {%- if product.handle contains 'duo' -%}
   {%- assign fallback_img = 'samay-product-duo.webp' | asset_url -%}
@@ -98,6 +100,9 @@
           </span>
         </div>
 
+        <!-- Red Low-Stock Alert (Only shown when inventory tracked, >0, and <= threshold) -->
+        {%- render 'stock-alert', variant: current_variant, threshold: low_stock_threshold, is_pdp: true -%}
+
         <div class="samay-pdp-shipping-badge">
           <span>✦</span>
           <span><strong>Free Express Shipping across India</strong> · Inclusive of all taxes</span>
@@ -148,6 +153,8 @@
                 data-raw-price="{{ variant.price }}"
                 data-raw-compare="{{ variant.compare_at_price }}"
                 data-available="{{ variant.available }}"
+                data-inventory-management="{{ variant.inventory_management }}"
+                data-inventory-quantity="{{ variant.inventory_quantity }}"
               >
                 {{ variant.title }}
               </option>
@@ -165,6 +172,8 @@
                     class="samay-variant-pill {% if variant == current_variant %}is-active{% endif %}"
                     data-variant-id="{{ variant.id }}"
                     data-available="{{ variant.available }}"
+                    data-inventory-management="{{ variant.inventory_management }}"
+                    data-inventory-quantity="{{ variant.inventory_quantity }}"
                   >
                     {{ variant.title }}
                   </button>
@@ -368,6 +377,24 @@
                   addBtn.textContent = 'OUT OF STOCK';
                 }
               }
+
+              // Update Low-Stock Alert reactively
+              var alertEl = document.getElementById('samayPdpStockAlert');
+              var qtyEl = document.getElementById('samayPdpStockQty');
+              if (alertEl) {
+                var threshold = parseInt(alertEl.getAttribute('data-threshold'), 10) || 20;
+                var invMgmt = opt.getAttribute('data-inventory-management') || pill.getAttribute('data-inventory-management') || '';
+                var invQtyStr = opt.getAttribute('data-inventory-quantity') || pill.getAttribute('data-inventory-quantity') || '0';
+                var invQty = parseInt(invQtyStr, 10);
+                var isTracked = invMgmt && invMgmt.trim() !== '' && invMgmt !== 'null';
+
+                if (isTracked && isAvail && !isNaN(invQty) && invQty > 0 && invQty <= threshold) {
+                  if (qtyEl) qtyEl.textContent = invQty;
+                  alertEl.style.display = 'inline-flex';
+                } else {
+                  alertEl.style.display = 'none';
+                }
+              }
             }
           });
         });
@@ -415,7 +442,17 @@
 {% schema %}
 {
   "name": "Luxury Product Detail",
-  "settings": [],
+  "settings": [
+    {
+      "type": "range",
+      "id": "low_stock_threshold",
+      "min": 1,
+      "max": 100,
+      "step": 1,
+      "label": "Low stock alert threshold",
+      "default": 20
+    }
+  ],
   "disabled_on": {
     "groups": ["header", "footer"]
   }

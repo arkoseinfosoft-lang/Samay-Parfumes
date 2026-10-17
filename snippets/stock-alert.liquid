@@ -1,0 +1,34 @@
+{% comment %}
+  SAMAY PARFUMES - LOW STOCK ALERT BADGE
+  Renders only when variant has inventory tracking enabled, is available, and quantity is > 0 and <= threshold.
+{% endcomment %}
+
+{%- assign threshold = threshold | default: 20 -%}
+{%- assign is_tracked = false -%}
+{%- if variant.inventory_management != blank -%}
+  {%- assign is_tracked = true -%}
+{%- endif -%}
+
+{%- assign is_low_stock = false -%}
+{%- if is_tracked and variant.available and variant.inventory_quantity > 0 and variant.inventory_quantity <= threshold -%}
+  {%- assign is_low_stock = true -%}
+{%- endif -%}
+
+{%- if is_pdp -%}
+  <div 
+    class="samay-pdp-stock-alert" 
+    id="samayPdpStockAlert" 
+    data-threshold="{{ threshold }}"
+    style="{% unless is_low_stock %}display: none;{% endunless %}"
+    role="status"
+    aria-live="polite"
+  >
+    <span class="samay-stock-dot" aria-hidden="true"></span>
+    <span class="samay-stock-text" id="samayPdpStockText">Only <strong id="samayPdpStockQty">{{ variant.inventory_quantity }}</strong> left in stock</span>
+  </div>
+{%- elsif is_low_stock -%}
+  <div class="samay-card-stock-alert">
+    <span class="samay-stock-dot" aria-hidden="true"></span>
+    <span class="samay-stock-text">Only <strong>{{ variant.inventory_quantity }}</strong> left in stock</span>
+  </div>
+{%- endif -%}
