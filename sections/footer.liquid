@@ -26,11 +26,11 @@
       <div>
         <h3 class="samay-footer-heading">Maison</h3>
         <ul class="samay-footer-links">
-          <li><a href="#hero">Home</a></li>
-          <li><a href="#collection">Zayro 50ml Single</a></li>
-          <li><a href="#collection">2-in-1 Duo Combo</a></li>
-          <li><a href="#collection">3-in-1 Grand Trio</a></li>
-          <li><a href="#notes">Olfactory Notes</a></li>
+          <li><a href="{{ routes.root_url }}#hero">Home</a></li>
+          <li><a href="{{ routes.root_url }}#collection">Zayro 50ml Single</a></li>
+          <li><a href="{{ routes.root_url }}#collection">2-in-1 Duo Combo</a></li>
+          <li><a href="{{ routes.root_url }}#collection">3-in-1 Grand Trio</a></li>
+          <li><a href="{{ routes.root_url }}#notes">Olfactory Notes</a></li>
         </ul>
       </div>
 
@@ -38,7 +38,7 @@
       <div>
         <h3 class="samay-footer-heading">Experience</h3>
         <ul class="samay-footer-links">
-          <li><a href="#about">Our Story</a></li>
+          <li><a href="{{ routes.root_url }}#about">Our Story</a></li>
           <li><a href="{{ pages['contact'].url | default: '/pages/contact' }}">Contact Concierge</a></li>
           <li><a href="{{ routes.root_url }}#contact">Shipping & FAQs</a></li>
           <li><a href="{{ pages['contact'].url | default: '/pages/contact' }}">Customer Concierge</a></li>

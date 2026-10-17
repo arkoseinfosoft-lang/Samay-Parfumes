@@ -130,7 +130,7 @@
           <div style="font-size: 2.4rem; color: var(--gold); margin-bottom: 12px;">⚜</div>
           <h4 style="font-family: var(--serif); font-size: 1.4rem; margin-bottom: 8px;">Your Shopping Bag is Empty</h4>
           <p style="font-size: 0.9rem; color: var(--dim);">Experience the timeless essence of Zayro Eau De Parfum.</p>
-          <a href="#collection" class="samay-btn samay-btn--gold" style="margin-top: 16px; padding: 12px 24px;" onclick="window.samayCart && window.samayCart.close()">SHOP ZAYRO</a>
+          <a href="/#collection" class="samay-btn samay-btn--gold" style="margin-top: 16px; padding: 12px 24px;" onclick="window.samayCart && window.samayCart.close()">SHOP ZAYRO</a>
         </div>
       `;
       subtotalEl.textContent = '₹0.00';

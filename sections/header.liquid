@@ -52,7 +52,7 @@
 
       <!-- Header Actions -->
       <div class="samay-header-actions">
-        <a href="#collection" class="samay-header-cta-btn">
+        <a href="{{ routes.root_url }}#collection" class="samay-header-cta-btn">
           SHOP ZAYRO
         </a>
 
@@ -95,15 +95,15 @@
     </div>
 
     <div class="samay-mobile-drawer-links">
-      <a href="#collection" class="samay-mobile-link">2-in-1 Duo Combo <span class="samay-nav-tag">Popular</span></a>
-      <a href="#collection" class="samay-mobile-link">3-in-1 Grand Trio <span class="samay-nav-tag gold">Best Value</span></a>
-      <a href="#notes" class="samay-mobile-link">The Notes</a>
-      <a href="#about" class="samay-mobile-link">About Us</a>
+      <a href="{{ routes.root_url }}#collection" class="samay-mobile-link">2-in-1 Duo Combo <span class="samay-nav-tag">Popular</span></a>
+      <a href="{{ routes.root_url }}#collection" class="samay-mobile-link">3-in-1 Grand Trio <span class="samay-nav-tag gold">Best Value</span></a>
+      <a href="{{ routes.root_url }}#notes" class="samay-mobile-link">The Notes</a>
+      <a href="{{ routes.root_url }}#about" class="samay-mobile-link">About Us</a>
       <a href="{{ pages['contact'].url | default: '/pages/contact' }}" class="samay-mobile-link">Contact</a>
     </div>
 
     <div class="samay-mobile-drawer-footer">
-      <a href="#collection" class="samay-btn samay-btn--gold samay-btn--full" style="padding: 14px;" id="samayMobileDrawerCta">
+      <a href="{{ routes.root_url }}#collection" class="samay-btn samay-btn--gold samay-btn--full" style="padding: 14px;" id="samayMobileDrawerCta">
         SHOP ZAYRO EDITIONS
       </a>
       <div style="margin-top: 14px; text-align: center; font-size: 0.78rem; color: var(--taupe);">
