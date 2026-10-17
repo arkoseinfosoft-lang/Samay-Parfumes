@@ -49,33 +49,35 @@
       <div>
         <h4 class="samay-footer-heading">Policies</h4>
         <ul class="samay-footer-links">
-          {% if shop.privacy_policy %}
+          {% if shop.privacy_policy != blank %}
             <li><a href="{{ shop.privacy_policy.url }}">{{ shop.privacy_policy.title }}</a></li>
           {% endif %}
-          {% if shop.refund_policy %}
+          {% if shop.refund_policy != blank %}
             <li><a href="{{ shop.refund_policy.url }}">{{ shop.refund_policy.title }}</a></li>
           {% endif %}
-          {% if shop.shipping_policy %}
+          {% if shop.shipping_policy != blank %}
             <li><a href="{{ shop.shipping_policy.url }}">{{ shop.shipping_policy.title }}</a></li>
           {% endif %}
-          {% if shop.terms_of_service %}
+          {% if shop.terms_of_service != blank %}
             <li><a href="{{ shop.terms_of_service.url }}">{{ shop.terms_of_service.title }}</a></li>
           {% endif %}
         </ul>
-        {% assign footer_email = section.settings.contact_email | default: shop.email | default: 'concierge@samayparfumes.com' %}
-        {% assign footer_phone = section.settings.contact_phone | default: shop.phone | default: '+91 98765 43210' %}
-        <div class="samay-footer-contact">
-          {% if footer_email != blank %}
-            <a href="mailto:{{ footer_email }}" aria-label="Email Samay Concierge">
-              <span>✉</span> {{ footer_email }}
-            </a>
-          {% endif %}
-          {% if footer_phone != blank %}
-            <a href="tel:{{ footer_phone | replace: ' ', '' }}" aria-label="Call Samay Concierge">
-              <span>✆</span> {{ footer_phone }}
-            </a>
-          {% endif %}
-        </div>
+        {% assign footer_email = section.settings.contact_email %}
+        {% assign footer_phone = section.settings.contact_phone %}
+        {% if footer_email != blank or footer_phone != blank %}
+          <div class="samay-footer-contact">
+            {% if footer_email != blank %}
+              <a href="mailto:{{ footer_email | escape }}" aria-label="Email Samay Concierge">
+                <span>✉</span> {{ footer_email | escape }}
+              </a>
+            {% endif %}
+            {% if footer_phone != blank %}
+              <a href="tel:{{ footer_phone | replace: ' ', '' | escape }}" aria-label="Call Samay Concierge">
+                <span>✆</span> {{ footer_phone | escape }}
+              </a>
+            {% endif %}
+          </div>
+        {% endif %}
       </div>
 
       <!-- Col 5: Trust & Guarantee -->
@@ -114,14 +116,12 @@
     {
       "type": "text",
       "id": "contact_email",
-      "label": "Contact Email Placeholder",
-      "default": "concierge@samayparfumes.com"
+      "label": "Contact Email"
     },
     {
       "type": "text",
       "id": "contact_phone",
-      "label": "Contact Phone Placeholder",
-      "default": "+91 98765 43210"
+      "label": "Contact Phone"
     }
   ]
 }

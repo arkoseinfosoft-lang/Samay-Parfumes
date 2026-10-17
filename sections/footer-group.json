@@ -15,7 +15,9 @@
       "type": "footer",
       "settings": {
         "menu": "",
-        "show_payment_icons": true
+        "show_payment_icons": true,
+        "contact_email": "samayparfume@gmail.com",
+        "contact_phone": "9305888555"
       }
     }
   },

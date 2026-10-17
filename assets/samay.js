@@ -100,6 +100,17 @@
     }
   }
 
+  // HTML escaping helper to prevent XSS
+  function escapeHtml(str) {
+    if (str === null || str === undefined) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
   // Render Cart Drawer DOM & Badges
   function renderCart(cart) {
     const totalCount = cart ? (cart.item_count || 0) : 0;
@@ -140,25 +151,31 @@
           itemImg = window.samayAssets.single;
         }
       }
-      const itemTitle = item.product_title || item.title;
+      const itemTitle = item.product_title || item.title || '';
       const itemVariant = (item.variant_title && item.variant_title !== 'Default Title') ? item.variant_title : '';
       const itemPriceFormatted = formatMoney(item.price);
+      const safeTitle = escapeHtml(itemTitle);
+      const safeVariant = escapeHtml(itemVariant);
+      const safeImg = escapeHtml(itemImg);
+      const safeLineKey = escapeHtml(lineKey);
+      const safePrice = escapeHtml(itemPriceFormatted);
+      const qty = parseInt(item.quantity, 10) || 0;
       return `
-        <div class="samay-cart-item" data-line-key="${lineKey}">
-          ${itemImg ? `<img src="${itemImg}" alt="${itemTitle.replace(/"/g, '&quot;')}" class="samay-cart-item-img">` : ''}
+        <div class="samay-cart-item" data-line-key="${safeLineKey}">
+          ${safeImg ? `<img src="${safeImg}" alt="${safeTitle}" class="samay-cart-item-img">` : ''}
           <div class="samay-cart-item-details">
-            <h5 class="samay-cart-item-title">${itemTitle}</h5>
-            ${itemVariant ? `<div class="samay-cart-item-variant">${itemVariant}</div>` : ''}
+            <h5 class="samay-cart-item-title">${safeTitle}</h5>
+            ${safeVariant ? `<div class="samay-cart-item-variant">${safeVariant}</div>` : ''}
             <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 6px;">
-              <span class="samay-cart-item-price">${itemPriceFormatted} × ${item.quantity}</span>
+              <span class="samay-cart-item-price">${safePrice} × ${qty}</span>
               <div style="display: flex; align-items: center; gap: 6px;">
-                <button type="button" class="samay-qty-btn" style="width:24px;height:24px;font-size:0.8rem;" onclick="window.samayCart && window.samayCart.change('${lineKey}', ${item.quantity - 1})">-</button>
-                <span style="font-size:0.85rem;font-weight:600;">${item.quantity}</span>
-                <button type="button" class="samay-qty-btn" style="width:24px;height:24px;font-size:0.8rem;" onclick="window.samayCart && window.samayCart.change('${lineKey}', ${item.quantity + 1})">+</button>
+                <button type="button" class="samay-qty-btn" style="width:24px;height:24px;font-size:0.8rem;" onclick="window.samayCart && window.samayCart.change('${safeLineKey}', ${qty - 1})">-</button>
+                <span style="font-size:0.85rem;font-weight:600;">${qty}</span>
+                <button type="button" class="samay-qty-btn" style="width:24px;height:24px;font-size:0.8rem;" onclick="window.samayCart && window.samayCart.change('${safeLineKey}', ${qty + 1})">+</button>
               </div>
             </div>
             <div style="margin-top: 8px;">
-              <button type="button" class="samay-cart-item-remove" onclick="window.samayCart && window.samayCart.remove('${lineKey}')">Remove</button>
+              <button type="button" class="samay-cart-item-remove" onclick="window.samayCart && window.samayCart.remove('${safeLineKey}')">Remove</button>
             </div>
           </div>
         </div>
