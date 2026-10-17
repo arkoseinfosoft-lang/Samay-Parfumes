@@ -218,8 +218,8 @@
     close: closeCartDrawer
   };
 
-  // DOM Loaded Listeners
-  document.addEventListener('DOMContentLoaded', function () {
+  // Main Theme Interactive Initialization
+  function initSamay() {
     // Clear any obsolete localStorage fake cart
     try {
       localStorage.removeItem('samay_cart');
@@ -274,6 +274,21 @@
       });
     }
 
+    // Automatically preserve preview_theme_id on all mobile drawer and nav links
+    const currentParams = new URLSearchParams(window.location.search);
+    const previewId = currentParams.get('preview_theme_id');
+    if (previewId) {
+      document.querySelectorAll('.samay-mobile-link, #samayMobileDrawerCta, .samay-nav-link, .samay-header-cta-btn, .samay-footer-links a').forEach(a => {
+        try {
+          const u = new URL(a.href, window.location.origin);
+          if (!u.searchParams.has('preview_theme_id')) {
+            u.searchParams.set('preview_theme_id', previewId);
+            a.href = u.pathname + u.search + u.hash;
+          }
+        } catch (e) {}
+      });
+    }
+
     function handleDrawerLinkClick(e) {
       const link = e.currentTarget;
       const rawHref = link.getAttribute('href');
@@ -284,47 +299,33 @@
       const hash = targetUrl.hash;
 
       if (hash && isSamePath) {
-        // Section is on the current page
+        // Target is an in-page section on the current page
         e.preventDefault();
         closeMobileDrawer();
         const target = document.querySelector(hash);
         if (target) {
-          setTimeout(() => {
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }, 150);
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
           if (history.pushState) {
             history.pushState(null, '', hash);
           } else {
             window.location.hash = hash;
           }
         }
-      } else if (hash && !isSamePath) {
-        // Section is on another page (e.g. from /pages/contact to /#collection)
-        e.preventDefault();
-        closeMobileDrawer();
-        const currentParams = new URLSearchParams(window.location.search);
-        if (currentParams.has('preview_theme_id') && !targetUrl.searchParams.has('preview_theme_id')) {
-          targetUrl.searchParams.set('preview_theme_id', currentParams.get('preview_theme_id'));
-        }
-        setTimeout(() => {
-          window.location.href = targetUrl.toString();
-        }, 100);
       } else if (!hash && isSamePath) {
-        // Same page without hash (e.g. clicking Contact while on /pages/contact)
+        // Target is the current page itself without hash (e.g. Contact & FAQ on /pages/contact)
         e.preventDefault();
         closeMobileDrawer();
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
-        // Normal navigation to another page
-        e.preventDefault();
-        closeMobileDrawer();
-        const currentParams = new URLSearchParams(window.location.search);
-        if (currentParams.has('preview_theme_id') && !targetUrl.searchParams.has('preview_theme_id')) {
-          targetUrl.searchParams.set('preview_theme_id', currentParams.get('preview_theme_id'));
+        // Target is on another page (e.g. /pages/contact -> /#collection)
+        // Ensure preview parameter is attached before native navigation occurs
+        if (previewId && !targetUrl.searchParams.has('preview_theme_id')) {
+          targetUrl.searchParams.set('preview_theme_id', previewId);
+          link.href = targetUrl.pathname + targetUrl.search + targetUrl.hash;
         }
-        setTimeout(() => {
-          window.location.href = targetUrl.toString();
-        }, 100);
+        // Do NOT call e.preventDefault()!
+        // Allow the browser to perform a native, 100% trusted hyperlink navigation.
+        closeMobileDrawer();
       }
     }
 
@@ -342,18 +343,13 @@
         const hash = window.location.hash;
         const target = document.querySelector(hash);
         if (target) {
-          setTimeout(() => {
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }, 250);
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       }
     }
 
-    if (document.readyState === 'complete') {
-      setTimeout(scrollToHashTarget, 150);
-    } else {
-      window.addEventListener('load', () => setTimeout(scrollToHashTarget, 150));
-    }
+    scrollToHashTarget();
+    window.addEventListener('load', scrollToHashTarget);
     window.addEventListener('hashchange', scrollToHashTarget);
 
 
@@ -986,6 +982,12 @@
     window.addEventListener('mousedown', onDown);
     window.addEventListener('mouseup', onUp);
     resize();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSamay);
+  } else {
+    initSamay();
   }
 })();
 
