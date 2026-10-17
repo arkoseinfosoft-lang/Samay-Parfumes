@@ -67,6 +67,8 @@
                 class="samay-pdp-thumb-btn {% if forloop.first %}is-active{% endif %}"
                 data-image-src="{{ img | image_url: width: 1024 }}"
                 aria-label="View product image {{ forloop.index }}"
+                role="tab"
+                aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
               >
                 <img src="{{ img | image_url: width: 150, height: 150, crop: 'center' }}" alt="{{ img.alt | default: product.title | escape }}" width="72" height="72" loading="lazy">
               </button>

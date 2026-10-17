@@ -11,15 +11,15 @@
   --white: #ffffff;
 
   --gold: #c9a96e;
-  --gold-dark: #a8844a;
+  --gold-dark: #78521d;
   --gold-hover: #b89659;
   --gold-light: #dfc89e;
-  --gold-gradient: linear-gradient(135deg, #dfc89e 0%, #c9a96e 50%, #a8844a 100%);
+  --gold-gradient: linear-gradient(135deg, #dfc89e 0%, #c9a96e 50%, #78521d 100%);
 
   --brown: #2c1f0e;
   --brown-dark: #1b1309;
-  --taupe: #7a6a56;
-  --dim: #a89880;
+  --taupe: #554736;
+  --dim: #5c5040;
   --border: #ddd0bc;
   --border-light: #ece3d4;
 
@@ -145,11 +145,11 @@ select {
    ========================================================================== */
 .samay-announcement-bar {
   background-color: var(--gold);
-  color: var(--cream);
+  color: #1a1612;
   padding: 9px 12px;
   font-family: var(--sans);
   font-size: 0.78rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   text-align: center;
@@ -2172,32 +2172,32 @@ select {
 
   .ep-carousel-dot {
     position: relative;
-    width: 8px;
-    height: 8px;
-    border-radius: 4px;
+    width: 24px;
+    height: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     border: none;
-    background: rgba(44, 31, 14, 0.22);
+    background: transparent;
     cursor: pointer;
     padding: 0;
-    transition: width 0.25s ease, background 0.25s ease;
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
   }
 
-  .ep-carousel-dot::before {
+  .ep-carousel-dot::after {
     content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: calc(100% + 10px);
-    height: 44px;
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
+    background: rgba(44, 31, 14, 0.28);
+    transition: width 0.25s ease, background 0.25s ease;
   }
 
-  .ep-carousel-dot.is-active {
+  .ep-carousel-dot.is-active::after {
     width: 26px;
-    background: var(--gold, #c9a96e);
-    border-radius: 4px;
+    background: var(--gold-dark, #78521d);
   }
 
   /* Notes & Olfactory Pyramid on Mobile */

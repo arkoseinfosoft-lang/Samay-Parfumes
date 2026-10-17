@@ -24,7 +24,7 @@
 
       <!-- Col 2: Navigation -->
       <div>
-        <h4 class="samay-footer-heading">Maison</h4>
+        <h3 class="samay-footer-heading">Maison</h3>
         <ul class="samay-footer-links">
           <li><a href="#hero">Home</a></li>
           <li><a href="#collection">Zayro 50ml Single</a></li>
@@ -36,7 +36,7 @@
 
       <!-- Col 3: Experience -->
       <div>
-        <h4 class="samay-footer-heading">Experience</h4>
+        <h3 class="samay-footer-heading">Experience</h3>
         <ul class="samay-footer-links">
           <li><a href="#about">Our Story</a></li>
           <li><a href="{{ pages['contact'].url | default: '/pages/contact' }}">Contact Concierge</a></li>
@@ -47,7 +47,7 @@
 
       <!-- Col 4: Policies & Concierge -->
       <div>
-        <h4 class="samay-footer-heading">Policies</h4>
+        <h3 class="samay-footer-heading">Policies</h3>
         <ul class="samay-footer-links">
           {% if shop.privacy_policy != blank %}
             <li><a href="{{ shop.privacy_policy.url }}">{{ shop.privacy_policy.title }}</a></li>
@@ -67,12 +67,12 @@
         {% if footer_email != blank or footer_phone != blank %}
           <div class="samay-footer-contact">
             {% if footer_email != blank %}
-              <a href="mailto:{{ footer_email | escape }}" aria-label="Email Samay Concierge">
+              <a href="mailto:{{ footer_email | escape }}" aria-label="Email: {{ footer_email | escape }}">
                 <span>✉</span> {{ footer_email | escape }}
               </a>
             {% endif %}
             {% if footer_phone != blank %}
-              <a href="tel:{{ footer_phone | replace: ' ', '' | escape }}" aria-label="Call Samay Concierge">
+              <a href="tel:{{ footer_phone | replace: ' ', '' | escape }}" aria-label="Call: {{ footer_phone | escape }}">
                 <span>✆</span> {{ footer_phone | escape }}
               </a>
             {% endif %}
@@ -82,7 +82,7 @@
 
       <!-- Col 5: Trust & Guarantee -->
       <div>
-        <h4 class="samay-footer-heading">Our Promise</h4>
+        <h3 class="samay-footer-heading">Our Promise</h3>
         <p style="font-size: 0.88rem; color: var(--dim); line-height: 1.7; margin-bottom: 16px;">
           ✦ 100% Genuine Artisan Perfumery<br>
           ✦ 6-8 Hours Proven Longevity<br>
