@@ -1,12 +1,27 @@
-
 {%- liquid
   assign og_title = page_title | default: shop.name
   if request.page_type == 'index' and page_title == shop.name
     assign og_title = 'Samay Parfumes | Zayro Eau de Parfum 50ml'
+  elsif request.page_type == 'search'
+    assign og_title = 'Search Results'
   endif
   assign og_url = canonical_url | default: request.origin
   assign og_type = 'website'
-  assign og_description = page_description | default: shop.description | default: 'Samay Parfumes — Zayro 50ml Eau de Parfum, a fragrance beyond time. Single, Duo and Trio editions.'
+
+  assign og_description = page_description
+  if og_description == blank
+    if request.page_type == 'cart'
+      assign og_description = 'Review your shopping bag for Samay Zayro 50ml Eau de Parfum. Fast express dispatch across India with complimentary shipping.'
+    elsif request.page_type == 'collection'
+      assign og_description = 'Discover the complete Samay Parfumes collection: Zayro 50ml Single, Duo Combo, and Grand Trio artisanal Eau de Parfum editions.'
+    elsif request.page_type == 'search'
+      assign og_description = 'Search the Samay Parfumes luxury fragrance catalogue for Zayro Eau de Parfum editions, notes, and curated gift combos.'
+    elsif request.page_type == '404'
+      assign og_description = 'The page you requested on Samay Parfumes could not be found. Explore our luxury Zayro Eau de Parfum editions online.'
+    else
+      assign og_description = 'Samay Parfumes — Zayro 50ml Eau de Parfum, a fragrance beyond time. Single, Duo and Trio editions crafted in India.'
+    endif
+  endif
 
   if request.page_type == 'product'
     assign og_type = 'product'
@@ -15,7 +30,7 @@
   elsif request.page_type == 'password'
     assign og_url = request.origin
   endif
-%}
+-%}
 
 <meta
   property="og:site_name"
@@ -41,19 +56,36 @@
 {%- if page_image -%}
   <meta
     property="og:image"
-    content="http:{{ page_image | image_url }}"
+    content="https:{{ page_image | image_url: width: 1200, height: 630 }}"
   >
   <meta
     property="og:image:secure_url"
-    content="https:{{ page_image | image_url }}"
+    content="https:{{ page_image | image_url: width: 1200, height: 630 }}"
   >
   <meta
     property="og:image:width"
-    content="{{ page_image.width }}"
+    content="{{ page_image.width | default: 1200 }}"
   >
   <meta
     property="og:image:height"
-    content="{{ page_image.height }}"
+    content="{{ page_image.height | default: 630 }}"
+  >
+{%- else -%}
+  <meta
+    property="og:image"
+    content="https:{{ 'samay-hero-clock.jpg' | asset_url }}"
+  >
+  <meta
+    property="og:image:secure_url"
+    content="https:{{ 'samay-hero-clock.jpg' | asset_url }}"
+  >
+  <meta
+    property="og:image:width"
+    content="1024"
+  >
+  <meta
+    property="og:image:height"
+    content="571"
   >
 {%- endif -%}
 
@@ -88,8 +120,10 @@
 <title>
   {%- if request.page_type == 'index' and page_title == shop.name -%}
     Samay Parfumes | Zayro Eau de Parfum 50ml
+  {%- elsif request.page_type == 'search' -%}
+    Search Results &ndash; {{ shop.name }}
   {%- else -%}
-    {{ page_title }}
+    {{ page_title | strip_html }}
     {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
     {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
     {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
@@ -101,14 +135,7 @@
   href="{{ canonical_url }}"
 >
 
-{% if page_description %}
-  <meta
-    name="description"
-    content="{{ page_description | escape }}"
-  >
-{% else %}
-  <meta
-    name="description"
-    content="Samay Parfumes — Zayro 50ml Eau de Parfum, a fragrance beyond time. Single, Duo and Trio editions."
-  >
-{% endif %}
+<meta
+  name="description"
+  content="{{ og_description | escape }}"
+>
