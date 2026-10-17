@@ -49,18 +49,24 @@
       <div>
         <h3 class="samay-footer-heading">Policies</h3>
         <ul class="samay-footer-links">
-          {% if shop.privacy_policy != blank %}
-            <li><a href="{{ shop.privacy_policy.url }}">{{ shop.privacy_policy.title }}</a></li>
-          {% endif %}
-          {% if shop.refund_policy != blank %}
-            <li><a href="{{ shop.refund_policy.url }}">{{ shop.refund_policy.title }}</a></li>
-          {% endif %}
-          {% if shop.shipping_policy != blank %}
-            <li><a href="{{ shop.shipping_policy.url }}">{{ shop.shipping_policy.title }}</a></li>
-          {% endif %}
-          {% if shop.terms_of_service != blank %}
-            <li><a href="{{ shop.terms_of_service.url }}">{{ shop.terms_of_service.title }}</a></li>
-          {% endif %}
+          {%- if shop.policies.size > 0 -%}
+            {%- for policy in shop.policies -%}
+              <li><a href="{{ policy.url }}">{{ policy.title }}</a></li>
+            {%- endfor -%}
+          {%- else -%}
+            {% if shop.privacy_policy != blank %}
+              <li><a href="{{ shop.privacy_policy.url }}">{{ shop.privacy_policy.title }}</a></li>
+            {% endif %}
+            {% if shop.refund_policy != blank %}
+              <li><a href="{{ shop.refund_policy.url }}">{{ shop.refund_policy.title }}</a></li>
+            {% endif %}
+            {% if shop.shipping_policy != blank %}
+              <li><a href="{{ shop.shipping_policy.url }}">{{ shop.shipping_policy.title }}</a></li>
+            {% endif %}
+            {% if shop.terms_of_service != blank %}
+              <li><a href="{{ shop.terms_of_service.url }}">{{ shop.terms_of_service.title }}</a></li>
+            {% endif %}
+          {%- endif -%}
         </ul>
         {% assign footer_email = section.settings.contact_email %}
         {% assign footer_phone = section.settings.contact_phone %}
