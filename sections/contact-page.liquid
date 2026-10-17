@@ -1,0 +1,274 @@
+{% comment %}
+  SAMAY PARFUMES - CONTACT PAGE TEMPLATE
+  Dedicated luxury concierge contact form and newsletter signup.
+{% endcomment %}
+
+<!-- ==========================================================================
+     CONTACT CONCIERGE SECTION
+     ========================================================================== -->
+<section class="samay-contact-section" id="contact">
+  <div class="container">
+    <div class="samay-sec-header">
+      {%- if section.settings.eyebrow != blank -%}
+        <div class="samay-sec-eyebrow">{{ section.settings.eyebrow }}</div>
+      {%- endif -%}
+      <h1 class="samay-sec-title">{{ page.title }}</h1>
+      {%- if section.settings.subtitle != blank -%}
+        <p class="samay-sec-subtitle">
+          {{ section.settings.subtitle }}
+        </p>
+      {%- endif -%}
+      <div class="samay-sec-divider"></div>
+    </div>
+
+    <!-- Contact Form Box -->
+    <div class="samay-contact-form-box samay-contact-form-box--page">
+      {%- if section.settings.contact_form_heading != blank -%}
+        <h2 class="serif-font samay-contact-heading">{{ section.settings.contact_form_heading }}</h2>
+      {%- endif -%}
+
+      {% form 'contact', id: 'samayContactPageForm' %}
+        {% if form.posted_successfully? %}
+          <div class="samay-form-success">
+            {%- if section.settings.contact_success_message != blank -%}
+              {{ section.settings.contact_success_message }}
+            {%- endif -%}
+          </div>
+        {% elsif form.errors %}
+          <div class="samay-form-error">
+            {{ form.errors | default_errors }}
+          </div>
+        {% endif %}
+
+        <div class="samay-form-group">
+          <label class="samay-form-label" for="ContactPageName">Full Name</label>
+          <input 
+            type="text" 
+            id="ContactPageName" 
+            name="contact[name]" 
+            class="samay-form-input" 
+            placeholder="e.g. Rahul Sharma" 
+            value="{{ form.name | default: customer.name | escape }}" 
+            required
+          >
+        </div>
+
+        <div class="samay-form-group">
+          <label class="samay-form-label" for="ContactPageEmail">Email Address</label>
+          <input 
+            type="email" 
+            id="ContactPageEmail" 
+            name="contact[email]" 
+            class="samay-form-input" 
+            placeholder="e.g. rahul@example.com" 
+            value="{{ form.email | default: customer.email | escape }}" 
+            required
+          >
+        </div>
+
+        <div class="samay-form-group">
+          <label class="samay-form-label" for="ContactPagePhone">Phone / WhatsApp</label>
+          <input 
+            type="tel" 
+            id="ContactPagePhone" 
+            name="contact[phone]" 
+            class="samay-form-input" 
+            placeholder="+91 98765 43210" 
+            value="{{ form.phone | default: customer.phone | escape }}" 
+            required
+          >
+        </div>
+
+        <div class="samay-form-group">
+          <label class="samay-form-label" for="ContactPageTopic">Inquiry Topic</label>
+          {%- capture newline %}
+{% endcapture -%}
+          {%- assign topic_options = section.settings.contact_topics | split: newline -%}
+          <select id="ContactPageTopic" name="contact[Inquiry Topic]" class="samay-form-select">
+            {%- for topic in topic_options -%}
+              {%- assign clean_topic = topic | strip -%}
+              {%- if clean_topic != blank -%}
+                <option value="{{ clean_topic | escape }}">{{ clean_topic }}</option>
+              {%- endif -%}
+            {%- endfor -%}
+          </select>
+        </div>
+
+        <div class="samay-form-group">
+          <label class="samay-form-label" for="ContactPageMessage">Your Message</label>
+          <textarea 
+            id="ContactPageMessage" 
+            name="contact[body]" 
+            class="samay-form-textarea" 
+            rows="4" 
+            placeholder="How can our concierge assist you today?" 
+            required
+          >{{ form.body | escape }}</textarea>
+        </div>
+
+        {%- if section.settings.contact_btn_label != blank -%}
+          <button type="submit" class="samay-btn samay-btn--gold samay-btn--full">
+            {{ section.settings.contact_btn_label }}
+          </button>
+        {%- endif -%}
+      {% endform %}
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+     VIP NEWSLETTER
+     ========================================================================== -->
+<section class="samay-newsletter-section">
+  <div class="container">
+    <div class="samay-newsletter-box">
+      {%- if section.settings.newsletter_eyebrow != blank -%}
+        <div class="samay-sec-eyebrow samay-sec-eyebrow--gold">{{ section.settings.newsletter_eyebrow }}</div>
+      {%- endif -%}
+      {%- if section.settings.newsletter_title != blank -%}
+        <h2>{{ section.settings.newsletter_title }}</h2>
+      {%- endif -%}
+      {%- if section.settings.newsletter_desc != blank -%}
+        <p>
+          {{ section.settings.newsletter_desc }}
+        </p>
+      {%- endif -%}
+      {% form 'customer', id: 'samayContactPageNewsletter', class: 'samay-newsletter-form-container' %}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        <input type="hidden" name="contact[accepts_marketing]" value="true">
+        <input type="hidden" name="customer[accepts_marketing]" value="true">
+        {% if form.posted_successfully? %}
+          <div class="samay-newsletter-success">
+            {%- if section.settings.newsletter_success_message != blank -%}
+              {{ section.settings.newsletter_success_message }}
+            {%- endif -%}
+          </div>
+        {% elsif form.errors %}
+          <div class="samay-newsletter-error">
+            {{ form.errors | default_errors }}
+          </div>
+        {% endif %}
+
+        <div class="samay-newsletter-form">
+          <input 
+            type="email" 
+            id="ContactPageNewsletterEmail"
+            name="contact[email]" 
+            class="samay-newsletter-input" 
+            placeholder="Enter your email address" 
+            value="{{ customer.email | escape }}" 
+            required
+            aria-label="Email address"
+          >
+          {%- if section.settings.newsletter_btn_label != blank -%}
+            <button type="submit" class="samay-btn samay-btn--gold">
+              {{ section.settings.newsletter_btn_label }}
+            </button>
+          {%- endif -%}
+        </div>
+        {%- if section.settings.newsletter_consent != blank -%}
+          <p class="samay-newsletter-consent">
+            {{ section.settings.newsletter_consent }}
+          </p>
+        {%- endif -%}
+      {% endform %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Contact Page",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Page Header"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Text",
+      "default": "ASSISTANCE & CONCIERGE"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Have a question about your order, tracking, or choosing between our single bottle and combos? Reach out directly to our concierge team."
+    },
+    {
+      "type": "header",
+      "content": "Contact Form"
+    },
+    {
+      "type": "text",
+      "id": "contact_form_heading",
+      "label": "Contact Form Heading",
+      "default": "Send a Message"
+    },
+    {
+      "type": "text",
+      "id": "contact_success_message",
+      "label": "Contact Form Success Message",
+      "default": "✦ Thank you! Our perfumery concierge will contact you within 24 hours."
+    },
+    {
+      "type": "textarea",
+      "id": "contact_topics",
+      "label": "Contact Inquiry Topics (one per line)",
+      "default": "Order Status & Tracking\nAdvice on 2-in-1 or 3-in-1 Combo\nCorporate / Bulk Gifting\nGeneral Fragrance Inquiry"
+    },
+    {
+      "type": "text",
+      "id": "contact_btn_label",
+      "label": "Submit Button Label",
+      "default": "SEND MESSAGE"
+    },
+    {
+      "type": "header",
+      "content": "VIP Newsletter"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_eyebrow",
+      "label": "Newsletter Eyebrow",
+      "default": "PRIVATE PRIVILEGES"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_title",
+      "label": "Newsletter Title",
+      "default": "Join The Samay Circle"
+    },
+    {
+      "type": "textarea",
+      "id": "newsletter_desc",
+      "label": "Newsletter Description",
+      "default": "Enjoy privileged early access to small-batch launches, private olfactory invitations, and exclusive updates from our maison."
+    },
+    {
+      "type": "text",
+      "id": "newsletter_success_message",
+      "label": "Newsletter Success Message",
+      "default": "✦ Welcome to the Samay Circle! Thank you for subscribing."
+    },
+    {
+      "type": "text",
+      "id": "newsletter_btn_label",
+      "label": "Subscribe Button Label",
+      "default": "SUBSCRIBE"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_consent",
+      "label": "Newsletter Consent Disclaimer",
+      "default": "By subscribing, you consent to receive email marketing communications from Samay Parfumes. Unsubscribe anytime."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact Page"
+    }
+  ]
+}
+{% endschema %}

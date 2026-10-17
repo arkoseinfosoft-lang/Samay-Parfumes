@@ -890,10 +890,10 @@ select {
 .ep-media__viewport {
   position: relative;
   width: 100%;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 3 / 2;
   overflow: hidden;
   border-radius: var(--radius-xs, 4px);
-  background: var(--cream2, #efe8dc);
+  background: #100b07;
   border: 1px solid var(--border-light, #ece3d4);
 }
 
@@ -1447,6 +1447,11 @@ select {
   border-radius: var(--radius-md);
   padding: 40px;
   box-shadow: var(--shadow-subtle);
+}
+
+.samay-contact-form-box--page {
+  max-width: 680px;
+  margin: 0 auto;
 }
 
 .samay-form-group {
@@ -2474,8 +2479,8 @@ select {
 .samay-pdp-main-media {
   position: relative;
   width: 100%;
-  aspect-ratio: 1 / 1;
-  background: var(--cream2);
+  aspect-ratio: 3 / 2;
+  background: #100b07;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   overflow: hidden;
