@@ -623,6 +623,21 @@ select {
   transform: translateY(-2px);
 }
 
+.samay-btn--outline-dark,
+.samay-404-section .samay-btn--outline {
+  background: transparent;
+  color: var(--charcoal, #1a1612);
+  border-color: var(--charcoal, #1a1612);
+}
+
+.samay-btn--outline-dark:hover,
+.samay-404-section .samay-btn--outline:hover {
+  background: var(--charcoal, #1a1612);
+  color: var(--cream, #f7f2ea);
+  border-color: var(--charcoal, #1a1612);
+  transform: translateY(-2px);
+}
+
 .samay-btn--dark {
   background: var(--brown);
   color: var(--cream);
