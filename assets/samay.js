@@ -238,7 +238,7 @@
       }
     });
 
-    // Mobile Menu Drawer Toggle
+    // Mobile Menu Drawer Toggle & Reliable Navigation
     const mobileBtn = document.getElementById('samayMobileToggle');
     const mobileDrawer = document.getElementById('samayMobileDrawerOverlay');
     const mobileCloseBtn = document.getElementById('samayMobileDrawerClose');
@@ -274,13 +274,87 @@
       });
     }
 
+    function handleDrawerLinkClick(e) {
+      const link = e.currentTarget;
+      const rawHref = link.getAttribute('href');
+      if (!rawHref) return;
+
+      const targetUrl = new URL(link.href, window.location.origin);
+      const isSamePath = (targetUrl.pathname.replace(/\/$/, '') === window.location.pathname.replace(/\/$/, ''));
+      const hash = targetUrl.hash;
+
+      if (hash && isSamePath) {
+        // Section is on the current page
+        e.preventDefault();
+        closeMobileDrawer();
+        const target = document.querySelector(hash);
+        if (target) {
+          setTimeout(() => {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 150);
+          if (history.pushState) {
+            history.pushState(null, '', hash);
+          } else {
+            window.location.hash = hash;
+          }
+        }
+      } else if (hash && !isSamePath) {
+        // Section is on another page (e.g. from /pages/contact to /#collection)
+        e.preventDefault();
+        closeMobileDrawer();
+        const currentParams = new URLSearchParams(window.location.search);
+        if (currentParams.has('preview_theme_id') && !targetUrl.searchParams.has('preview_theme_id')) {
+          targetUrl.searchParams.set('preview_theme_id', currentParams.get('preview_theme_id'));
+        }
+        setTimeout(() => {
+          window.location.href = targetUrl.toString();
+        }, 100);
+      } else if (!hash && isSamePath) {
+        // Same page without hash (e.g. clicking Contact while on /pages/contact)
+        e.preventDefault();
+        closeMobileDrawer();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        // Normal navigation to another page
+        e.preventDefault();
+        closeMobileDrawer();
+        const currentParams = new URLSearchParams(window.location.search);
+        if (currentParams.has('preview_theme_id') && !targetUrl.searchParams.has('preview_theme_id')) {
+          targetUrl.searchParams.set('preview_theme_id', currentParams.get('preview_theme_id'));
+        }
+        setTimeout(() => {
+          window.location.href = targetUrl.toString();
+        }, 100);
+      }
+    }
+
     if (mobileCta) {
-      mobileCta.addEventListener('click', closeMobileDrawer);
+      mobileCta.addEventListener('click', handleDrawerLinkClick);
     }
 
     document.querySelectorAll('.samay-mobile-link').forEach(link => {
-      link.addEventListener('click', closeMobileDrawer);
+      link.addEventListener('click', handleDrawerLinkClick);
     });
+
+    // Hash Scroll Observer on Initial Load & Hash Navigation
+    function scrollToHashTarget() {
+      if (window.location.hash) {
+        const hash = window.location.hash;
+        const target = document.querySelector(hash);
+        if (target) {
+          setTimeout(() => {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 250);
+        }
+      }
+    }
+
+    if (document.readyState === 'complete') {
+      setTimeout(scrollToHashTarget, 150);
+    } else {
+      window.addEventListener('load', () => setTimeout(scrollToHashTarget, 150));
+    }
+    window.addEventListener('hashchange', scrollToHashTarget);
 
 
     // FAQ Accordion
