@@ -427,7 +427,7 @@
 
     // Initialize Perfume Atomizer & Golden Spray Mist Cursor
     initPerfumeSprayCursor();
-  });
+  }
 
   // ==========================================================================
   // MOBILE PRODUCT CAROUSEL CONTROLS (PAGINATION DOTS & NEXT/PREV ARROWS)
