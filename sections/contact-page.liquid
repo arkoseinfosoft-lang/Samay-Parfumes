@@ -75,6 +75,8 @@
             class="samay-form-input" 
             placeholder="+91 98765 43210" 
             value="{{ form.phone | default: customer.phone | escape }}" 
+            pattern="[0-9+\s\-]{10,15}"
+            title="Please enter a valid 10-15 digit phone number"
             required
           >
         </div>
