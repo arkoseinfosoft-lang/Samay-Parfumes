@@ -228,15 +228,35 @@
     // Initialize Real Shopify Cart
     fetchCart();
 
-    // Header Scroll Effect
+    // Sticky Header: Sync announcement bar height and handle scroll styling
     const header = document.querySelector('.samay-header-wrapper');
-    window.addEventListener('scroll', function () {
-      if (window.scrollY > 30) {
+    const annBar = document.querySelector('.samay-announcement-bar');
+
+    function updateAnnouncementHeight() {
+      if (annBar && annBar.offsetHeight > 0) {
+        document.documentElement.style.setProperty('--announcement-height', annBar.offsetHeight + 'px');
+      } else {
+        document.documentElement.style.setProperty('--announcement-height', '0px');
+      }
+    }
+
+    function handleHeaderScroll() {
+      const threshold = (annBar && annBar.offsetHeight > 0) ? Math.max(10, annBar.offsetHeight - 4) : 20;
+      if (window.scrollY > threshold) {
         header?.classList.add('is-scrolled');
       } else {
         header?.classList.remove('is-scrolled');
       }
-    });
+    }
+
+    updateAnnouncementHeight();
+    handleHeaderScroll();
+
+    window.addEventListener('scroll', handleHeaderScroll, { passive: true });
+    window.addEventListener('resize', function () {
+      updateAnnouncementHeight();
+      handleHeaderScroll();
+    }, { passive: true });
 
     // Mobile Menu Drawer Toggle & Reliable Navigation
     const mobileBtn = document.getElementById('samayMobileToggle');
