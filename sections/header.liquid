@@ -47,7 +47,7 @@
         <a href="{{ routes.root_url }}#collection" class="samay-nav-link">Combos</a>
         <a href="{{ routes.root_url }}#notes" class="samay-nav-link">The Notes</a>
         <a href="{{ routes.root_url }}#about" class="samay-nav-link">About Us</a>
-        <a href="{{ routes.root_url }}#contact" class="samay-nav-link">Contact & FAQ</a>
+        <a href="{{ pages['contact'].url | default: '/pages/contact' }}" class="samay-nav-link">Contact & FAQ</a>
       </nav>
 
       <!-- Header Actions -->
@@ -98,7 +98,7 @@
       <a href="#collection" class="samay-mobile-link">3-in-1 Grand Trio <span class="samay-nav-tag gold">Best Value</span></a>
       <a href="#notes" class="samay-mobile-link">The Notes</a>
       <a href="#about" class="samay-mobile-link">About Us</a>
-      <a href="#contact" class="samay-mobile-link">Contact & FAQ</a>
+      <a href="{{ pages['contact'].url | default: '/pages/contact' }}" class="samay-mobile-link">Contact & FAQ</a>
     </div>
 
     <div class="samay-mobile-drawer-footer">
