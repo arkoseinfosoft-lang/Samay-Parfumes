@@ -2091,8 +2091,15 @@ select {
   }
 
   @keyframes epHintPulse {
-    0%, 100% { transform: translateX(0); }
-    50% { transform: translateX(3px); }
+
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+
+    50% {
+      transform: translateX(3px);
+    }
   }
 
   .ep-grid {
