@@ -326,8 +326,6 @@
                   {%- endif -%}
                 </div>
 
-                {%- render 'stock-alert', variant: variant, threshold: section.settings.low_stock_threshold -%}
-
                 {%- if block.settings.specs != blank -%}
                   <div class="ep-specs">
                     <span>✦</span>
@@ -407,8 +405,6 @@
                   <span class="ep-price-discount">-{{ discount_percent }}%</span>
                 {%- endif -%}
               </div>
-
-              {%- render 'stock-alert', variant: variant, threshold: section.settings.low_stock_threshold -%}
 
               <button 
                 type="button" 
@@ -1146,15 +1142,6 @@
       "id": "collection_hint",
       "label": "Mobile Carousel Hint",
       "default": "Swipe to explore all 3 editions"
-    },
-    {
-      "type": "range",
-      "id": "low_stock_threshold",
-      "min": 1,
-      "max": 100,
-      "step": 1,
-      "label": "Low stock alert threshold",
-      "default": 50
     },
     {
       "type": "text",

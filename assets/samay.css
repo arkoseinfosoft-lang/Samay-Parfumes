@@ -2678,24 +2678,6 @@ select {
   max-width: 100%;
 }
 
-.samay-card-stock-alert {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  margin: 6px 0 8px 0;
-  padding: 4px 10px;
-  background-color: rgba(185, 28, 28, 0.08);
-  border: 1px solid rgba(185, 28, 28, 0.22);
-  border-radius: var(--radius-xs);
-  color: #991b1b;
-  font-family: var(--sans);
-  font-size: 0.74rem;
-  font-weight: 600;
-  line-height: 1.3;
-  width: fit-content;
-  max-width: 100%;
-}
-
 .samay-stock-dot {
   position: relative;
   display: inline-block;
