@@ -10,7 +10,7 @@
 
 | Aspect | Verdict | Summary |
 | :--- | :--- | :--- |
-| **Backend & E-Commerce Core** | **Identical (100% Real Shopify)** | It is a genuine, native Shopify Online Store 2.0 theme. It uses real Shopify Liquid objects (`product`, `collection`, `cart`), Shopify's native AJAX cart endpoints (`/cart.js`, `/cart/add.js`), dynamic payment buttons (`{{ form \| payment_button }}`), and real Shopify checkout. |
+| **Backend & E-Commerce Core** | **Identical (100% Real Shopify)** | It is an authentic, native Shopify Online Store 2.0 theme. It uses real Shopify Liquid objects (`product`, `collection`, `cart`), Shopify's native AJAX cart endpoints (`/cart.js`, `/cart/add.js`), dynamic payment buttons (`{{ form \| payment_button }}`), and real Shopify checkout. |
 | **Front-End & Architecture** | **Vastly Different (Bespoke Luxury D2C Funnel)** | Unlike generic, catalog-heavy Shopify stores (such as Dawn or commercial marketplace themes), Samay Parfumes is engineered as a **luxury, single-brand editorial landing page funnel** inspired by haute parfumerie maisons (Le Labo, Byredo, House of Sasaa). |
 | **Customizer Flexibility** | **Different (Code-Driven vs. Drag-and-Drop)** | Standard themes feature hundreds of settings in `settings_schema.json` for generic merchants. Samay Parfumes is tightly tailored in code with bespoke sections, artisanal storytelling, and custom assets. |
 
@@ -124,7 +124,7 @@ While standard Shopify themes (like *Dawn*, *Impulse*, *Prestige*, or *Warehouse
 ## 4. Summary & Verdict
 
 ### The Verdict:
-> **Samay Parfumes is a genuine Shopify store under the hood, but it is vastly superior and uniquely tailored compared to standard generic Shopify stores.**
+> **Samay Parfumes is an authentic Shopify store under the hood, but it is vastly superior and uniquely tailored compared to standard generic Shopify stores.**
 
 - **From an e-commerce infrastructure perspective:** It is **the same**—inventory, orders, customers, taxes, tracking, and checkout are 100% processed through Shopify's secure engine.
 - **From a user experience and brand perspective:** It is **completely different**—instead of resembling a standard commodity online shop, it presents as an ultra-luxury artisanal fragrance maison designed for high conversion, brand prestige, and maximum Average Order Value.
