@@ -10,22 +10,32 @@
     <link rel="icon" type="image/png" sizes="192x192" href="{{ 'favicon-192x192.png' | asset_url }}">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ 'apple-touch-icon.png' | asset_url }}">
 
-    <!-- Google Fonts for Luxury Typography -->
+    <!-- Google Fonts for Luxury Typography (Asynchronous Non-Blocking) -->
     {% # theme-check-disable RemoteAsset, AssetPreload %}
-    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap">
-    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap">
+    </noscript>
     {% # theme-check-enable RemoteAsset, AssetPreload %}
+
+    {% # LCP Image Preload for Instant Mobile Paint %}
+    {%- if template.name == 'index' -%}
+      <link rel="preload" as="image" href="{{ 'samay-hero-clock-mobile.webp' | asset_url }}" media="(max-width: 768px)" type="image/webp" fetchpriority="high">
+      <link rel="preload" as="image" href="{{ 'samay-hero-clock.webp' | asset_url }}" media="(min-width: 769px)" type="image/webp" fetchpriority="high">
+    {%- endif -%}
 
     {% # Inlined CSS Variables %}
     {% render 'css-variables' %}
 
-    {% # Load critical CSS %}
-    {{ 'critical.css' | asset_url | stylesheet_tag: preload: true }}
+    {% # Inlined Critical CSS (0ms render-blocking delay) %}
+    <style>
+      {% render 'critical-css' %}
+    </style>
 
-    {% # Load Samay Parfumes Luxury CSS %}
-    {{ 'samay.css' | asset_url | stylesheet_tag }}
+    {% # Load Samay Parfumes Luxury CSS with native preload %}
+    {{ 'samay.css' | asset_url | stylesheet_tag: preload: true }}
 
     {% # Social, title, etc. %}
     {% render 'meta-tags' %}

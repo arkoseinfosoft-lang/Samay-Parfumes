@@ -32,14 +32,18 @@
 
       <!-- Brand Logo -->
       <a href="{{ routes.root_url }}" class="samay-logo-link" aria-label="Samay Parfumes Home">
-        <img 
-          src="{{ 'samay-logo-black.png' | asset_url }}" 
-          alt="Samay Parfumes Logo" 
-          class="samay-header-logo-img"
-          width="192"
-          height="70"
-          loading="eager"
-        >
+        <picture>
+          <source srcset="{{ 'samay-logo-black.webp' | asset_url }}" type="image/webp">
+          <img 
+            src="{{ 'samay-logo-black.png' | asset_url }}" 
+            alt="Samay Parfumes Logo" 
+            class="samay-header-logo-img"
+            width="192"
+            height="70"
+            loading="eager"
+            fetchpriority="high"
+          >
+        </picture>
       </a>
 
       <!-- Desktop Navigation -->

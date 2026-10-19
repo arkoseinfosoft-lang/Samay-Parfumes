@@ -1,0 +1,135 @@
+/** Critical CSS for the theme. Inlined directly for 0ms render delay. */
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  min-height: 100svh;
+}
+
+html:has(dialog[scroll-lock][open], details[scroll-lock][open]) {
+  overflow: hidden;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+input,
+textarea,
+select {
+  font: inherit;
+  border-radius: var(--style-border-radius-inputs);
+}
+
+select {
+  background-color: var(--color-background);
+  color: currentcolor;
+}
+
+dialog {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+}
+
+p {
+  text-wrap: pretty;
+}
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+p:empty {
+  display: none;
+}
+
+:is(p, h1, h2, h3, h4, h5, h6):first-child,
+:empty:first-child + :where(p, h1, h2, h3, h4, h5, h6) {
+  margin-block-start: 0;
+}
+
+:is(p, h1, h2, h3, h4, h5, h6):last-child,
+:where(p, h1, h2, h3, h4, h5, h6) + :has(+ :empty:last-child) {
+  margin-block-end: 0;
+}
+
+body {
+  font-family: var(--font-primary--family);
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+}
+
+.shopify-section {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.shopify-section > * {
+  width: 100%;
+}
+
+/* Perfume Atomizer & Spray Mist Cursor */
+.samay-spray-canvas {
+  position: fixed !important;
+  inset: 0 !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  pointer-events: none !important;
+  z-index: 99998 !important;
+}
+
+.samay-atomizer {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 30px !important;
+  height: 46px !important;
+  max-width: 30px !important;
+  max-height: 46px !important;
+  pointer-events: none !important;
+  z-index: 99999 !important;
+  opacity: 0;
+  transform: translate(-15px, -6px);
+  transition: opacity 0.2s ease;
+  will-change: transform;
+}
+
+.samay-atomizer.is-on {
+  opacity: 0.96 !important;
+}
+
+.samay-atomizer svg {
+  width: 30px !important;
+  height: 46px !important;
+  max-width: 30px !important;
+  max-height: 46px !important;
+  display: block !important;
+  filter: drop-shadow(0 3px 8px rgba(27, 19, 9, 0.4));
+}
+
+@media (hover: none), (pointer: coarse) {
+  .samay-atomizer,
+  .samay-spray-canvas {
+    display: none !important;
+  }
+}

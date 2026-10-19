@@ -29,15 +29,20 @@
       fetchpriority="high"
     >
   {%- else -%}
-    <img 
-      src="{{ 'samay-hero-clock.jpg' | asset_url }}" 
-      alt="Samay Parfumes Zayro Eau De Parfum Flacon Beyond Time" 
-      class="samay-hero-bg"
-      width="1024"
-      height="571"
-      loading="eager"
-      fetchpriority="high"
-    >
+    <picture>
+      <source media="(max-width: 768px)" srcset="{{ 'samay-hero-clock-mobile.webp' | asset_url }}" type="image/webp">
+      <source media="(min-width: 769px)" srcset="{{ 'samay-hero-clock.webp' | asset_url }}" type="image/webp">
+      <img 
+        src="{{ 'samay-hero-clock.webp' | asset_url }}" 
+        alt="Samay Parfumes Zayro Eau De Parfum Flacon Beyond Time" 
+        class="samay-hero-bg"
+        width="1024"
+        height="571"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+      >
+    </picture>
   {%- endif -%}
   <div class="samay-hero-overlay"></div>
 
