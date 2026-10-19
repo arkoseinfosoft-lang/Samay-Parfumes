@@ -8,6 +8,7 @@
   as well as how you can use LiquidDoc to document your code.
 
   @param {image} image - The image to be rendered
+  @param {string} [alt] - An optional alternative text for the image
   @param {string} [url] - An optional destination URL for the image
   @param {string} [class] - Optional class to be added to the image wrapper
   @param {number} [width] - The highest resolution width of the image to be rendered
@@ -32,6 +33,8 @@
     assign width = width | default: image.width
   endunless
 
+  assign alt_text = alt | default: image.alt | escape
+
   if url
     assign wrapper = 'a'
   else
@@ -45,7 +48,7 @@
     href="{{ url }}"
   {% endif %}
 >
-  {{ image | image_url: width: width, height: height, crop: crop | image_tag }}
+  {{ image | image_url: width: width, height: height, crop: crop | image_tag: alt: alt_text }}
 </{{ wrapper }}>
 
 {% stylesheet %}
