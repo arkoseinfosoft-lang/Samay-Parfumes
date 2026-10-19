@@ -231,11 +231,11 @@
         <div class="samay-pdp-accordions" id="samayPdpAccordions">
           <!-- Accordion 1: Olfactory Pyramid -->
           <div class="samay-accordion is-open">
-            <button type="button" class="samay-accordion-trigger" aria-expanded="true">
+            <button type="button" class="samay-accordion-trigger" id="PdpAccordionTrigger1" aria-expanded="true" aria-controls="PdpAccordionBody1">
               <span>Olfactory Pyramid & Notes</span>
               <span class="samay-accordion-icon">+</span>
             </button>
-            <div class="samay-accordion-body">
+            <div class="samay-accordion-body" id="PdpAccordionBody1" role="region" aria-labelledby="PdpAccordionTrigger1">
               <p style="margin-bottom: 10px;">
                 <strong>Top Notes:</strong> Italian Sun-Drenched Bergamot, Sparkling Lemon Zest, Crisp Green Apple.<br>
                 <strong>Heart Notes:</strong> French Provençal Lavender, Birch Wood, Violet Leaf.<br>
@@ -249,11 +249,11 @@
 
           <!-- Accordion 2: Performance & Application -->
           <div class="samay-accordion">
-            <button type="button" class="samay-accordion-trigger" aria-expanded="false">
+            <button type="button" class="samay-accordion-trigger" id="PdpAccordionTrigger2" aria-expanded="false" aria-controls="PdpAccordionBody2">
               <span>Performance & Longevity</span>
               <span class="samay-accordion-icon">+</span>
             </button>
-            <div class="samay-accordion-body">
+            <div class="samay-accordion-body" id="PdpAccordionBody2" role="region" aria-labelledby="PdpAccordionTrigger2">
               <p>
                 Concentrated at an authentic 15-20% pure oil ratio (Eau de Parfum grade). Delivers 6 to 8 hours of proven skin longevity with moderate to strong projection for the first 3 hours. Apply 3-4 sprays to pulse points (neck, collarbones, inner wrists) for optimal sillage.
               </p>
@@ -262,11 +262,11 @@
 
           <!-- Accordion 3: Delivery & Complimentary Shipping -->
           <div class="samay-accordion">
-            <button type="button" class="samay-accordion-trigger" aria-expanded="false">
+            <button type="button" class="samay-accordion-trigger" id="PdpAccordionTrigger3" aria-expanded="false" aria-controls="PdpAccordionBody3">
               <span>Shipping & Delivery across India</span>
               <span class="samay-accordion-icon">+</span>
             </button>
-            <div class="samay-accordion-body">
+            <div class="samay-accordion-body" id="PdpAccordionBody3" role="region" aria-labelledby="PdpAccordionTrigger3">
               <p>
                 Express courier delivery is 100% complimentary across all pin codes in India. Metro cities receive dispatch in 24 hours with arrival in 2-3 business days. All orders ship with secure packaging and real-time SMS tracking updates.
               </p>
@@ -275,13 +275,39 @@
 
           <!-- Accordion 4: Artisan Flacon & Packaging -->
           <div class="samay-accordion">
-            <button type="button" class="samay-accordion-trigger" aria-expanded="false">
+            <button type="button" class="samay-accordion-trigger" id="PdpAccordionTrigger4" aria-expanded="false" aria-controls="PdpAccordionBody4">
               <span>Flacon & Presentation</span>
               <span class="samay-accordion-icon">+</span>
             </button>
-            <div class="samay-accordion-body">
+            <div class="samay-accordion-body" id="PdpAccordionBody4" role="region" aria-labelledby="PdpAccordionTrigger4">
               <p>
                 Each flacon is cast from heavyweight crystal glass embossed with the timeless Samay pocket-watch emblem, crowned by a satisfying magnetic closure and Italian micro-mist atomiser. Presented in an embossed gold-foil gift presentation box.
+              </p>
+            </div>
+          </div>
+
+          <!-- Accordion 5: Frequently Asked Questions -->
+          <div class="samay-accordion" id="faq">
+            <button type="button" class="samay-accordion-trigger" id="PdpAccordionTrigger5" aria-expanded="false" aria-controls="PdpAccordionBody5">
+              <span>Frequently Asked Questions</span>
+              <span class="samay-accordion-icon">+</span>
+            </button>
+            <div class="samay-accordion-body" id="PdpAccordionBody5" role="region" aria-labelledby="PdpAccordionTrigger5">
+              <p style="margin-bottom: 12px;">
+                <strong>How long does Zayro last?</strong><br>
+                Zayro is formulated as an Eau de Parfum (15-20% oil concentration), delivering 6 to 8 hours of proven wear on skin and throughout the day on fabrics.
+              </p>
+              <p style="margin-bottom: 12px;">
+                <strong>Is shipping really free across India?</strong><br>
+                Yes! We offer 100% complimentary express shipping on all orders to all pin codes in India with delivery in 2-3 business days for metro areas.
+              </p>
+              <p style="margin-bottom: 12px;">
+                <strong>What if my bottle arrives damaged?</strong><br>
+                If your bottle is damaged or leaking in transit, send photo and video evidence within 48 hours to samayparfume@gmail.com and we dispatch an immediate replacement at zero cost.
+              </p>
+              <p style="margin: 0;">
+                <strong>What payment methods are supported?</strong><br>
+                We accept Cash on Delivery (COD), UPI (Google Pay, PhonePe, Paytm), NetBanking, and all major debit/credit cards.
               </p>
             </div>
           </div>
@@ -290,6 +316,48 @@
     </div>
   </div>
 </section>
+
+<!-- Product FAQ Structured Data (Schema.org) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How long does Zayro last?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Zayro is formulated as an Eau de Parfum (15-20% oil concentration), delivering 6 to 8 hours of proven wear on skin and throughout the day on fabrics."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is shipping really free across India?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! We offer 100% complimentary express shipping on all orders to all pin codes in India with delivery in 2-3 business days for metro areas."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if my bottle arrives damaged?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "If your bottle is damaged or leaking in transit, send photo and video evidence within 48 hours to samayparfume@gmail.com and we dispatch an immediate replacement at zero cost."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What payment methods are supported?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We accept Cash on Delivery (COD), UPI (Google Pay, PhonePe, Paytm), NetBanking, and all major debit/credit cards."
+      }
+    }
+  ]
+}
+</script>
 
 <!-- PDP Interactive Client Logic -->
 <script>
