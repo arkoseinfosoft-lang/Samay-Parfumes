@@ -179,13 +179,6 @@
             "value": "Arm's Length Aura"
           }
         },
-        "spec_4": {
-          "type": "spec_item",
-          "settings": {
-            "title": "FORMULATION",
-            "value": "Formulated to Standards"
-          }
-        },
         "stat_1": {
           "type": "about_stat",
           "settings": {
@@ -272,7 +265,6 @@
         "spec_1",
         "spec_2",
         "spec_3",
-        "spec_4",
         "stat_1",
         "stat_2",
         "stat_3",

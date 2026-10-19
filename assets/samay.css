@@ -1259,8 +1259,8 @@ select {
 
 .samay-specs-list {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
 }
 
 .samay-spec-box {
@@ -2247,20 +2247,23 @@ select {
   }
 
   .samay-specs-list {
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
   }
 
   .samay-spec-box {
-    padding: 12px;
+    padding: 12px 6px;
+    text-align: center;
   }
 
   .samay-spec-title {
-    font-size: 0.68rem;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
   }
 
   .samay-spec-val {
-    font-size: 0.88rem;
+    font-size: 0.8rem;
+    line-height: 1.25;
   }
 
   /* Reviews on Mobile */
