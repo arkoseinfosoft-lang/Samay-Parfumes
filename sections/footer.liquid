@@ -39,13 +39,13 @@
         <h3 class="samay-footer-heading">Experience</h3>
         <ul class="samay-footer-links">
           <li><a href="{{ routes.root_url }}#about">Our Story</a></li>
-          <li><a href="{{ pages['contact'].url | default: '/pages/contact' }}">Contact</a></li>
+          <li><a href="{{ pages['contact'].url | default: '/pages/contact' }}">Contact &amp; Concierge</a></li>
           {%- if shop.shipping_policy != blank -%}
             <li><a href="{{ shop.shipping_policy.url }}">Shipping & FAQs</a></li>
           {%- else -%}
             <li><a href="{{ routes.root_url }}#faq">Shipping & FAQs</a></li>
           {%- endif -%}
-          <li><a href="{{ pages['contact'].url | default: '/pages/contact' }}">Customer</a></li>
+          <li><a href="{{ routes.all_products_collection_url }}">All Fragrance Editions</a></li>
         </ul>
       </div>
 
