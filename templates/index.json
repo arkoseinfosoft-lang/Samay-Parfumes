@@ -69,7 +69,7 @@
         "marquee_8": {
           "type": "marquee_item",
           "settings": {
-            "text": "100% CRUELTY FREE"
+            "text": "SMALL BATCH CRAFTED"
           }
         },
         "pillar_1": {
@@ -196,8 +196,8 @@
         "stat_3": {
           "type": "about_stat",
           "settings": {
-            "value": "100%",
-            "label": "Cruelty Free"
+            "value": "50ml",
+            "label": "Eau de Parfum"
           }
         },
         "faq_1": {
