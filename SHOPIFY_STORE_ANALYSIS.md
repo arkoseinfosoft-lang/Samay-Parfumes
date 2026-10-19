@@ -82,8 +82,8 @@ While standard Shopify themes (like *Dawn*, *Impulse*, *Prestige*, or *Warehouse
 ### 2. Olfactory Storytelling vs. Standard Spec Sheets
 - **Standard Stores:** Feature simple bullet points, dimension tables, and generic text tabs.
 - **Samay Parfumes:** Features fragrance-specific components:
-  - **Olfactory Pyramid:** Interactive breakdown of Top Notes (Italian Bergamot, Lemon Zest), Heart Notes (Provençal Lavender, Birch Wood), and Base Notes (Aged Oriental Amber, Smoked Cedarwood).
-  - **Technical Fragrance Credentials:** Badges highlighting **15-20% Pure Perfume Oil** (Eau de Parfum concentration), **6-8 Hours Skin Longevity**, and skin-safety standards.
+  - **Olfactory Pyramid:** Interactive breakdown of Top Notes (Bergamot, Lemon Zest), Heart Notes (Lavender, Birch Wood), and Base Notes (Amber, Smoked Cedarwood).
+  - **Technical Fragrance Credentials:** Badges highlighting **15-20% Pure Perfume Oil** (Eau de Parfum concentration), **6-8 Hours Longevity**, and artisanal craftsmanship.
   - **Artisanal Flacon Presentation:** Dedicated showcase of the weighted crystal flacon, tactile pocket-watch motif, micro-mist atomiser, and magnetic cap.
 
 ### 3. Visual Identity & Typography
