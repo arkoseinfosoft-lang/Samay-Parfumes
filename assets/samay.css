@@ -1518,6 +1518,7 @@ select {
 
 /* Accordion FAQ */
 .samay-faq-box {
+  scroll-margin-top: calc(var(--header-height, 88px) + 24px);
   display: flex;
   flex-direction: column;
   gap: 14px;
