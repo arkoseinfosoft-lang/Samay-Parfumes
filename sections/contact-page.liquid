@@ -44,6 +44,16 @@
       {%- endif -%}
 
       {% form 'contact', id: 'samayContactPageForm' %}
+        {%- if section.settings.redirect_to_thank_you -%}
+          <input type="hidden" name="return_to" value="/pages/thank-you">
+        {%- endif -%}
+
+        <!-- Anti-Spam Honeypot Field -->
+        <div style="display:none !important;" aria-hidden="true">
+          <label for="ContactPageHoney">Do not fill this field</label>
+          <input type="text" id="ContactPageHoney" name="b_comment" tabindex="-1" autocomplete="off">
+        </div>
+
         {% if form.posted_successfully? %}
           <div class="samay-form-success">
             {%- if section.settings.contact_success_message != blank -%}
@@ -155,6 +165,12 @@
         <input type="hidden" name="contact[tags]" value="newsletter">
         <input type="hidden" name="contact[accepts_marketing]" value="true">
         <input type="hidden" name="customer[accepts_marketing]" value="true">
+
+        <!-- Anti-Spam Honeypot Field -->
+        <div style="display:none !important;" aria-hidden="true">
+          <label for="ContactNewsletterHoney">Do not fill this field</label>
+          <input type="text" id="ContactNewsletterHoney" name="b_comment" tabindex="-1" autocomplete="off">
+        </div>
         {% if form.posted_successfully? %}
           <div class="samay-newsletter-success">
             {%- if section.settings.newsletter_success_message != blank -%}
@@ -245,6 +261,13 @@
       "id": "contact_success_message",
       "label": "Contact Form Success Message",
       "default": "✦ Thank you! Our perfumery will contact you within 24 hours."
+    },
+    {
+      "type": "checkbox",
+      "id": "redirect_to_thank_you",
+      "label": "Redirect to /pages/thank-you",
+      "info": "Redirects user to /pages/thank-you upon successful submission (requires creating the thank-you page in Shopify Admin).",
+      "default": false
     },
     {
       "type": "textarea",

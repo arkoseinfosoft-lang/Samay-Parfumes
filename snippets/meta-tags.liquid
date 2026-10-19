@@ -153,3 +153,8 @@
   name="description"
   content="{{ og_description | escape }}"
 >
+
+{%- if template contains 'thank-you' or page.handle contains 'thank-you' -%}
+  <meta name="robots" content="noindex, follow">
+{%- endif -%}
+

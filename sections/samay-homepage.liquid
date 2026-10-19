@@ -841,6 +841,12 @@
             </div>
           {% endif %}
 
+          <!-- Anti-Spam Honeypot Field -->
+          <div style="display:none !important;" aria-hidden="true">
+            <label for="HomeContactHoney">Do not fill this field</label>
+            <input type="text" id="HomeContactHoney" name="b_comment" tabindex="-1" autocomplete="off">
+          </div>
+
           <div class="samay-form-group">
             <label class="samay-form-label" for="ContactFormName">Full Name</label>
             <input type="text" id="ContactFormName" name="contact[name]" class="samay-form-input" placeholder="e.g. Rahul Sharma" value="{{ form.name | default: customer.name | escape }}" required>
@@ -1044,6 +1050,12 @@
         <input type="hidden" name="contact[tags]" value="newsletter">
         <input type="hidden" name="contact[accepts_marketing]" value="true">
         <input type="hidden" name="customer[accepts_marketing]" value="true">
+
+        <!-- Anti-Spam Honeypot Field -->
+        <div style="display:none !important;" aria-hidden="true">
+          <label for="HomeNewsletterHoney">Do not fill this field</label>
+          <input type="text" id="HomeNewsletterHoney" name="b_comment" tabindex="-1" autocomplete="off">
+        </div>
         {% if form.posted_successfully? %}
           <div class="samay-newsletter-success">
             {{ section.settings.newsletter_success_message }}

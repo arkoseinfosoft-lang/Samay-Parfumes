@@ -1,0 +1,37 @@
+{% comment %}
+  SAMAY PARFUMES - LUXURY THANK YOU TEMPLATE
+  Used for form submissions and order inquiry confirmations
+{% endcomment %}
+
+<section class="samay-thankyou-section" style="padding: 100px 20px; text-align: center; min-height: 70vh; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at center, rgba(201, 169, 110, 0.08) 0%, transparent 70%);">
+  <div class="container" style="max-width: 680px; margin: 0 auto;">
+    <div style="font-size: 3rem; color: var(--gold, #c9a96e); margin-bottom: 16px;">✦</div>
+    <div style="font-size: 0.85rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: #7a5822; margin-bottom: 16px;">
+      Inquiry Received · Maison Samay
+    </div>
+    <h1 style="font-family: var(--serif, 'Bodoni Moda', serif); font-size: clamp(2rem, 5vw, 3rem); font-weight: 400; color: var(--charcoal, #1a1612); line-height: 1.2; margin-bottom: 20px;">
+      Thank You for Reaching Out
+    </h1>
+    <p style="font-size: 1.05rem; color: var(--dim, #5c5244); line-height: 1.7; margin-bottom: 36px; max-width: 540px; margin-left: auto; margin-right: auto;">
+      Your message has been received by our client concierge. We will review your inquiry and respond within 24 business hours.
+    </p>
+    <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 32px;">
+      <a href="{{ routes.root_url }}" class="samay-btn samay-btn--gold" style="padding: 14px 28px;">
+        RETURN HOME
+      </a>
+      <a href="{{ routes.all_products_collection_url }}" class="samay-btn samay-btn--outline samay-btn--outline-dark" style="padding: 14px 28px;">
+        EXPLORE EDITIONS
+      </a>
+    </div>
+    <div style="font-size: 0.9rem; color: var(--dim, #5c5244);">
+      Urgent order query? Call or WhatsApp our atelier at <a href="tel:+919305888555" style="color: var(--charcoal, #1a1612); font-weight: 600; text-decoration: underline;">+91 93058 88555</a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Thank You Page",
+  "settings": []
+}
+{% endschema %}
