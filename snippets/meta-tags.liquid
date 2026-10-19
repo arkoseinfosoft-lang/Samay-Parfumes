@@ -4,6 +4,12 @@
     assign og_title = 'Samay Parfumes | Zayro Eau de Parfum 50ml'
   elsif request.page_type == 'search'
     assign og_title = 'Search Results'
+  elsif request.page_type == 'collection' or page_title == 'Products'
+    assign og_title = 'All Fragrance Editions'
+  elsif request.page_type == 'page' and page_title == 'Contact'
+    assign og_title = 'Contact & Concierge'
+  elsif request.page_type == 'product' and page_title == 'Samay Zayro'
+    assign og_title = 'Samay Zayro 50ml EDP'
   endif
   assign og_url = canonical_url | default: request.origin
   assign og_type = 'website'
@@ -18,6 +24,10 @@
       assign og_description = 'Search the Samay Parfumes luxury fragrance catalogue for Zayro Eau de Parfum editions, notes, and curated gift combos.'
     elsif request.page_type == '404'
       assign og_description = 'The page you requested on Samay Parfumes could not be found. Explore our luxury Zayro Eau de Parfum editions online.'
+    elsif request.page_type == 'page'
+      assign og_description = 'Connect with the Samay Parfumes concierge for order assistance, artisanal fragrance inquiries, and bespoke gifting across India.'
+    elsif request.page_type == 'policy'
+      assign og_description = 'Official customer policies for Samay Parfumes, covering complimentary shipping, 48-hour transit protection, returns, and privacy.'
     else
       assign og_description = 'Samay Parfumes — Zayro 50ml Eau de Parfum, a fragrance beyond time. Single, Duo and Trio editions crafted in India.'
     endif
@@ -117,18 +127,22 @@
   content="{{ og_description | escape }}"
 >
 
-<title>
-  {%- if request.page_type == 'index' and page_title == shop.name -%}
+<title>{%- if request.page_type == 'index' and page_title == shop.name -%}
     Samay Parfumes | Zayro Eau de Parfum 50ml
   {%- elsif request.page_type == 'search' -%}
     Search Results &ndash; {{ shop.name }}
+  {%- elsif request.page_type == 'collection' or page_title == 'Products' -%}
+    All Fragrance Editions &ndash; {{ shop.name }}
+  {%- elsif request.page_type == 'page' and page_title == 'Contact' -%}
+    Contact &amp; Concierge &ndash; {{ shop.name }}
+  {%- elsif request.page_type == 'product' and page_title == 'Samay Zayro' -%}
+    Samay Zayro 50ml EDP &ndash; {{ shop.name }}
   {%- else -%}
     {{ page_title | strip_html }}
     {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
     {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
     {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
-  {%- endif -%}
-</title>
+  {%- endif -%}</title>
 
 <link
   rel="canonical"
