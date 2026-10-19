@@ -75,6 +75,14 @@
         {% assign footer_email = section.settings.contact_email %}
         {% assign footer_phone = section.settings.contact_phone %}
         {% if footer_email != blank or footer_phone != blank %}
+          {% assign clean_phone = footer_phone | replace: ' ', '' | replace: '-', '' %}
+          {% unless clean_phone contains '+' %}
+            {% assign clean_phone = '+91' | append: clean_phone %}
+          {% endunless %}
+          {% assign display_phone = footer_phone %}
+          {% if display_phone == '9305888555' or display_phone == '+919305888555' %}
+            {% assign display_phone = '+91 93058 88555' %}
+          {% endif %}
           <div class="samay-footer-contact">
             {% if footer_email != blank %}
               <a href="mailto:{{ footer_email | escape }}" aria-label="Email: {{ footer_email | escape }}">
@@ -82,8 +90,8 @@
               </a>
             {% endif %}
             {% if footer_phone != blank %}
-              <a href="tel:{{ footer_phone | replace: ' ', '' | escape }}" aria-label="Call: {{ footer_phone | escape }}">
-                <span>✆</span> {{ footer_phone | escape }}
+              <a href="tel:{{ clean_phone | escape }}" aria-label="Call: {{ display_phone | escape }}">
+                <span>✆</span> {{ display_phone | escape }}
               </a>
             {% endif %}
           </div>
