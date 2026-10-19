@@ -914,7 +914,7 @@ select {
 .ep-media__viewport {
   position: relative;
   width: 100%;
-  aspect-ratio: 3 / 2;
+  aspect-ratio: 1 / 1;
   overflow: hidden;
   border-radius: var(--radius-xs, 4px);
   background: #100b07;
@@ -2547,7 +2547,7 @@ select {
 .samay-pdp-main-media {
   position: relative;
   width: 100%;
-  aspect-ratio: 3 / 2;
+  aspect-ratio: 1 / 1;
   background: #100b07;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
