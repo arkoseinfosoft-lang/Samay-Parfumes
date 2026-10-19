@@ -1,4 +1,7 @@
-/** Critical CSS for the theme. Inlined directly for 0ms render delay. */
+{% comment %}
+  Critical CSS for Samay Parfumes - Inlined in <head> for 0ms render-blocking delay
+  Covers Above-The-Fold: Self-Hosted Fonts, Resets, Announcement Bar, Luxury Header & Hero
+{% endcomment %}
 @font-face {
   font-family: 'Bodoni Moda';
   font-style: normal;
@@ -7,7 +10,6 @@
   src: url('{{ "bodoni-moda-latin-normal.woff2" | asset_url }}') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
-
 @font-face {
   font-family: 'Bodoni Moda';
   font-style: italic;
@@ -16,7 +18,6 @@
   src: url('{{ "bodoni-moda-latin-italic.woff2" | asset_url }}') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
-
 @font-face {
   font-family: 'Plus Jakarta Sans';
   font-style: normal;
@@ -25,138 +26,557 @@
   src: url('{{ "plus-jakarta-sans-latin-normal.woff2" | asset_url }}') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
-
-* {
+:root {
+  --cream: #f7f2ea;
+  --cream2: #efe8dc;
+  --cream3: #e5ddd0;
+  --cream-card: #fdfbf7;
+  --white: #ffffff;
+  --gold: #c9a96e;
+  --gold-dark: #78521d;
+  --gold-hover: #b89659;
+  --gold-light: #dfc89e;
+  --gold-gradient: linear-gradient(135deg, #dfc89e 0%, #c9a96e 50%, #78521d 100%);
+  --brown: #2c1f0e;
+  --brown-dark: #1b1309;
+  --taupe: #554736;
+  --dim: #5c5040;
+  --border: #ddd0bc;
+  --border-light: #ece3d4;
+  --serif: 'Bodoni Moda', 'Playfair Display', Georgia, serif;
+  --sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --header-height: 88px;
+  --announcement-height: 38px;
+  --page-width: 1440px;
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --shadow-subtle: 0 4px 20px rgba(44, 31, 14, 0.05);
+  --shadow-card: 0 10px 30px rgba(44, 31, 14, 0.07);
+  --shadow-hover: 0 18px 45px rgba(44, 31, 14, 0.12);
+  --shadow-modal: 0 25px 60px rgba(22, 17, 11, 0.25);
+  --transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+}
+html {
+  scroll-behavior: smooth;
   box-sizing: border-box;
-  margin: 0;
+  font-size: 16px;
+  background-color: var(--cream);
+  color: var(--brown);
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
 }
-
+*, *::before, *::after {
+  box-sizing: inherit;
+}
 body {
-  display: flex;
-  flex-direction: column;
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  font-family: var(--sans);
+  background-color: var(--cream);
+  color: var(--brown);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+}
+#MainContent, .shopify-section, .shopify-section-group-header-group, .shopify-section-group-footer-group {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: block !important;
+}
+.shopify-section-group-header-group {
+  position: -webkit-sticky !important;
+  position: sticky !important;
+  top: calc(-1 * var(--announcement-height, 0px)) !important;
+  z-index: 900 !important;
+}
+.shopify-section > * {
+  width: 100% !important;
+}
+h1, h2, h3, h4, h5, h6, .serif-font {
+  font-family: var(--serif);
+  font-weight: 400;
   margin: 0;
-  min-height: 100svh;
+  color: var(--brown);
+  letter-spacing: -0.01em;
 }
-
-html:has(dialog[scroll-lock][open], details[scroll-lock][open]) {
-  overflow: hidden;
+p {
+  margin: 0 0 1rem;
+  color: var(--taupe);
 }
-
-img,
-picture,
-video,
-canvas,
-svg {
-  display: block;
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: var(--transition);
+}
+img {
   max-width: 100%;
   height: auto;
-}
-
-input,
-textarea,
-select {
-  font: inherit;
-  border-radius: var(--style-border-radius-inputs);
-}
-
-select {
-  background-color: var(--color-background);
-  color: currentcolor;
-}
-
-dialog {
-  background-color: var(--color-background);
-  color: var(--color-foreground);
-}
-
-p {
-  text-wrap: pretty;
-}
-p,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  overflow-wrap: break-word;
-}
-
-p:empty {
-  display: none;
-}
-
-:is(p, h1, h2, h3, h4, h5, h6):first-child,
-:empty:first-child + :where(p, h1, h2, h3, h4, h5, h6) {
-  margin-block-start: 0;
-}
-
-:is(p, h1, h2, h3, h4, h5, h6):last-child,
-:where(p, h1, h2, h3, h4, h5, h6) + :has(+ :empty:last-child) {
-  margin-block-end: 0;
-}
-
-body {
-  font-family: var(--font-primary--family);
-  background-color: var(--color-background);
-  color: var(--color-foreground);
-}
-
-.shopify-section {
   display: block;
+}
+button, input, textarea, select {
+  font-family: inherit;
+}
+.container {
   width: 100%;
-  margin: 0;
-  padding: 0;
+  max-width: var(--page-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: clamp(16px, 4vw, 40px);
+  padding-right: clamp(16px, 4vw, 40px);
+  box-sizing: border-box;
 }
-
-.shopify-section > * {
+.samay-announcement-bar {
+  background-color: var(--gold);
+  color: #1a1612;
+  padding: 9px 12px;
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  text-align: center;
+  position: relative;
+  z-index: 100;
+  overflow: hidden;
   width: 100%;
 }
-
-/* Perfume Atomizer & Spray Mist Cursor */
-.samay-spray-canvas {
-  position: fixed !important;
-  inset: 0 !important;
-  top: 0 !important;
-  left: 0 !important;
-  width: 100vw !important;
-  height: 100vh !important;
-  pointer-events: none !important;
-  z-index: 99998 !important;
+.samay-announcement-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  white-space: nowrap;
 }
-
-.samay-atomizer {
-  position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
-  width: 30px !important;
-  height: 46px !important;
-  max-width: 30px !important;
-  max-height: 46px !important;
-  pointer-events: none !important;
-  z-index: 99999 !important;
-  opacity: 0;
-  transform: translate(-15px, -6px);
-  transition: opacity 0.2s ease;
-  will-change: transform;
+.samay-announce-track {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
 }
-
-.samay-atomizer.is-on {
-  opacity: 0.96 !important;
+.samay-announce-track span.highlight {
+  font-weight: 700;
+  background: rgba(44, 31, 14, 0.2);
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 3px;
+  letter-spacing: 0.15em;
 }
-
-.samay-atomizer svg {
-  width: 30px !important;
-  height: 46px !important;
-  max-width: 30px !important;
-  max-height: 46px !important;
-  display: block !important;
-  filter: drop-shadow(0 3px 8px rgba(27, 19, 9, 0.4));
+.samay-header-wrapper {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 900;
+  background-color: rgba(247, 242, 234, 0.96);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+  transition: var(--transition);
 }
-
+.samay-header-wrapper.is-scrolled {
+  box-shadow: var(--shadow-subtle);
+  background-color: rgba(247, 242, 234, 0.98);
+}
+.samay-header {
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+.samay-logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.samay-header-logo-img {
+  height: 68px;
+  max-height: 70px;
+  width: auto;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+.samay-logo-link:hover .samay-header-logo-img {
+  transform: scale(1.02);
+}
+.samay-nav {
+  display: flex;
+  align-items: center;
+  gap: 2.2rem;
+}
+.samay-nav-link {
+  font-family: var(--sans);
+  font-size: 0.76rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--brown);
+  position: relative;
+  padding: 6px 0;
+  transition: color 0.25s ease;
+  white-space: nowrap;
+}
+.samay-nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background-color: var(--gold);
+  transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.samay-nav-link:hover {
+  color: var(--gold-dark);
+}
+.samay-nav-link:hover::after {
+  width: 100%;
+}
+.samay-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  flex-shrink: 0;
+}
+.samay-header-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 9px 20px;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  border-radius: var(--radius-xs);
+  background: var(--gold);
+  color: var(--brown-dark);
+  transition: var(--transition);
+}
+.samay-header-cta-btn:hover {
+  background: var(--gold-dark);
+  color: var(--white);
+  transform: translateY(-1px);
+}
+.samay-cart-trigger {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--cream2);
+  color: var(--brown);
+  cursor: pointer;
+  transition: var(--transition);
+  text-decoration: none;
+}
+.samay-cart-trigger:hover {
+  border-color: var(--gold);
+  background: var(--gold);
+  color: var(--white);
+  transform: translateY(-2px);
+}
+.samay-cart-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: var(--brown);
+  color: var(--cream);
+  font-size: 0.68rem;
+  font-weight: 700;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid var(--cream);
+}
+.samay-mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--brown);
+  cursor: pointer;
+  padding: 8px;
+  border-radius: var(--radius-xs);
+}
+.samay-hero-section {
+  position: relative;
+  min-height: 92vh;
+  min-height: 92svh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background-color: #1a1309;
+}
+.samay-hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center right;
+  filter: brightness(0.9);
+  transform: scale(1.02);
+}
+.samay-hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(22, 17, 11, 0.92) 0%, rgba(22, 17, 11, 0.85) 45%, rgba(22, 17, 11, 0.3) 78%, rgba(22, 17, 11, 0.12) 100%);
+  pointer-events: none;
+}
+.samay-hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 680px;
+  padding: 70px 0;
+  color: var(--cream);
+}
+.samay-hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.4rem;
+  font-weight: 600;
+}
+.samay-hero-eyebrow::before {
+  content: '';
+  width: 32px;
+  height: 1.5px;
+  background-color: var(--gold);
+}
+.samay-hero-title {
+  font-family: var(--serif);
+  font-size: clamp(2.8rem, 5.2vw, 4.8rem);
+  font-weight: 300;
+  line-height: 1.06;
+  color: var(--cream);
+  margin-bottom: 1.4rem;
+}
+.samay-hero-title em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--gold-light);
+}
+.samay-hero-desc {
+  font-family: var(--sans);
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: rgba(247, 242, 234, 0.86);
+  margin-bottom: 2.4rem;
+  font-weight: 300;
+}
+.samay-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  align-items: center;
+}
+.samay-hero-highlights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.8rem;
+  margin-top: 3.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(221, 208, 188, 0.22);
+}
+.samay-highlight-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  font-weight: 500;
+}
+.samay-highlight-item svg {
+  color: var(--gold);
+}
+.samay-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 36px;
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  border-radius: var(--radius-xs);
+  cursor: pointer;
+  transition: var(--transition);
+  text-decoration: none;
+  border: 1px solid transparent;
+  min-height: 50px;
+}
+.samay-btn--gold {
+  background: var(--gold);
+  color: var(--brown-dark);
+  border-color: var(--gold);
+}
+.samay-btn--gold:hover {
+  background: var(--gold-dark);
+  border-color: var(--gold-dark);
+  color: var(--white);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(201, 169, 110, 0.35);
+}
+.samay-btn--outline {
+  background: transparent;
+  color: var(--cream);
+  border-color: rgba(247, 242, 234, 0.5);
+}
+.samay-btn--outline:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: rgba(201, 169, 110, 0.1);
+  transform: translateY(-2px);
+}
+.samay-btn--dark {
+  background: var(--brown);
+  color: var(--cream);
+  border-color: var(--brown);
+}
+.samay-btn--dark:hover {
+  background: var(--brown-dark);
+  color: var(--gold);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(44, 31, 14, 0.25);
+}
+@media screen and (max-width: 1024px) {
+  :root {
+    --header-height: 80px;
+  }
+  .samay-header-logo-img {
+    height: 60px;
+    max-height: 62px;
+  }
+  .samay-nav {
+    gap: 1.4rem;
+  }
+}
+@media screen and (max-width: 768px) {
+  :root {
+    --header-height: 72px;
+    --announcement-height: 31px;
+  }
+  .container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .samay-announcement-bar {
+    font-size: 0.68rem;
+    padding: 7px 8px;
+    letter-spacing: 0.12em;
+  }
+  .samay-announce-repeat {
+    display: none;
+  }
+  .samay-announce-track {
+    gap: 0.8rem;
+  }
+  .samay-header {
+    height: var(--header-height);
+  }
+  .samay-nav, .samay-header-cta-btn {
+    display: none;
+  }
+  .samay-mobile-menu-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .samay-header-logo-img {
+    height: 52px;
+    max-height: 54px;
+  }
+  .samay-cart-trigger {
+    width: 40px;
+    height: 40px;
+  }
+  .samay-hero-section {
+    min-height: 86vh;
+    min-height: 86svh;
+  }
+  .samay-hero-bg {
+    object-position: 65% center;
+  }
+  .samay-hero-overlay {
+    background: linear-gradient(180deg, rgba(22, 17, 11, 0.9) 0%, rgba(22, 17, 11, 0.78) 40%, rgba(22, 17, 11, 0.92) 100%);
+  }
+  .samay-hero-content {
+    padding: 40px 0 60px;
+    max-width: 100%;
+  }
+  .samay-hero-eyebrow {
+    font-size: 0.74rem;
+    letter-spacing: 0.28em;
+    margin-bottom: 1rem;
+  }
+  .samay-hero-title {
+    font-size: 2.6rem;
+    line-height: 1.12;
+    margin-bottom: 1.2rem;
+  }
+  .samay-hero-desc {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+  .samay-hero-actions {
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+  .samay-hero-actions .samay-btn {
+    width: 100%;
+    min-height: 52px;
+  }
+  .samay-hero-highlights {
+    gap: 1rem;
+    margin-top: 2.2rem;
+    padding-top: 1.6rem;
+  }
+  .samay-highlight-item {
+    font-size: 0.74rem;
+  }
+}
+@media screen and (max-width: 480px) {
+  :root {
+    --header-height: 68px;
+  }
+  .samay-header-logo-img {
+    height: 48px;
+    max-height: 50px;
+  }
+}
 @media (hover: none), (pointer: coarse) {
-  .samay-atomizer,
-  .samay-spray-canvas {
+  .samay-atomizer, .samay-spray-canvas {
     display: none !important;
   }
 }
