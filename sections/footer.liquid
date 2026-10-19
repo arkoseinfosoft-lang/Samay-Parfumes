@@ -72,8 +72,8 @@
             {% endif %}
           {%- endif -%}
         </ul>
-        {% assign footer_email = section.settings.contact_email %}
-        {% assign footer_phone = section.settings.contact_phone %}
+        {% assign footer_email = section.settings.contact_email | default: 'samayparfume@gmail.com' %}
+        {% assign footer_phone = section.settings.contact_phone | default: '+91 93058 88555' %}
         {% if footer_email != blank or footer_phone != blank %}
           {% assign clean_phone = footer_phone | replace: ' ', '' | replace: '-', '' %}
           {% unless clean_phone contains '+' %}
@@ -134,12 +134,14 @@
     {
       "type": "text",
       "id": "contact_email",
-      "label": "Contact Email"
+      "label": "Contact Email",
+      "default": "samayparfume@gmail.com"
     },
     {
       "type": "text",
       "id": "contact_phone",
-      "label": "Contact Phone"
+      "label": "Contact Phone",
+      "default": "+91 93058 88555"
     }
   ]
 }

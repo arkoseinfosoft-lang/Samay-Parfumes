@@ -19,6 +19,22 @@
         </p>
       {%- endif -%}
       <div class="samay-sec-divider"></div>
+      {%- assign concierge_email = section.settings.contact_email | default: 'samayparfume@gmail.com' -%}
+      {%- assign concierge_phone = section.settings.contact_phone | default: '+91 93058 88555' -%}
+      {%- assign clean_concierge_phone = concierge_phone | replace: ' ', '' | replace: '-', '' -%}
+      {%- unless clean_concierge_phone contains '+' -%}
+        {%- assign clean_concierge_phone = '+91' | append: clean_concierge_phone -%}
+      {%- endunless -%}
+      <div class="samay-contact-direct-bar">
+        <span>Direct Assistance:</span>
+        <a href="tel:{{ clean_concierge_phone | escape }}" class="samay-contact-direct-item" aria-label="Call {{ concierge_phone | escape }}">
+          <span>✆</span> {{ concierge_phone | escape }}
+        </a>
+        <span class="samay-contact-direct-sep">•</span>
+        <a href="mailto:{{ concierge_email | escape }}" class="samay-contact-direct-item" aria-label="Email {{ concierge_email | escape }}">
+          <span>✉</span> {{ concierge_email | escape }}
+        </a>
+      </div>
     </div>
 
     <!-- Contact Form Box -->
@@ -197,6 +213,22 @@
       "id": "subtitle",
       "label": "Subtitle",
       "default": "Have a question about your order, tracking, or choosing between our single bottle and combos? Reach out directly to our team."
+    },
+    {
+      "type": "header",
+      "content": "Direct Concierge Contact"
+    },
+    {
+      "type": "text",
+      "id": "contact_email",
+      "label": "Concierge Email",
+      "default": "samayparfume@gmail.com"
+    },
+    {
+      "type": "text",
+      "id": "contact_phone",
+      "label": "Concierge Phone",
+      "default": "+91 93058 88555"
     },
     {
       "type": "header",
