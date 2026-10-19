@@ -10,15 +10,9 @@
     <link rel="icon" type="image/png" sizes="192x192" href="{{ 'favicon-192x192.png' | asset_url }}">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ 'apple-touch-icon.png' | asset_url }}">
 
-    <!-- Google Fonts for Luxury Typography (Asynchronous Non-Blocking) -->
-    {% # theme-check-disable RemoteAsset, AssetPreload %}
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" media="print" onload="this.media='all'">
-    <noscript>
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap">
-    </noscript>
-    {% # theme-check-enable RemoteAsset, AssetPreload %}
+    <!-- Self-Hosted Above-the-Fold Fonts Preload -->
+    {{ 'bodoni-moda-latin-normal.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
+    {{ 'plus-jakarta-sans-latin-normal.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
 
     {% # LCP Image Preload for Instant Mobile Paint %}
     {%- if template.name == 'index' -%}
