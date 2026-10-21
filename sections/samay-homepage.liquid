@@ -473,7 +473,7 @@
             "@type": "Product",
             "name": {{ p.title | json }},
             "url": {{ shop.url | append: p.url | json }},
-            "description": {{ p.description | strip_html | truncatewords: 45 | json }},
+            "description": {{ p.description | strip_html | strip_newlines | json }},
             "brand": {
               "@type": "Brand",
               "name": {{ shop.name | json }}
@@ -516,7 +516,7 @@
           "@type": "Product",
           "name": {{ p.title | json }},
           "url": {{ shop.url | append: p.url | json }},
-          "description": {{ p.description | strip_html | truncatewords: 45 | json }},
+          "description": {{ p.description | strip_html | strip_newlines | json }},
           "brand": {
             "@type": "Brand",
             "name": {{ shop.name | json }}
@@ -691,7 +691,7 @@
           <div class="samay-sec-eyebrow">{{ section.settings.showcase_eyebrow }}</div>
         {%- endif -%}
         {%- if section.settings.showcase_title != blank -%}
-          <h3 class="serif-font samay-showcase-title">{{ section.settings.showcase_title }}</h3>
+          <h2 class="serif-font samay-showcase-title">{{ section.settings.showcase_title }}</h2>
         {%- endif -%}
         {%- if section.settings.showcase_desc != blank -%}
           <p>
@@ -894,7 +894,7 @@
       <!-- FAQ Accordion -->
       <div class="samay-faq-box" id="faq">
         {%- if section.settings.faq_heading != blank -%}
-          <h3 class="serif-font samay-faq-heading">{{ section.settings.faq_heading }}</h3>
+          <h2 class="serif-font samay-faq-heading">{{ section.settings.faq_heading }}</h2>
         {%- endif -%}
 
         {%- assign faq_blocks = section.blocks | where: 'type', 'faq_item' -%}

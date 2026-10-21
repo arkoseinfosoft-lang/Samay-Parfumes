@@ -1,3 +1,33 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 {%- liquid
   assign og_title = page_title | default: shop.name
   if request.page_type == 'index' and page_title == shop.name
@@ -40,93 +70,82 @@
   elsif request.page_type == 'password'
     assign og_url = request.origin
   endif
+
+  # 1. Social Image Resolution (page_image > product.featured_image > fallback)
+  assign social_image = nil
+  assign social_image_alt = og_title
+
+  if page_image
+    assign social_image = page_image
+    assign social_image_alt = page_image.alt | default: og_title
+  elsif request.page_type == 'product' and product.featured_image
+    assign social_image = product.featured_image
+    assign social_image_alt = product.featured_image.alt | default: product.title
+  endif
+
+  if social_image
+    assign og_image_url = social_image | image_url: width: 1200
+    assign og_image_width = social_image.width | default: 1200
+    assign og_image_height = social_image.height | default: 630
+    unless og_image_url contains 'http'
+      assign og_image_url = 'https:' | append: og_image_url
+    endunless
+  else
+    assign og_image_url = 'samay-hero-clock.jpg' | asset_url
+    unless og_image_url contains 'http'
+      assign og_image_url = 'https:' | append: og_image_url
+    endunless
+    assign og_image_width = 1024
+    assign og_image_height = 571
+    assign social_image_alt = og_title
+  endif
+
+  # Organization Settings
+  assign org_name = 'Samay Parfumes'
+  assign org_url = shop.url
+  assign org_logo_url = 'samay-logo-black.png' | asset_url
+  unless org_logo_url contains 'http'
+    assign org_logo_url = 'https:' | append: org_logo_url
+  endunless
+  assign org_email = settings.contact_email | default: 'samayparfume@gmail.com'
+  assign org_phone = settings.contact_phone | default: '+91 93058 88555'
+
+  assign social_instagram = settings.social_instagram_link
+  assign social_facebook = settings.social_facebook_link
+
+  assign open_brace = '{'
+  assign close_brace = '}'
+  assign search_target_url = org_url | append: routes.search_url | append: '?q=' | append: open_brace | append: 'search_term_string' | append: close_brace
 -%}
 
-<meta
-  property="og:site_name"
-  content="{{ shop.name }}"
->
-<meta
-  property="og:url"
-  content="{{ og_url }}"
->
-<meta
-  property="og:title"
-  content="{{ og_title | escape }}"
->
-<meta
-  property="og:type"
-  content="{{ og_type }}"
->
-<meta
-  property="og:description"
-  content="{{ og_description | escape }}"
->
-
-{%- if page_image -%}
-  <meta
-    property="og:image"
-    content="https:{{ page_image | image_url: width: 1200, height: 630 }}"
-  >
-  <meta
-    property="og:image:secure_url"
-    content="https:{{ page_image | image_url: width: 1200, height: 630 }}"
-  >
-  <meta
-    property="og:image:width"
-    content="{{ page_image.width | default: 1200 }}"
-  >
-  <meta
-    property="og:image:height"
-    content="{{ page_image.height | default: 630 }}"
-  >
-{%- else -%}
-  <meta
-    property="og:image"
-    content="https:{{ 'samay-hero-clock.jpg' | asset_url }}"
-  >
-  <meta
-    property="og:image:secure_url"
-    content="https:{{ 'samay-hero-clock.jpg' | asset_url }}"
-  >
-  <meta
-    property="og:image:width"
-    content="1024"
-  >
-  <meta
-    property="og:image:height"
-    content="571"
-  >
-{%- endif -%}
+<!-- OpenGraph / Social Metadata -->
+<meta property="og:site_name" content="{{ shop.name | escape }}">
+<meta property="og:url" content="{{ og_url }}">
+<meta property="og:title" content="{{ og_title | escape }}">
+<meta property="og:type" content="{{ og_type }}">
+<meta property="og:description" content="{{ og_description | escape }}">
+<meta property="og:image" content="{{ og_image_url }}">
+<meta property="og:image:secure_url" content="{{ og_image_url }}">
+<meta property="og:image:width" content="{{ og_image_width }}">
+<meta property="og:image:height" content="{{ og_image_height }}">
+<meta property="og:image:alt" content="{{ social_image_alt | escape }}">
 
 {%- if request.page_type == 'product' -%}
-  <script type="application/ld+json">
-    {{ product | structured_data }}
-  </script>
-
-  <meta
-    property="og:price:amount"
-    content="{{ product.price | money_without_currency | strip_html }}"
-  >
-  <meta
-    property="og:price:currency"
-    content="{{ cart.currency.iso_code }}"
-  >
+  <meta property="og:price:amount" content="{{ product.price | money_without_currency | strip_html | remove: ',' }}">
+  <meta property="og:price:currency" content="{{ cart.currency.iso_code }}">
+  <meta property="product:price:amount" content="{{ product.price | money_without_currency | strip_html | remove: ',' }}">
+  <meta property="product:price:currency" content="{{ cart.currency.iso_code }}">
 {%- endif -%}
 
-<meta
-  name="twitter:card"
-  content="summary_large_image"
->
-<meta
-  name="twitter:title"
-  content="{{ og_title | escape }}"
->
-<meta
-  name="twitter:description"
-  content="{{ og_description | escape }}"
->
+<!-- Twitter Card Metadata -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ og_title | escape }}">
+<meta name="twitter:description" content="{{ og_description | escape }}">
+<meta name="twitter:image" content="{{ og_image_url }}">
+<meta name="twitter:image:alt" content="{{ social_image_alt | escape }}">
 
+<!-- Canonical & Title -->
+<link rel="canonical" href="{{ canonical_url }}">
 <title>{%- if request.page_type == 'index' and page_title == shop.name -%}
     Samay Parfumes | Zayro Eau de Parfum 50ml
   {%- elsif request.page_type == 'search' -%}
@@ -143,18 +162,177 @@
     {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
     {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
   {%- endif -%}</title>
+<meta name="description" content="{{ og_description | escape }}">
 
-<link
-  rel="canonical"
-  href="{{ canonical_url }}"
->
-
-<meta
-  name="description"
-  content="{{ og_description | escape }}"
->
-
-{%- if template contains 'thank-you' or page.handle contains 'thank-you' -%}
+<!-- Crawl Hygiene -->
+{%- if template contains 'thank-you' or page.handle contains 'thank-you' or request.page_type == 'cart' or request.page_type == 'search' or request.page_type == '404' -%}
   <meta name="robots" content="noindex, follow">
 {%- endif -%}
+
+<!-- 1. Organization & WebSite JSON-LD (Site-Wide) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": {{ org_url | append: '/#organization' | json }},
+      "name": {{ org_name | json }},
+      "url": {{ org_url | json }},
+      "logo": {
+        "@type": "ImageObject",
+        "url": {{ org_logo_url | json }}
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer support",
+        "areaServed": "IN",
+        "availableLanguage": "en"{% if org_email != blank %},
+        "email": {{ org_email | json }}{% endif %}{% if org_phone != blank %},
+        "telephone": {{ org_phone | json }}{% endif %}
+      }{% if social_instagram != blank or social_facebook != blank %},
+      "sameAs": [
+        {%- assign comma = false -%}
+        {%- if social_instagram != blank -%}
+          {{ social_instagram | json }}
+          {%- assign comma = true -%}
+        {%- endif -%}
+        {%- if social_facebook != blank -%}
+          {%- if comma -%},{%- endif -%}
+          {{ social_facebook | json }}
+        {%- endif -%}
+      ]{% endif %}
+    },
+    {
+      "@type": "WebSite",
+      "@id": {{ org_url | append: '/#website' | json }},
+      "name": {{ org_name | json }},
+      "url": {{ org_url | json }},
+      "publisher": {
+        "@id": {{ org_url | append: '/#organization' | json }}
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": {{ search_target_url | json }}
+        },
+        "query-input": "required name=search_term_string"
+      }
+    }
+  ]
+}
+</script>
+
+<!-- 2. BreadcrumbList JSON-LD -->
+{%- if request.page_type == 'product' -%}
+  {%- assign breadcrumb_col = collection -%}
+  {%- if breadcrumb_col == blank and product.collections.size > 0 -%}
+    {%- assign breadcrumb_col = product.collections.first -%}
+  {%- endif -%}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": {{ shop.url | json }}
+      },
+      {%- if breadcrumb_col and breadcrumb_col.url != blank -%}
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": {{ breadcrumb_col.title | json }},
+        "item": {{ shop.url | append: breadcrumb_col.url | json }}
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": {{ product.title | json }},
+        "item": {{ shop.url | append: product.url | json }}
+      }
+      {%- else -%}
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "All Fragrance Editions",
+        "item": {{ shop.url | append: routes.all_products_collection_url | json }}
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": {{ product.title | json }},
+        "item": {{ shop.url | append: product.url | json }}
+      }
+      {%- endif -%}
+    ]
+  }
+  </script>
+{%- elsif request.page_type == 'collection' -%}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": {{ shop.url | json }}
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": {{ collection.title | default: 'All Fragrance Editions' | json }},
+        "item": {{ shop.url | append: collection.url | json }}
+      }
+    ]
+  }
+  </script>
+{%- endif -%}
+
+<!-- 3. Product JSON-LD (PDP) -->
+{%- if request.page_type == 'product' -%}
+  {%- assign current_var = product.selected_or_first_available_variant -%}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": {{ product.title | json }},
+    "url": {{ shop.url | append: product.url | json }},
+    "description": {{ product.description | strip_html | strip_newlines | json }},
+    "brand": {
+      "@type": "Brand",
+      "name": {{ shop.name | default: 'Samay Parfumes' | json }}
+    },
+    {%- if product.featured_image -%}
+    {%- assign feat_img_url = product.featured_image | image_url: width: 1200 -%}
+    {%- unless feat_img_url contains 'http' -%}{%- assign feat_img_url = 'https:' | append: feat_img_url -%}{%- endunless -%}
+    "image": [
+      {{ feat_img_url | json }}
+    ],
+    {%- endif -%}
+    {%- if current_var.sku != blank -%}
+    "sku": {{ current_var.sku | json }},
+    {%- endif -%}
+    "offers": {
+      "@type": "Offer",
+      "url": {{ shop.url | append: product.url | json }},
+      "priceCurrency": {{ cart.currency.iso_code | default: 'INR' | json }},
+      "price": {{ current_var.price | money_without_currency | remove: ',' | json }},
+      "priceValidUntil": "{{ 'now' | date: '%s' | plus: 31536000 | date: '%Y-%m-%d' }}",
+      "itemCondition": "https://schema.org/NewCondition",
+      "availability": "https://schema.org/{% if current_var.available %}InStock{% else %}OutOfStock{% endif %}",
+      "seller": {
+        "@type": "Organization",
+        "name": {{ shop.name | default: 'Samay Parfumes' | json }}
+      }
+    }
+  }
+  </script>
+{%- endif -%}
+
 

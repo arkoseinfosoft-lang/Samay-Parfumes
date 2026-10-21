@@ -79,5 +79,38 @@
         "default": 4
       }
     ]
+  },
+  {
+    "name": "Contact Information",
+    "settings": [
+      {
+        "type": "text",
+        "id": "contact_email",
+        "label": "Contact Email",
+        "default": "samayparfume@gmail.com"
+      },
+      {
+        "type": "text",
+        "id": "contact_phone",
+        "label": "Contact Phone",
+        "default": "+91 93058 88555"
+      }
+    ]
+  },
+  {
+    "name": "Social Media",
+    "settings": [
+      {
+        "type": "url",
+        "id": "social_instagram_link",
+        "label": "Instagram URL"
+      },
+      {
+        "type": "url",
+        "id": "social_facebook_link",
+        "label": "Facebook URL"
+      }
+    ]
   }
 ]
+
