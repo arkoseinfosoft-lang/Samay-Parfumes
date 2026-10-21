@@ -2033,8 +2033,8 @@ select {
 
 @media screen and (max-width: 768px) {
   :root {
-    --header-height: 72px;
-    --announcement-height: 31px;
+    --header-height: 64px;
+    --announcement-height: 32px;
   }
 
   /* Full Screen Container Gutters */
@@ -2043,11 +2043,13 @@ select {
     padding-right: 16px;
   }
 
-  /* Announcement Bar on Mobile */
+  /* 1. Announcement Bar on Mobile */
   .samay-announcement-bar {
-    font-size: 0.68rem;
-    padding: 7px 8px;
-    letter-spacing: 0.12em;
+    font-size: clamp(0.62rem, 2.5vw, 0.72rem);
+    padding: 7px 10px;
+    letter-spacing: 0.08em;
+    line-height: 1.35;
+    text-align: center;
   }
 
   .samay-announce-repeat {
@@ -2055,10 +2057,15 @@ select {
   }
 
   .samay-announce-track {
-    gap: 0.8rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    white-space: normal;
   }
 
-  /* Header on Mobile */
+  /* 1. Header on Mobile */
   .samay-header {
     height: var(--header-height);
   }
@@ -2072,19 +2079,85 @@ select {
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 10px;
   }
 
   .samay-header-logo-img {
-    height: 52px;
-    max-height: 54px;
+    height: 44px;
+    max-height: 46px;
+    width: auto;
+    object-fit: contain;
   }
 
   .samay-cart-trigger {
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  /* Hero Section on Mobile */
+  /* 2. Mobile Menu Drawer */
+  .samay-mobile-drawer {
+    width: 85%;
+    max-width: 320px;
+    height: 100vh;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .samay-mobile-drawer-header {
+    padding: 16px 20px;
+    flex-shrink: 0;
+  }
+
+  .samay-mobile-drawer-logo-img {
+    height: 44px;
+    max-height: 46px;
+  }
+
+  .samay-mobile-drawer-close {
+    min-width: 44px;
+    min-height: 44px;
+    width: 44px;
+    height: 44px;
+    padding: 8px;
+    font-size: 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .samay-mobile-drawer-links {
+    padding: 16px 20px;
+    flex: 1 1 auto;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    gap: 0.5rem;
+  }
+
+  .samay-mobile-link {
+    font-size: 0.98rem;
+    padding: 12px 0;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .samay-mobile-drawer-footer {
+    padding: 18px 20px calc(18px + env(safe-area-inset-bottom, 0px));
+    flex-shrink: 0;
+  }
+
+  /* 3. Hero Section on Mobile */
   .samay-hero-section {
     min-height: 86vh;
     min-height: 86svh;
@@ -2099,26 +2172,27 @@ select {
   }
 
   .samay-hero-content {
-    padding: 40px 0 60px;
+    padding: 36px 0 48px;
     max-width: 100%;
   }
 
   .samay-hero-eyebrow {
     font-size: 0.74rem;
-    letter-spacing: 0.28em;
-    margin-bottom: 1rem;
+    letter-spacing: 0.24em;
+    margin-bottom: 0.9rem;
   }
 
   .samay-hero-title {
-    font-size: 2.6rem;
-    line-height: 1.12;
-    margin-bottom: 1.2rem;
+    font-size: clamp(1.9rem, 7.5vw, 2.6rem);
+    line-height: 1.15;
+    margin-bottom: 1.1rem;
   }
 
   .samay-hero-desc {
-    font-size: 0.95rem;
-    line-height: 1.7;
-    margin-bottom: 2rem;
+    font-size: clamp(0.88rem, 3.2vw, 0.96rem);
+    line-height: 1.65;
+    margin-bottom: 1.8rem;
+    max-width: 100%;
   }
 
   .samay-hero-actions {
@@ -2133,16 +2207,36 @@ select {
   }
 
   .samay-hero-highlights {
-    gap: 1rem;
-    margin-top: 2.2rem;
-    padding-top: 1.6rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 18px;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    justify-content: flex-start;
   }
 
   .samay-highlight-item {
-    font-size: 0.74rem;
+    font-size: clamp(0.72rem, 2.5vw, 0.78rem);
+    gap: 6px;
   }
 
-  /* Pillars on Mobile */
+  /* 4. Marquee Section on Mobile */
+  .samay-marquee-section {
+    padding: 10px 0;
+  }
+
+  .samay-marquee-content {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    gap: 1.4rem;
+    padding-right: 1.4rem;
+  }
+
+  .samay-marquee-dot {
+    font-size: 0.9rem;
+  }
+
+  /* 5. Pillars on Mobile */
   .samay-pillars-grid {
     grid-template-columns: 1fr;
     border: none;
@@ -2151,21 +2245,36 @@ select {
   .samay-pillar-card {
     border-right: none;
     border-bottom: 1px solid var(--border);
-    padding: 34px 16px;
+    padding: 34px 20px;
+    text-align: center;
   }
 
-  /* Products on Mobile (FIKN Elixir Style) */
+  .samay-pillar-card:last-child {
+    border-bottom: none;
+  }
+
+  .samay-pillar-icon {
+    font-size: 1.75rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .samay-pillar-title {
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+  }
+
+  /* 6. Product Cards Carousel on Mobile */
   .ep-section,
   .samay-products-section {
-    padding: 50px 0 60px;
+    padding: 48px 0;
   }
 
   .ep-header {
-    margin-bottom: 24px;
+    margin-bottom: 20px;
   }
 
   .ep-section-title {
-    font-size: 26px;
+    font-size: clamp(22px, 6.2vw, 30px);
   }
 
   .ep-carousel-hint {
@@ -2192,12 +2301,10 @@ select {
   }
 
   @keyframes epHintPulse {
-
     0%,
     100% {
       transform: translateX(0);
     }
-
     50% {
       transform: translateX(3px);
     }
@@ -2208,7 +2315,7 @@ select {
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
-    gap: 16px;
+    gap: 14px;
     padding-bottom: 12px;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
@@ -2219,11 +2326,51 @@ select {
   }
 
   .ep-card {
-    flex: 0 0 82%;
+    flex: 0 0 calc(85vw - 20px);
+    max-width: 330px;
     min-width: 260px;
     scroll-snap-align: start;
     cursor: pointer;
+    position: relative;
+    overflow: hidden;
     -webkit-tap-highlight-color: rgba(201, 169, 110, 0.1);
+  }
+
+  .ep-media {
+    padding: 12px 12px 6px;
+  }
+
+  .ep-media__viewport {
+    aspect-ratio: 1 / 1;
+    max-height: 300px;
+  }
+
+  .ep-info {
+    padding: 12px 14px 16px;
+    gap: 10px;
+  }
+
+  .ep-price-row {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .snap_collection_category {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .ep-add {
+    width: 100%;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .ep-carousel-controls {
@@ -2231,12 +2378,14 @@ select {
     align-items: center;
     justify-content: center;
     gap: 16px;
-    margin-top: 18px;
+    margin-top: 16px;
   }
 
   .ep-carousel-arrow {
     width: 44px;
     height: 44px;
+    min-width: 44px;
+    min-height: 44px;
     border-radius: 50%;
     border: 1px solid var(--border, #ddd0bc);
     background: var(--cream-card, #fdfbf7);
@@ -2311,23 +2460,68 @@ select {
     background: var(--gold-dark, #78521d);
   }
 
-  /* Notes & Olfactory Pyramid on Mobile */
-  .samay-notes-section {
-    padding: 60px 0;
+  /* 7. Mid Sections (Philosophy, Notes, Ingredients, About) */
+  .samay-philosophy-section,
+  .samay-notes-section,
+  .samay-about-section,
+  .samay-reviews-section,
+  .samay-contact-section,
+  .samay-newsletter-section {
+    padding: 48px 0;
+  }
+
+  .samay-sec-header {
+    margin-bottom: 32px;
+  }
+
+  .samay-sec-title {
+    font-size: clamp(1.8rem, 5.8vw, 2.4rem);
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+
+  .samay-philosophy-quote {
+    font-size: clamp(1.4rem, 5.2vw, 2rem);
+    line-height: 1.4;
+    margin-bottom: 1.4rem;
   }
 
   .samay-notes-grid {
     grid-template-columns: 1fr;
+    gap: 14px;
+    background: transparent;
+    border: none;
     border-radius: var(--radius-sm);
-    margin-bottom: 40px;
+    margin-bottom: 32px;
   }
 
   .samay-note-card {
-    padding: 36px 20px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 30px 18px;
   }
 
+  .samay-ingredients-showcase {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 24px 18px;
+  }
+
+  .samay-showcase-image-wrap {
+    order: -1;
+    width: 100%;
+  }
+
+  .samay-showcase-content {
+    order: 1;
+    width: 100%;
+  }
+
+  .samay-showcase-content h2,
   .samay-showcase-content h3 {
-    font-size: 1.8rem;
+    font-size: clamp(1.5rem, 5.2vw, 1.8rem);
+    margin-bottom: 12px;
   }
 
   .samay-specs-list {
@@ -2336,13 +2530,13 @@ select {
   }
 
   .samay-spec-box {
-    padding: 12px 6px;
+    padding: 10px 6px;
     text-align: center;
   }
 
   .samay-spec-title {
     font-size: 0.62rem;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
   }
 
   .samay-spec-val {
@@ -2350,95 +2544,134 @@ select {
     line-height: 1.25;
   }
 
-  /* Reviews on Mobile */
-  .samay-reviews-section {
-    padding: 60px 0;
-  }
-
   .samay-reviews-grid {
     grid-template-columns: 1fr;
-    gap: 18px;
+    gap: 16px;
   }
 
   .samay-review-card {
-    padding: 28px 20px;
-  }
-
-  /* About Us on Mobile */
-  .samay-about-section {
-    padding: 60px 0;
-  }
-
-  .samay-about-grid {
-    grid-template-columns: 1fr;
-    gap: 36px;
-  }
-
-  .samay-about-text h2 {
-    font-size: 2.2rem;
-  }
-
-  .samay-about-stats {
-    gap: 12px;
-  }
-
-  .samay-stat-item strong {
-    font-size: 2.1rem;
-  }
-
-  /* Contact & FAQ on Mobile */
-  .samay-contact-section {
-    padding: 60px 0;
-  }
-
-  .samay-contact-grid {
-    grid-template-columns: 1fr;
-    gap: 36px;
-  }
-
-  .samay-contact-form-box {
     padding: 26px 18px;
   }
 
+  .samay-about-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .samay-about-media {
+    order: -1;
+    width: 100%;
+    max-width: 360px;
+    margin: 0 auto;
+  }
+
+  .samay-about-text {
+    order: 1;
+    width: 100%;
+    text-align: left;
+  }
+
+  .samay-about-text h2 {
+    font-size: clamp(1.8rem, 6vw, 2.2rem);
+    margin-bottom: 14px;
+  }
+
+  .samay-about-stats {
+    gap: 10px;
+    margin-top: 24px;
+    padding-top: 20px;
+  }
+
+  .samay-stat-item strong {
+    font-size: 1.9rem;
+  }
+
+  /* 8. Contact Form and FAQ on Mobile */
+  .samay-contact-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .samay-contact-form-box {
+    padding: 24px 18px;
+  }
+
+  .samay-form-input,
+  .samay-form-select,
+  .samay-form-textarea {
+    font-size: 16px !important;
+    min-height: 48px;
+  }
+
+  .samay-contact-form-box .samay-btn {
+    width: 100%;
+    min-height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .samay-faq-question {
+    min-height: 54px;
     padding: 16px 18px;
-    font-size: 0.92rem;
+    font-size: 0.94rem;
+    line-height: 1.4;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 
-  /* Newsletter on Mobile */
-  .samay-newsletter-section {
-    padding: 60px 0;
-  }
-
+  /* 9. Newsletter on Mobile */
   .samay-newsletter-box h2 {
-    font-size: 2.2rem;
+    font-size: clamp(1.7rem, 5.5vw, 2.2rem);
+    line-height: 1.2;
+    margin-bottom: 10px;
   }
 
   .samay-newsletter-form {
     flex-direction: column;
     gap: 12px;
+    width: 100%;
   }
 
   .samay-newsletter-input,
   .samay-newsletter-form .samay-btn {
     width: 100%;
-    min-height: 50px;
+    min-height: 52px;
+    font-size: 16px;
   }
 
-  /* Footer on Mobile */
+  /* 10. Footer on Mobile */
   .samay-footer {
-    padding: 60px 0 24px;
+    padding: 48px 0 24px;
   }
 
   .samay-footer-logo-img {
-    height: 70px;
-    max-height: 72px;
+    height: 60px;
+    max-height: 64px;
   }
 
   .samay-footer-top {
     grid-template-columns: 1fr;
-    gap: 32px;
-    margin-bottom: 40px;
+    gap: 28px;
+    margin-bottom: 36px;
+  }
+
+  .samay-footer-heading {
+    margin-bottom: 12px;
+  }
+
+  .samay-footer-links {
+    gap: 6px;
+  }
+
+  .samay-footer-links a,
+  .samay-footer-contact a {
+    min-height: 44px;
+    padding: 6px 0;
+    display: inline-flex;
+    align-items: center;
   }
 
   .samay-footer-bottom {
@@ -2448,31 +2681,95 @@ select {
     gap: 14px;
   }
 
-  /* Cart Drawer on Mobile */
+  /* 11. Cart Drawer on Mobile */
   .samay-cart-drawer {
     width: 100%;
     max-width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .samay-drawer-header {
+    flex-shrink: 0;
+    padding: 16px 20px;
+  }
+
+  .samay-drawer-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 16px 20px;
+  }
+
+  .samay-drawer-footer {
+    flex-shrink: 0;
+    position: sticky;
+    bottom: 0;
+    padding: 18px 20px calc(18px + env(safe-area-inset-bottom, 0px));
+    background: var(--cream2);
+    box-shadow: 0 -4px 16px rgba(44, 31, 14, 0.08);
+    z-index: 10;
+  }
+
+  .samay-drawer-checkout-btn,
+  .samay-drawer-footer .samay-btn {
+    width: 100%;
+    min-height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .samay-footer-top {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px 24px;
+  }
+
+  .samay-footer-top > div:first-child {
+    grid-column: 1 / -1;
   }
 }
 
 @media screen and (max-width: 480px) {
   :root {
-    --header-height: 68px;
+    --header-height: 60px;
   }
 
   .samay-header-logo-img {
-    height: 48px;
-    max-height: 50px;
+    height: 40px;
+    max-height: 42px;
   }
 
   .samay-mobile-drawer-logo-img {
-    height: 48px;
-    max-height: 50px;
+    height: 40px;
+    max-height: 42px;
   }
 
   .samay-footer-logo-img {
-    height: 64px;
-    max-height: 66px;
+    height: 54px;
+    max-height: 56px;
+  }
+
+  .samay-specs-list {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .samay-spec-box {
+    padding: 10px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+  }
+
+  .samay-spec-title {
+    margin-bottom: 0;
   }
 }
 
