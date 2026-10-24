@@ -33,17 +33,6 @@
   if c_text == blank
     assign c_text = 'Use code at checkout'
   endif
-
-  assign c_apply = coupon_apply_text
-  if c_apply == blank
-    assign c_apply = section.settings.coupon_apply_text
-  endif
-  if c_apply == blank
-    assign c_apply = settings.coupon_apply_text
-  endif
-  if c_apply == blank
-    assign c_apply = 'APPLY'
-  endif
 -%}
 {%- if c_enabled and c_code != blank -%}
   <div class="samay-coupon-banner" role="region" aria-label="Promotional coupon">
@@ -66,13 +55,6 @@
       >
         COPY
       </button>
-      <a 
-        href="/discount/{{ c_code | url_encode }}" 
-        class="samay-coupon-apply-link" 
-        aria-label="Apply discount code {{ c_code | escape }}"
-      >
-        {{ c_apply | escape }}
-      </a>
     </div>
   </div>
 {%- endif -%}

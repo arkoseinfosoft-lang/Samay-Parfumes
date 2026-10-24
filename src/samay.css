@@ -4191,7 +4191,7 @@ select {
 
 .samay-cart-drawer .samay-coupon-actions {
   display: grid;
-  grid-template-columns: 1fr auto auto;
+  grid-template-columns: 1fr auto;
   gap: 6px;
   width: 100%;
 }
@@ -4202,10 +4202,9 @@ select {
   width: 100%;
 }
 
-.samay-cart-drawer .samay-coupon-copy-btn,
-.samay-cart-drawer .samay-coupon-apply-link {
+.samay-cart-drawer .samay-coupon-copy-btn {
   min-height: 38px;
-  padding: 0 12px;
+  padding: 0 16px;
 }
 
 /* Mobile responsive (under 768px): min 44px buttons, fits at 360px without wrapping badly */
@@ -4225,7 +4224,7 @@ select {
 
   .samay-coupon-actions {
     display: grid;
-    grid-template-columns: 1fr auto auto;
+    grid-template-columns: 1fr auto;
     gap: 6px;
     width: 100%;
     align-items: stretch;
@@ -4241,16 +4240,14 @@ select {
     font-size: 0.82rem;
   }
 
-  .samay-coupon-copy-btn,
-  .samay-coupon-apply-link {
+  .samay-coupon-copy-btn {
     min-height: 44px;
-    padding: 0 14px;
+    padding: 0 16px;
     font-size: 0.76rem;
   }
 
   .samay-cart-drawer .samay-coupon-code-box,
-  .samay-cart-drawer .samay-coupon-copy-btn,
-  .samay-cart-drawer .samay-coupon-apply-link {
+  .samay-cart-drawer .samay-coupon-copy-btn {
     min-height: 44px;
   }
 }
