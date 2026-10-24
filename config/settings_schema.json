@@ -111,6 +111,35 @@
         "label": "Facebook URL"
       }
     ]
+  },
+  {
+    "name": "Coupon Banner",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "coupon_enabled",
+        "label": "Enable coupon banner",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "coupon_code",
+        "label": "Coupon code",
+        "default": "WELCOME50"
+      },
+      {
+        "type": "text",
+        "id": "coupon_text",
+        "label": "Coupon text",
+        "default": "Use code at checkout"
+      },
+      {
+        "type": "text",
+        "id": "coupon_apply_text",
+        "label": "Apply link text",
+        "default": "APPLY"
+      }
+    ]
   }
 ]
 

@@ -12,7 +12,11 @@
     "main": {
       "type": "product",
       "settings": {
-        "low_stock_threshold": 50
+        "low_stock_threshold": 50,
+        "coupon_enabled": true,
+        "coupon_code": "WELCOME50",
+        "coupon_text": "Use code at checkout",
+        "coupon_apply_text": "APPLY"
       }
     }
   },

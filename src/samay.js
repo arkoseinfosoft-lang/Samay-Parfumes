@@ -218,6 +218,65 @@
     close: closeCartDrawer
   };
 
+  // Delegated click handler for coupon copy button
+  document.addEventListener('click', function (e) {
+    var copyBtn = e.target.closest('.samay-coupon-copy-btn');
+    if (!copyBtn) return;
+    e.preventDefault();
+
+    var code = copyBtn.getAttribute('data-coupon-code') || '';
+    if (!code) return;
+
+    function handleSuccess() {
+      var originalText = copyBtn.getAttribute('data-original-text');
+      if (!originalText) {
+        originalText = copyBtn.textContent.trim();
+        copyBtn.setAttribute('data-original-text', originalText);
+      }
+      copyBtn.textContent = 'COPIED ✓';
+      copyBtn.classList.add('is-copied');
+
+      setTimeout(function () {
+        copyBtn.textContent = copyBtn.getAttribute('data-original-text') || 'COPY';
+        copyBtn.classList.remove('is-copied');
+      }, 2000);
+    }
+
+    if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+      navigator.clipboard.writeText(code).then(handleSuccess).catch(function () {
+        fallbackCopy(code);
+      });
+    } else {
+      fallbackCopy(code);
+    }
+
+    function fallbackCopy(text) {
+      try {
+        var textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.setAttribute('readonly', '');
+        textarea.className = 'samay-copy-fallback-textarea';
+        document.body.appendChild(textarea);
+        textarea.focus();
+        textarea.select();
+        if (typeof textarea.setSelectionRange === 'function') {
+          textarea.setSelectionRange(0, 99999);
+        }
+        var successful = false;
+        try {
+          successful = document.execCommand('copy');
+        } catch (cmdErr) {
+          successful = false;
+        }
+        document.body.removeChild(textarea);
+        handleSuccess();
+      } catch (err) {
+        console.error('[Samay] Failed to copy coupon code:', err);
+        handleSuccess();
+      }
+    }
+  });
+
   // Main Theme Interactive Initialization
   function initSamay() {
     // Clear any obsolete localStorage fake cart

@@ -1,0 +1,78 @@
+{% comment %}
+  SAMAY PARFUMES - COUPON PROMOTIONAL BANNER
+  Renders a slim promotional coupon badge with Copy & Apply actions.
+  Settings fallback hierarchy: block/snippet param -> section.settings -> theme settings.
+{% endcomment %}
+{%- liquid
+  assign c_enabled = coupon_enabled
+  if c_enabled == nil
+    assign c_enabled = section.settings.coupon_enabled
+  endif
+  if c_enabled == nil
+    assign c_enabled = settings.coupon_enabled
+  endif
+  if c_enabled == nil
+    assign c_enabled = true
+  endif
+
+  assign c_code = coupon_code
+  if c_code == blank
+    assign c_code = section.settings.coupon_code
+  endif
+  if c_code == blank
+    assign c_code = settings.coupon_code
+  endif
+
+  assign c_text = coupon_text
+  if c_text == blank
+    assign c_text = section.settings.coupon_text
+  endif
+  if c_text == blank
+    assign c_text = settings.coupon_text
+  endif
+  if c_text == blank
+    assign c_text = 'Use code at checkout'
+  endif
+
+  assign c_apply = coupon_apply_text
+  if c_apply == blank
+    assign c_apply = section.settings.coupon_apply_text
+  endif
+  if c_apply == blank
+    assign c_apply = settings.coupon_apply_text
+  endif
+  if c_apply == blank
+    assign c_apply = 'APPLY'
+  endif
+-%}
+{%- if c_enabled and c_code != blank -%}
+  <div class="samay-coupon-banner" role="region" aria-label="Promotional coupon">
+    <div class="samay-coupon-lead">
+      <svg class="samay-coupon-tag-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+        <circle cx="7" cy="7" r="1.5"></circle>
+      </svg>
+      <span class="samay-coupon-text">{{ c_text | escape }}</span>
+    </div>
+    <div class="samay-coupon-actions">
+      <span class="samay-coupon-code-box">
+        <strong class="samay-coupon-code">{{ c_code | escape }}</strong>
+      </span>
+      <button 
+        type="button" 
+        class="samay-coupon-copy-btn" 
+        data-coupon-code="{{ c_code | escape }}" 
+        aria-label="Copy discount code {{ c_code | escape }}"
+      >
+        COPY
+      </button>
+      <a 
+        href="/discount/{{ c_code | url_encode }}" 
+        class="samay-coupon-apply-link" 
+        aria-label="Apply discount code {{ c_code | escape }}"
+      >
+        {{ c_apply | escape }}
+      </a>
+    </div>
+  </div>
+{%- endif -%}

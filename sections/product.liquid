@@ -101,6 +101,9 @@
         <!-- Red Low-Stock Alert (Only shown when inventory tracked, >0, and <= threshold) -->
         {%- render 'stock-alert', variant: current_variant, threshold: low_stock_threshold, is_pdp: true -%}
 
+        <!-- Promotional Coupon Banner -->
+        {%- render 'coupon-banner' -%}
+
         <div class="samay-pdp-shipping-badge">
           <span>✦</span>
           <span><strong>Free Express Shipping across India</strong> · Inclusive of all taxes</span>
@@ -517,6 +520,34 @@
       "step": 1,
       "label": "Low stock alert threshold",
       "default": 50
+    },
+    {
+      "type": "header",
+      "content": "Coupon Banner"
+    },
+    {
+      "type": "checkbox",
+      "id": "coupon_enabled",
+      "label": "Enable coupon banner",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "coupon_code",
+      "label": "Coupon code",
+      "default": "WELCOME50"
+    },
+    {
+      "type": "text",
+      "id": "coupon_text",
+      "label": "Coupon text",
+      "default": "Use code at checkout"
+    },
+    {
+      "type": "text",
+      "id": "coupon_apply_text",
+      "label": "Apply link text",
+      "default": "APPLY"
     }
   ],
   "disabled_on": {

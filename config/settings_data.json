@@ -12,7 +12,11 @@
     "contact_email": "samayparfume@gmail.com",
     "contact_phone": "+91 93058 88555",
     "social_instagram_link": "https://www.instagram.com/samayparfumes?cplk=MWhoejBieXkxaTl2",
-    "social_facebook_link": "https://www.facebook.com/samayparfumes"
+    "social_facebook_link": "https://www.facebook.com/samayparfumes",
+    "coupon_enabled": true,
+    "coupon_code": "WELCOME50",
+    "coupon_text": "Use code at checkout",
+    "coupon_apply_text": "APPLY"
   }
 }
 
