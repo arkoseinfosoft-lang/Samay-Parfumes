@@ -18,33 +18,43 @@
      1. HERO BANNER SECTION
      ========================================================================== -->
 <section class="samay-hero-section" id="hero">
-  {%- if section.settings.hero_image != blank -%}
-    <img 
-      src="{{ section.settings.hero_image | image_url: width: 1400 }}" 
-      alt="{{ section.settings.hero_image.alt | default: section.settings.hero_title | strip_html | escape }}" 
-      class="samay-hero-bg"
-      width="1024"
-      height="571"
-      loading="eager"
-      fetchpriority="high"
-    >
-  {%- else -%}
-    <picture>
-      <source media="(max-width: 768px)" srcset="{{ 'samay-hero-clock-mobile.webp' | asset_url }}" type="image/webp">
-      <source media="(min-width: 769px)" srcset="{{ 'samay-hero-clock.webp' | asset_url }}" type="image/webp">
+  <div class="samay-hero-media-wrap">
+    {%- if section.settings.hero_image != blank -%}
       <img 
-        src="{{ 'samay-hero-clock.webp' | asset_url }}" 
-        alt="Samay Parfumes Zayro Eau De Parfum Flacon Beyond Time" 
+        src="{{ section.settings.hero_image | image_url: width: 1400 }}" 
+        srcset="
+          {{ section.settings.hero_image | image_url: width: 640 }} 640w,
+          {{ section.settings.hero_image | image_url: width: 768 }} 768w,
+          {{ section.settings.hero_image | image_url: width: 1024 }} 1024w,
+          {{ section.settings.hero_image | image_url: width: 1400 }} 1400w
+        "
+        sizes="100vw"
+        alt="{{ section.settings.hero_image.alt | default: section.settings.hero_title | strip_html | escape }}" 
         class="samay-hero-bg"
         width="1024"
         height="571"
         loading="eager"
         fetchpriority="high"
-        decoding="async"
       >
-    </picture>
-  {%- endif -%}
-  <div class="samay-hero-overlay"></div>
+    {%- else -%}
+      <picture>
+        <source media="(max-width: 768px)" srcset="{{ 'samay-hero-clock.webp' | asset_url }}" type="image/webp">
+        <source media="(min-width: 769px)" srcset="{{ 'samay-hero-clock.webp' | asset_url }}" type="image/webp">
+        <img 
+          src="{{ 'samay-hero-clock.webp' | asset_url }}" 
+          alt="Samay Parfumes Zayro Eau De Parfum Flacon Beyond Time" 
+          class="samay-hero-bg"
+          width="1024"
+          height="571"
+          sizes="100vw"
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+        >
+      </picture>
+    {%- endif -%}
+    <div class="samay-hero-overlay"></div>
+  </div>
 
   <div class="container samay-hero-container">
     <div class="samay-hero-content">

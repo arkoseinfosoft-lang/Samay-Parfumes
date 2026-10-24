@@ -403,6 +403,14 @@ button, input, textarea, select {
   overflow: hidden;
   background-color: #1a1309;
 }
+.samay-hero-media-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
 .samay-hero-bg {
   position: absolute;
   top: 0;
@@ -605,50 +613,110 @@ button, input, textarea, select {
     height: 44px;
   }
   .samay-hero-section {
-    min-height: 86vh;
-    min-height: 86svh;
+    min-height: auto;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    background-color: #000000;
+    overflow: visible;
+  }
+  .samay-hero-media-wrap {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    aspect-ratio: 1024 / 571;
+    background-color: #000000;
+    overflow: hidden;
   }
   .samay-hero-bg {
-    object-position: 65% center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    filter: brightness(0.96);
+    transform: none;
   }
   .samay-hero-overlay {
-    background: linear-gradient(180deg, rgba(22, 17, 11, 0.9) 0%, rgba(22, 17, 11, 0.78) 40%, rgba(22, 17, 11, 0.92) 100%);
+    display: none;
+  }
+  .samay-hero-container {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    padding-left: clamp(16px, 4vw, 24px);
+    padding-right: clamp(16px, 4vw, 24px);
   }
   .samay-hero-content {
-    padding: 40px 0 60px;
+    position: static;
     max-width: 100%;
+    padding: 24px 0 36px;
+    background-color: #000000;
+    color: var(--cream);
+    text-align: center;
   }
   .samay-hero-eyebrow {
-    font-size: 0.74rem;
-    letter-spacing: 0.28em;
-    margin-bottom: 1rem;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.76rem;
+    letter-spacing: 0.26em;
+    color: var(--samay-gold);
+    margin-bottom: 0.8rem;
+  }
+  .samay-hero-eyebrow::before {
+    display: none;
   }
   .samay-hero-title {
-    font-size: 2.6rem;
+    font-size: clamp(2rem, 7.5vw, 2.6rem);
     line-height: 1.12;
-    margin-bottom: 1.2rem;
+    margin-bottom: 0.9rem;
   }
   .samay-hero-desc {
-    font-size: 0.95rem;
-    line-height: 1.7;
-    margin-bottom: 2rem;
+    font-size: clamp(0.9rem, 3.4vw, 1rem);
+    line-height: 1.65;
+    color: rgba(247, 242, 234, 0.88);
+    margin-bottom: 1.6rem;
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
   }
   .samay-hero-actions {
+    display: flex;
     flex-direction: column;
     gap: 12px;
     width: 100%;
+    max-width: 380px;
+    margin: 0 auto;
   }
   .samay-hero-actions .samay-btn {
     width: 100%;
-    min-height: 52px;
+    min-height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
   .samay-hero-highlights {
-    gap: 1rem;
-    margin-top: 2.2rem;
-    padding-top: 1.6rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px 20px;
+    margin-top: 1.8rem;
+    padding-top: 1.4rem;
+    border-top: 1px solid rgba(212, 175, 55, 0.2);
   }
   .samay-highlight-item {
     font-size: 0.74rem;
+    color: var(--samay-gold-hover);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .samay-highlight-item svg {
+    color: var(--samay-gold);
   }
 }
 @media screen and (max-width: 480px) {
