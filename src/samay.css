@@ -39,6 +39,9 @@
   --cream-card: #fdfbf7;
   --white: #ffffff;
 
+  --samay-gold: #c9a96e;
+  --samay-gold-hover: #dfc89e;
+
   --gold: #c9a96e;
   --gold-dark: #78521d;
   --gold-hover: #b89659;
@@ -55,7 +58,7 @@
   --serif: 'Bodoni Moda', 'Playfair Display', Georgia, serif;
   --sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
-  --header-height: 88px;
+  --header-height: 100px;
   --announcement-height: 38px;
   --page-width: 1440px;
 
@@ -229,16 +232,20 @@ select {
   left: 0;
   width: 100%;
   z-index: 900;
-  background-color: rgba(247, 242, 234, 0.96);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--border);
+  background-color: #000000;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-bottom: none;
+  box-shadow: none;
   transition: var(--transition);
 }
 
-.samay-header-wrapper.is-scrolled {
-  box-shadow: var(--shadow-subtle);
-  background-color: rgba(247, 242, 234, 0.98);
+.samay-header-wrapper.is-scrolled,
+.samay-header-wrapper.is-transparent,
+.samay-header-wrapper--transparent {
+  background-color: #000000;
+  border-bottom: none;
+  box-shadow: none;
 }
 
 .samay-header {
@@ -254,11 +261,12 @@ select {
   align-items: center;
   text-decoration: none;
   flex-shrink: 0;
+  margin-left: 1cm;
 }
 
 .samay-header-logo-img {
-  height: 68px;
-  max-height: 70px;
+  height: 64px;
+  max-height: 66px;
   width: auto;
   object-fit: contain;
   transition: transform 0.3s ease;
@@ -276,11 +284,11 @@ select {
 
 .samay-nav-link {
   font-family: var(--sans);
-  font-size: 0.76rem;
-  font-weight: 500;
-  letter-spacing: 0.2em;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--brown);
+  color: var(--samay-gold);
   position: relative;
   padding: 6px 0;
   transition: color 0.25s ease;
@@ -294,16 +302,56 @@ select {
   left: 0;
   width: 0;
   height: 1.5px;
-  background-color: var(--gold);
+  background-color: var(--samay-gold-hover);
   transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-.samay-nav-link:hover {
-  color: var(--gold-dark);
+.samay-nav-link:hover,
+.samay-nav-link:active,
+.samay-nav-link.is-active {
+  color: var(--samay-gold-hover);
 }
 
-.samay-nav-link:hover::after {
+.samay-nav-link:hover::after,
+.samay-nav-link:active::after,
+.samay-nav-link.is-active::after {
   width: 100%;
+}
+
+/* Header Dropdowns & Submenus */
+.samay-nav-dropdown,
+.samay-dropdown,
+.samay-submenu,
+.samay-nav-item .dropdown,
+.samay-dropdown-menu,
+.header__submenu {
+  background-color: #000000;
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.85);
+}
+
+.samay-nav-dropdown a,
+.samay-dropdown a,
+.samay-submenu a,
+.samay-dropdown-menu a,
+.header__submenu a,
+.header__menu-item {
+  color: var(--samay-gold);
+  transition: color 0.25s ease;
+}
+
+.samay-nav-dropdown a:hover,
+.samay-nav-dropdown a:active,
+.samay-dropdown a:hover,
+.samay-dropdown a:active,
+.samay-submenu a:hover,
+.samay-submenu a:active,
+.samay-dropdown-menu a:hover,
+.samay-dropdown-menu a:active,
+.header__submenu a:hover,
+.header__submenu a:active,
+.header__menu-item:hover {
+  color: var(--samay-gold-hover);
 }
 
 .samay-header-actions {
@@ -324,14 +372,14 @@ select {
   letter-spacing: 0.22em;
   text-transform: uppercase;
   border-radius: var(--radius-xs);
-  background: var(--gold);
-  color: var(--brown-dark);
+  background: var(--samay-gold);
+  color: #000000;
   transition: var(--transition);
 }
 
 .samay-header-cta-btn:hover {
-  background: var(--gold-dark);
-  color: var(--white);
+  background: var(--samay-gold-hover);
+  color: #000000;
   transform: translateY(-1px);
 }
 
@@ -343,27 +391,61 @@ select {
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  border: 1px solid var(--border);
-  background: var(--cream2);
-  color: var(--brown);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  background: transparent;
+  color: var(--samay-gold);
   cursor: pointer;
   transition: var(--transition);
   text-decoration: none;
 }
 
-.samay-cart-trigger:hover {
-  border-color: var(--gold);
-  background: var(--gold);
-  color: var(--white);
+.samay-cart-trigger:hover,
+.samay-cart-trigger:active {
+  border-color: var(--samay-gold-hover);
+  background: rgba(212, 175, 55, 0.12);
+  color: var(--samay-gold-hover);
   transform: translateY(-2px);
+}
+
+.samay-cart-trigger svg {
+  stroke: currentColor;
+}
+
+/* Header Icons (Search, Account, Generic) */
+.samay-header-icon,
+.samay-search-trigger,
+.samay-account-trigger,
+.header__icon,
+.header__icon--account,
+.header__icon--search {
+  color: var(--samay-gold);
+  transition: color 0.25s ease;
+}
+
+.samay-header-icon:hover,
+.samay-header-icon:active,
+.samay-search-trigger:hover,
+.samay-search-trigger:active,
+.samay-account-trigger:hover,
+.samay-account-trigger:active,
+.header__icon:hover,
+.header__icon:active {
+  color: var(--samay-gold-hover);
+}
+
+.samay-header-icon svg,
+.samay-search-trigger svg,
+.samay-account-trigger svg,
+.header__icon svg {
+  stroke: currentColor;
 }
 
 .samay-cart-badge {
   position: absolute;
   top: -4px;
   right: -4px;
-  background: var(--brown);
-  color: var(--cream);
+  background: var(--samay-gold);
+  color: #000000;
   font-size: 0.68rem;
   font-weight: 700;
   width: 20px;
@@ -372,19 +454,29 @@ select {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1.5px solid var(--cream);
+  border: 1.5px solid #000000;
 }
 
 .samay-mobile-menu-btn {
   display: none;
   background: none;
   border: none;
-  color: var(--brown);
+  color: var(--samay-gold);
   cursor: pointer;
   padding: 8px;
   min-width: 44px;
   min-height: 44px;
   border-radius: var(--radius-xs);
+  transition: color 0.25s ease;
+}
+
+.samay-mobile-menu-btn:hover,
+.samay-mobile-menu-btn:active {
+  color: var(--samay-gold-hover);
+}
+
+.samay-mobile-menu-btn svg {
+  stroke: currentColor;
 }
 
 /* Mobile Navigation Drawer */
@@ -394,7 +486,7 @@ select {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(22, 17, 11, 0.7);
+  background: rgba(0, 0, 0, 0.75);
   backdrop-filter: blur(5px);
   z-index: 1000;
   opacity: 0;
@@ -414,13 +506,14 @@ select {
   width: 82%;
   max-width: 340px;
   height: 100vh;
-  background: var(--cream);
+  background: #000000;
   z-index: 1001;
   transform: translateX(-100%);
   transition: transform 0.38s cubic-bezier(0.25, 1, 0.5, 1);
   display: flex;
   flex-direction: column;
-  box-shadow: var(--shadow-modal);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9);
+  border-right: 1px solid rgba(212, 175, 55, 0.2);
 }
 
 .samay-mobile-drawer-overlay.is-open .samay-mobile-drawer {
@@ -432,12 +525,13 @@ select {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+  background: #000000;
 }
 
 .samay-mobile-drawer-logo-img {
-  height: 52px;
-  max-height: 54px;
+  height: 44px;
+  max-height: 46px;
   width: auto;
   object-fit: contain;
   display: block;
@@ -447,7 +541,7 @@ select {
   background: none;
   border: none;
   font-size: 1.4rem;
-  color: var(--brown);
+  color: var(--samay-gold);
   cursor: pointer;
   padding: 4px;
   min-width: 44px;
@@ -455,6 +549,12 @@ select {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  transition: color 0.25s ease;
+}
+
+.samay-mobile-drawer-close:hover,
+.samay-mobile-drawer-close:active {
+  color: var(--samay-gold-hover);
 }
 
 .samay-mobile-drawer-links {
@@ -464,6 +564,7 @@ select {
   gap: 1.2rem;
   flex-grow: 1;
   overflow-y: auto;
+  background: #000000;
 }
 
 .samay-mobile-link {
@@ -472,33 +573,41 @@ select {
   font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--brown);
+  color: var(--samay-gold);
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 10px 0;
   min-height: 44px;
-  border-bottom: 1px solid var(--border-light);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+  transition: color 0.25s ease;
+}
+
+.samay-mobile-link:hover,
+.samay-mobile-link:active {
+  color: var(--samay-gold-hover);
 }
 
 .samay-nav-tag {
   font-size: 0.65rem;
   padding: 2px 6px;
   border-radius: 3px;
-  background: var(--brown);
-  color: var(--cream);
+  background: rgba(212, 175, 55, 0.15);
+  color: var(--samay-gold);
+  border: 1px solid rgba(212, 175, 55, 0.35);
   font-weight: 700;
 }
 
 .samay-nav-tag.gold {
-  background: var(--gold);
-  color: var(--brown-dark);
+  background: var(--samay-gold);
+  color: #000000;
+  border: 1px solid var(--samay-gold);
 }
 
 .samay-mobile-drawer-footer {
   padding: 24px;
-  border-top: 1px solid var(--border);
-  background: var(--cream2);
+  border-top: 1px solid rgba(212, 175, 55, 0.2);
+  background: #000000;
 }
 
 /* ==========================================================================
@@ -1586,7 +1695,7 @@ select {
 
 /* Accordion FAQ */
 .samay-faq-box {
-  scroll-margin-top: calc(var(--header-height, 88px) + 24px);
+  scroll-margin-top: calc(var(--header-height, 100px) + 24px);
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -2002,12 +2111,12 @@ select {
    ========================================================================== */
 @media screen and (max-width: 1024px) {
   :root {
-    --header-height: 80px;
+    --header-height: 88px;
   }
 
   .samay-header-logo-img {
-    height: 60px;
-    max-height: 62px;
+    height: 54px;
+    max-height: 56px;
   }
 
   .samay-nav {
@@ -2033,7 +2142,7 @@ select {
 
 @media screen and (max-width: 768px) {
   :root {
-    --header-height: 64px;
+    --header-height: 72px;
     --announcement-height: 32px;
   }
 
@@ -2086,6 +2195,10 @@ select {
     padding: 10px;
   }
 
+  .samay-logo-link {
+    margin-left: 0;
+  }
+
   .samay-header-logo-img {
     height: 44px;
     max-height: 46px;
@@ -2111,11 +2224,13 @@ select {
     height: 100dvh;
     display: flex;
     flex-direction: column;
+    background: #000000;
   }
 
   .samay-mobile-drawer-header {
     padding: 16px 20px;
     flex-shrink: 0;
+    background: #000000;
   }
 
   .samay-mobile-drawer-logo-img {
@@ -2737,7 +2852,7 @@ select {
 
 @media screen and (max-width: 480px) {
   :root {
-    --header-height: 60px;
+    --header-height: 66px;
   }
 
   .samay-header-logo-img {

@@ -31,19 +31,16 @@
       </button>
 
       <!-- Brand Logo -->
-      <a href="{{ routes.root_url }}" class="samay-logo-link" aria-label="Samay Parfumes Home">
-        <picture>
-          <source srcset="{{ 'samay-logo-black.webp' | asset_url }}" type="image/webp">
-          <img 
-            src="{{ 'samay-logo-black.png' | asset_url }}" 
-            alt="Samay Parfumes Logo" 
-            class="samay-header-logo-img"
-            width="192"
-            height="70"
-            loading="eager"
-            fetchpriority="high"
-          >
-        </picture>
+      <a href="{{ routes.root_url }}" class="samay-logo-link" aria-label="{{ shop.name | escape }}">
+        <img 
+          src="{{ 'samay-logo.png' | asset_url }}" 
+          alt="{{ shop.name | escape }}" 
+          class="samay-header-logo-img"
+          width="210"
+          height="64"
+          loading="eager"
+          fetchpriority="high"
+        >
       </a>
 
       <!-- Desktop Navigation -->
@@ -83,13 +80,13 @@
 <div class="samay-mobile-drawer-overlay" id="samayMobileDrawerOverlay">
   <div class="samay-mobile-drawer">
     <div class="samay-mobile-drawer-header">
-      <a href="{{ routes.root_url }}" aria-label="Samay Parfumes Home">
+      <a href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }}">
         <img 
-          src="{{ 'samay-logo-black.png' | asset_url }}" 
-          alt="Samay Parfumes" 
+          src="{{ 'samay-logo.png' | asset_url }}" 
+          alt="{{ shop.name | escape }}" 
           class="samay-mobile-drawer-logo-img"
-          width="150"
-          height="54"
+          width="145"
+          height="44"
           loading="eager"
         >
       </a>
@@ -110,7 +107,7 @@
       <a href="{{ routes.root_url }}#collection" class="samay-btn samay-btn--gold samay-btn--full" style="padding: 14px;" id="samayMobileDrawerCta">
         SHOP ZAYRO EDITIONS
       </a>
-      <div style="margin-top: 14px; text-align: center; font-size: 0.78rem; color: var(--taupe);">
+      <div style="margin-top: 14px; text-align: center; font-size: 0.78rem; color: var(--samay-gold, #d4af37);">
         A Fragrance Beyond Time · Free Express Shipping Across India
       </div>
     </div>
