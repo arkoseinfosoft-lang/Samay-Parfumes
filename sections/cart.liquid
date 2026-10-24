@@ -134,7 +134,7 @@
             <div class="samay-drawer-subtotal">
               <span>Subtotal</span>
               <strong id="samayCartSubtotalVal" style="font-size: 1.25rem; color: var(--brown-dark);">
-                {{ cart.total_price | money }}
+                {{ cart.original_total_price | default: cart.items_subtotal_price | default: cart.total_price | money }}
               </strong>
             </div>
 

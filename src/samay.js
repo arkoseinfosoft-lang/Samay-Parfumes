@@ -18,14 +18,40 @@
   // Active Shopify Cart State
   let currentCart = { item_count: 0, items: [], total_price: 0 };
 
+  // Clear discount cookies to prevent auto-applying discounts before checkout entry
+  function clearDiscountCookie() {
+    try {
+      document.cookie = 'discount_code=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT; Max-Age=0;';
+      if (window.location.hostname) {
+        document.cookie = 'discount_code=; Path=/; Domain=' + window.location.hostname + '; Expires=Thu, 01 Jan 1970 00:00:01 GMT; Max-Age=0;';
+      }
+    } catch (e) {}
+  }
+
   // Fetch full cart state from Shopify /cart.js
   async function fetchCart() {
     try {
+      clearDiscountCookie();
       const res = await fetch('/cart.js', {
         headers: { 'Accept': 'application/json' }
       });
       if (!res.ok) throw new Error('Failed to fetch cart');
       currentCart = await res.json();
+
+      // If a discount code was previously auto-applied in the session, clear it from cart
+      if (currentCart && currentCart.discount_codes && currentCart.discount_codes.length > 0) {
+        try {
+          const updateRes = await fetch('/cart/update.js', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({ discount: '' })
+          });
+          if (updateRes.ok) {
+            currentCart = await updateRes.json();
+          }
+        } catch (e) {}
+      }
+
       renderCart(currentCart);
       return currentCart;
     } catch (err) {
@@ -182,7 +208,13 @@
       `;
     }).join('');
 
-    subtotalEl.textContent = formatMoney(cart.total_price);
+    const rawSubtotal = (cart && (cart.original_total_price || cart.items_subtotal_price || cart.total_price)) || 0;
+    subtotalEl.textContent = formatMoney(rawSubtotal);
+
+    const cartPageSubtotal = document.getElementById('samayCartSubtotalVal');
+    if (cartPageSubtotal) {
+      cartPageSubtotal.textContent = formatMoney(rawSubtotal);
+    }
   }
 
   function openCartDrawer() {
@@ -496,6 +528,7 @@
     if (checkoutForm) {
       checkoutForm.addEventListener('submit', function (e) {
         e.preventDefault();
+        clearDiscountCookie();
         window.location.href = '/checkout';
       });
     }

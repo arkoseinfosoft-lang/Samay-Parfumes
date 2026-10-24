@@ -20,7 +20,7 @@
     <div class="samay-drawer-footer">
       <div class="samay-drawer-subtotal">
         <span>Estimated Total</span>
-        <strong id="samayCartSubtotal">₹0</strong>
+        <strong id="samayCartSubtotal">{{ cart.original_total_price | default: cart.items_subtotal_price | default: cart.total_price | money }}</strong>
       </div>
       <div class="samay-drawer-tax-note">All taxes included · Free express shipping across India</div>
       <form action="{{ routes.cart_url | default: '/cart' }}" method="post" id="samayCartDrawerForm" class="samay-cart-drawer-form" style="width: 100%; margin: 0;">
