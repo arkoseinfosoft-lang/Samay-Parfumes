@@ -1,7 +1,19 @@
 {% comment %}
-  SAMAY PARFUMES - PRODUCT & SELLER INFORMATION
-  Statutory disclosure & mandatory labeling block above footer
+  SAMAY PARFUMES - PRODUCT & SELLER INFORMATION (SNIPPET)
+  Statutory disclosure & mandatory labeling block above footer.
+  All values wrapped in {% if %} guards; unverified/unsupplied fields render nothing.
+  Fields are editable in the Theme Customizer via section settings or global settings.
 {% endcomment %}
+{%- assign section_heading = section.settings.heading | default: settings.seller_info_heading | default: 'Product & Seller Information' -%}
+{%- assign net_qty = section.settings.net_quantity | default: settings.seller_net_quantity | default: '50ml' -%}
+{%- assign origin_country = section.settings.country_of_origin | default: settings.seller_country_of_origin | default: 'India' -%}
+{%- assign batch_text = section.settings.batch_expiry | default: settings.seller_batch_expiry | default: 'Printed on the bottle and outer box' -%}
+{%- assign company = section.settings.company_name | default: settings.seller_company_name | default: 'SAMAY PARFUMES' -%}
+{%- assign address = section.settings.address | default: settings.seller_address | default: 'KALYANPUR KANPUR NAGAR UTTAR PRADESH INDIA' -%}
+{%- assign ingredients_text = section.settings.ingredients | default: settings.seller_ingredients -%}
+{%- assign allergen_text = section.settings.allergen_note | default: settings.seller_allergen_note -%}
+{%- assign grievance_text = section.settings.grievance_officer | default: settings.seller_grievance_officer -%}
+
 <section class="samay-seller-info-section" id="seller-info" aria-label="Product and Seller Information">
   <div class="container">
     <div class="samay-seller-info-card">
@@ -9,42 +21,65 @@
         <summary class="samay-seller-info-summary">
           <div class="samay-seller-info-header">
             <span class="samay-seller-info-badge">⚜ Statutory Details</span>
-            <h2 class="samay-seller-info-title">Product &amp; Seller Information</h2>
+            <h2 class="samay-seller-info-title">{{ section_heading | escape }}</h2>
           </div>
           <span class="samay-seller-info-toggle-icon" aria-hidden="true">▾</span>
         </summary>
 
         <div class="samay-seller-info-content">
           <dl class="samay-seller-info-grid">
-            <div class="samay-seller-info-item">
-              <dt>Net Quantity</dt>
-              <dd>50ml</dd>
-            </div>
+            {%- if net_qty != blank -%}
+              <div class="samay-seller-info-item">
+                <dt>Net Quantity</dt>
+                <dd>{{ net_qty | escape }}</dd>
+              </div>
+            {%- endif -%}
 
-            <div class="samay-seller-info-item">
-              <dt>Country of Origin</dt>
-              <dd>India</dd>
-            </div>
+            {%- if origin_country != blank -%}
+              <div class="samay-seller-info-item">
+                <dt>Country of Origin</dt>
+                <dd>{{ origin_country | escape }}</dd>
+              </div>
+            {%- endif -%}
 
-            <div class="samay-seller-info-item">
-              <dt>Batch / Mfg / Expiry</dt>
-              <dd>Printed on the bottle and outer box</dd>
-            </div>
+            {%- if batch_text != blank -%}
+              <div class="samay-seller-info-item">
+                <dt>Batch / Mfg / Expiry</dt>
+                <dd>{{ batch_text | escape }}</dd>
+              </div>
+            {%- endif -%}
 
-            <div class="samay-seller-info-item samay-seller-info-item--wide">
-              <dt>Manufactured / Marketed By</dt>
-              <dd>SAMAY PARFUMES, KALYANPUR KANPUR NAGAR UTTAR PRADESH INDIA</dd>
-            </div>
+            {%- if company != blank or address != blank -%}
+              <div class="samay-seller-info-item samay-seller-info-item--wide">
+                <dt>Manufactured / Marketed By</dt>
+                <dd>
+                  {%- if company != blank -%}{{ company | escape }}{%- endif -%}
+                  {%- if company != blank and address != blank -%}, {% endif -%}
+                  {%- if address != blank -%}{{ address | escape }}{%- endif -%}
+                </dd>
+              </div>
+            {%- endif -%}
 
-            <div class="samay-seller-info-item samay-seller-info-item--full">
-              <dt>Ingredients</dt>
-              <dd class="samay-seller-info-ingredients">Alcohol Denat., Parfum (Fragrance), Aqua (Water), Limonene, Linalool, Citronellol, Coumarin, Geraniol, Citral.</dd>
-            </div>
+            {%- if ingredients_text != blank -%}
+              <div class="samay-seller-info-item samay-seller-info-item--full">
+                <dt>Ingredients</dt>
+                <dd class="samay-seller-info-ingredients">{{ ingredients_text | escape }}</dd>
+              </div>
+            {%- endif -%}
 
-            <div class="samay-seller-info-item samay-seller-info-item--full">
-              <dt>Allergen &amp; Safety Note</dt>
-              <dd>Contains fragrance allergens (Limonene, Linalool, Citronellol, Coumarin, Geraniol, Citral). For external use only. Patch test recommended before use. Avoid contact with eyes. Keep away from heat and open flame.</dd>
-            </div>
+            {%- if allergen_text != blank -%}
+              <div class="samay-seller-info-item samay-seller-info-item--full">
+                <dt>Allergen &amp; Safety Note</dt>
+                <dd>{{ allergen_text | escape }}</dd>
+              </div>
+            {%- endif -%}
+
+            {%- if grievance_text != blank -%}
+              <div class="samay-seller-info-item samay-seller-info-item--full">
+                <dt>Grievance Officer</dt>
+                <dd>{{ grievance_text | escape }}</dd>
+              </div>
+            {%- endif -%}
           </dl>
         </div>
       </details>

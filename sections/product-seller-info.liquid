@@ -1,0 +1,70 @@
+{% comment %}
+  SAMAY PARFUMES - PRODUCT & SELLER INFORMATION
+  Statutory disclosure & mandatory labeling block above footer.
+  Every field is editable in the Theme Customizer with no hardcoded claims.
+{% endcomment %}
+{% render 'product-seller-info', section: section %}
+
+{% schema %}
+{
+  "name": "Seller & Product Info",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section Heading",
+      "default": "Product & Seller Information"
+    },
+    {
+      "type": "text",
+      "id": "net_quantity",
+      "label": "Net Quantity",
+      "default": "50ml"
+    },
+    {
+      "type": "text",
+      "id": "country_of_origin",
+      "label": "Country of Origin",
+      "default": "India"
+    },
+    {
+      "type": "text",
+      "id": "batch_expiry",
+      "label": "Batch / Mfg / Expiry",
+      "default": "Printed on the bottle and outer box"
+    },
+    {
+      "type": "text",
+      "id": "company_name",
+      "label": "Company Name",
+      "default": "SAMAY PARFUMES"
+    },
+    {
+      "type": "textarea",
+      "id": "address",
+      "label": "Address",
+      "default": "KALYANPUR KANPUR NAGAR UTTAR PRADESH INDIA"
+    },
+    {
+      "type": "textarea",
+      "id": "ingredients",
+      "label": "Ingredients (Leave empty if unspecified)"
+    },
+    {
+      "type": "textarea",
+      "id": "allergen_note",
+      "label": "Allergen & Safety Note (Leave empty if unspecified)"
+    },
+    {
+      "type": "textarea",
+      "id": "grievance_officer",
+      "label": "Grievance Officer Details (Leave empty if unspecified)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Seller & Product Info"
+    }
+  ]
+}
+{% endschema %}

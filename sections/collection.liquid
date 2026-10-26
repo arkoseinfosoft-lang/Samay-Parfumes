@@ -46,7 +46,7 @@
               {%- if variant.compare_at_price and variant.compare_at_price > price -%}
                 {%- assign compare_at = variant.compare_at_price -%}
                 {%- assign diff = compare_at | minus: price -%}
-                {%- assign discount_percent = diff | times: 100 | divided_by: compare_at -%}
+                {%- assign discount_percent = diff | times: 100 | divided_by: compare_at | floor -%}
               {%- endif -%}
 
               {%- assign product_img = product.featured_image | default: product.images.first -%}
@@ -89,9 +89,10 @@
                 <div class="ep-info">
                   <a href="{{ product.url }}" class="ep-title-link">{{ product.title | upcase }}</a>
 
+                  {%- comment -%} TODO: confirm compare-at price was a genuine prior selling price (consumer protection). {%- endcomment -%}
                   <div class="ep-price-row">
                     <span class="ep-price">{{ price | money }}</span>
-                    {%- if compare_at and compare_at > price -%}
+                    {%- if discount_percent > 0 -%}
                       <span class="ep-price-compare">{{ compare_at | money }}</span>
                       <span class="ep-price-discount">-{{ discount_percent }}%</span>
                     {%- endif -%}

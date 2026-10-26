@@ -132,6 +132,7 @@
   unless org_logo_url contains 'http'
     assign org_logo_url = 'https:' | append: org_logo_url
   endunless
+  # TODO: Verify/update customer contact email (samayparfume@gmail.com)
   assign org_email = settings.contact_email | default: 'samayparfume@gmail.com'
   assign org_phone = settings.contact_phone | default: '+91 93058 88555'
 

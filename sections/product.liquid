@@ -9,8 +9,10 @@
 {%- assign price = current_variant.price -%}
 {%- assign on_sale = false -%}
 {%- if compare_at and compare_at > price -%}
-  {%- assign on_sale = true -%}
-  {%- assign discount_percent = compare_at | minus: price | times: 100 | divided_by: compare_at -%}
+  {%- assign discount_percent = compare_at | minus: price | times: 100 | divided_by: compare_at | floor -%}
+  {%- if discount_percent > 0 -%}
+    {%- assign on_sale = true -%}
+  {%- endif -%}
 {%- endif -%}
 
 {%- assign low_stock_threshold = section.settings.low_stock_threshold | default: 20 -%}
@@ -87,6 +89,7 @@
           <span>Eau de Parfum &middot; 6&ndash;8 Hours Longevity</span>
         </div>
 
+        {%- comment -%} TODO: confirm compare-at price was a genuine prior selling price (consumer protection). {%- endcomment -%}
         <!-- Price Row -->
         <div class="samay-pdp-price-row">
           <span class="samay-pdp-price" id="samayPdpPrice">{{ price | money }}</span>
@@ -306,6 +309,7 @@
               </p>
               <p style="margin-bottom: 12px;">
                 <strong>What if my bottle arrives damaged?</strong><br>
+                {%- comment -%} TODO: Verify/update customer contact email (samayparfume@gmail.com) {%- endcomment -%}
                 If your bottle is damaged or leaking in transit, send photo and video evidence within 48 hours to samayparfume@gmail.com and we dispatch an immediate replacement at zero cost.
               </p>
               <p style="margin: 0;">
@@ -347,6 +351,7 @@
       "name": "What if my bottle arrives damaged?",
       "acceptedAnswer": {
         "@type": "Answer",
+        {%- comment -%} TODO: Verify/update customer contact email (samayparfume@gmail.com) {%- endcomment -%}
         "text": "If your bottle is damaged or leaking in transit, send photo and video evidence within 48 hours to samayparfume@gmail.com and we dispatch an immediate replacement at zero cost."
       }
     },
@@ -423,13 +428,17 @@
 
               if (priceEl && priceText) priceEl.textContent = priceText;
               if (compareEl) {
-                if (rawCompare > rawPrice) {
+                if (rawCompare && rawCompare > rawPrice) {
                   compareEl.textContent = compareText;
                   compareEl.style.display = 'inline';
                   if (discountEl) {
-                    var pct = Math.round(((rawCompare - rawPrice) / rawCompare) * 100);
-                    discountEl.textContent = '-' + pct + '% OFF';
-                    discountEl.style.display = 'inline';
+                    var pct = Math.floor(((rawCompare - rawPrice) / rawCompare) * 100);
+                    if (pct > 0) {
+                      discountEl.textContent = '-' + pct + '% OFF';
+                      discountEl.style.display = 'inline';
+                    } else {
+                      discountEl.style.display = 'none';
+                    }
                   }
                 } else {
                   compareEl.style.display = 'none';

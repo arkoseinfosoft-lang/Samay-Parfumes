@@ -6,7 +6,7 @@
 <div class="samay-announcement-bar">
   <div class="samay-announcement-content">
     <div class="samay-announce-track">
-      <span>✦ LAUNCH PRICING · FREE SHIPPING ACROSS INDIA</span>
+      <span>✦ {{ section.settings.announcement_text | default: 'INTRODUCTORY OFFER · FREE SHIPPING ACROSS INDIA' }}</span>
       <span class="samay-announce-repeat">✦ 6-8 HOURS EAU DE PARFUM STRENGTH ✦</span>
     </div>
   </div>
@@ -117,6 +117,13 @@
 {% schema %}
 {
   "name": "Luxury Header",
-  "settings": []
+  "settings": [
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "label": "Announcement Text",
+      "default": "INTRODUCTORY OFFER · FREE SHIPPING ACROSS INDIA"
+    }
+  ]
 }
 {% endschema %}

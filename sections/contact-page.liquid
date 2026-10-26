@@ -19,6 +19,7 @@
         </p>
       {%- endif -%}
       <div class="samay-sec-divider"></div>
+      {%- comment -%} TODO: Verify/update customer contact email (samayparfume@gmail.com) {%- endcomment -%}
       {%- assign concierge_email = section.settings.contact_email | default: 'samayparfume@gmail.com' -%}
       {%- assign concierge_phone = section.settings.contact_phone | default: '+91 93058 88555' -%}
       {%- assign clean_concierge_phone = concierge_phone | replace: ' ', '' | replace: '-', '' -%}

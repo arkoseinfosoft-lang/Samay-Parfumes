@@ -281,9 +281,9 @@
             {%- assign compare_at = nil -%}
             {%- assign discount_percent = 0 -%}
             {%- assign compare_at = variant.compare_at_price -%}
-            {%- if compare_at > price -%}
+            {%- if compare_at and compare_at > price -%}
               {%- assign diff = compare_at | minus: price -%}
-              {%- assign discount_percent = diff | times: 100 | divided_by: compare_at -%}
+              {%- assign discount_percent = diff | times: 100 | divided_by: compare_at | floor -%}
             {%- endif -%}
 
             {%- assign card_url = product.url -%}
@@ -336,9 +336,10 @@
               <div class="ep-info">
                 <a href="{{ card_url }}" class="ep-title-link">{{ card_title | upcase }}</a>
 
+                {%- comment -%} TODO: confirm compare-at price was a genuine prior selling price (consumer protection). {%- endcomment -%}
                 <div class="ep-price-row">
                   <span class="ep-price">{{ price | money }}</span>
-                  {%- if compare_at and compare_at > price -%}
+                  {%- if discount_percent > 0 -%}
                     <span class="ep-price-compare">{{ compare_at | money }}</span>
                     <span class="ep-price-discount">-{{ discount_percent }}%</span>
                   {%- endif -%}
@@ -379,9 +380,9 @@
           {%- assign compare_at = nil -%}
           {%- assign discount_percent = 0 -%}
           {%- assign compare_at = variant.compare_at_price -%}
-          {%- if compare_at > price -%}
+          {%- if compare_at and compare_at > price -%}
             {%- assign diff = compare_at | minus: price -%}
-            {%- assign discount_percent = diff | times: 100 | divided_by: compare_at -%}
+            {%- assign discount_percent = diff | times: 100 | divided_by: compare_at | floor -%}
           {%- endif -%}
 
           {%- assign fallback_url = product.url | default: '#collection' -%}
@@ -416,9 +417,10 @@
             <div class="ep-info">
               <a href="{{ fallback_url }}" class="ep-title-link">{{ product.title | upcase }}</a>
 
+              {%- comment -%} TODO: confirm compare-at price was a genuine prior selling price (consumer protection). {%- endcomment -%}
               <div class="ep-price-row">
                 <span class="ep-price">{{ price | money }}</span>
-                {%- if compare_at and compare_at > price -%}
+                {%- if discount_percent > 0 -%}
                   <span class="ep-price-compare">{{ compare_at | money }}</span>
                   <span class="ep-price-discount">-{{ discount_percent }}%</span>
                 {%- endif -%}
@@ -904,6 +906,7 @@
         </p>
       {%- endif -%}
       <div class="samay-sec-divider"></div>
+      {%- comment -%} TODO: Verify/update customer contact email (samayparfume@gmail.com) {%- endcomment -%}
       {%- assign hp_email = section.settings.contact_email | default: 'samayparfume@gmail.com' -%}
       {%- assign hp_phone = section.settings.contact_phone | default: '+91 93058 88555' -%}
       {%- assign clean_hp_phone = hp_phone | replace: ' ', '' | replace: '-', '' -%}
