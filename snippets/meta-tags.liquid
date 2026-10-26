@@ -386,50 +386,7 @@
       "url": {{ shop.url | append: product.url | json }},
       "priceCurrency": {{ cart.currency.iso_code | default: 'INR' | json }},
       "price": {{ current_var.price | money_without_currency | remove: ',' | json }},
-      "priceValidUntil": "{{ 'now' | date: '%s' | plus: 31536000 | date: '%Y-%m-%d' }}",
-      "validFrom": {{ product.created_at | default: '2025-01-01' | date: '%Y-%m-%d' | json }},
-      "itemCondition": "https://schema.org/NewCondition",
-      "availability": "https://schema.org/{% if current_var.available %}InStock{% else %}OutOfStock{% endif %}",
-      "seller": {
-        "@type": "Organization",
-        "name": {{ shop.name | default: 'Samay Parfumes' | json }}
-      },
-      "shippingDetails": {
-        "@type": "OfferShippingDetails",
-        "shippingRate": {
-          "@type": "MonetaryAmount",
-          "value": "0",
-          "currency": {{ cart.currency.iso_code | default: 'INR' | json }}
-        },
-        "shippingDestination": {
-          "@type": "DefinedRegion",
-          "addressCountry": "IN"
-        },
-        "deliveryTime": {
-          "@type": "ShippingDeliveryTime",
-          "handlingTime": {
-            "@type": "QuantitativeValue",
-            "minValue": 1,
-            "maxValue": 2,
-            "unitCode": "DAY"
-          },
-          "transitTime": {
-            "@type": "QuantitativeValue",
-            "minValue": 2,
-            "maxValue": 5,
-            "unitCode": "DAY"
-          }
-        }
-      },
-      "hasMerchantReturnPolicy": {
-        "@type": "MerchantReturnPolicy",
-        "applicableCountry": "IN",
-        "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
-        "merchantReturnDays": 7,
-        "returnMethod": "https://schema.org/ReturnByMail",
-        "returnFees": "https://schema.org/ReturnFeesCustomerResponsibility",
-        "merchantReturnLink": {{ shop.url | append: '/policies/refund-policy' | json }}
-      }
+      "availability": "https://schema.org/{% if current_var.available %}InStock{% else %}OutOfStock{% endif %}"
     }
   }
   </script>
