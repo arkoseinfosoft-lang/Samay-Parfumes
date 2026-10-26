@@ -86,8 +86,20 @@
         <div class="samay-pdp-kicker">MAISON SAMAY · ARTISAN PERFUMERY</div>
         <h1 class="samay-pdp-title">{{ product.title }}</h1>
         <div class="samay-pdp-rating">
-          <span>Eau de Parfum &middot; 6&ndash;8 Hours Longevity</span>
+          <span>Eau de Parfum &middot; Artisanal Reserve</span>
         </div>
+
+        {%- assign pack_ml = 50 -%}
+        {%- assign h_lower = product.handle | downcase -%}
+        {%- if h_lower contains 'trio' -%}
+          {%- assign pack_ml = 150 -%}
+        {%- elsif h_lower contains 'duo' -%}
+          {%- assign pack_ml = 100 -%}
+        {%- endif -%}
+        {%- assign price_in_cents = price | times: 1.0 | divided_by: pack_ml | round -%}
+        {%- assign rupees = price_in_cents | divided_by: 100 -%}
+        {%- assign paise = price_in_cents | modulo: 100 -%}
+        {%- capture paise_str -%}{% if paise < 10 %}0{% endif %}{{ paise }}{%- endcapture -%}
 
         {%- comment -%} TODO: confirm compare-at price was a genuine prior selling price (consumer protection). {%- endcomment -%}
         <!-- Price Row -->
@@ -100,6 +112,7 @@
             -{{ discount_percent }}% OFF
           </span>
         </div>
+        <div class="ep-price-per-ml" id="samayPdpPricePerMl" data-pack-ml="{{ pack_ml }}">(₹{{ rupees }}.{{ paise_str }} / ml)</div>
 
         <!-- Red Low-Stock Alert (Only shown when inventory tracked, >0, and <= threshold) -->
         {%- render 'stock-alert', variant: current_variant, threshold: low_stock_threshold, is_pdp: true -%}
@@ -144,6 +157,13 @@
           </div>
         </div>
 
+        <!-- B6: Natural Non-Gendered Summary Paragraph -->
+        <div class="samay-pdp-summary-seo">
+          <p>
+            Zayro Eau de Parfum (50ml) is an artisanal luxury fragrance crafted in India, featuring a distinguished composition of Italian bergamot, French lavender, sacred smoked oud, and golden amber resin. Available starting at {{ product.price_min | money }}, every bottle includes complimentary doorstep delivery across India.
+          </p>
+        </div>
+
         <!-- Add to Cart Form -->
         {%- form 'product', product, id: 'samayProductForm', class: 'samay-pdp-form' -%}
           <!-- Hidden Variant Select for Native Fallback -->
@@ -168,7 +188,7 @@
           <!-- Interactive Variant Pills (if more than 1 variant) -->
           {%- if product.variants.size > 1 -%}
             <div class="samay-pdp-variants">
-              <span class="samay-pdp-label">Select Edition</span>
+              <span class="samay-pdp-label">Select Pack</span>
               <div class="samay-variant-pills" id="samayVariantPills">
                 {%- for variant in product.variants -%}
                   <button 
@@ -221,11 +241,11 @@
           </div>
           <div class="samay-pdp-trust-item">
             <span>⌛</span>
-            <span>6-8 Hours Longevity</span>
+            <span>Long-Lasting Trail</span>
           </div>
           <div class="samay-pdp-trust-item">
             <span>⚜</span>
-            <span>15-20% Perfume Oil</span>
+            <span>High-Grade Concentration</span>
           </div>
           <div class="samay-pdp-trust-item">
             <span>✦</span>
@@ -243,12 +263,25 @@
             </button>
             <div class="samay-accordion-body" id="PdpAccordionBody1" role="region" aria-labelledby="PdpAccordionTrigger1">
               <p style="margin-bottom: 10px;">
-                <strong>Top Notes:</strong> Bergamot, Sparkling Lemon Zest, Crisp Green Apple.<br>
-                <strong>Heart Notes:</strong> Lavender, Birch Wood, Violet Leaf.<br>
-                <strong>Base Notes:</strong> Amber Crystals, Smoked Cedarwood, Sensual White Musk.
+                <strong>Top Notes:</strong> Bergamot, Sun-Ripened Mandarin, Pink Peppercorn, Juniper Berry.<br>
+                <strong>Heart Notes:</strong> Lavender, Golden Ambergris Accord, Smoked Green Cardamom, Velvet Orris.<br>
+                <strong>Base Notes:</strong> Smoked Oud, Cedarwood, Warm Vanilla, Golden Amber Resin.
               </p>
               <p style="font-size: 0.85rem; color: var(--dim); margin: 0;">
-                Designed to evolve dynamically over 8 hours from radiant citrus to an addictive warm amber and oud trail.
+                Designed to evolve dynamically from radiant citrus to an addictive warm golden amber resin and sacred smoked oud trail.
+              </p>
+            </div>
+          </div>
+
+          <!-- Accordion: How to Apply -->
+          <div class="samay-accordion">
+            <button type="button" class="samay-accordion-trigger" id="PdpAccordionTriggerApply" aria-expanded="false" aria-controls="PdpAccordionBodyApply">
+              <span>How to Apply</span>
+              <span class="samay-accordion-icon">+</span>
+            </button>
+            <div class="samay-accordion-body" id="PdpAccordionBodyApply" role="region" aria-labelledby="PdpAccordionTriggerApply">
+              <p>
+                {{ section.settings.how_to_apply_text | default: 'Spray on clean, moisturised skin at pulse points (wrists, neck). Hold the bottle 15-20 cm away. Do not rub.' }}
               </p>
             </div>
           </div>
@@ -310,7 +343,7 @@
               <p style="margin-bottom: 12px;">
                 <strong>What if my bottle arrives damaged?</strong><br>
                 {%- comment -%} TODO: Verify/update customer contact email (samayparfume@gmail.com) {%- endcomment -%}
-                If your bottle is damaged or leaking in transit, send photo and video evidence within 48 hours to samayparfume@gmail.com and we dispatch an immediate replacement at zero cost.
+                If your bottle is damaged or leaking in transit, send photo and video evidence within 48 hours to samayparfume@gmail.com and we dispatch an immediate replacement at zero cost. For full details, see our <a href="/policies/refund-policy" class="gold-link">Refund Policy</a>.
               </p>
               <p style="margin: 0;">
                 <strong>What payment methods are supported?</strong><br>
@@ -427,6 +460,12 @@
               var isAvail = opt.getAttribute('data-available') === 'true';
 
               if (priceEl && priceText) priceEl.textContent = priceText;
+              var perMlEl = document.getElementById('samayPdpPricePerMl');
+              if (perMlEl && rawPrice > 0) {
+                var packMl = parseFloat(perMlEl.getAttribute('data-pack-ml')) || 50;
+                var perMlVal = (rawPrice / 100) / packMl;
+                perMlEl.textContent = '(₹' + perMlVal.toFixed(2) + ' / ml)';
+              }
               if (compareEl) {
                 if (rawCompare && rawCompare > rawPrice) {
                   compareEl.textContent = compareText;
@@ -529,6 +568,16 @@
       "step": 1,
       "label": "Low stock alert threshold",
       "default": 50
+    },
+    {
+      "type": "header",
+      "content": "Application Ritual"
+    },
+    {
+      "type": "textarea",
+      "id": "how_to_apply_text",
+      "label": "How to Apply Text",
+      "default": "Spray on clean, moisturised skin at pulse points (wrists, neck). Hold the bottle 15-20 cm away. Do not rub."
     },
     {
       "type": "header",

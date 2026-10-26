@@ -22,7 +22,7 @@
           </picture>
         </a>
         <p>
-          A Fragrance Beyond Time. Handcrafted with a blend of citrus, spice, oud and amber, Zayro is formulated to leave an indelible impression.
+          A Fragrance Beyond Time. Handcrafted with a blend of bergamot, lavender, smoked oud and amber resin, Zayro is formulated to leave an indelible impression.
         </p>
       </div>
 
@@ -44,12 +44,9 @@
         <ul class="samay-footer-links">
           <li><a href="{{ routes.root_url }}#about">Our Story</a></li>
           <li><a href="{{ pages['contact'].url | default: '/pages/contact' }}">Contact &amp; Concierge</a></li>
-          {%- if shop.shipping_policy != blank -%}
-            <li><a href="{{ shop.shipping_policy.url }}">Shipping & FAQs</a></li>
-          {%- else -%}
-            <li><a href="{{ routes.root_url }}#faq">Shipping & FAQs</a></li>
-          {%- endif -%}
-          <li><a href="{{ routes.all_products_collection_url }}">All Fragrance Editions</a></li>
+          <li><a href="/policies/shipping-policy">Shipping Policy</a></li>
+          <li><a href="{{ routes.root_url }}#faq">FAQs</a></li>
+          <li><a href="{{ routes.all_products_collection_url }}">All SAMAY Packs</a></li>
         </ul>
       </div>
 
@@ -113,7 +110,6 @@
         <h2 class="samay-footer-heading">Our Promise</h2>
         <p style="font-size: 0.88rem; color: #e2d7c5; line-height: 1.7; margin-bottom: 16px;">
           ✦ Authentic Samay Parfumes<br>
-          ✦ Up to 6-8 Hours, varies by skin<br>
           ✦ Handcrafted in India<br>
           ✦ Free Shipping across India
         </p>

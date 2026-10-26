@@ -1,0 +1,82 @@
+{% comment %}
+  SAMAY PARFUMES - DEDICATED ABOUT US PAGE
+  One H1, breadcrumbs, storytelling, brand pillars, and pack exploration CTA.
+{% endcomment %}
+
+<section class="samay-page-section samay-about-page-section">
+  <div class="container">
+    <!-- Breadcrumb -->
+    <nav class="samay-breadcrumb" aria-label="Breadcrumb">
+      <a href="{{ routes.root_url }}">Home</a>
+      <span class="samay-breadcrumb-sep">/</span>
+      <span aria-current="page">About Us</span>
+    </nav>
+
+    <div class="samay-sec-header" style="text-align: center; max-width: 720px; margin: 0 auto 40px;">
+      <div class="samay-sec-eyebrow">ARTISANAL HERITAGE</div>
+      <h1 class="samay-sec-title">The Story of Samay Parfumes</h1>
+      <p class="samay-sec-subtitle">
+        Small-Batch Artisanal Fragrances Crafted in India
+      </p>
+      <div class="samay-sec-divider" style="margin: 20px auto;"></div>
+    </div>
+
+    <!-- Render Shared Story Content -->
+    {% render 'story-content' %}
+
+    <!-- Craftsmanship Pillars Strip -->
+    <div style="margin-top: 60px;">
+      <div class="samay-pillars-grid">
+        <div class="samay-pillar-card">
+          <div class="samay-pillar-icon">⌛</div>
+          <div class="samay-pillar-eyebrow">UNRIVALED LONGEVITY</div>
+          <h3 class="samay-pillar-title">High-Grade Concentration</h3>
+          <p class="samay-pillar-desc">
+            Formulated at optimal Eau de Parfum concentration so your signature trail projects beautifully throughout the day.
+          </p>
+        </div>
+
+        <div class="samay-pillar-card">
+          <div class="samay-pillar-icon">⚜</div>
+          <div class="samay-pillar-eyebrow">MASTER ALCHEMY</div>
+          <h3 class="samay-pillar-title">Citrus, Amber & Oud</h3>
+          <p class="samay-pillar-desc">
+            Formulated with a balanced blend of bergamot, crisp lavender, golden amber resin, and deep smoky oud.
+          </p>
+        </div>
+
+        <div class="samay-pillar-card">
+          <div class="samay-pillar-icon">✦</div>
+          <div class="samay-pillar-eyebrow">ARTISAN FLACON</div>
+          <h3 class="samay-pillar-title">Heavy Crystal & Magnetic Cap</h3>
+          <p class="samay-pillar-desc">
+            Weighted luxury flacon with tactile pocket-watch motif, micro-mist atomiser, and satisfying magnetic snap.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom CTA -->
+    <div style="text-align: center; margin-top: 60px; padding: 40px 20px; background: rgba(201, 169, 110, 0.05); border: 1px solid rgba(201, 169, 110, 0.2); border-radius: 8px;">
+      <h2 class="serif-font" style="font-size: 1.6rem; margin-bottom: 12px; color: var(--gold, #c9a96e);">Experience Zayro Eau de Parfum</h2>
+      <p style="color: var(--dim, #666); max-width: 500px; margin: 0 auto 24px;">
+        Choose between our individual 50ml flacon or luxury duo and trio presentation gift packs with complimentary doorstep delivery across India.
+      </p>
+      <a href="{{ routes.root_url }}#collection" class="samay-btn samay-btn--gold">
+        CHOOSE YOUR PACK
+      </a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "About Page",
+  "settings": [],
+  "presets": [
+    {
+      "name": "About Page"
+    }
+  ]
+}
+{% endschema %}

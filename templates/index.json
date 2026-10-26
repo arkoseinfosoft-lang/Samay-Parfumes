@@ -30,18 +30,6 @@
             "text": "EAU DE PARFUM"
           }
         },
-        "marquee_2": {
-          "type": "marquee_item",
-          "settings": {
-            "text": "A FRAGRANCE BEYOND TIME"
-          }
-        },
-        "marquee_3": {
-          "type": "marquee_item",
-          "settings": {
-            "text": "6-8 HOURS LONGEVITY"
-          }
-        },
         "marquee_4": {
           "type": "marquee_item",
           "settings": {
@@ -77,8 +65,8 @@
           "settings": {
             "icon": "⌛",
             "eyebrow": "UNRIVALED LONGEVITY",
-            "title": "15-20% Perfume Oil",
-            "description": "Formulated at optimal Eau de Parfum concentration so your signature trail projects beautifully for 6-8 hours."
+            "title": "High-Grade Concentration",
+            "description": "Formulated at optimal Eau de Parfum concentration so your signature trail projects beautifully throughout the day."
           }
         },
         "pillar_2": {
@@ -87,7 +75,7 @@
             "icon": "⚜",
             "eyebrow": "MASTER ALCHEMY",
             "title": "Citrus, Amber & Oud",
-            "description": "Formulated with a balanced blend of bergamot, crisp lavender, warm amber crystals, and deep smoky oud."
+            "description": "Formulated with a balanced blend of bergamot, crisp lavender, golden amber resin, and deep smoky oud."
           }
         },
         "pillar_3": {
@@ -103,7 +91,7 @@
           "type": "bundle_tier",
           "settings": {
             "fallback_handle": "samay-zayro-50ml-eau-de-parfum",
-            "specs": "15-20% Perfume Oil · 6-8h Longevity",
+            "specs": "",
             "button_label": "ADD TO CART"
           }
         },
@@ -112,7 +100,7 @@
           "settings": {
             "fallback_handle": "samay-zayro-duo-combo-2-in-1",
             "badge": "Popular",
-            "specs": "15-20% Perfume Oil · 6-8h Longevity",
+            "specs": "",
             "button_label": "ADD TO CART"
           }
         },
@@ -121,7 +109,7 @@
           "settings": {
             "fallback_handle": "samay-zayro-grand-trio-3-in-1-combo",
             "badge": "3 Bottles",
-            "specs": "15-20% Perfume Oil · 6-8h Longevity",
+            "specs": "",
             "button_label": "ADD TO CART"
           }
         },
@@ -176,7 +164,7 @@
           "type": "spec_item",
           "settings": {
             "title": "SILLAGE",
-            "value": "Arm's Length Aura"
+            "value": ""
           }
         },
         "stat_1": {
@@ -212,7 +200,7 @@
           "type": "faq_item",
           "settings": {
             "question": "What is the difference between the single and combo packs?",
-            "answer": "The fragrance formulation in all 3 editions is identical (Zayro 50ml). The 2-in-1 Duo combo and 3-in-1 Grand Trio include complimentary luxury presentation gift boxes.",
+            "answer": "The fragrance formulation in all 3 packs is identical (Zayro 50ml). The 2-in-1 Duo combo and 3-in-1 Grand Trio include complimentary luxury presentation gift boxes.",
             "is_open": false
           }
         },
@@ -228,7 +216,7 @@
           "type": "faq_item",
           "settings": {
             "question": "What is your damaged replacement guarantee?",
-            "answer": "Every bottle is packaged inside thick shock-resistant transit cushions. In the rare event of transit damage or leakage, simply share a quick photo with our team within 48 hours and we will dispatch a brand-new replacement bottle immediately with zero hassle.",
+            "answer": "Every bottle is packaged inside thick shock-resistant transit cushions. In the rare event of transit damage or leakage, simply share a quick photo with our team within 48 hours and we will dispatch a brand-new replacement bottle immediately with zero hassle. For complete details, see our Refund Policy.",
             "is_open": false
           }
         },
@@ -246,8 +234,6 @@
         "highlight_2",
         "highlight_3",
         "marquee_1",
-        "marquee_2",
-        "marquee_3",
         "marquee_4",
         "marquee_5",
         "marquee_6",
@@ -277,22 +263,25 @@
       "settings": {
         "hero_eyebrow": "EAU DE PARFUM · ARTISANAL RESERVE",
         "hero_title": "A Fragrance <em>Beyond Time.</em>",
-        "hero_desc": "Introducing <strong>SAMAY</strong> — A magnetic union of sun-drenched citrus, velvety ambergris, and sacred midnight oud. Crafted to captivate senses and linger for 6-8 hours.",
+        "hero_desc": "Introducing <strong>SAMAY</strong> — A magnetic union of sun-drenched citrus, golden amber resin, and sacred midnight oud. Crafted to captivate senses.",
         "hero_btn1_label": "SHOP SAMAY",
         "hero_btn2_label": "EXPLORE NOTES",
-        "collection_kicker": "THE SIGNATURE COLLECTION",
-        "collection_title": "SAMAY COLLECTION",
-        "collection_hint": "Swipe to explore all 3 editions",
+        "collection_kicker": "SAMAY PACKS",
+        "collection_title": "CHOOSE YOUR PACK",
+        "collection_hint": "Swipe to see all 3 packs",
         "philosophy_eyebrow": "THE PHILOSOPHY",
         "philosophy_quote": "\"In a world where everything moves too fast, true luxury is a fragrance that makes <em>time stand still.</em>\"",
         "philosophy_author": "— SAMAY PARFUMES · A FRAGRANCE BEYOND TIME",
-        "philosophy_btn_label": "EXPLORE THE EDITIONS",
+        "philosophy_btn_label": "SHOP SAMAY",
         "notes_eyebrow": "THE OLFACTORY PYRAMID",
         "notes_title": "What's in <em>Your Bottle?</em>",
-        "notes_subtitle": "Zayro is crafted as an evolving three-act composition that transforms seamlessly with your skin chemistry over 6-8 hours.",
+        "notes_subtitle": "Zayro is crafted as an evolving three-act composition that transforms seamlessly with your skin chemistry.",
         "showcase_eyebrow": "THE ARTISANAL BLEND",
         "showcase_title": "Pure Artisanal Ingredients",
-        "showcase_desc": "We craft with intention and care. Zayro is formulated with a balanced blend of bergamot, crisp lavender, amber crystals, cedarwood, and rich oud.",
+        "showcase_desc": "We craft with intention and care. Zayro is formulated with a balanced blend of bergamot, crisp lavender, golden amber resin, cedarwood, and rich smoked oud.",
+        "how_to_apply_eyebrow": "THE RITUAL",
+        "how_to_apply_title": "How to Apply",
+        "how_to_apply_text": "Spray on clean, moisturised skin at pulse points (wrists, neck). Hold the bottle 15-20 cm away. Do not rub.",
         "about_eyebrow": "THE MAISON",
         "about_title": "The Story of <em>Samay Parfumes</em>",
         "about_p1": "In Sanskrit and Hindi, <strong>Samay</strong> means <em>Time</em>. Our perfumery was born from a singular obsession: creating fragrances that refuse to be forgotten. While fashion changes every season, memories ignited by scent echo forever.",

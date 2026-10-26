@@ -1,0 +1,115 @@
+{% comment %}
+  SAMAY PARFUMES - DEDICATED FAQ PAGE
+  One H1, breadcrumbs, accessible accordion, FAQPage schema, and concierge support.
+{% endcomment %}
+
+<section class="samay-page-section samay-faq-page-section">
+  <div class="container">
+    <!-- Breadcrumb -->
+    <nav class="samay-breadcrumb" aria-label="Breadcrumb">
+      <a href="{{ routes.root_url }}">Home</a>
+      <span class="samay-breadcrumb-sep">/</span>
+      <span aria-current="page">FAQs</span>
+    </nav>
+
+    <div class="samay-sec-header" style="text-align: center; max-width: 720px; margin: 0 auto 40px;">
+      <div class="samay-sec-eyebrow">CUSTOMER CARE</div>
+      <h1 class="samay-sec-title">Frequently Asked Questions</h1>
+      <p class="samay-sec-subtitle">
+        Everything you need to know about our fragrance packs, formulation, shipping, and guarantees.
+      </p>
+      <div class="samay-sec-divider" style="margin: 20px auto;"></div>
+    </div>
+
+    <!-- Render Shared Accordion -->
+    <div style="max-width: 820px; margin: 0 auto;">
+      {% render 'faq-accordion' %}
+    </div>
+
+    <!-- Direct Concierge Help -->
+    <div class="samay-faq-concierge" style="text-align: center; margin-top: 60px; padding: 32px 20px; background: rgba(201, 169, 110, 0.05); border: 1px solid rgba(201, 169, 110, 0.2); border-radius: 8px;">
+      <h2 class="serif-font" style="font-size: 1.4rem; margin-bottom: 12px; color: var(--gold, #c9a96e);">Still have questions?</h2>
+      <p style="color: var(--dim, #666); max-width: 500px; margin: 0 auto 20px;">
+        Our concierge team is available to assist you with order status, fragrance selection, and corporate gifting.
+      </p>
+      <div class="samay-hero-actions" style="justify-content: center; display: flex; gap: 12px; flex-wrap: wrap;">
+        <a href="https://wa.me/919305888555?text=Hi%20Samay%20Parfumes%2C%20I%20have%20a%20question" target="_blank" rel="noopener noreferrer" class="samay-btn samay-btn--gold">
+          Chat on WhatsApp
+        </a>
+        <a href="/pages/contact" class="samay-btn samay-btn--outline">
+          Contact Concierge
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQPage Structured Data (Schema.org) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How long does Zayro last on skin and clothes?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Zayro is formulated as an Eau de Parfum (EDP) with 15-20% perfume oil concentration. On moisturized skin, it lasts 6 to 8 hours. On clothing and outerwear, its rich amber and agarwood base notes can linger throughout the day."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between the single and combo packs?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The fragrance formulation in all 3 packs is identical (Zayro 50ml). The 2-in-1 Duo combo and 3-in-1 Grand Trio include complimentary luxury presentation gift boxes."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are the shipping times and is delivery free?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, shipping is 100% complimentary across all pin codes in India for all orders. Metro cities (Delhi NCR, Mumbai, Bangalore, Pune) typically receive delivery in 2-3 business days. All other locations take 3-5 business days with live tracking provided via SMS and email notifications."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is your damaged replacement guarantee?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Every bottle is packaged inside thick shock-resistant transit cushions. In the rare event of transit damage or leakage, simply share a quick photo with our team within 48 hours and we will dispatch a brand-new replacement bottle immediately with zero hassle. For full details, see our Refund Policy."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Cash on Delivery (COD) supported?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! We accept Cash on Delivery (COD), UPI (Google Pay, PhonePe, Paytm), and all major credit/debit cards during checkout."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How should I store my bottle of Zayro?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "To preserve the potency of pure perfume oils and natural essences, store your flacon in a cool, dry place away from direct sunlight and extreme temperature variations. Keep the magnetic cap securely snapped when not in use."
+      }
+    }
+  ]
+}
+</script>
+
+{% schema %}
+{
+  "name": "FAQ Page",
+  "settings": [],
+  "presets": [
+    {
+      "name": "FAQ Page"
+    }
+  ]
+}
+{% endschema %}

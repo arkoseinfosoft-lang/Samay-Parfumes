@@ -11,23 +11,23 @@
       <nav class="samay-breadcrumb" style="justify-content: center; margin-bottom: 16px;" aria-label="Breadcrumb">
         <a href="{{ routes.root_url }}">Home</a>
         <span class="samay-breadcrumb-sep">/</span>
-        <span aria-current="page">{{ collection.title | default: 'Signature Collection' }}</span>
+        <span aria-current="page">{{ collection.title | default: 'SAMAY PACKS' }}</span>
       </nav>
 
       <div class="samay-collection-kicker">MAISON SAMAY · ARTISAN HAUTE PARFUMERIE</div>
-      <h1 class="samay-collection-title">{{ collection.title | default: 'THE SIGNATURE EDITIONS' }}</h1>
+      <h1 class="samay-collection-title">{{ collection.title | default: 'CHOOSE YOUR PACK' }}</h1>
 
       <p class="samay-collection-desc">
         {%- if collection.description != blank -%}
           {{ collection.description }}
         {%- else -%}
-          Handcrafted with a blend of citrus, spice, oud, and amber. Each edition is formulated at 15-20% pure perfume oil concentration to deliver an enduring 6-8 hour signature trail.
+          Handcrafted with a blend of bergamot, lavender, smoked oud, and golden amber resin.
         {%- endif -%}
       </p>
 
       <div class="samay-collection-meta">
         <span>✦</span>
-        <span>{{ collection.products_count }} Fragrance Editions · Free Shipping across India</span>
+        <span>{{ collection.products_count }} SAMAY Packs · Free Shipping across India</span>
       </div>
     </div>
   </section>
@@ -98,10 +98,22 @@
                     {%- endif -%}
                   </div>
 
-                  <div style="font-size: 0.78rem; color: var(--taupe); display: flex; align-items: center; gap: 6px;">
-                    <span>✦</span>
-                    <span>15-20% Perfume Oil · 6-8h Longevity</span>
-                  </div>
+                  {%- assign pack_ml = 50 -%}
+                  {%- assign p_handle = product.handle | downcase -%}
+                  {%- if p_handle contains 'trio' -%}
+                    {%- assign pack_ml = 150 -%}
+                  {%- elsif p_handle contains 'duo' -%}
+                    {%- assign pack_ml = 100 -%}
+                  {%- endif -%}
+                  {%- assign price_in_cents = price | times: 1.0 | divided_by: pack_ml | round -%}
+                  {%- assign ml_rupees = price_in_cents | divided_by: 100 -%}
+                  {%- assign ml_paise = price_in_cents | modulo: 100 -%}
+                  {%- if ml_paise < 10 -%}
+                    {%- assign ml_paise_str = '0' | append: ml_paise -%}
+                  {%- else -%}
+                    {%- assign ml_paise_str = ml_paise -%}
+                  {%- endif -%}
+                  <span class="ep-price-per-ml">₹{{ ml_rupees }}.{{ ml_paise_str }} / ml</span>
 
                   <button 
                     type="button" 
@@ -133,10 +145,10 @@
             <div class="samay-empty-icon">⚜</div>
             <h2 class="samay-empty-title">No Fragrances Found</h2>
             <p class="samay-empty-desc">
-              We are currently preparing the next limited batch distillation for this edition.
+              We are currently preparing the next limited batch distillation for this pack.
             </p>
             <a href="{{ routes.root_url }}#collection" class="samay-btn samay-btn--gold">
-              VIEW SIGNATURE EDITIONS
+              SHOP SAMAY
             </a>
           </div>
         {%- endif -%}

@@ -4509,3 +4509,109 @@ select {
     min-height: 52px;
   }
 }
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+.ep-price-per-ml, .samay-pdp-price-per-ml {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--dim, #8c7f70);
+  margin-top: 3px;
+  font-family: var(--sans, 'Plus Jakarta Sans', sans-serif);
+  letter-spacing: 0.02em;
+}
+.samay-gift-banner {
+  margin-top: 32px;
+  padding: 16px 20px;
+  background: rgba(201, 169, 110, 0.08);
+  border: 1px solid rgba(201, 169, 110, 0.25);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.samay-gift-text {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--brown, #2c1f0e);
+  line-height: 1.5;
+  font-family: var(--sans, 'Plus Jakarta Sans', sans-serif);
+}
+.samay-gift-text span {
+  color: var(--samay-gold, #c9a96e);
+  margin-right: 4px;
+}
+.samay-gift-link {
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--samay-gold, #c9a96e);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+.samay-gift-link:hover {
+  color: var(--gold-dark, #78521d);
+}
+.samay-apply-section {
+  padding: 60px 0;
+  background: var(--cream2, #efe8dc);
+  border-top: 1px solid var(--border-light, #ece3d4);
+  border-bottom: 1px solid var(--border-light, #ece3d4);
+}
+.samay-apply-box {
+  max-width: 680px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 0 20px;
+}
+.samay-apply-title {
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  margin: 12px 0 16px;
+  color: var(--brown, #2c1f0e);
+}
+.samay-apply-text {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--dim, #5c5040);
+  margin: 0;
+}
+.samay-pdp-summary-seo {
+  margin-top: 16px;
+  margin-bottom: 20px;
+  padding: 14px 16px;
+  background: rgba(201, 169, 110, 0.05);
+  border-left: 2px solid var(--samay-gold, #c9a96e);
+  border-radius: 0 4px 4px 0;
+}
+.samay-pdp-summary-seo p {
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--dim, #5c5040);
+  font-family: var(--sans, 'Plus Jakarta Sans', sans-serif);
+}
+.gold-link {
+  color: var(--samay-gold, #c9a96e);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+.gold-link:hover {
+  color: var(--gold-dark, #78521d);
+}
+.samay-page-section {
+  padding: 40px 0 80px;
+  background: var(--cream, #f7f2ea);
+  min-height: 70vh;
+}
