@@ -21,7 +21,7 @@
           "type": "hero_highlight",
           "settings": {
             "icon": "shipping",
-            "text": "Free Express Shipping"
+            "text": "Free Shipping"
           }
         },
         "marquee_1": {
@@ -120,7 +120,7 @@
           "type": "bundle_tier",
           "settings": {
             "fallback_handle": "samay-zayro-grand-trio-3-in-1-combo",
-            "badge": "Best Value",
+            "badge": "3 Bottles",
             "specs": "15-20% Perfume Oil · 6-8h Longevity",
             "button_label": "ADD TO CART"
           }
@@ -212,7 +212,7 @@
           "type": "faq_item",
           "settings": {
             "question": "What is the difference between the single and combo packs?",
-            "answer": "The fragrance formulation in all 3 editions is identical (Zayro 50ml). The 2-in-1 Duo combo and 3-in-1 Grand Trio offer substantial volume savings per bottle and include complimentary luxury presentation gift boxes.",
+            "answer": "The fragrance formulation in all 3 editions is identical (Zayro 50ml). The 2-in-1 Duo combo and 3-in-1 Grand Trio include complimentary luxury presentation gift boxes.",
             "is_open": false
           }
         },
@@ -220,7 +220,7 @@
           "type": "faq_item",
           "settings": {
             "question": "What are the shipping times and is delivery free?",
-            "answer": "Yes, express shipping is 100% complimentary across all pin codes in India for all orders. Metro cities (Delhi NCR, Mumbai, Bangalore, Pune) typically receive delivery in 2-3 business days. All other locations take 3-5 business days with live tracking provided via SMS and email notifications.",
+            "answer": "Yes, shipping is 100% complimentary across all pin codes in India for all orders. Metro cities (Delhi NCR, Mumbai, Bangalore, Pune) typically receive delivery in 2-3 business days. All other locations take 3-5 business days with live tracking provided via SMS and email notifications.",
             "is_open": false
           }
         },
@@ -277,7 +277,7 @@
       "settings": {
         "hero_eyebrow": "EAU DE PARFUM · ARTISANAL RESERVE",
         "hero_title": "A Fragrance <em>Beyond Time.</em>",
-        "hero_desc": "Introducing <strong>Zayro 50ml</strong> — A magnetic union of sun-drenched citrus, velvety ambergris, and sacred midnight oud. Crafted to captivate senses and linger for 6-8 hours.",
+        "hero_desc": "Introducing <strong>SAMAY</strong> — A magnetic union of sun-drenched citrus, velvety ambergris, and sacred midnight oud. Crafted to captivate senses and linger for 6-8 hours.",
         "hero_btn1_label": "SHOP SAMAY",
         "hero_btn2_label": "EXPLORE NOTES",
         "collection_kicker": "THE SIGNATURE COLLECTION",

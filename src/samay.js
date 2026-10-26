@@ -146,6 +146,23 @@
       b.style.display = totalCount > 0 ? 'flex' : 'none';
     });
 
+    // Update free shipping unlock banner (only show when cart.item_count > 0)
+    const shippingBanners = document.querySelectorAll('#samayCartFreeShipping, .samay-cart-free-shipping');
+    shippingBanners.forEach(banner => {
+      banner.style.display = totalCount > 0 ? '' : 'none';
+    });
+
+    // Toggle checkout button and WELCOME50 coupon banner
+    const checkoutBtns = document.querySelectorAll('#samayCartCheckoutBtn, .samay-cart-drawer-form button[name="checkout"]');
+    checkoutBtns.forEach(btn => {
+      btn.style.display = totalCount > 0 ? '' : 'none';
+    });
+
+    const couponBoxes = document.querySelectorAll('#samayCartCouponBox');
+    couponBoxes.forEach(box => {
+      box.style.display = totalCount > 0 ? '' : 'none';
+    });
+
     const drawerItemsContainer = document.getElementById('samayCartDrawerItems');
     const subtotalEl = document.getElementById('samayCartSubtotal');
     if (!drawerItemsContainer || !subtotalEl) return;
@@ -154,9 +171,9 @@
       drawerItemsContainer.innerHTML = `
         <div style="text-align: center; padding: 40px 10px; color: var(--taupe);">
           <div style="font-size: 2.4rem; color: var(--gold); margin-bottom: 12px;">⚜</div>
-          <h4 style="font-family: var(--serif); font-size: 1.4rem; margin-bottom: 8px;">Your Shopping Bag is Empty</h4>
+          <h4 style="font-family: var(--serif); font-size: 1.4rem; margin-bottom: 8px;">Your bag is empty</h4>
           <p style="font-size: 0.9rem; color: var(--dim);">Experience the timeless essence of Zayro Eau De Parfum.</p>
-          <a href="/#collection" class="samay-btn samay-btn--gold" style="margin-top: 16px; padding: 12px 24px;" onclick="window.samayCart && window.samayCart.close()">SHOP ZAYRO</a>
+          <a href="/#collection" class="samay-btn samay-btn--gold" style="margin-top: 16px; padding: 12px 24px;" onclick="window.samayCart && window.samayCart.close()">Shop Zayro</a>
         </div>
       `;
       subtotalEl.textContent = '₹0.00';

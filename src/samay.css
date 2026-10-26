@@ -4319,3 +4319,193 @@ select {
     min-height: 44px;
   }
 }
+
+/* ==========================================================================
+   Anti-Spam Honeypot Field (Invisible to humans, functional for bots)
+   ========================================================================== */
+.hp-field {
+  position: absolute !important;
+  left: -9999px !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* ==========================================================================
+   Product & Seller Information (Mandatory Compliance Block)
+   ========================================================================== */
+.samay-seller-info-section {
+  width: 100%;
+  background-color: var(--cream2, #efe8dc);
+  border-top: 1px solid var(--border, #ddd0bc);
+  padding: 40px 0;
+  color: var(--brown, #2c1f0e);
+}
+
+.samay-seller-info-card {
+  background: var(--cream-card, #fdfbf7);
+  border: 1px solid var(--border, #ddd0bc);
+  border-radius: var(--radius-sm, 8px);
+  padding: 28px 32px;
+  box-shadow: var(--shadow-subtle, 0 4px 20px rgba(44, 31, 14, 0.05));
+}
+
+.samay-seller-info-details {
+  border: none;
+}
+
+.samay-seller-info-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+}
+
+.samay-seller-info-summary::-webkit-details-marker {
+  display: none;
+}
+
+.samay-seller-info-badge {
+  display: inline-block;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold-dark, #78521d);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.samay-seller-info-title {
+  font-family: var(--serif);
+  font-size: clamp(1.2rem, 2.4vw, 1.6rem);
+  font-weight: 400;
+  color: var(--brown-dark, #1b1309);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.samay-seller-info-toggle-icon {
+  font-size: 1.3rem;
+  color: var(--gold-dark, #78521d);
+  transition: transform 0.3s ease;
+  line-height: 1;
+  padding: 4px;
+}
+
+.samay-seller-info-details[open] .samay-seller-info-toggle-icon {
+  transform: rotate(180deg);
+}
+
+.samay-seller-info-content {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-light, #ece3d4);
+}
+
+.samay-seller-info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px 24px;
+  margin: 0;
+  padding: 0;
+}
+
+.samay-seller-info-item dt {
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold-dark, #78521d);
+  margin-bottom: 6px;
+}
+
+.samay-seller-info-item dd {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--brown, #2c1f0e);
+}
+
+.samay-seller-info-item--wide {
+  grid-column: span 3;
+}
+
+.samay-seller-info-item--full {
+  grid-column: span 3;
+}
+
+.samay-seller-info-ingredients {
+  word-break: break-word;
+  color: var(--taupe, #554736);
+  font-size: 0.88rem !important;
+}
+
+@media screen and (max-width: 768px) {
+  .samay-seller-info-section {
+    padding: 24px 0;
+  }
+  .samay-seller-info-card {
+    padding: 18px 20px;
+  }
+  .samay-seller-info-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .samay-seller-info-item--wide,
+  .samay-seller-info-item--full {
+    grid-column: span 1;
+  }
+}
+
+/* ==========================================================================
+   Floating WhatsApp Button
+   ========================================================================== */
+.samay-whatsapp-floating {
+  position: fixed;
+  bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+  right: calc(24px + env(safe-area-inset-right, 0px));
+  width: 56px;
+  height: 56px;
+  min-width: 56px;
+  min-height: 56px;
+  border-radius: 50%;
+  background-color: #25d366;
+  color: #ffffff !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 18px rgba(37, 211, 102, 0.4), 0 2px 8px rgba(0, 0, 0, 0.2);
+  z-index: 850;
+  transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.25s ease;
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.samay-whatsapp-floating:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 24px rgba(37, 211, 102, 0.55), 0 4px 12px rgba(0, 0, 0, 0.25);
+  color: #ffffff !important;
+}
+
+.samay-whatsapp-floating:active {
+  transform: scale(0.95);
+}
+
+@media screen and (max-width: 768px) {
+  .samay-whatsapp-floating {
+    bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+    right: calc(16px + env(safe-area-inset-right, 0px));
+    width: 52px;
+    height: 52px;
+    min-width: 52px;
+    min-height: 52px;
+  }
+}

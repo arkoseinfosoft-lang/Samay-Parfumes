@@ -44,10 +44,35 @@
   assign og_url = canonical_url | default: request.origin
   assign og_type = 'website'
 
+  assign single_prod = all_products['samay-zayro-50ml-eau-de-parfum']
+  assign duo_prod = all_products['samay-zayro-duo-combo-2-in-1']
+  assign trio_prod = all_products['samay-zayro-grand-trio-3-in-1-combo']
+
+  if single_prod == blank or duo_prod == blank or trio_prod == blank
+    for p in collections.all.products
+      assign handle_downcase = p.handle | downcase
+      if handle_downcase contains 'trio'
+        assign trio_prod = trio_prod | default: p
+      elsif handle_downcase contains 'duo'
+        assign duo_prod = duo_prod | default: p
+      elsif handle_downcase contains 'zayro' or handle_downcase contains 'single'
+        assign single_prod = single_prod | default: p
+      endif
+    endfor
+  endif
+
+  assign single_price = single_prod.price | money | default: '₹1,599'
+  assign duo_price = duo_prod.price | money | default: '₹3,198'
+  assign trio_price = trio_prod.price | money | default: '₹4,797'
+
+  assign dynamic_home_description = 'Shop Zayro, a 50ml Eau de Parfum by Samay Parfumes. Choose Single ' | append: single_price | append: ', Duo ' | append: duo_price | append: ' or Trio ' | append: trio_price | append: '. Free shipping across India.'
+
   assign og_description = page_description
-  if og_description == blank
-    if request.page_type == 'cart'
-      assign og_description = 'Review your shopping bag for Samay Zayro 50ml Eau de Parfum. Fast express dispatch across India with complimentary shipping.'
+  if request.page_type == 'index' or og_description contains '1,499' or og_description contains '1499' or og_description == blank
+    if request.page_type == 'index' or og_description contains '1,499' or og_description contains '1499'
+      assign og_description = dynamic_home_description
+    elsif request.page_type == 'cart'
+      assign og_description = 'Review your shopping bag for Samay Zayro 50ml Eau de Parfum. Fast dispatch across India with complimentary shipping.'
     elsif request.page_type == 'collection'
       assign og_description = 'Discover the complete Samay Parfumes collection: Zayro 50ml Single, Duo Combo, and Grand Trio artisanal Eau de Parfum editions.'
     elsif request.page_type == 'search'

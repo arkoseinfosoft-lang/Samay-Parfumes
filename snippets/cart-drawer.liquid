@@ -9,23 +9,25 @@
     </div>
 
     <div class="samay-drawer-body">
-      <div class="samay-cart-free-shipping">
-        ✦ <strong>FREE EXPRESS SHIPPING ACROSS INDIA</strong> unlocked on your order!
+      <div class="samay-cart-free-shipping" id="samayCartFreeShipping" style="{% if cart.item_count == 0 %}display: none;{% endif %}">
+        ✦ <strong>FREE SHIPPING ACROSS INDIA</strong> unlocked on your order!
       </div>
       <div id="samayCartDrawerItems">
         <!-- Rendered dynamically by samay.js -->
       </div>
     </div>
 
-    <div class="samay-drawer-footer">
+    <div class="samay-drawer-footer" id="samayDrawerFooter">
       <div class="samay-drawer-subtotal">
         <span>Estimated Total</span>
         <strong id="samayCartSubtotal">{{ cart.original_total_price | default: cart.items_subtotal_price | default: cart.total_price | money }}</strong>
       </div>
-      <div class="samay-drawer-tax-note">All taxes included · Free express shipping across India</div>
+      <div class="samay-drawer-tax-note">All taxes included · Free shipping across India</div>
       <form action="{{ routes.cart_url | default: '/cart' }}" method="post" id="samayCartDrawerForm" class="samay-cart-drawer-form" style="width: 100%; margin: 0;">
-        {%- render 'coupon-banner' -%}
-        <button type="submit" name="checkout" class="samay-btn samay-btn--gold samay-btn--full" style="font-size: 0.95rem; padding: 18px 24px; cursor: pointer; border: none; width: 100%;">
+        <div id="samayCartCouponBox" style="{% if cart.item_count == 0 %}display: none;{% endif %}">
+          {%- render 'coupon-banner' -%}
+        </div>
+        <button type="submit" name="checkout" id="samayCartCheckoutBtn" class="samay-btn samay-btn--gold samay-btn--full" style="{% if cart.item_count == 0 %}display: none;{% endif %} font-size: 0.95rem; padding: 18px 24px; cursor: pointer; border: none; width: 100%;">
           PROCEED TO CHECKOUT
         </button>
       </form>

@@ -1,0 +1,64 @@
+{% comment %}
+  SAMAY PARFUMES - PRODUCT & SELLER INFORMATION
+  Statutory disclosure & mandatory labeling block above footer
+{% endcomment %}
+<section class="samay-seller-info-section" id="seller-info" aria-label="Product and Seller Information">
+  <div class="container">
+    <div class="samay-seller-info-card">
+      <details class="samay-seller-info-details" open>
+        <summary class="samay-seller-info-summary">
+          <div class="samay-seller-info-header">
+            <span class="samay-seller-info-badge">⚜ Statutory Details</span>
+            <h2 class="samay-seller-info-title">Product &amp; Seller Information</h2>
+          </div>
+          <span class="samay-seller-info-toggle-icon" aria-hidden="true">▾</span>
+        </summary>
+
+        <div class="samay-seller-info-content">
+          <dl class="samay-seller-info-grid">
+            <div class="samay-seller-info-item">
+              <dt>Net Quantity</dt>
+              <dd>50ml</dd>
+            </div>
+
+            <div class="samay-seller-info-item">
+              <dt>Country of Origin</dt>
+              <dd>India</dd>
+            </div>
+
+            <div class="samay-seller-info-item">
+              <dt>Batch / Mfg / Expiry</dt>
+              <dd>Printed on the bottle and outer box</dd>
+            </div>
+
+            <div class="samay-seller-info-item samay-seller-info-item--wide">
+              <dt>Manufactured / Marketed By</dt>
+              <dd>SAMAY PARFUMES, KALYANPUR KANPUR NAGAR UTTAR PRADESH INDIA</dd>
+            </div>
+
+            <div class="samay-seller-info-item samay-seller-info-item--full">
+              <dt>Ingredients</dt>
+              <dd class="samay-seller-info-ingredients">Alcohol Denat., Parfum (Fragrance), Aqua (Water), Limonene, Linalool, Citronellol, Coumarin, Geraniol, Citral.</dd>
+            </div>
+
+            <div class="samay-seller-info-item samay-seller-info-item--full">
+              <dt>Allergen &amp; Safety Note</dt>
+              <dd>Contains fragrance allergens (Limonene, Linalool, Citronellol, Coumarin, Geraniol, Citral). For external use only. Patch test recommended before use. Avoid contact with eyes. Keep away from heat and open flame.</dd>
+            </div>
+          </dl>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function() {
+    try {
+      var d = document.querySelector('.samay-seller-info-details');
+      if (d && window.innerWidth <= 768) {
+        d.removeAttribute('open');
+      }
+    } catch(e) {}
+  })();
+</script>
