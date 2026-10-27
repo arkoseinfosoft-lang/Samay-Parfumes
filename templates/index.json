@@ -33,38 +33,38 @@
         "marquee_4": {
           "type": "marquee_item",
           "settings": {
-            "text": "CITRUS, SPICE, OUD & AMBER"
+            "text": "Citrus, Spice, Oud & Amber"
           }
         },
         "marquee_5": {
           "type": "marquee_item",
           "settings": {
-            "text": "HANDCRAFTED IN INDIA"
+            "text": "Handcrafted in India"
           }
         },
         "marquee_6": {
           "type": "marquee_item",
           "settings": {
-            "text": "COMPLIMENT MAGNET"
+            "text": "Compliment Magnet"
           }
         },
         "marquee_7": {
           "type": "marquee_item",
           "settings": {
-            "text": "MAGNETIC LUXURY CAP"
+            "text": "Magnetic Luxury Cap"
           }
         },
         "marquee_8": {
           "type": "marquee_item",
           "settings": {
-            "text": "SMALL BATCH CRAFTED"
+            "text": "Small Batch Crafted"
           }
         },
         "pillar_1": {
           "type": "brand_pillar",
           "settings": {
             "icon": "⌛",
-            "eyebrow": "UNRIVALED LONGEVITY",
+            "eyebrow": "Unrivaled Longevity",
             "title": "High-Grade Concentration",
             "description": "Formulated at optimal Eau de Parfum concentration so your signature trail projects beautifully throughout the day."
           }
@@ -116,7 +116,7 @@
         "note_top": {
           "type": "olfactory_note",
           "settings": {
-            "stage": "ACT I · TOP NOTES",
+            "stage": "Act I · Top Notes",
             "headline": "What you smell first",
             "timing": "0 to 45 MINUTES",
             "ingredients": "Bergamot · Sun-Ripened Mandarin\nPink Peppercorn · Crisp Juniper Berry",
@@ -127,9 +127,9 @@
         "note_heart": {
           "type": "olfactory_note",
           "settings": {
-            "stage": "ACT II · HEART NOTES",
+            "stage": "Act II · Heart Notes",
             "headline": "The soul of the scent",
-            "timing": "45 MINS to 5 HOURS",
+            "timing": "45 mins to 5 hours",
             "ingredients": "Lavender · Golden Ambergris Accord\nSmoked Green Cardamom · Velvet Orris",
             "description": "A hypnotic warmth settles in. Rich aromatic spices intertwine with royal florals to project confidence and refined sophistication.",
             "is_featured": true
@@ -138,7 +138,7 @@
         "note_base": {
           "type": "olfactory_note",
           "settings": {
-            "stage": "ACT III · BASE NOTES",
+            "stage": "Act III · Base Notes",
             "headline": "What lingers on skin",
             "timing": "5 to 8 HOURS",
             "ingredients": "Smoked Oud · Cedarwood\nWarm Vanilla · Golden Amber Resin",
@@ -267,16 +267,16 @@
         "hero_btn1_label": "SHOP SAMAY",
         "hero_btn2_label": "EXPLORE NOTES",
         "collection_kicker": "SAMAY PACKS",
-        "collection_title": "CHOOSE YOUR PACK",
+        "collection_title": "Choose Your Pack",
         "collection_hint": "Swipe to see all 3 packs",
         "philosophy_eyebrow": "THE PHILOSOPHY",
         "philosophy_quote": "\"In a world where everything moves too fast, true luxury is a fragrance that makes <em>time stand still.</em>\"",
-        "philosophy_author": "— SAMAY PARFUMES · A FRAGRANCE BEYOND TIME",
+        "philosophy_author": "— Samay Parfumes · A fragrance beyond time",
         "philosophy_btn_label": "SHOP SAMAY",
-        "notes_eyebrow": "THE OLFACTORY PYRAMID",
+        "notes_eyebrow": "The Olfactory Pyramid",
         "notes_title": "What's in <em>Your Bottle?</em>",
         "notes_subtitle": "Zayro is crafted as an evolving three-act composition that transforms seamlessly with your skin chemistry.",
-        "showcase_eyebrow": "THE ARTISANAL BLEND",
+        "showcase_eyebrow": "The Artisanal Blend",
         "showcase_title": "Pure Artisanal Ingredients",
         "showcase_desc": "We craft with intention and care. Zayro is formulated with a balanced blend of bergamot, crisp lavender, golden amber resin, cedarwood, and rich smoked oud.",
         "how_to_apply_eyebrow": "THE RITUAL",
@@ -296,7 +296,7 @@
         "contact_topics": "Order Status & Tracking\nAdvice on 2-in-1 or 3-in-1 Combo\nCorporate / Bulk Gifting\nGeneral Fragrance Inquiry",
         "contact_btn_label": "SEND MESSAGE",
         "faq_heading": "Frequently Asked Questions",
-        "newsletter_eyebrow": "PRIVATE PRIVILEGES",
+        "newsletter_eyebrow": "Private Privileges",
         "newsletter_title": "Join The Samay Circle",
         "newsletter_desc": "Enjoy privileged early access to small-batch launches, private olfactory invitations, and exclusive updates from our maison.",
         "newsletter_success_message": "✦ Welcome to the Samay Circle! Thank you for subscribing.",

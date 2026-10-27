@@ -170,9 +170,9 @@
     if (!cart || !cart.items || cart.items.length === 0) {
       drawerItemsContainer.innerHTML = `
         <div style="text-align: center; padding: 40px 10px; color: var(--taupe);">
-          <div style="font-size: 2.4rem; color: var(--gold); margin-bottom: 12px;">⚜</div>
-          <h4 style="font-family: var(--serif); font-size: 1.4rem; margin-bottom: 8px;">Your bag is empty</h4>
-          <p style="font-size: 0.9rem; color: var(--dim);">Experience the timeless essence of Zayro Eau De Parfum.</p>
+          <div style="font-size: var(--fs-2xl); color: var(--gold); margin-bottom: 12px;">⚜</div>
+          <h4 style="font-family: var(--serif); font-size: var(--fs-xl); margin-bottom: 8px;">Your bag is empty</h4>
+          <p style="font-size: var(--fs-sm); color: var(--dim);">Experience the timeless essence of Zayro Eau De Parfum.</p>
           <a href="/#collection" class="samay-btn samay-btn--gold" style="margin-top: 16px; padding: 12px 24px;" onclick="window.samayCart && window.samayCart.close()">Shop Zayro</a>
         </div>
       `;
@@ -212,9 +212,9 @@
             <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 6px;">
               <span class="samay-cart-item-price">${safePrice} × ${qty}</span>
               <div style="display: flex; align-items: center; gap: 6px;">
-                <button type="button" class="samay-qty-btn" style="width:24px;height:24px;font-size:0.8rem;" onclick="window.samayCart && window.samayCart.change('${safeLineKey}', ${qty - 1})">-</button>
-                <span style="font-size:0.85rem;font-weight:600;">${qty}</span>
-                <button type="button" class="samay-qty-btn" style="width:24px;height:24px;font-size:0.8rem;" onclick="window.samayCart && window.samayCart.change('${safeLineKey}', ${qty + 1})">+</button>
+                <button type="button" class="samay-qty-btn" style="width:24px;height:24px;font-size:var(--fs-xs);" onclick="window.samayCart && window.samayCart.change('${safeLineKey}', ${qty - 1})">-</button>
+                <span style="font-size:var(--fs-xs);font-weight:600;">${qty}</span>
+                <button type="button" class="samay-qty-btn" style="width:24px;height:24px;font-size:var(--fs-xs);" onclick="window.samayCart && window.samayCart.change('${safeLineKey}', ${qty + 1})">+</button>
               </div>
             </div>
             <div style="margin-top: 8px;">

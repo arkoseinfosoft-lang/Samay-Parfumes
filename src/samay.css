@@ -33,6 +33,34 @@
 }
 
 :root {
+  /* ==========================================================================
+     DESIGN TOKENS (COLLAPSED SCALES)
+     ========================================================================== */
+  /* Border Radius: 3 vars */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-xs: var(--radius-sm);
+
+  /* Font Sizes: 7 vars (12/14/16/20/24/32/48px) */
+  --fs-xs: 12px;
+  --fs-sm: 14px;
+  --fs-md: 16px;
+  --fs-lg: 20px;
+  --fs-xl: 24px;
+  --fs-2xl: 32px;
+  --fs-3xl: 48px;
+
+  /* Text Colours: 8 vars */
+  --text-primary: #1b1309;
+  --text-secondary: #554736;
+  --text-muted: #5c5040;
+  --text-on-dark: #f7f2ea;
+  --text-gold: #c9a96e;
+  --text-link: #78521d;
+  --text-error: #991b1b;
+  --text-success: #2e7d32;
+
   --cream: #f7f2ea;
   --cream2: #efe8dc;
   --cream3: #e5ddd0;
@@ -81,7 +109,7 @@
 html {
   scroll-behavior: smooth;
   box-sizing: border-box;
-  font-size: 16px;
+  font-size: var(--fs-md);
   background-color: var(--cream);
   color: var(--brown);
   width: 100%;
@@ -146,6 +174,24 @@ h6,
   letter-spacing: -0.01em;
 }
 
+/* Shared Heading Utility Classes */
+.samay-heading-section {
+  font-family: var(--serif);
+  font-size: var(--fs-2xl);
+  text-transform: none;
+  font-weight: 300;
+  line-height: 1.25;
+}
+
+.samay-heading-eyebrow {
+  font-family: var(--sans);
+  font-size: var(--fs-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
 p {
   margin: 0 0 1rem;
   color: var(--taupe);
@@ -188,10 +234,10 @@ select {
   color: #1a1612;
   padding: 9px 12px;
   font-family: var(--sans);
-  font-size: 0.78rem;
+  font-size: var(--fs-xs);
   font-weight: 700;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-transform: none;
   text-align: center;
   position: relative;
   z-index: 100;
@@ -216,9 +262,9 @@ select {
 .samay-announce-track span.highlight {
   font-weight: 700;
   background: rgba(44, 31, 14, 0.2);
-  color: #fff;
+  color: var(--text-on-dark);
   padding: 2px 8px;
-  border-radius: 3px;
+  border-radius: var(--radius-sm);
   letter-spacing: 0.15em;
 }
 
@@ -284,7 +330,7 @@ select {
 
 .samay-nav-link {
   font-family: var(--sans);
-  font-size: 0.8rem;
+  font-size: var(--fs-xs);
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -365,22 +411,28 @@ select {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 9px 20px;
+  padding: 10px 22px;
   font-family: var(--sans);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.22em;
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  border-radius: var(--radius-xs);
-  background: var(--samay-gold);
-  color: #000000;
+  border-radius: var(--radius-sm);
+  background: var(--gold);
+  color: var(--brown-dark);
+  border: 1px solid var(--gold);
+  min-height: 42px;
+  text-decoration: none;
+  cursor: pointer;
   transition: var(--transition);
 }
 
 .samay-header-cta-btn:hover {
-  background: var(--samay-gold-hover);
-  color: #000000;
-  transform: translateY(-1px);
+  background: var(--gold-dark);
+  border-color: var(--gold-dark);
+  color: var(--white);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(201, 169, 110, 0.35);
 }
 
 .samay-cart-trigger {
@@ -446,7 +498,7 @@ select {
   right: -4px;
   background: var(--samay-gold);
   color: #000000;
-  font-size: 0.68rem;
+  font-size: var(--fs-xs);
   font-weight: 700;
   width: 20px;
   height: 20px;
@@ -540,7 +592,7 @@ select {
 .samay-mobile-drawer-close {
   background: none;
   border: none;
-  font-size: 1.4rem;
+  font-size: var(--fs-lg);
   color: var(--samay-gold);
   cursor: pointer;
   padding: 4px;
@@ -569,7 +621,7 @@ select {
 
 .samay-mobile-link {
   font-family: var(--sans);
-  font-size: 0.95rem;
+  font-size: var(--fs-sm);
   font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -589,9 +641,9 @@ select {
 }
 
 .samay-nav-tag {
-  font-size: 0.65rem;
+  font-size: var(--fs-xs);
   padding: 2px 6px;
-  border-radius: 3px;
+  border-radius: var(--radius-sm);
   background: rgba(212, 175, 55, 0.15);
   color: var(--samay-gold);
   border: 1px solid rgba(212, 175, 55, 0.35);
@@ -668,9 +720,9 @@ select {
   align-items: center;
   gap: 12px;
   font-family: var(--sans);
-  font-size: 0.82rem;
-  letter-spacing: 0.38em;
-  text-transform: uppercase;
+  font-size: var(--fs-sm);
+  letter-spacing: 0.06em;
+  
   color: var(--gold);
   margin-bottom: 1.4rem;
   font-weight: 600;
@@ -700,9 +752,9 @@ select {
 
 .samay-hero-desc {
   font-family: var(--sans);
-  font-size: 1.05rem;
+  font-size: var(--fs-md);
   line-height: 1.8;
-  color: rgba(247, 242, 234, 0.86);
+  color: var(--text-on-dark);
   margin-bottom: 2.4rem;
   font-weight: 300;
 }
@@ -727,9 +779,9 @@ select {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 0.82rem;
+  font-size: var(--fs-sm);
   letter-spacing: 0.12em;
-  text-transform: uppercase;
+  
   color: var(--gold-light);
   font-weight: 500;
 }
@@ -748,7 +800,7 @@ select {
   gap: 10px;
   padding: 16px 36px;
   font-family: var(--sans);
-  font-size: 0.82rem;
+  font-size: var(--fs-sm);
   font-weight: 600;
   letter-spacing: 0.22em;
   text-transform: uppercase;
@@ -849,16 +901,16 @@ select {
   padding-right: 2rem;
   white-space: nowrap;
   font-family: var(--sans);
-  font-size: 0.84rem;
+  font-size: var(--fs-sm);
   font-weight: 500;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  
   color: var(--taupe);
 }
 
 .samay-marquee-dot {
   color: var(--gold);
-  font-size: 1.1rem;
+  font-size: var(--fs-md);
 }
 
 @keyframes samayMarquee {
@@ -903,16 +955,16 @@ select {
 }
 
 .samay-pillar-icon {
-  font-size: 2rem;
+  font-size: var(--fs-2xl);
   color: var(--gold);
   margin-bottom: 1.2rem;
 }
 
 .samay-pillar-eyebrow {
   font-family: var(--sans);
-  font-size: 0.76rem;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
+  font-size: var(--fs-xs);
+  letter-spacing: 0.06em;
+  
   color: var(--gold-dark);
   font-weight: 600;
   margin-bottom: 0.6rem;
@@ -920,14 +972,14 @@ select {
 
 .samay-pillar-title {
   font-family: var(--serif);
-  font-size: 1.6rem;
+  font-size: var(--fs-xl);
   font-style: italic;
   color: var(--brown);
   margin-bottom: 0.8rem;
 }
 
 .samay-pillar-desc {
-  font-size: 0.92rem;
+  font-size: var(--fs-sm);
   color: var(--taupe);
   line-height: 1.7;
   margin: 0;
@@ -944,9 +996,9 @@ select {
 
 .samay-sec-eyebrow {
   font-family: var(--sans);
-  font-size: 0.8rem;
-  letter-spacing: 0.34em;
-  text-transform: uppercase;
+  font-size: var(--fs-xs);
+  letter-spacing: 0.06em;
+  
   color: var(--gold-dark);
   font-weight: 600;
   margin-bottom: 12px;
@@ -954,7 +1006,7 @@ select {
 
 .samay-sec-title {
   font-family: var(--serif);
-  font-size: clamp(2.3rem, 4vw, 3.4rem);
+  font-size: clamp(var(--fs-xl), 4vw, var(--fs-3xl));
   font-weight: 300;
   color: var(--brown);
   line-height: 1.18;
@@ -967,7 +1019,7 @@ select {
 }
 
 .samay-sec-subtitle {
-  font-size: 0.98rem;
+  font-size: var(--fs-md);
   color: var(--taupe);
   line-height: 1.8;
   margin: 0;
@@ -1001,9 +1053,9 @@ select {
 
 .ep-kicker {
   font-family: var(--sans);
-  font-size: 0.8rem;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
+  font-size: var(--fs-xs);
+  letter-spacing: 0.06em;
+  
   color: var(--gold-dark);
   margin-bottom: 8px;
   font-weight: 600;
@@ -1015,7 +1067,7 @@ select {
   font-weight: 800;
   line-height: 1.05;
   letter-spacing: -0.01em;
-  text-transform: uppercase;
+  
   color: var(--brown-dark, #1b1309);
   margin: 0;
 }
@@ -1062,7 +1114,7 @@ select {
   position: relative;
   padding: 16px 16px 8px;
   background: var(--cream-card, #fdfbf7);
-  border-radius: var(--radius-sm, 8px) var(--radius-sm, 8px) 0 0;
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
   overflow: hidden;
 }
 
@@ -1110,11 +1162,11 @@ select {
   color: var(--brown-dark, #1b1309);
   text-decoration: none;
   font-family: var(--sans);
-  font-size: 15px;
+  font-size: var(--fs-sm);
   font-weight: 700;
   line-height: 1.35;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  
   margin: 0;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -1137,19 +1189,19 @@ select {
 
 .ep-price {
   font-family: var(--sans);
-  font-size: 16px;
+  font-size: var(--fs-md);
   font-weight: 700;
   color: var(--brown-dark, #1b1309);
 }
 
 .ep-price-compare {
-  font-size: 13px;
+  font-size: var(--fs-xs);
   color: var(--dim, #a89880);
   text-decoration: line-through;
 }
 
 .ep-price-discount {
-  font-size: 11px;
+  font-size: var(--fs-xs);
   font-weight: 700;
   color: var(--brown-dark, #1b1309);
   background-color: var(--gold-light, #dfc89e);
@@ -1168,7 +1220,7 @@ select {
   justify-content: space-between;
   font-weight: 500;
   font-family: var(--sans);
-  font-size: 11px;
+  font-size: var(--fs-xs);
   line-height: normal;
   border-radius: var(--radius-xs, 4px);
   background: var(--cream2, #efe8dc);
@@ -1184,12 +1236,12 @@ select {
   font-weight: 700;
   color: var(--gold-dark, #a8844a);
   margin-right: 4px;
-  font-size: 13px;
+  font-size: var(--fs-xs);
 }
 
 .snap_know_more_text {
   color: var(--brown-dark, #1b1309);
-  font-size: 9px;
+  font-size: var(--fs-xs);
   background: var(--gold, #c9a96e);
   border-radius: var(--radius-xs, 4px);
   padding: 3px 6px;
@@ -1209,7 +1261,7 @@ select {
   border: 1px solid var(--gold, #c9a96e);
   padding: 14px 0;
   font-family: var(--sans);
-  font-size: 12px;
+  font-size: var(--fs-xs);
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -1280,9 +1332,9 @@ select {
 
 .samay-philosophy-author {
   font-family: var(--sans);
-  font-size: 0.88rem;
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
+  font-size: var(--fs-sm);
+  letter-spacing: 0.06em;
+  
   color: var(--gold);
   font-weight: 600;
 }
@@ -1327,7 +1379,7 @@ select {
 
 .samay-note-stage {
   font-family: var(--sans);
-  font-size: 0.78rem;
+  font-size: var(--fs-xs);
   letter-spacing: 0.28em;
   text-transform: uppercase;
   color: var(--gold-dark);
@@ -1337,7 +1389,7 @@ select {
 
 .samay-note-headline {
   font-family: var(--serif);
-  font-size: 1.8rem;
+  font-size: var(--fs-2xl);
   font-style: italic;
   color: var(--brown);
   margin-bottom: 16px;
@@ -1345,19 +1397,19 @@ select {
 
 .samay-note-timing {
   display: inline-block;
-  font-size: 0.75rem;
+  font-size: var(--fs-xs);
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--dim);
   background: rgba(44, 31, 14, 0.05);
   padding: 4px 12px;
-  border-radius: 20px;
+  border-radius: var(--radius-lg);
   margin-bottom: 24px;
 }
 
 .samay-note-ingredients {
   font-family: var(--sans);
-  font-size: 1.05rem;
+  font-size: var(--fs-md);
   line-height: 1.8;
   color: var(--brown);
   font-weight: 500;
@@ -1365,7 +1417,7 @@ select {
 }
 
 .samay-note-description {
-  font-size: 0.9rem;
+  font-size: var(--fs-sm);
   color: var(--taupe);
   line-height: 1.7;
   font-style: italic;
@@ -1401,12 +1453,12 @@ select {
 }
 
 .samay-showcase-content h3 {
-  font-size: 2.2rem;
+  font-size: var(--fs-2xl);
   margin-bottom: 18px;
 }
 
 .samay-showcase-content p {
-  font-size: 1rem;
+  font-size: var(--fs-md);
   line-height: 1.8;
   color: var(--taupe);
   margin-bottom: 24px;
@@ -1426,16 +1478,16 @@ select {
 }
 
 .samay-spec-title {
-  font-size: 0.74rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+  font-size: var(--fs-xs);
+  letter-spacing: 0.06em;
+  
   color: var(--gold-dark);
   font-weight: 700;
   margin-bottom: 4px;
 }
 
 .samay-spec-val {
-  font-size: 0.96rem;
+  font-size: var(--fs-md);
   font-weight: 600;
   color: var(--brown);
   margin: 0;
@@ -1475,15 +1527,15 @@ select {
 }
 
 .samay-review-stars {
-  color: #d4a017;
-  font-size: 1.1rem;
+  color: var(--text-gold);
+  font-size: var(--fs-md);
   letter-spacing: 3px;
   margin-bottom: 16px;
 }
 
 .samay-review-quote {
   font-family: var(--serif);
-  font-size: 1.22rem;
+  font-size: var(--fs-lg);
   font-style: italic;
   line-height: 1.6;
   color: var(--brown);
@@ -1500,7 +1552,7 @@ select {
 
 .samay-reviewer-name {
   font-family: var(--sans);
-  font-size: 0.82rem;
+  font-size: var(--fs-sm);
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -1509,7 +1561,7 @@ select {
 }
 
 .samay-reviewer-city {
-  font-size: 0.74rem;
+  font-size: var(--fs-xs);
   color: var(--dim);
   letter-spacing: 0.05em;
 }
@@ -1518,8 +1570,8 @@ select {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  font-size: 0.7rem;
-  color: #2e7d32;
+  font-size: var(--fs-xs);
+  color: var(--text-success);
   font-weight: 600;
 }
 
@@ -1548,7 +1600,7 @@ select {
 }
 
 .samay-about-text p {
-  font-size: 1.05rem;
+  font-size: var(--fs-md);
   line-height: 1.85;
   color: var(--taupe);
   margin-bottom: 20px;
@@ -1566,16 +1618,16 @@ select {
 .samay-stat-item strong {
   display: block;
   font-family: var(--serif);
-  font-size: 2.6rem;
+  font-size: var(--fs-3xl);
   color: var(--brown);
   line-height: 1;
   margin-bottom: 6px;
 }
 
 .samay-stat-item span {
-  font-size: 0.74rem;
+  font-size: var(--fs-xs);
   letter-spacing: 0.18em;
-  text-transform: uppercase;
+  
   color: var(--gold-dark);
   font-weight: 600;
 }
@@ -1623,9 +1675,14 @@ select {
 .samay-contact-form-box {
   background: var(--cream2);
   border: 1px solid var(--border);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   padding: 40px;
   box-shadow: var(--shadow-subtle);
+  max-width: 560px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .samay-contact-direct-bar {
@@ -1636,7 +1693,7 @@ select {
   flex-wrap: wrap;
   margin-top: 14px;
   margin-bottom: 24px;
-  font-size: 0.88rem;
+  font-size: var(--fs-sm);
   color: var(--taupe);
 }
 
@@ -1660,8 +1717,21 @@ select {
 }
 
 .samay-contact-form-box--page {
-  max-width: 680px;
+  max-width: 560px;
   margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+.samay-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+@media (max-width: 640px) {
+  .samay-form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
 }
 
 .samay-form-group {
@@ -1670,9 +1740,9 @@ select {
 
 .samay-form-label {
   display: block;
-  font-size: 0.76rem;
+  font-size: var(--fs-xs);
   letter-spacing: 0.18em;
-  text-transform: uppercase;
+  
   color: var(--brown);
   font-weight: 600;
   margin-bottom: 8px;
@@ -1685,9 +1755,9 @@ select {
   padding: 14px 16px;
   background: var(--white);
   border: 1px solid var(--border);
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-md);
   color: var(--brown);
-  font-size: 16px;
+  font-size: var(--fs-md);
   /* Prevents auto zoom on mobile */
   outline: none;
   transition: var(--transition);
@@ -1733,7 +1803,7 @@ select {
   justify-content: space-between;
   align-items: center;
   font-family: var(--sans);
-  font-size: 0.98rem;
+  font-size: var(--fs-md);
   font-weight: 600;
   color: var(--brown);
   cursor: pointer;
@@ -1741,7 +1811,7 @@ select {
 }
 
 .samay-faq-icon {
-  font-size: 1.2rem;
+  font-size: var(--fs-lg);
   color: var(--gold-dark);
   transition: transform 0.3s ease;
   flex-shrink: 0;
@@ -1754,7 +1824,7 @@ select {
 
 .samay-faq-answer {
   padding: 0 24px 22px;
-  font-size: 0.92rem;
+  font-size: var(--fs-sm);
   line-height: 1.75;
   color: var(--taupe);
   display: none;
@@ -1782,13 +1852,14 @@ select {
 
 .samay-newsletter-box h2 {
   color: var(--cream);
-  font-size: 2.8rem;
+  font-size: var(--fs-2xl);
+  text-transform: none;
   margin-bottom: 12px;
 }
 
 .samay-newsletter-box p {
   color: var(--gold-light);
-  font-size: 1.05rem;
+  font-size: var(--fs-md);
   margin-bottom: 30px;
 }
 
@@ -1804,17 +1875,17 @@ select {
   border: 1px solid var(--gold);
   border-radius: var(--radius-xs);
   color: var(--cream);
-  font-size: 16px;
+  font-size: var(--fs-md);
   outline: none;
 }
 
 .samay-newsletter-input::placeholder {
-  color: rgba(247, 242, 234, 0.5);
+  color: var(--text-on-dark);
 }
 
 .samay-newsletter-consent {
-  font-size: 0.76rem;
-  color: rgba(247, 242, 234, 0.85);
+  font-size: var(--fs-xs);
+  color: var(--text-on-dark);
   margin-top: 14px;
   line-height: 1.5;
   letter-spacing: 0.02em;
@@ -1841,8 +1912,8 @@ select {
 
 .samay-footer p,
 .samay-footer-brand p {
-  color: #e2d7c5;
-  font-size: 0.92rem;
+  color: var(--text-on-dark);
+  font-size: var(--fs-sm);
   line-height: 1.8;
   max-width: 320px;
   margin-top: 16px;
@@ -1869,8 +1940,8 @@ select {
 
 .samay-footer-heading {
   font-family: var(--sans);
-  font-size: 0.8rem;
-  letter-spacing: 0.28em;
+  font-size: var(--fs-xs);
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--gold-light);
   font-weight: 600;
@@ -1886,9 +1957,15 @@ select {
   gap: 12px;
 }
 
+.samay-footer-links li {
+  font-size: var(--fs-sm);
+  color: var(--text-on-dark);
+  line-height: 1.6;
+}
+
 .samay-footer-links a {
-  font-size: 0.92rem;
-  color: #e2d7c5;
+  font-size: var(--fs-sm);
+  color: var(--text-on-dark);
   transition: color 0.25s ease;
   display: inline-flex;
   align-items: center;
@@ -1908,8 +1985,8 @@ select {
 }
 
 .samay-footer-contact a {
-  font-size: 0.85rem;
-  color: #e2d7c5;
+  font-size: var(--fs-sm);
+  color: var(--text-on-dark);
   text-decoration: none;
   display: inline-flex;
   align-items: center;
@@ -1932,8 +2009,9 @@ select {
   align-items: center;
   flex-wrap: wrap;
   gap: 20px;
-  font-size: 0.82rem;
-  color: #d1c4b2;
+  font-size: var(--fs-xs);
+  color: var(--text-on-dark);
+  text-transform: none;
 }
 
 /* ==========================================================================
@@ -1988,7 +2066,7 @@ select {
 
 .samay-drawer-title {
   font-family: var(--serif);
-  font-size: 1.5rem;
+  font-size: var(--fs-xl);
   color: var(--brown);
   margin: 0;
 }
@@ -1996,7 +2074,7 @@ select {
 .samay-drawer-close {
   background: none;
   border: none;
-  font-size: 1.6rem;
+  font-size: var(--fs-xl);
   color: var(--brown);
   cursor: pointer;
   padding: 4px;
@@ -2020,7 +2098,7 @@ select {
   border-radius: var(--radius-xs);
   padding: 12px 16px;
   margin-bottom: 20px;
-  font-size: 0.82rem;
+  font-size: var(--fs-sm);
   text-align: center;
   color: var(--brown);
 }
@@ -2051,21 +2129,21 @@ select {
 
 .samay-cart-item-title {
   font-family: var(--serif);
-  font-size: 1.15rem;
+  font-size: var(--fs-lg);
   font-style: italic;
   color: var(--brown);
   margin-bottom: 4px;
 }
 
 .samay-cart-item-variant {
-  font-size: 0.78rem;
+  font-size: var(--fs-xs);
   color: var(--dim);
   margin-bottom: 8px;
 }
 
 .samay-cart-item-price {
   font-weight: 700;
-  font-size: 0.95rem;
+  font-size: var(--fs-sm);
   color: var(--brown);
 }
 
@@ -2073,14 +2151,14 @@ select {
   background: none;
   border: none;
   color: var(--dim);
-  font-size: 0.76rem;
+  font-size: var(--fs-xs);
   cursor: pointer;
   padding: 0;
   text-decoration: underline;
 }
 
 .samay-cart-item-remove:hover {
-  color: #c62828;
+  color: var(--text-error);
 }
 
 .samay-drawer-footer {
@@ -2097,17 +2175,17 @@ select {
 }
 
 .samay-drawer-subtotal span {
-  font-size: 0.92rem;
+  font-size: var(--fs-sm);
   color: var(--taupe);
 }
 
 .samay-drawer-subtotal strong {
-  font-size: 1.5rem;
+  font-size: var(--fs-xl);
   color: var(--brown);
 }
 
 .samay-drawer-tax-note {
-  font-size: 0.78rem;
+  font-size: var(--fs-xs);
   color: var(--dim);
   margin-bottom: 18px;
   text-align: center;
@@ -2150,6 +2228,9 @@ select {
 }
 
 @media screen and (max-width: 768px) {
+  .samay-apply-section { padding: 48px 0; }
+  .samay-apply-grid { grid-template-columns: 1fr; gap: 20px; margin-top: 28px; }
+  .samay-apply-step { padding: 24px 18px; }
   :root {
     --header-height: 72px;
     --announcement-height: 32px;
@@ -2163,7 +2244,7 @@ select {
 
   /* 1. Announcement Bar on Mobile */
   .samay-announcement-bar {
-    font-size: clamp(0.62rem, 2.5vw, 0.72rem);
+    font-size: var(--fs-xs);
     padding: 7px 10px;
     letter-spacing: 0.08em;
     line-height: 1.35;
@@ -2253,7 +2334,7 @@ select {
     width: 44px;
     height: 44px;
     padding: 8px;
-    font-size: 1.5rem;
+    font-size: var(--fs-xl);
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -2268,7 +2349,7 @@ select {
   }
 
   .samay-mobile-link {
-    font-size: 0.98rem;
+    font-size: var(--fs-md);
     padding: 12px 0;
     min-height: 48px;
     display: flex;
@@ -2338,8 +2419,8 @@ select {
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    font-size: 0.76rem;
-    letter-spacing: 0.26em;
+    font-size: var(--fs-xs);
+    letter-spacing: 0.06em;
     color: var(--samay-gold);
     margin-bottom: 0.8rem;
   }
@@ -2357,7 +2438,7 @@ select {
   .samay-hero-desc {
     font-size: clamp(0.9rem, 3.4vw, 1rem);
     line-height: 1.65;
-    color: rgba(247, 242, 234, 0.88);
+    color: var(--text-on-dark);
     margin-bottom: 1.6rem;
     max-width: 520px;
     margin-left: auto;
@@ -2392,7 +2473,7 @@ select {
   }
 
   .samay-highlight-item {
-    font-size: 0.74rem;
+    font-size: var(--fs-xs);
     color: var(--samay-gold-hover);
     display: inline-flex;
     align-items: center;
@@ -2409,14 +2490,14 @@ select {
   }
 
   .samay-marquee-content {
-    font-size: 0.72rem;
-    letter-spacing: 0.2em;
+    font-size: var(--fs-xs);
+    letter-spacing: 0.06em;
     gap: 1.4rem;
     padding-right: 1.4rem;
   }
 
   .samay-marquee-dot {
-    font-size: 0.9rem;
+    font-size: var(--fs-sm);
   }
 
   /* 5. Pillars on Mobile */
@@ -2437,12 +2518,12 @@ select {
   }
 
   .samay-pillar-icon {
-    font-size: 1.75rem;
+    font-size: var(--fs-2xl);
     margin-bottom: 0.8rem;
   }
 
   .samay-pillar-title {
-    font-size: 1.4rem;
+    font-size: var(--fs-lg);
     margin-bottom: 0.5rem;
   }
 
@@ -2465,7 +2546,7 @@ select {
     align-items: center;
     justify-content: center;
     gap: 8px;
-    font-size: 0.72rem;
+    font-size: var(--fs-xs);
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--gold-dark, #a88438);
@@ -2478,7 +2559,7 @@ select {
   }
 
   .ep-hint-arrow {
-    font-size: 0.85rem;
+    font-size: var(--fs-sm);
     opacity: 0.75;
     animation: epHintPulse 2s ease-in-out infinite;
   }
@@ -2586,7 +2667,7 @@ select {
 
   .ep-carousel-arrow:active {
     background: var(--gold, #c9a96e);
-    color: #fff;
+    color: var(--text-on-dark);
     border-color: var(--gold, #c9a96e);
   }
 
@@ -2633,7 +2714,7 @@ select {
     display: block;
     width: 8px;
     height: 8px;
-    border-radius: 4px;
+    border-radius: var(--radius-sm);
     background: rgba(44, 31, 14, 0.28);
     transition: width 0.25s ease, background 0.25s ease;
   }
@@ -2718,12 +2799,12 @@ select {
   }
 
   .samay-spec-title {
-    font-size: 0.62rem;
+    font-size: var(--fs-xs);
     letter-spacing: 0.08em;
   }
 
   .samay-spec-val {
-    font-size: 0.8rem;
+    font-size: var(--fs-xs);
     line-height: 1.25;
   }
 
@@ -2767,7 +2848,7 @@ select {
   }
 
   .samay-stat-item strong {
-    font-size: 1.9rem;
+    font-size: var(--fs-2xl);
   }
 
   /* 8. Contact Form and FAQ on Mobile */
@@ -2781,11 +2862,19 @@ select {
   }
 
   .samay-form-input,
-  .samay-form-select,
-  .samay-form-textarea {
-    font-size: 16px !important;
-    min-height: 48px;
-  }
+.samay-form-select,
+.samay-form-textarea {
+  width: 100%;
+  padding: 14px 16px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-size: var(--fs-md);
+  outline: 0;
+  transition: var(--transition);
+  box-sizing: border-box;
+}
 
   .samay-contact-form-box .samay-btn {
     width: 100%;
@@ -2798,7 +2887,7 @@ select {
   .samay-faq-question {
     min-height: 54px;
     padding: 16px 18px;
-    font-size: 0.94rem;
+    font-size: var(--fs-sm);
     line-height: 1.4;
     display: flex;
     align-items: center;
@@ -2807,8 +2896,8 @@ select {
 
   /* 9. Newsletter on Mobile */
   .samay-newsletter-box h2 {
-    font-size: clamp(1.7rem, 5.5vw, 2.2rem);
-    line-height: 1.2;
+    font-size: var(--fs-2xl);
+    line-height: 1.25;
     margin-bottom: 10px;
   }
 
@@ -2822,7 +2911,7 @@ select {
   .samay-newsletter-form .samay-btn {
     width: 100%;
     min-height: 52px;
-    font-size: 16px;
+    font-size: var(--fs-md);
   }
 
   /* 10. Footer on Mobile */
@@ -3025,7 +3114,7 @@ select {
   flex-wrap: wrap;
   gap: 8px;
   font-family: var(--sans);
-  font-size: 0.76rem;
+  font-size: var(--fs-xs);
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--taupe);
@@ -3105,7 +3194,7 @@ select {
   color: var(--gold-light);
   border: 1px solid var(--gold);
   font-family: var(--sans);
-  font-size: 0.72rem;
+  font-size: var(--fs-xs);
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -3159,10 +3248,10 @@ select {
 
 .samay-pdp-kicker {
   font-family: var(--sans);
-  font-size: 0.78rem;
+  font-size: var(--fs-xs);
   font-weight: 700;
-  letter-spacing: 0.26em;
-  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  
   color: var(--gold-dark);
   margin-bottom: -10px;
 }
@@ -3174,21 +3263,21 @@ select {
   line-height: 1.12;
   color: var(--brown-dark);
   margin: 0;
-  text-transform: uppercase;
+  
 }
 
 .samay-pdp-rating {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 0.85rem;
+  font-size: var(--fs-sm);
   color: var(--taupe);
 }
 
 .samay-pdp-stars {
   color: var(--gold);
   letter-spacing: 2px;
-  font-size: 1rem;
+  font-size: var(--fs-md);
 }
 
 .samay-pdp-price-row {
@@ -3203,19 +3292,19 @@ select {
 
 .samay-pdp-price {
   font-family: var(--sans);
-  font-size: 1.85rem;
+  font-size: var(--fs-2xl);
   font-weight: 700;
   color: var(--brown-dark);
 }
 
 .samay-pdp-compare {
-  font-size: 1.15rem;
+  font-size: var(--fs-lg);
   color: var(--dim);
   text-decoration: line-through;
 }
 
 .samay-pdp-save-badge {
-  font-size: 0.78rem;
+  font-size: var(--fs-xs);
   font-weight: 700;
   letter-spacing: 0.08em;
   color: var(--brown-dark);
@@ -3236,9 +3325,9 @@ select {
   background-color: rgba(185, 28, 28, 0.08);
   border: 1px solid rgba(185, 28, 28, 0.22);
   border-radius: var(--radius-xs);
-  color: #991b1b;
+  color: var(--text-error);
   font-family: var(--sans);
-  font-size: 0.84rem;
+  font-size: var(--fs-sm);
   font-weight: 600;
   letter-spacing: 0.02em;
   line-height: 1.4;
@@ -3288,7 +3377,7 @@ select {
 }
 
 .samay-stock-text {
-  color: #991b1b;
+  color: var(--text-error);
 }
 
 .samay-stock-text strong {
@@ -3299,7 +3388,7 @@ select {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 0.84rem;
+  font-size: var(--fs-sm);
   color: var(--taupe);
   background: rgba(201, 169, 110, 0.1);
   padding: 8px 14px;
@@ -3308,7 +3397,7 @@ select {
 }
 
 .samay-pdp-desc {
-  font-size: 0.95rem;
+  font-size: var(--fs-sm);
   line-height: 1.8;
   color: var(--taupe);
   margin: 0;
@@ -3323,7 +3412,7 @@ select {
 
 .samay-pdp-label {
   font-family: var(--sans);
-  font-size: 0.78rem;
+  font-size: var(--fs-xs);
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -3342,7 +3431,7 @@ select {
   border: 1px solid var(--border);
   border-radius: var(--radius-xs);
   font-family: var(--sans);
-  font-size: 0.85rem;
+  font-size: var(--fs-sm);
   font-weight: 600;
   color: var(--brown);
   cursor: pointer;
@@ -3387,7 +3476,7 @@ select {
   height: 100%;
   background: transparent;
   border: none;
-  font-size: 1.2rem;
+  font-size: var(--fs-lg);
   font-weight: 600;
   color: var(--brown);
   cursor: pointer;
@@ -3409,7 +3498,7 @@ select {
   background: transparent;
   text-align: center;
   font-family: var(--sans);
-  font-size: 0.95rem;
+  font-size: var(--fs-sm);
   font-weight: 700;
   color: var(--brown-dark);
   padding: 0;
@@ -3425,7 +3514,7 @@ select {
 .samay-pdp-add-btn {
   flex: 1;
   min-height: 52px;
-  font-size: 0.88rem;
+  font-size: var(--fs-sm);
   letter-spacing: 0.22em;
 }
 
@@ -3450,7 +3539,7 @@ select {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 0.76rem;
+  font-size: var(--fs-xs);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--taupe);
@@ -3459,7 +3548,7 @@ select {
 
 .samay-pdp-trust-item span:first-child {
   color: var(--gold-dark);
-  font-size: 1rem;
+  font-size: var(--fs-md);
 }
 
 /* Accordions */
@@ -3484,10 +3573,10 @@ select {
   cursor: pointer;
   text-align: left;
   font-family: var(--sans);
-  font-size: 0.86rem;
+  font-size: var(--fs-sm);
   font-weight: 700;
   letter-spacing: 0.16em;
-  text-transform: uppercase;
+  
   color: var(--brown-dark);
   transition: color 0.25s ease;
 }
@@ -3497,7 +3586,7 @@ select {
 }
 
 .samay-accordion-icon {
-  font-size: 1.2rem;
+  font-size: var(--fs-lg);
   font-weight: 300;
   color: var(--gold);
   transition: transform 0.3s ease;
@@ -3511,7 +3600,7 @@ select {
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.35s ease, padding 0.35s ease;
-  font-size: 0.92rem;
+  font-size: var(--fs-sm);
   line-height: 1.75;
   color: var(--taupe);
 }
@@ -3558,10 +3647,10 @@ select {
     cursor: pointer;
     text-align: left;
     font-family: var(--sans);
-    font-size: 0.84rem;
+    font-size: var(--fs-sm);
     font-weight: 700;
     letter-spacing: 0.12em;
-    text-transform: uppercase;
+    
     color: var(--brown-dark, #1b1309);
     transition: background 0.2s ease, color 0.2s ease;
   }
@@ -3605,7 +3694,7 @@ select {
   }
 
   .samay-pdp-desc-accordion .samay-pdp-desc {
-    font-size: 0.88rem;
+    font-size: var(--fs-sm);
     line-height: 1.7;
     color: var(--taupe, #7a6a56);
   }
@@ -3615,7 +3704,7 @@ select {
   .samay-pdp-desc-accordion .samay-pdp-desc h4,
   .samay-pdp-desc-accordion .samay-pdp-desc strong {
     color: var(--brown-dark, #1b1309);
-    font-size: 0.92rem;
+    font-size: var(--fs-sm);
   }
 
   .samay-pdp-desc-accordion .samay-pdp-desc ul {
@@ -3660,10 +3749,10 @@ select {
 
 .samay-collection-kicker {
   font-family: var(--sans);
-  font-size: 0.8rem;
+  font-size: var(--fs-xs);
   font-weight: 700;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  
   color: var(--gold-dark);
   margin-bottom: 12px;
 }
@@ -3672,7 +3761,7 @@ select {
   font-family: var(--serif);
   font-size: clamp(2.4rem, 5vw, 4rem);
   font-weight: 300;
-  text-transform: uppercase;
+  
   color: var(--brown-dark);
   margin: 0;
   line-height: 1.08;
@@ -3681,7 +3770,7 @@ select {
 .samay-collection-desc {
   max-width: 680px;
   margin: 16px auto 0;
-  font-size: 1rem;
+  font-size: var(--fs-md);
   line-height: 1.75;
   color: var(--taupe);
 }
@@ -3691,7 +3780,7 @@ select {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-size: 0.78rem;
+  font-size: var(--fs-xs);
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--dim);
@@ -3722,7 +3811,7 @@ select {
   font-family: var(--serif);
   font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 400;
-  text-transform: uppercase;
+  
   color: var(--brown-dark);
   margin: 0;
   line-height: 1.1;
@@ -3737,7 +3826,7 @@ select {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 0.85rem;
+  font-size: var(--fs-sm);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--brown-dark);
@@ -3762,7 +3851,7 @@ select {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.95rem;
+  font-size: var(--fs-sm);
   font-weight: 600;
   cursor: pointer;
   line-height: 1;
@@ -3831,11 +3920,11 @@ select {
 
 .samay-cart-page-item-title {
   font-family: var(--sans);
-  font-size: 1rem;
+  font-size: var(--fs-md);
   font-weight: 700;
   color: var(--brown-dark);
   text-decoration: none;
-  text-transform: uppercase;
+  
   letter-spacing: 0.04em;
   transition: color 0.25s ease;
 }
@@ -3845,14 +3934,14 @@ select {
 }
 
 .samay-cart-page-item-variant {
-  font-size: 0.82rem;
+  font-size: var(--fs-sm);
   color: var(--taupe);
 }
 
 .samay-cart-page-item-price {
   font-weight: 600;
   color: var(--brown);
-  font-size: 0.92rem;
+  font-size: var(--fs-sm);
 }
 
 .samay-cart-page-item-controls {
@@ -3867,7 +3956,7 @@ select {
 .samay-cart-page-remove-btn {
   background: transparent;
   border: none;
-  font-size: 0.78rem;
+  font-size: var(--fs-xs);
   color: var(--dim);
   text-decoration: underline;
   cursor: pointer;
@@ -3876,12 +3965,12 @@ select {
 }
 
 .samay-cart-page-remove-btn:hover {
-  color: #b33939;
+  color: var(--text-error);
 }
 
 .samay-cart-page-item-total {
   font-weight: 700;
-  font-size: 1.05rem;
+  font-size: var(--fs-md);
   color: var(--brown-dark);
 }
 
@@ -3899,10 +3988,10 @@ select {
 
 .samay-cart-summary-title {
   font-family: var(--sans);
-  font-size: 0.85rem;
+  font-size: var(--fs-sm);
   font-weight: 700;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  
   color: var(--gold-dark);
   margin: 0;
   padding-bottom: 14px;
@@ -3913,24 +4002,24 @@ select {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 0.92rem;
+  font-size: var(--fs-sm);
   color: var(--taupe);
 }
 
 .samay-cart-summary-total {
-  font-size: 1.25rem;
+  font-size: var(--fs-lg);
   font-weight: 700;
   color: var(--brown-dark);
 }
 
 .samay-cart-summary-note {
-  font-size: 0.82rem;
+  font-size: var(--fs-sm);
   color: var(--dim);
   line-height: 1.5;
 }
 
 .samay-cart-note-label {
-  font-size: 0.78rem;
+  font-size: var(--fs-xs);
   letter-spacing: 0.12em;
   text-transform: uppercase;
   font-weight: 600;
@@ -3946,7 +4035,7 @@ select {
   border-radius: var(--radius-xs);
   padding: 10px;
   font-family: var(--sans);
-  font-size: 0.88rem;
+  font-size: var(--fs-sm);
   color: var(--brown);
   resize: vertical;
   min-height: 60px;
@@ -3966,21 +4055,21 @@ select {
 }
 
 .samay-empty-icon {
-  font-size: 3rem;
+  font-size: var(--fs-3xl);
   color: var(--gold);
   margin-bottom: 16px;
 }
 
 .samay-empty-title {
   font-family: var(--serif);
-  font-size: 2rem;
+  font-size: var(--fs-2xl);
   font-weight: 400;
   color: var(--brown-dark);
   margin-bottom: 10px;
 }
 
 .samay-empty-desc {
-  font-size: 0.95rem;
+  font-size: var(--fs-sm);
   color: var(--taupe);
   line-height: 1.7;
   margin-bottom: 24px;
@@ -4006,7 +4095,7 @@ select {
   background: var(--gold, #c9a96e);
   color: var(--brown-dark, #1b1309);
   font-family: var(--sans);
-  font-size: 10px;
+  font-size: var(--fs-xs);
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -4018,7 +4107,7 @@ select {
 }
 
 .ep-specs {
-  font-size: 0.78rem;
+  font-size: var(--fs-xs);
   color: var(--taupe);
   display: flex;
   align-items: center;
@@ -4042,7 +4131,7 @@ select {
 
 .samay-showcase-title {
   font-family: var(--serif);
-  font-size: 2.2rem;
+  font-size: var(--fs-2xl);
   margin-bottom: 16px;
 }
 
@@ -4053,7 +4142,7 @@ select {
 
 .samay-contact-heading {
   font-family: var(--serif);
-  font-size: 1.8rem;
+  font-size: var(--fs-2xl);
   margin-bottom: 20px;
 }
 
@@ -4062,11 +4151,11 @@ select {
   margin-bottom: 20px;
   background: rgba(46, 125, 50, 0.08);
   border: 1px solid #2e7d32;
-  color: #2e7d32;
-  border-radius: 4px;
+  color: var(--text-success);
+  border-radius: var(--radius-sm);
   font-weight: 600;
   text-align: center;
-  font-size: 0.92rem;
+  font-size: var(--fs-sm);
 }
 
 .samay-form-error {
@@ -4074,28 +4163,28 @@ select {
   margin-bottom: 20px;
   background: rgba(211, 47, 47, 0.08);
   border: 1px solid #d32f2f;
-  color: #d32f2f;
-  border-radius: 4px;
-  font-size: 0.88rem;
+  color: var(--text-error);
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-sm);
 }
 
 .samay-faq-heading {
   font-family: var(--serif);
-  font-size: 1.8rem;
+  font-size: var(--fs-2xl);
   margin-bottom: 20px;
 }
 
 .samay-newsletter-success {
   color: var(--gold-light);
   font-weight: 500;
-  font-size: 0.95rem;
+  font-size: var(--fs-sm);
   text-align: center;
   margin-bottom: 16px;
 }
 
 .samay-newsletter-error {
-  color: #ff8a80;
-  font-size: 0.88rem;
+  color: var(--text-error);
+  font-size: var(--fs-sm);
   text-align: center;
   margin-bottom: 16px;
 }
@@ -4123,7 +4212,7 @@ select {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-size: 0.82rem;
+  font-size: var(--fs-sm);
   color: var(--brown);
   font-weight: 500;
   line-height: 1.3;
@@ -4164,7 +4253,7 @@ select {
 
 .samay-coupon-code {
   font-family: var(--sans);
-  font-size: 0.8rem;
+  font-size: var(--fs-xs);
   font-weight: 800;
   letter-spacing: 0.08em;
   color: var(--brown-dark);
@@ -4177,7 +4266,7 @@ select {
   justify-content: center;
   padding: 6px 12px;
   font-family: var(--sans);
-  font-size: 0.72rem;
+  font-size: var(--fs-xs);
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -4211,7 +4300,7 @@ select {
   justify-content: center;
   padding: 6px 12px;
   font-family: var(--sans);
-  font-size: 0.72rem;
+  font-size: var(--fs-xs);
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -4286,7 +4375,7 @@ select {
   }
 
   .samay-coupon-lead {
-    font-size: 0.8rem;
+    font-size: var(--fs-xs);
     justify-content: flex-start;
   }
 
@@ -4305,13 +4394,13 @@ select {
   }
 
   .samay-coupon-code {
-    font-size: 0.82rem;
+    font-size: var(--fs-sm);
   }
 
   .samay-coupon-copy-btn {
     min-height: 44px;
     padding: 0 16px;
-    font-size: 0.76rem;
+    font-size: var(--fs-xs);
   }
 
   .samay-cart-drawer .samay-coupon-code-box,
@@ -4340,16 +4429,16 @@ select {
   width: 100%;
   background-color: var(--cream2, #efe8dc);
   border-top: 1px solid var(--border, #ddd0bc);
-  padding: 40px 0;
-  color: var(--brown, #2c1f0e);
+  padding: 24px 0;
+  color: var(--text-muted);
 }
 
 .samay-seller-info-card {
-  background: var(--cream-card, #fdfbf7);
-  border: 1px solid var(--border, #ddd0bc);
-  border-radius: var(--radius-sm, 8px);
-  padding: 28px 32px;
-  box-shadow: var(--shadow-subtle, 0 4px 20px rgba(44, 31, 14, 0.05));
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
 }
 
 .samay-seller-info-details {
@@ -4372,7 +4461,7 @@ select {
 .samay-seller-info-badge {
   display: inline-block;
   font-family: var(--sans);
-  font-size: 0.72rem;
+  font-size: var(--fs-xs);
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--gold-dark, #78521d);
@@ -4382,15 +4471,15 @@ select {
 
 .samay-seller-info-title {
   font-family: var(--serif);
-  font-size: clamp(1.2rem, 2.4vw, 1.6rem);
+  font-size: var(--fs-lg);
   font-weight: 400;
-  color: var(--brown-dark, #1b1309);
+  color: var(--text-primary);
   margin: 0;
   letter-spacing: -0.01em;
 }
 
 .samay-seller-info-toggle-icon {
-  font-size: 1.3rem;
+  font-size: var(--fs-lg);
   color: var(--gold-dark, #78521d);
   transition: transform 0.3s ease;
   line-height: 1;
@@ -4402,8 +4491,8 @@ select {
 }
 
 .samay-seller-info-content {
-  margin-top: 24px;
-  padding-top: 20px;
+  margin-top: 16px;
+  padding-top: 16px;
   border-top: 1px solid var(--border-light, #ece3d4);
 }
 
@@ -4417,20 +4506,19 @@ select {
 
 .samay-seller-info-item dt {
   font-family: var(--sans);
-  font-size: 0.72rem;
+  font-size: var(--fs-xs);
   font-weight: 700;
   letter-spacing: 0.14em;
-  text-transform: uppercase;
   color: var(--gold-dark, #78521d);
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 
 .samay-seller-info-item dd {
   margin: 0;
   font-family: var(--sans);
-  font-size: 0.9rem;
+  font-size: var(--fs-sm);
   line-height: 1.6;
-  color: var(--brown, #2c1f0e);
+  color: var(--text-muted);
 }
 
 .samay-seller-info-item--wide {
@@ -4443,20 +4531,20 @@ select {
 
 .samay-seller-info-ingredients {
   word-break: break-word;
-  color: var(--taupe, #554736);
-  font-size: 0.88rem !important;
+  color: var(--text-muted);
+  font-size: var(--fs-sm);
 }
 
 @media screen and (max-width: 768px) {
   .samay-seller-info-section {
-    padding: 24px 0;
+    padding: 16px 0;
   }
   .samay-seller-info-card {
-    padding: 18px 20px;
+    padding: 0;
   }
   .samay-seller-info-grid {
     grid-template-columns: 1fr;
-    gap: 16px;
+    gap: 14px;
   }
   .samay-seller-info-item--wide,
   .samay-seller-info-item--full {
@@ -4477,7 +4565,7 @@ select {
   min-height: 56px;
   border-radius: 50%;
   background-color: #25d366;
-  color: #ffffff !important;
+  color: var(--text-on-dark) !important;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -4492,7 +4580,7 @@ select {
 .samay-whatsapp-floating:hover {
   transform: scale(1.08);
   box-shadow: 0 6px 24px rgba(37, 211, 102, 0.55), 0 4px 12px rgba(0, 0, 0, 0.25);
-  color: #ffffff !important;
+  color: var(--text-on-dark) !important;
 }
 
 .samay-whatsapp-floating:active {
@@ -4522,7 +4610,7 @@ select {
 }
 .ep-price-per-ml, .samay-pdp-price-per-ml {
   display: block;
-  font-size: 0.78rem;
+  font-size: var(--fs-xs);
   color: var(--dim, #8c7f70);
   margin-top: 3px;
   font-family: var(--sans, 'Plus Jakarta Sans', sans-serif);
@@ -4533,7 +4621,7 @@ select {
   padding: 16px 20px;
   background: rgba(201, 169, 110, 0.08);
   border: 1px solid rgba(201, 169, 110, 0.25);
-  border-radius: 6px;
+  border-radius: var(--radius-md);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -4542,7 +4630,7 @@ select {
 }
 .samay-gift-text {
   margin: 0;
-  font-size: 0.88rem;
+  font-size: var(--fs-sm);
   color: var(--brown, #2c1f0e);
   line-height: 1.5;
   font-family: var(--sans, 'Plus Jakarta Sans', sans-serif);
@@ -4552,7 +4640,7 @@ select {
   margin-right: 4px;
 }
 .samay-gift-link {
-  font-size: 0.82rem;
+  font-size: var(--fs-sm);
   font-weight: 600;
   letter-spacing: 0.06em;
   color: var(--samay-gold, #c9a96e);
@@ -4564,27 +4652,93 @@ select {
   color: var(--gold-dark, #78521d);
 }
 .samay-apply-section {
-  padding: 60px 0;
-  background: var(--cream2, #efe8dc);
-  border-top: 1px solid var(--border-light, #ece3d4);
-  border-bottom: 1px solid var(--border-light, #ece3d4);
+  width: 100%;
+  padding: 100px 0;
+  background: var(--cream2);
+  border-top: 1px solid var(--border-light);
+  border-bottom: 1px solid var(--border-light);
 }
 .samay-apply-box {
-  max-width: 680px;
+  max-width: 960px;
   margin: 0 auto;
   text-align: center;
   padding: 0 20px;
 }
 .samay-apply-title {
-  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  font-family: var(--serif);
+  font-size: var(--fs-2xl);
+  font-weight: 300;
   margin: 12px 0 16px;
-  color: var(--brown, #2c1f0e);
+  color: var(--text-primary);
 }
-.samay-apply-text {
-  font-size: 0.95rem;
-  line-height: 1.7;
-  color: var(--dim, #5c5040);
+.samay-apply-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-top: 42px;
+  text-align: center;
+}
+.samay-apply-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 24px;
+  background: var(--cream-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  transition: var(--transition);
+}
+.samay-apply-step:hover {
+  border-color: var(--gold);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card);
+}
+.samay-apply-icon-wrap {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--cream2);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+  color: var(--text-gold);
+}
+.samay-apply-icon {
+  width: 28px;
+  height: 28px;
+  stroke: var(--samay-gold, #c9a96e);
+  stroke-width: 1.5px;
+}
+.samay-apply-step-num {
+  font-family: var(--sans);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--text-link);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+.samay-apply-step-text {
+  font-family: var(--sans);
+  font-size: var(--fs-sm);
+  line-height: 1.65;
+  color: var(--text-secondary);
   margin: 0;
+}
+@media screen and (max-width: 768px) {
+  .samay-apply-section {
+    padding: 48px 0;
+  }
+  .samay-apply-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin-top: 28px;
+  }
+  .samay-apply-step {
+    padding: 24px 18px;
+  }
 }
 .samay-pdp-summary-seo {
   margin-top: 16px;
@@ -4596,7 +4750,7 @@ select {
 }
 .samay-pdp-summary-seo p {
   margin: 0;
-  font-size: 0.85rem;
+  font-size: var(--fs-sm);
   line-height: 1.6;
   color: var(--dim, #5c5040);
   font-family: var(--sans, 'Plus Jakarta Sans', sans-serif);

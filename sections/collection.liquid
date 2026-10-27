@@ -11,11 +11,11 @@
       <nav class="samay-breadcrumb" style="justify-content: center; margin-bottom: 16px;" aria-label="Breadcrumb">
         <a href="{{ routes.root_url }}">Home</a>
         <span class="samay-breadcrumb-sep">/</span>
-        <span aria-current="page">{{ collection.title | default: 'SAMAY PACKS' }}</span>
+        <span aria-current="page">{{ collection.title | default: 'Samay Packs' }}</span>
       </nav>
 
-      <div class="samay-collection-kicker">MAISON SAMAY · ARTISAN HAUTE PARFUMERIE</div>
-      <h1 class="samay-collection-title">{{ collection.title | default: 'CHOOSE YOUR PACK' }}</h1>
+      <div class="samay-collection-kicker">Maison Samay · Artisan Haute Parfumerie</div>
+      <h1 class="samay-collection-title">{{ collection.title | default: 'Choose Your Pack' }}</h1>
 
       <p class="samay-collection-desc">
         {%- if collection.description != blank -%}

@@ -6,8 +6,8 @@
 <div class="samay-announcement-bar">
   <div class="samay-announcement-content">
     <div class="samay-announce-track">
-      <span>✦ {{ section.settings.announcement_text | default: 'INTRODUCTORY OFFER · FREE SHIPPING ACROSS INDIA' }}</span>
-      <span class="samay-announce-repeat">✦ EAU DE PARFUM ✦</span>
+      <span>{{ section.settings.announcement_text | default: '✦ Introductory offer · Free shipping across India' }}</span>
+      <span class="samay-announce-repeat">✦ Eau de Parfum ✦</span>
     </div>
   </div>
 </div>
@@ -53,7 +53,7 @@
 
       <!-- Header Actions -->
       <div class="samay-header-actions">
-        <a href="{{ routes.root_url }}#collection" class="samay-header-cta-btn">
+        <a href="{{ routes.root_url }}#collection" class="samay-btn samay-btn--gold samay-header-cta-btn">
           SHOP ZAYRO
         </a>
 
@@ -107,7 +107,7 @@
       <a href="{{ routes.root_url }}#collection" class="samay-btn samay-btn--gold samay-btn--full" style="padding: 14px;" id="samayMobileDrawerCta">
         SHOP SAMAY
       </a>
-      <div style="margin-top: 14px; text-align: center; font-size: 0.78rem; color: var(--samay-gold, #d4af37);">
+      <div style="margin-top: 14px; text-align: center; font-size: var(--fs-xs); color: var(--samay-gold, #d4af37);">
         Artisanal Eau de Parfum · Free Shipping Across India
       </div>
     </div>
@@ -122,7 +122,7 @@
       "type": "text",
       "id": "announcement_text",
       "label": "Announcement Text",
-      "default": "INTRODUCTORY OFFER · FREE SHIPPING ACROSS INDIA"
+      "default": "✦ Introductory offer · Free shipping across India"
     }
   ]
 }
