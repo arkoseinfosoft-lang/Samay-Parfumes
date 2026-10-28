@@ -61,6 +61,15 @@
               loading="eager"
             >
           {%- endif -%}
+
+          {%- if product.images.size > 1 -%}
+            <button type="button" class="samay-pdp-nav-btn samay-pdp-nav-btn--prev" id="samayPdpPrevBtn" aria-label="Previous product image">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+            <button type="button" class="samay-pdp-nav-btn samay-pdp-nav-btn--next" id="samayPdpNextBtn" aria-label="Next product image">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+          {%- endif -%}
         </div>
 
         {%- if product.images.size > 1 -%}
@@ -404,20 +413,82 @@
 <script>
   (function() {
     function initPdp() {
-      // 1. Gallery Thumbnail Click
+      // 1. Gallery Thumbnail Click, Navigation Arrows & Touch Swipe
       var thumbs = document.querySelectorAll('.samay-pdp-thumb-btn');
       var mainImg = document.getElementById('samayPdpMainImg');
+      var mainMedia = document.querySelector('.samay-pdp-main-media');
+      var prevBtn = document.getElementById('samayPdpPrevBtn');
+      var nextBtn = document.getElementById('samayPdpNextBtn');
+      var currentIndex = 0;
+
+      function goToImage(index) {
+        if (!thumbs.length || !mainImg) return;
+        var total = thumbs.length;
+        currentIndex = (index + total) % total;
+        thumbs.forEach(function(b, idx) {
+          var isActive = idx === currentIndex;
+          b.classList.toggle('is-active', isActive);
+          b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+        var activeThumb = thumbs[currentIndex];
+        var newSrc = activeThumb ? activeThumb.getAttribute('data-image-src') : null;
+        if (newSrc) {
+          mainImg.src = newSrc;
+        }
+        if (activeThumb && typeof activeThumb.scrollIntoView === 'function') {
+          activeThumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
+      }
+
       if (thumbs.length && mainImg) {
-        thumbs.forEach(function(btn) {
+        thumbs.forEach(function(btn, idx) {
           btn.addEventListener('click', function() {
-            thumbs.forEach(function(b) { b.classList.remove('is-active'); });
-            btn.classList.add('is-active');
-            var newSrc = btn.getAttribute('data-image-src');
-            if (newSrc) {
-              mainImg.src = newSrc;
-            }
+            goToImage(idx);
           });
         });
+      }
+
+      if (prevBtn) {
+        prevBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          goToImage(currentIndex - 1);
+        });
+      }
+
+      if (nextBtn) {
+        nextBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          goToImage(currentIndex + 1);
+        });
+      }
+
+      // Touch Swipe Detection on Main Media Container
+      if (mainMedia) {
+        var touchStartX = 0;
+        var touchStartY = 0;
+        var touchEndX = 0;
+        var touchEndY = 0;
+
+        mainMedia.addEventListener('touchstart', function(e) {
+          if (!e.changedTouches || !e.changedTouches.length) return;
+          touchStartX = e.changedTouches[0].clientX;
+          touchStartY = e.changedTouches[0].clientY;
+        }, { passive: true });
+
+        mainMedia.addEventListener('touchend', function(e) {
+          if (!e.changedTouches || !e.changedTouches.length) return;
+          touchEndX = e.changedTouches[0].clientX;
+          touchEndY = e.changedTouches[0].clientY;
+          var diffX = touchEndX - touchStartX;
+          var diffY = touchEndY - touchStartY;
+          if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
+            if (diffX < 0) {
+              goToImage(currentIndex + 1);
+            } else {
+              goToImage(currentIndex - 1);
+            }
+          }
+        }, { passive: true });
       }
 
       // 2. Quantity Stepper

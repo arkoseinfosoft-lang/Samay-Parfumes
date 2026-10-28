@@ -3204,6 +3204,61 @@ select {
   box-shadow: 0 4px 12px rgba(27, 19, 9, 0.3);
 }
 
+/* Gallery Navigation Arrows */
+.samay-pdp-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(27, 19, 9, 0.72);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(201, 169, 110, 0.45);
+  color: var(--text-gold, #c9a96e);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 3;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+  padding: 0;
+}
+
+.samay-pdp-nav-btn:hover {
+  background: rgba(20, 14, 8, 0.95);
+  border-color: var(--gold, #c9a96e);
+  color: #ffffff;
+  transform: translateY(-50%) scale(1.08);
+}
+
+.samay-pdp-nav-btn:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.samay-pdp-nav-btn--prev {
+  left: 14px;
+}
+
+.samay-pdp-nav-btn--next {
+  right: 14px;
+}
+
+@media (max-width: 768px) {
+  .samay-pdp-nav-btn {
+    width: 36px;
+    height: 36px;
+  }
+  .samay-pdp-nav-btn--prev {
+    left: 10px;
+  }
+  .samay-pdp-nav-btn--next {
+    right: 10px;
+  }
+}
+
 .samay-pdp-thumbs {
   display: flex;
   gap: 12px;
