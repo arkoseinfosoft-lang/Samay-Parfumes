@@ -1,0 +1,62 @@
+{% comment %}
+  SAMAY PARFUMES - VIP NEWSLETTER SNIPPET
+{% endcomment %}
+<section class="samay-newsletter-section">
+  <div class="container">
+    <div class="samay-newsletter-box">
+      {%- if section.settings.newsletter_eyebrow != blank -%}
+        <div class="samay-heading-eyebrow samay-sec-eyebrow--gold">{{ section.settings.newsletter_eyebrow }}</div>
+      {%- endif -%}
+      {%- if section.settings.newsletter_title != blank -%}
+        <h2 class="samay-heading-section">{{ section.settings.newsletter_title }}</h2>
+      {%- endif -%}
+      {%- if section.settings.newsletter_desc != blank -%}
+        <p>
+          {{ section.settings.newsletter_desc }}
+        </p>
+      {%- endif -%}
+      {% form 'customer', class: 'samay-newsletter-form-container' %}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        <input type="hidden" name="contact[accepts_marketing]" value="true">
+        <input type="hidden" name="customer[accepts_marketing]" value="true">
+
+        <!-- Anti-Spam Honeypot Field -->
+        <div class="hp-field" aria-hidden="true" tabindex="-1">
+          <input type="text" id="HomeNewsletterHoney" name="b_comment" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
+        </div>
+        {% if form.posted_successfully? %}
+          <div class="samay-newsletter-success">
+            {{ section.settings.newsletter_success_message }}
+          </div>
+        {% elsif form.errors %}
+          <div class="samay-newsletter-error">
+            {{ form.errors | default_errors }}
+          </div>
+        {% endif %}
+
+        <div class="samay-newsletter-form">
+          <input 
+            type="email" 
+            name="contact[email]" 
+            class="samay-newsletter-input" 
+            placeholder="Enter your email address" 
+            value="{{ customer.email | escape }}" 
+            required
+            aria-label="Email address"
+          >
+          {%- if section.settings.newsletter_btn_label != blank -%}
+            <button type="submit" class="samay-btn samay-btn--gold">
+              {{ section.settings.newsletter_btn_label }}
+            </button>
+          {%- endif -%}
+        </div>
+        {%- if section.settings.newsletter_consent != blank -%}
+          <p class="samay-newsletter-consent">
+            {{ section.settings.newsletter_consent }}
+          </p>
+        {%- endif -%}
+      {% endform %}
+    </div>
+  </div>
+</section>
+

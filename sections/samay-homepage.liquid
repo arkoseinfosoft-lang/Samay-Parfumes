@@ -978,162 +978,16 @@
 
       </div>
 
-      <!-- FAQ Accordion -->
-      <div class="samay-faq-box" id="faq">
-        {%- if section.settings.faq_heading != blank -%}
-          <h2 class="serif-font samay-faq-heading">{{ section.settings.faq_heading }}</h2>
-        {%- endif -%}
-
-        {%- assign faq_blocks = section.blocks | where: 'type', 'faq_item' -%}
-        {%- if faq_blocks.size > 0 -%}
-          {%- for block in faq_blocks -%}
-            {%- assign is_open = false -%}
-            {%- if forloop.first or block.settings.is_open -%}
-              {%- assign is_open = true -%}
-            {%- endif -%}
-            <div class="samay-faq-item{% if is_open %} is-open{% endif %}" {{ block.shopify_attributes }}>
-              <button type="button" class="samay-faq-question" id="FaqQuestion{{ forloop.index }}" aria-expanded="{{ is_open }}" aria-controls="FaqAnswer{{ forloop.index }}">
-                <span>{{ block.settings.question }}</span>
-                <span class="samay-faq-icon">+</span>
-              </button>
-              <div class="samay-faq-answer" id="FaqAnswer{{ forloop.index }}" role="region" aria-labelledby="FaqQuestion{{ forloop.index }}">
-                {{ block.settings.answer }}
-              </div>
-            </div>
-          {%- endfor -%}
-        {%- else -%}
-          {% render 'faq-accordion' %}
-        {%- endif -%}
-      </div>
+      <!-- FAQ Accordion & Structured Data -->
+      {% render 'home-faq', section: section %}
     </div>
   </div>
-
-  <!-- FAQ Structured Data (Schema.org) -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {%- if faq_blocks.size > 0 -%}
-        {%- for block in faq_blocks -%}
-          {%- unless forloop.first -%},{%- endunless -%}
-          {
-            "@type": "Question",
-            "name": {{ block.settings.question | json }},
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": {{ block.settings.answer | strip_html | json }}
-            }
-          }
-        {%- endfor -%}
-      {%- else -%}
-        {
-          "@type": "Question",
-          "name": "How long does Zayro last on skin and clothes?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Zayro is formulated as an Eau de Parfum (EDP) with 15-20% perfume oil concentration. On moisturized skin, it lasts 6 to 8 hours. On clothing and outerwear, its rich amber and agarwood base notes can linger throughout the day."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What is the difference between the single and combo packs?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "The fragrance formulation in all 3 packs is identical (Zayro 50ml). The 2-in-1 Duo combo and 3-in-1 Grand Trio include complimentary luxury presentation gift boxes."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What are the shipping times and is delivery free?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes, shipping is 100% complimentary across all pin codes in India for all orders. Metro cities (Delhi NCR, Mumbai, Bangalore, Pune) typically receive delivery in 2-3 business days. All other locations take 3-5 business days with live tracking provided via SMS and email notifications."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What is your damaged replacement guarantee?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Every bottle is packaged inside thick shock-resistant transit cushions. In the rare event of transit damage or leakage, simply share a quick photo with our team within 48 hours and we will dispatch a brand-new replacement bottle immediately with zero hassle."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Is Cash on Delivery (COD) supported?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes! We accept Cash on Delivery (COD), UPI (Google Pay, PhonePe, Paytm), and all major credit/debit cards during checkout."
-          }
-        }
-      {%- endif -%}
-    ]
-  }
-  </script>
 </section>
 
 <!-- ==========================================================================
      9. VIP NEWSLETTER
      ========================================================================== -->
-<section class="samay-newsletter-section">
-  <div class="container">
-    <div class="samay-newsletter-box">
-      {%- if section.settings.newsletter_eyebrow != blank -%}
-        <div class="samay-heading-eyebrow samay-sec-eyebrow--gold">{{ section.settings.newsletter_eyebrow }}</div>
-      {%- endif -%}
-      {%- if section.settings.newsletter_title != blank -%}
-        <h2 class="samay-heading-section">{{ section.settings.newsletter_title }}</h2>
-      {%- endif -%}
-      {%- if section.settings.newsletter_desc != blank -%}
-        <p>
-          {{ section.settings.newsletter_desc }}
-        </p>
-      {%- endif -%}
-      {% form 'customer', class: 'samay-newsletter-form-container' %}
-        <input type="hidden" name="contact[tags]" value="newsletter">
-        <input type="hidden" name="contact[accepts_marketing]" value="true">
-        <input type="hidden" name="customer[accepts_marketing]" value="true">
-
-        <!-- Anti-Spam Honeypot Field -->
-        <div class="hp-field" aria-hidden="true" tabindex="-1">
-          <input type="text" id="HomeNewsletterHoney" name="b_comment" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
-        </div>
-        {% if form.posted_successfully? %}
-          <div class="samay-newsletter-success">
-            {{ section.settings.newsletter_success_message }}
-          </div>
-        {% elsif form.errors %}
-          <div class="samay-newsletter-error">
-            {{ form.errors | default_errors }}
-          </div>
-        {% endif %}
-
-        <div class="samay-newsletter-form">
-          <input 
-            type="email" 
-            name="contact[email]" 
-            class="samay-newsletter-input" 
-            placeholder="Enter your email address" 
-            value="{{ customer.email | escape }}" 
-            required
-            aria-label="Email address"
-          >
-          {%- if section.settings.newsletter_btn_label != blank -%}
-            <button type="submit" class="samay-btn samay-btn--gold">
-              {{ section.settings.newsletter_btn_label }}
-            </button>
-          {%- endif -%}
-        </div>
-        {%- if section.settings.newsletter_consent != blank -%}
-          <p class="samay-newsletter-consent">
-            {{ section.settings.newsletter_consent }}
-          </p>
-        {%- endif -%}
-      {% endform %}
-    </div>
-  </div>
-</section>
+{% render 'home-newsletter', section: section %}
 
 {% schema %}
 {
