@@ -946,6 +946,22 @@ button, input, textarea, select {
   .samay-apply-step {
     padding: 24px 18px;
   }
+  .samay-pdp-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .samay-pdp-gallery,
+  .samay-pdp-details {
+    min-width: 0;
+    max-width: 100%;
+  }
+  .samay-footer-bottom {
+    padding-bottom: 88px;
+  }
+  .samay-footer-payment-row {
+    justify-content: center;
+    text-align: center;
+    row-gap: 8px;
+  }
 }
 .samay-pdp-summary-seo {
   margin-top: 16px;
@@ -1010,6 +1026,13 @@ button, input, textarea, select {
   font-size: var(--fs-xs);
   color: var(--text-on-dark);
   text-transform: none;
+}
+.samay-footer-payment-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  row-gap: 8px;
 }
 .samay-seller-info-section {
   padding: 24px 0;

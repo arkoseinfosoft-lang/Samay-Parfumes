@@ -2014,6 +2014,14 @@ select {
   text-transform: none;
 }
 
+.samay-footer-payment-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  row-gap: 8px;
+}
+
 /* ==========================================================================
    SLIDE-IN CART DRAWER
    ========================================================================== */
@@ -2951,6 +2959,13 @@ select {
     align-items: center;
     text-align: center;
     gap: 14px;
+    padding-bottom: 88px;
+  }
+
+  .samay-footer-payment-row {
+    justify-content: center;
+    text-align: center;
+    row-gap: 8px;
   }
 
   /* 11. Cart Drawer on Mobile */
@@ -3146,13 +3161,20 @@ select {
 
 .samay-pdp-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: 36px;
+  width: 100%;
+}
+
+.samay-pdp-gallery,
+.samay-pdp-details {
+  min-width: 0;
+  max-width: 100%;
 }
 
 @media screen and (min-width: 992px) {
   .samay-pdp-grid {
-    grid-template-columns: 1.05fr 1fr;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
     gap: 64px;
     align-items: start;
   }
@@ -3164,6 +3186,8 @@ select {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .samay-pdp-main-media {
@@ -3299,6 +3323,8 @@ select {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .samay-pdp-kicker {
@@ -3515,6 +3541,7 @@ select {
   display: flex;
   align-items: center;
   gap: 16px;
+  flex-wrap: wrap;
 }
 
 .samay-qty-stepper {
@@ -3567,7 +3594,8 @@ select {
 }
 
 .samay-pdp-add-btn {
-  flex: 1;
+  flex: 1 1 180px;
+  min-width: 0;
   min-height: 52px;
   font-size: var(--fs-sm);
   letter-spacing: 0.22em;
@@ -3576,12 +3604,13 @@ select {
 /* Trust Badges Strip on PDP */
 .samay-pdp-trust {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 14px;
   padding: 18px 0;
   border-top: 1px solid var(--border-light);
   border-bottom: 1px solid var(--border-light);
   margin-top: 6px;
+  min-width: 0;
 }
 
 @media screen and (min-width: 600px) {
@@ -3622,7 +3651,8 @@ select {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 18px 0;
+  gap: 12px;
+  padding: 18px 8px 18px 0;
   background: transparent;
   border: none;
   cursor: pointer;
@@ -3640,11 +3670,17 @@ select {
   color: var(--gold-dark);
 }
 
+.samay-accordion-trigger span:first-child {
+  min-width: 0;
+  overflow-wrap: break-word;
+}
+
 .samay-accordion-icon {
   font-size: var(--fs-lg);
   font-weight: 300;
   color: var(--gold);
   transition: transform 0.3s ease;
+  flex-shrink: 0;
 }
 
 .samay-accordion.is-open .samay-accordion-icon {
@@ -3682,7 +3718,6 @@ select {
     background: var(--cream-card, #fdfbf7);
     border: 1px solid var(--border, #ddd0bc);
     border-radius: var(--radius-xs, 4px);
-    overflow: hidden;
     transition: border-color 0.25s ease, box-shadow 0.25s ease;
   }
 
@@ -4427,18 +4462,23 @@ select {
     gap: 9px;
     padding: 10px 12px;
     margin: 6px 0 12px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   .samay-coupon-lead {
     font-size: var(--fs-xs);
     justify-content: flex-start;
+    min-width: 0;
   }
 
   .samay-coupon-actions {
     display: grid;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: minmax(0, 1fr) auto;
     gap: 6px;
     width: 100%;
+    min-width: 0;
     align-items: stretch;
   }
 
@@ -4446,6 +4486,9 @@ select {
     min-height: 44px;
     padding: 0 8px;
     width: 100%;
+    min-width: 0;
+    overflow: hidden;
+    box-sizing: border-box;
   }
 
   .samay-coupon-code {
@@ -4456,6 +4499,8 @@ select {
     min-height: 44px;
     padding: 0 16px;
     font-size: var(--fs-xs);
+    flex-shrink: 0;
+    white-space: nowrap;
   }
 
   .samay-cart-drawer .samay-coupon-code-box,
