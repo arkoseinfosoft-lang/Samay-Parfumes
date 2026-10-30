@@ -1,3 +1,6 @@
+{%- if template.suffix == 'llms' or template.suffix == 'llms-full' or page.handle == 'llms' or page.handle == 'llms-txt' or page.handle == 'llms-full' or page.handle == 'llms-full-txt' -%}
+{{ content_for_layout }}
+{%- else -%}
 <!doctype html>
 <html lang="{{ request.locale.iso_code }}">
   <head>
@@ -65,3 +68,4 @@
     <script src="{{ 'samay.js' | asset_url }}" defer="defer"></script>
   </body>
 </html>
+{%- endif -%}
