@@ -859,18 +859,18 @@
         {%- if section.settings.about_image != blank -%}
           <img 
             src="{{ section.settings.about_image | image_url: width: 896 }}" 
-            alt="{{ section.settings.about_image.alt | default: 'Samay Parfumes small-batch perfume workshop' | escape }}"
+            alt="{{ section.settings.about_image.alt | default: 'Samay Parfumes Zayro flacon and artisanal presentation box' | escape }}"
             loading="lazy"
-            width="896"
-            height="1200"
+            width="{{ section.settings.about_image.width | default: 765 }}"
+            height="{{ section.settings.about_image.height | default: 1024 }}"
           >
         {%- else -%}
           <img 
             src="{{ 'samay-story-atelier.webp' | asset_url }}" 
-            alt="Samay Parfumes small-batch perfume workshop"
+            alt="Samay Parfumes Zayro flacon and artisanal presentation box"
             loading="lazy"
-            width="896"
-            height="1200"
+            width="765"
+            height="1024"
           >
         {%- endif -%}
       </div>
